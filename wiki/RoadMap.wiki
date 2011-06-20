@@ -1,0 +1,28 @@
+=About the Road Map=
+This road map is a schedule for what's coming up in the next few versions. The content for all next versions defined in here is fixed and will not change any more (or at least not much).
+
+One or more scopes around which we will work will be defined as well as the details of the scope (with a reference to the created issues if already available).
+
+=Releases=
+==Milestone-Release1.0.0==
+Initial release of the application including the basic features:
+ * Manage Projects
+ * Manage Tasks
+ * Manage Time Registrations
+ * Widget
+ * Add Time Registrations through the widget
+ * Basic export functionality to CSV
+==Milestone-Release1.0.1==
+Minor bugfixes for Milestone-Release1.0.0:
+ * When updating the taks- or project-name the widget does not display the new name and the notification is not updated(issue 24)
+ * Disable notifications through the preferences (issue 27)
+==Milestone-Release1.1.0==
+ * Reporting:
+  * Default and custom reporting to generate reports and export to a CSV file (issue 25 and issue 26)
+  * Overview of registrations for a project/task in the project/task details (issue 4)
+ * Time Registrations enhancements:
+  * Split time registrations, can be useful for adding a break in your time registration (issue 23)
+ * General:
+  * 12/24h configuration option (issue 3)
+==Milestone-Release2.0.0==
+To be scheduled...
