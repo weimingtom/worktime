@@ -1,0 +1,11 @@
+#The release notes for all previous released versions and features
+
+=Release Notes=
+==Milestone-Release1.0.0==
+Initial release of the application including the basic features:
+ * Manage Projects
+ * Manage Tasks
+ * Manage Time Registrations
+ * Widget
+ * Add Time Registrations through the widget
+ * Basic export functionality to CSV
