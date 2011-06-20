@@ -1,4 +1,4 @@
-# The release notes for all previous released versions and features
+#summary The release notes for all previous released versions and features
 
 =Release Notes=
 ==Milestone-Release1.0.0==
