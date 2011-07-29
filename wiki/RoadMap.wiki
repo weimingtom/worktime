@@ -24,5 +24,10 @@ One or more scopes around which we will work will be defined as well as the deta
    * Default reporting to generate reports and export to a CSV file (issue 26)
    * Project details: total work time (issue 4)
   * Splitting time registrations (issue 23)
-==Milestone-Release2.0.0==
+==Milestone-Release1.2.0==
+ * Enhancements:
+  * Reporting: 
+   * Default reporting to generate reports and export to a CSV file (issue 25)
+  * Chaining time registration (issue 20)
+==Milestone-Release1.3.0==
 To be scheduled...
