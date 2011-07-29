@@ -8,8 +8,16 @@ One or more scopes around which we will work will be defined as well as the deta
 =Releases=
 ==Milestone-Release1.0.1==
 Minor bugfixes for Milestone-Release1.0.0:
- * When updating the taks- or project-name the widget does not display the new name and the notification is not updated(issue 24)
+ * Project/Task-name not updated in widget and notification (issue 24)
  * Disable notifications through the preferences (issue 27)
+ * 12-24h preference(issue 3)
+ * BUG: Editing start time of registration fails (issue 33)
+ * Inconsistent usage of time picker (12-24h mode) (issue 29)
+ * Number of comments' in slide selection-bar is not clear in preferences (issue 31)
+ * 'View details' for time registration available from time registration detail view (issue 32)
+Enhancements:
+ * Marking tasks as finished (issue 28)
+ * Launch app from notification (issue 30)
 ==Milestone-Release1.1.0==
  * Reporting:
   * Default and custom reporting to generate reports and export to a CSV file (issue 25 and issue 26)
