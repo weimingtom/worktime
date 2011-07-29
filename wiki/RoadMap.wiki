@@ -7,22 +7,22 @@ One or more scopes around which we will work will be defined as well as the deta
 
 =Releases=
 ==Milestone-Release1.0.1==
-Minor bugfixes for Milestone-Release1.0.0:
- * Project/Task-name not updated in widget and notification (issue 24)
- * Disable notifications through the preferences (issue 27)
- * 12-24h preference(issue 3)
- * BUG: Editing start time of registration fails (issue 33)
- * Inconsistent usage of time picker (12-24h mode) (issue 29)
- * Number of comments' in slide selection-bar is not clear in preferences (issue 31)
- * 'View details' for time registration available from time registration detail view (issue 32)
-Enhancements:
- * Marking tasks as finished (issue 28)
- * Launch app from notification (issue 30)
+ * Bugfixes for Milestone-Release1.0.0:
+  * Project/Task-name not updated in widget and notification (issue 24)
+  * Disable notifications through the preferences (issue 27)
+  * 12-24h preference(issue 3)
+  * BUG: Editing start time of registration fails (issue 33)
+  * Inconsistent usage of time picker (12-24h mode) (issue 29)
+  * Number of comments' in slide selection-bar is not clear in preferences (issue 31)
+  * 'View details' for time registration available from time registration detail view (issue 32)
+ * Enhancements:
+  * Marking tasks as finished (issue 28)
+  * Launch app from notification (issue 30)
 ==Milestone-Release1.1.0==
- * Reporting:
-  * Default and custom reporting to generate reports and export to a CSV file (issue 25 and issue 26)
-  * Overview of registrations for a project/task in the project/task details (issue 4)
- * Time Registrations enhancements:
-  * Split time registrations, can be useful for adding a break in your time registration (issue 23)
+ * Enhancements:
+  * Reporting: 
+   * Default reporting to generate reports and export to a CSV file (issue 26)
+   * Project details: total work time (issue 4)
+  * Splitting time registrations (issue 23)
 ==Milestone-Release2.0.0==
 To be scheduled...
