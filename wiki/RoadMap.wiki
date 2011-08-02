@@ -18,6 +18,7 @@ One or more scopes around which we will work will be defined as well as the deta
  * Enhancements:
   * Marking tasks as finished (issue 28)
   * Launch app from notification (issue 30)
+  * Change start/stop on widget to 'punch in'/'punch out' (issue 36)
 ==Milestone-Release1.1.0==
  * Enhancements:
   * Reporting: 
