@@ -29,6 +29,7 @@ One or more scopes around which we will work will be defined as well as the deta
    * Default reporting to generate reports and export to a CSV file (issue 26)
    * Project details: total work time (issue 4)
   * Splitting time registrations (issue 23)
+  * Auto show keyboard for input fields (issue 46)
 ==Milestone-Release1.1.1==
 Bugfixes and minor improvements on version 1.1.0
 ==Milestone-Release1.2.0==
