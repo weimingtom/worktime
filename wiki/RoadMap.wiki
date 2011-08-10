@@ -21,6 +21,7 @@ One or more scopes around which we will work will be defined as well as the deta
   * Change start/stop on widget to 'punch in'/'punch out' (issue 36)
   * Google Analytics tracking (issue 34)
   * Delete time registration from registration overview context menu (issue 37)
+  * Restart a time registration when accidentally closed (issue 45)
 ==Milestone-Release1.1.0==
  * Enhancements:
   * Reporting: 
