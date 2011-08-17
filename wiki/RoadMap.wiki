@@ -15,7 +15,6 @@ One or more scopes around which we will work will be defined as well as the deta
   * Inconsistent usage of time picker (12-24h mode) (issue 29)
   * 'View details' for time registration available from time registration detail view (issue 32)
  * Enhancements:
-  * Creative Commons Licensing (issue 48)
   * Marking tasks as finished (issue 28)
   * Launch app from notification (issue 30)
   * Change start/stop on widget to 'punch in'/'punch out' (issue 36)
@@ -34,6 +33,7 @@ One or more scopes around which we will work will be defined as well as the deta
 Bugfixes and minor improvements on version 1.1.0
 ==Milestone-Release1.2.0==
  * Enhancements:
+  * Creative Commons Licensing (issue 48)
   * Reporting: 
    * Default reporting to generate reports and export to a CSV file (issue 25)
   * Chaining time registration (issue 20)
