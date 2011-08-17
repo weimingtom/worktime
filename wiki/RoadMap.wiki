@@ -16,6 +16,7 @@ One or more scopes around which we will work will be defined as well as the deta
   * Number of comments' in slide selection-bar is not clear in preferences (issue 31)
   * 'View details' for time registration available from time registration detail view (issue 32)
  * Enhancements:
+  * Creative Commons Licensing (issue 48)
   * Marking tasks as finished (issue 28)
   * Launch app from notification (issue 30)
   * Change start/stop on widget to 'punch in'/'punch out' (issue 36)
