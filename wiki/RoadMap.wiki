@@ -13,7 +13,6 @@ One or more scopes around which we will work will be defined as well as the deta
   * 12-24h preference(issue 3)
   * Not so clear error messages when editing time registration start/end times (issue 33)
   * Inconsistent usage of time picker (12-24h mode) (issue 29)
-  * Number of comments' in slide selection-bar is not clear in preferences (issue 31)
   * 'View details' for time registration available from time registration detail view (issue 32)
  * Enhancements:
   * Creative Commons Licensing (issue 48)
