@@ -11,7 +11,6 @@ One or more scopes around which we will work will be defined as well as the deta
   * Project/Task-name not updated in widget and notification (issue 24)
   * Disable notifications through the preferences (issue 27)
   * 12-24h preference(issue 3)
-  * Not so clear error messages when editing time registration start/end times (issue 33)
   * Inconsistent usage of time picker (12-24h mode) (issue 29)
   * 'View details' for time registration available from time registration detail view (issue 32)
  * Enhancements:
@@ -29,6 +28,7 @@ One or more scopes around which we will work will be defined as well as the deta
    * Project details: total work time (issue 4)
   * Splitting time registrations (issue 23)
   * Auto show keyboard for input fields (issue 46)
+  * Error messages when editing time registration start/end times should be simplified (issue 33)
 ==Milestone-Release1.1.1==
 Bugfixes and minor improvements on version 1.1.0
 ==Milestone-Release1.2.0==
