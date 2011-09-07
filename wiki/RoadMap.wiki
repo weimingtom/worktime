@@ -24,7 +24,7 @@ One or more scopes around which we will work will be defined as well as the deta
   * Keyboard in uppercase state by default (issue 43)
 ==Milestone-Release1.1.0==
  * Enhancements:
-  * Backup data and settings
+  * Backup data and settings (issue 53)
   * Reporting: 
    * Default reporting to generate reports and export to a CSV file (issue 26)
    * Project details: total work time (issue 4)
