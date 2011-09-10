@@ -2,15 +2,6 @@
 #labels Featured,Phase-ReleaseNotes
 
 =Release Notes=
-==Milestone-Release1.0.0==
-Initial release of the application including the basic features:
- * Manage Projects
- * Manage Tasks
- * Manage Time Registrations
- * Widget
- * Add Time Registrations through the widget
- * Basic export functionality to CSV
-
 ==Milestone-Release1.0.1==
  * Bugfixes for Milestone-Release1.0.0:
   * Project/Task-name not updated in widget and notification (issue 24)
@@ -28,3 +19,11 @@ Initial release of the application including the basic features:
   * Delete time registration from registration overview context menu (issue 37)
   * Restart a time registration when accidentally closed (issue 45)
   * Keyboard in uppercase state by default (issue 43)
+==Milestone-Release1.0.0==
+Initial release of the application including the basic features:
+ * Manage Projects
+ * Manage Tasks
+ * Manage Time Registrations
+ * Widget
+ * Add Time Registrations through the widget
+ * Basic export functionality to CSV
