@@ -6,23 +6,6 @@ This road map is a schedule for what's coming up in the next few versions. The c
 One or more scopes around which we will work will be defined as well as the details of the scope (with a reference to the created issues if already available).
 
 =Releases=
-==Milestone-Release1.0.1==
- * Bugfixes for Milestone-Release1.0.0:
-  * Project/Task-name not updated in widget and notification (issue 24)
-  * Disable notifications through the preferences (issue 27)
-  * 12-24h preference(issue 3)
-  * Inconsistent usage of time picker (12-24h mode) (issue 29)
-  * 'View details' for time registration available from time registration detail view (issue 32)
-  * Export not comma separated (issue 52)
-  * Using export separator in comment gives bad display in spreadsheet app (issue 52)
- * Enhancements:
-  * Marking tasks as finished (issue 28)
-  * Launch app from notification (issue 30)
-  * Change start/stop on widget to 'punch in'/'punch out' (issue 36)
-  * Google Analytics tracking (issue 34)
-  * Delete time registration from registration overview context menu (issue 37)
-  * Restart a time registration when accidentally closed (issue 45)
-  * Keyboard in uppercase state by default (issue 43)
 ==Milestone-Release1.1.0==
  * Enhancements:
   * Backup data and settings (issue 53)
