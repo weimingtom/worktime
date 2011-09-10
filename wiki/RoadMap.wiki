@@ -14,6 +14,7 @@ One or more scopes around which we will work will be defined as well as the deta
   * Inconsistent usage of time picker (12-24h mode) (issue 29)
   * 'View details' for time registration available from time registration detail view (issue 32)
   * Export not comma separated (issue 52)
+  * Using export separator in comment gives bad display in spreadsheet app (issue 52)
  * Enhancements:
   * Marking tasks as finished (issue 28)
   * Launch app from notification (issue 30)
