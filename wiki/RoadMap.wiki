@@ -23,7 +23,7 @@ Bugfixes and minor improvements on version 1.1.0
   * Reporting: 
    * Default reporting to generate reports and export to a CSV file (issue 25)
   * Chaining time registration (issue 20)
-  * Multi-line input for comments
+  * Multi-line input for comments (issue 49)
 ==Milestone-Release1.2.1==
 Bugfixes and minor improvements on version 1.2.0
 ==Milestone-Release1.3.0==
