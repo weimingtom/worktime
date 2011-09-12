@@ -21,6 +21,8 @@ One or more scopes around which we will work will be defined as well as the deta
  * Enhancements:
   * Auto show keyboard for input fields (issue 46)
   * Error messages when editing time registration start/end times should be simplified (issue 33)
+==Milestone-Release1.1.4==
+ * Backup scheduling (issue 55)
 ==Milestone-Release1.2.0==
   * Chaining time registration (issue 20)
   * Multi-line input for comments (issue 49)
