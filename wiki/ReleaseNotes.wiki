@@ -2,6 +2,9 @@
 #labels Featured,Phase-ReleaseNotes
 
 =Release Notes=
+==Milestone-Release1.1.0 (Backup and Restore)==
+ * Enhancements:
+  * Backup and Restore feature (issue 53)
 ==Milestone-Release1.0.1==
  * Bugfixes for Milestone-Release1.0.0:
   * Project/Task-name not updated in widget and notification (issue 24)
