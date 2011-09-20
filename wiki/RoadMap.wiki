@@ -16,7 +16,7 @@ One or more scopes around which we will work will be defined as well as the deta
 ==Milestone-Release1.1.2 (Time Registrations)==
  * Enhancements:
   * Time Registrations:
-   * Date precision preference for time registrations (seconds or minutes) (issue xx)
+   * Date precision preference for time registrations (seconds or minutes) (issue 62)
    * Time Registration startDate >= previous endDate (issue 61)
    * Splitting time registrations (issue 23)
 ==Milestone-Release1.1.3==
