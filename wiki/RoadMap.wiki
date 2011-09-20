@@ -16,6 +16,7 @@ One or more scopes around which we will work will be defined as well as the deta
 ==Milestone-Release1.1.2==
  * Enhancements:
   * Splitting time registrations (issue 23)
+  * Punch in/out from app instead of widget-only (issue 59)
 ==Milestone-Release1.1.3==
  * Enhancements:
   * Auto show keyboard for input fields (issue 46)
