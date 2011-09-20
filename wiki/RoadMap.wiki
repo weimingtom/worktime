@@ -11,6 +11,7 @@ One or more scopes around which we will work will be defined as well as the deta
   * Reporting: 
    * Default reporting to generate reports and export to a CSV file (issue 25 and issue 26)
    * Project details: total work time (issue 4)
+  * Don't ask for the task (if only one task) at check-in from the widget (issue 58)
 ==Milestone-Release1.1.2==
  * Enhancements:
   * Splitting time registrations (issue 23)
