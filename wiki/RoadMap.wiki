@@ -15,9 +15,13 @@ One or more scopes around which we will work will be defined as well as the deta
   * Don't ask for the task (if only one task) at check-in from the widget (issue 58)
 ==Milestone-Release1.1.2 (Time Registrations and Widgets)==
  * Enhancements:
-  * Splitting time registrations (issue 23)
-  * Punch in/out from app instead of widget-only (issue 59)
-  * Mini widget with same behavior as large default widget (issue 56)
+  * Time Registrations:
+   * Date precision preference for time registrations (seconds or minutes) (issue xx)
+   * Time Registration startDate >= previous endDate (issue xx)
+   * Splitting time registrations (issue 23)
+  * Widgets:
+   * Punch in/out from app instead of widget-only (issue 59)
+   * Mini widget with same behavior as large default widget (issue 56)
 ==Milestone-Release1.1.3==
  * Enhancements:
   * Auto show keyboard for input fields (issue 46)
