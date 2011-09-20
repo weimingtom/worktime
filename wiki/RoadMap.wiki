@@ -17,14 +17,15 @@ One or more scopes around which we will work will be defined as well as the deta
  * Enhancements:
   * Splitting time registrations (issue 23)
   * Punch in/out from app instead of widget-only (issue 59)
+  * Mini widget with same behavior as large default widget (issue 56)
 ==Milestone-Release1.1.3==
  * Enhancements:
   * Auto show keyboard for input fields (issue 46)
   * Error messages when editing time registration start/end times should be simplified (issue 33)
 ==Milestone-Release1.1.4 (Backup and Restore)==
  * Backup scheduling (issue 55)
-==Milestone-Release1.1.5==
- * ...
+==Milestone-Release1.1.5 (Widgets)==
+ * Mini widgets per project and task (issue 60)
 
 ==Milestone-Releasex.x.x==
 To be scheduled...
