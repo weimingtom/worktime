@@ -13,6 +13,9 @@ One or more scopes around which we will work will be defined as well as the deta
    * Project details: total work time (issue 4)
    * Send report file by e-mail (issue 57)
   * Don't ask for the task (if only one task) at check-in from the widget (issue 58)
+ * Tasks:
+  * Release the sources... (issue 64)
+  * Apply the Apache License 2.0 (issue 63)
 ==Milestone-Release1.1.2 (Time Registrations)==
  * Enhancements:
   * Time Registrations:
