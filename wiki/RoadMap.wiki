@@ -20,6 +20,7 @@ One or more scopes around which we will work will be defined as well as the deta
  * Enhancements:
   * Time Registrations:
    * Date precision preference for time registrations (seconds or minutes) (issue 62)
+   * Deprecate export in time registrations module (replace by reporting module link) (issue 65)
    * Splitting time registrations (issue 23)
    * Error messages when editing time registration start/end times should be simplified (issue 33)
  * Bugs:
