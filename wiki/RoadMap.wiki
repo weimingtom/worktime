@@ -38,6 +38,9 @@ One or more scopes around which we will work will be defined as well as the deta
    * Mini widgets per project and task (issue 60)
    * Punch in/out from app instead of widget-only (issue 59)
    * Mini widget with same behavior as large default widget (issue 56)
+==Milestone-Release1.1.6==
+ * Enhancements:
+  * Multi-line input for time registration comments (issue 49)
 
 ==Milestone-Releasex.x.x==
 To be scheduled...
