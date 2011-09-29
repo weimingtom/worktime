@@ -1,0 +1,228 @@
+package eu.vranckaert.worktime.activities.backup;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Looper;
+import android.util.Log;
+import android.widget.Toast;
+import com.google.inject.Inject;
+import eu.vranckaert.worktime.R;
+import eu.vranckaert.worktime.comparators.DatabaseBackupFileComparator;
+import eu.vranckaert.worktime.constants.Constants;
+import eu.vranckaert.worktime.exceptions.SDCardUnavailableException;
+import eu.vranckaert.worktime.exceptions.backup.BackupFileCouldNotBeWritten;
+import eu.vranckaert.worktime.service.BackupService;
+import eu.vranckaert.worktime.service.WidgetService;
+import eu.vranckaert.worktime.utils.string.StringUtils;
+import roboguice.activity.GuiceActivity;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * User: DIRK VRANCKAERT
+ * Date: 11/09/11
+ * Time: 11:49
+ */
+public class RestoreActivity extends GuiceActivity {
+    private static final String LOG_TAG = RestoreActivity.class.getSimpleName();
+    @Inject
+    private BackupService backupService;
+
+    @Inject
+    private WidgetService widgetService;
+
+    private File restoreFile;
+    private List<File> databaseBackupFiles;
+    private String error = "";
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        try {
+            databaseBackupFiles = backupService.getPossibleRestoreFiles(getApplicationContext());
+            if (databaseBackupFiles == null || databaseBackupFiles.isEmpty()) {
+                showDialog(Constants.Dialog.BACKUP_RESTORE_FILE_SEARCH_NOTHING_FOUND);
+            } else {
+                processDatabaseBackupFiles();
+            }
+        } catch (SDCardUnavailableException e) {
+            showDialog(Constants.Dialog.BACKUP_RESTORE_FILE_SEARCH_NO_SD);
+        }
+    }
+
+    private void processDatabaseBackupFiles() {
+        Collections.sort(databaseBackupFiles, new DatabaseBackupFileComparator());
+
+        showDialog(Constants.Dialog.BACKUP_RESTORE_FILE_SEARCH_SHOW_LIST);
+    }
+
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        Dialog dialog = null;
+
+        switch (id) {
+            case Constants.Dialog.BACKUP_RESTORE_FILE_SEARCH_NOTHING_FOUND: {
+                AlertDialog.Builder alertRestoreNothingFound = new AlertDialog.Builder(this);
+				alertRestoreNothingFound
+						   .setMessage(getString(R.string.msg_backup_restore_no_backup_files_found))
+						   .setCancelable(false)
+						   .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                               public void onClick(DialogInterface dialog, int which) {
+                                   finish();
+                                   dialog.cancel();
+                               }
+                           });
+				dialog = alertRestoreNothingFound.create();
+                break;
+            }
+            case Constants.Dialog.BACKUP_RESTORE_FILE_SEARCH_NO_SD: {
+                AlertDialog.Builder alertRestoreNoSd = new AlertDialog.Builder(this);
+				alertRestoreNoSd
+						   .setMessage(getString(R.string.msg_backup_restore_sd_card_unavailable))
+						   .setCancelable(false)
+						   .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                               public void onClick(DialogInterface dialog, int which) {
+                                   finish();
+                                   dialog.cancel();
+                               }
+                           });
+				dialog = alertRestoreNoSd.create();
+                break;
+            }
+            case Constants.Dialog.BACKUP_RESTORE_FILE_SEARCH_SHOW_LIST: {
+                List<String> fileNames = new ArrayList<String>();
+                for (File file : databaseBackupFiles) {
+                    Log.d(LOG_TAG, "Filename found: " + file.getName());
+                    fileNames.add(file.getName().replace(BackupService.FILE_EXTENSION, "").replace(BackupService.BASE_FILE_NAME, ""));
+                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.lbl_backup_restore_restore_backup_list_title)
+                       .setSingleChoiceItems(
+                               StringUtils.convertListToArray(fileNames),
+                               0,
+                               new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialogInterface, int index) {
+                                        Log.d(LOG_TAG, "File at index " + index + " choosen.");
+                                        restoreFile = databaseBackupFiles.get(index);
+                                        removeDialog(Constants.Dialog.BACKUP_RESTORE_FILE_SEARCH_SHOW_LIST);
+                                        showDialog(Constants.Dialog.BACKUP_RESTORE_START_QUESTION);
+                                    }
+                               }
+                       )
+                       .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                           public void onCancel(DialogInterface dialogInterface) {
+                               Log.d(LOG_TAG, "No task choosen, close the activity");
+                               RestoreActivity.this.finish();
+                           }
+                       });
+                dialog = builder.create();
+                break;
+            }
+            case Constants.Dialog.BACKUP_RESTORE_START_QUESTION: {
+                AlertDialog.Builder alertRestoreStartQuestion = new AlertDialog.Builder(this);
+				alertRestoreStartQuestion
+						   .setMessage(getString(R.string.msg_backup_restore_are_your_sure, restoreFile.getName()))
+						   .setCancelable(false)
+						   .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                               public void onClick(DialogInterface dialog, int which) {
+                                   startRestoreProcedure();
+                               }
+                           })
+                           .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                               public void onClick(DialogInterface dialog, int which) {
+                                   finish();
+                                   dialog.cancel();
+                               }
+                           });
+				dialog = alertRestoreStartQuestion.create();
+                break;
+            }
+            case Constants.Dialog.RESTORE_IN_PROGRESS: {
+                dialog = ProgressDialog.show(
+                        RestoreActivity.this,
+                        "",
+                        getString(R.string.lbl_backup_restore_restoring_backup_from_sd, restoreFile.getName()),
+                        true,
+                        false
+                );
+                break;
+            }
+            case Constants.Dialog.RESTORE_SUCCESS: {
+                AlertDialog.Builder alertRestoreSuccess = new AlertDialog.Builder(this);
+				alertRestoreSuccess
+						   .setMessage(getString(R.string.msg_backup_restore_success, restoreFile.getName()))
+						   .setCancelable(false)
+						   .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                               public void onClick(DialogInterface dialog, int which) {
+                                   finish();
+                                   dialog.cancel();
+                               }
+                           });
+				dialog = alertRestoreSuccess.create();
+                break;
+            }
+            case Constants.Dialog.RESTORE_ERROR: {
+                AlertDialog.Builder alertRestoreError = new AlertDialog.Builder(this);
+				alertRestoreError
+						   .setMessage(error)
+						   .setCancelable(false)
+						   .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                               public void onClick(DialogInterface dialog, int which) {
+                                   finish();
+                                   dialog.cancel();
+                               }
+                           });
+				dialog = alertRestoreError.create();
+                break;
+            }
+        }
+
+        return dialog;
+    }
+
+    private void startRestoreProcedure() {
+        AsyncTask restoreTask = new AsyncTask() {
+            @Override
+            protected void onPreExecute() {
+                showDialog(Constants.Dialog.RESTORE_IN_PROGRESS);
+            }
+
+            @Override
+            protected Object doInBackground(Object... objects) {
+                Log.d(LOG_TAG, "Is there already a looper? " + (Looper.myLooper() != null));
+                if(Looper.myLooper() == null) {
+                    Looper.prepare();
+                }
+
+                try {
+                    backupService.restore(getApplicationContext(), restoreFile);
+                    widgetService.updateWidget(getApplicationContext());
+                } catch (BackupFileCouldNotBeWritten e) {
+                    error = getString(R.string.msg_backup_restore_sd_card_unavailable);
+                } catch (SDCardUnavailableException e) {
+                    error = getString(R.string.msg_backup_restore_writing_backup_file_not_written);
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                removeDialog(Constants.Dialog.RESTORE_IN_PROGRESS);
+                if(StringUtils.isBlank(error)) {
+                    showDialog(Constants.Dialog.RESTORE_SUCCESS);
+                } else {
+                    showDialog(Constants.Dialog.RESTORE_ERROR);
+                }
+            }
+        }.execute();
+    }
+}
