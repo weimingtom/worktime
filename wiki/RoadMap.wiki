@@ -29,7 +29,7 @@ One or more scopes around which we will work will be defined as well as the deta
 ==Milestone-Release1.1.3 (Backup and Restore)==
  * Backup scheduling (issue 55)
 ==Milestone-Release1.1.4 (Tablet Support)==
- * Tablet Support (issue xx)
+ * Tablet Support (issue 68)
 ==Milestone-Release1.1.5 (Widgets)==
  * Enhancements:
   * Widgets:
