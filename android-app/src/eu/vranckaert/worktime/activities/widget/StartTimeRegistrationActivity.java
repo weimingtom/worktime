@@ -71,8 +71,12 @@ public class StartTimeRegistrationActivity extends GuiceActivity {
         if (availableTasks == null || availableTasks.size() == 0) {
             showDialog(Constants.Dialog.NO_TASKS_AVAILABLE);
         } else if (availableTasks.size() == 1) {
-            Task task = availableTasks.get(0);
-            createNewTimeRegistration(task);
+            if (Preferences.getWidgetAskForTaskSelectionIfOnlyOnePreference(StartTimeRegistrationActivity.this)) {
+                showDialog(Constants.Dialog.CHOOSE_TASK);
+            } else {
+                Task task = availableTasks.get(0);
+                createNewTimeRegistration(task);
+            }
         } else {
             showDialog(Constants.Dialog.CHOOSE_TASK);
         }

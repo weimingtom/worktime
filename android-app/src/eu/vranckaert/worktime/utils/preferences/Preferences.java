@@ -137,6 +137,32 @@ public class Preferences {
     }
 
     /**
+     * Get the preference for key {@link Constants.Preferences.Keys#WIDGET_ASK_FOR_TASK_SELECTION_IF_ONLY_ONE}.
+     * If no value is found for the preference the default value will be
+     * {@link Constants.Preferences#WIDGET_ASK_FOR_TASK_SELECTION_IF_ONLY_ONE_DEFAULT_VALUE}.
+     * @param ctx The context when getting the preference for asking a comment when ending a time registration.
+     * @return The {@link Boolean} which represents weather should be asked to select a task or not if only one task for
+     * a project is available.
+     */
+    public static boolean getWidgetAskForTaskSelectionIfOnlyOnePreference(Context ctx) {
+        return getSharedPreferences(ctx).getBoolean(
+                Constants.Preferences.Keys.WIDGET_ASK_FOR_TASK_SELECTION_IF_ONLY_ONE,
+                Constants.Preferences.WIDGET_ASK_FOR_TASK_SELECTION_IF_ONLY_ONE_DEFAULT_VALUE
+        );
+    }
+
+    /**
+     * Updates the preference {@link Constants.Preferences.Keys#WIDGET_ASK_FOR_TASK_SELECTION_IF_ONLY_ONE}.
+     * @param ctx The context when updating the preference.
+     * @param askComment Weather should be asked to select a task or not if only one task for a project is available.
+     */
+    public static void setWidgetAskForTaskSelectionIfOnlyOnePreference(Context ctx, boolean askComment) {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putBoolean(Constants.Preferences.Keys.WIDGET_ASK_FOR_TASK_SELECTION_IF_ONLY_ONE, askComment);
+        editor.commit();
+    }
+
+    /**
      * Get the preference for key {@link Constants.Preferences.Keys#WIDGET_ENDING_TIME_REGISTRATION_COMMENT_PREFERENCE}.
      * If no value is found for the preference the default value will be
      * {@link Constants.Preferences#WIDGET_ENDING_TIME_REGISTRATION_COMMENT_PREFERENCE_DEFAULT_VALUE}.

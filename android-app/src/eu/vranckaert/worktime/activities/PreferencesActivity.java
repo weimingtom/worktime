@@ -145,6 +145,14 @@ public class PreferencesActivity extends GuicePreferenceActivity {
     }
 
     private void createWidgetCategoryPreferences(GuicePreferenceActivity ctx, PreferenceCategory widgetCategory) {
+        CheckBoxPreference askForTaskSelectionIfOnlyOne = new CheckBoxPreference(ctx);
+        askForTaskSelectionIfOnlyOne.setDefaultValue(Constants.Preferences.WIDGET_ASK_FOR_TASK_SELECTION_IF_ONLY_ONE_DEFAULT_VALUE);
+        askForTaskSelectionIfOnlyOne.setKey(Constants.Preferences.Keys.WIDGET_ASK_FOR_TASK_SELECTION_IF_ONLY_ONE);
+        askForTaskSelectionIfOnlyOne.setTitle(R.string.pref_widget_ask_for_task_selection_if_only_one_title);
+        askForTaskSelectionIfOnlyOne.setSummaryOn(R.string.pref_widget_ask_for_task_selection_if_only_one_summary_on);
+        askForTaskSelectionIfOnlyOne.setSummaryOff(R.string.pref_widget_ask_for_task_selection_if_only_one_summary_off);
+        widgetCategory.addPreference(askForTaskSelectionIfOnlyOne);
+
         CheckBoxPreference askForComment = new CheckBoxPreference(ctx);
         askForComment.setDefaultValue(Constants.Preferences.WIDGET_ENDING_TIME_REGISTRATION_COMMENT_PREFERENCE_DEFAULT_VALUE);
         askForComment.setKey(Constants.Preferences.Keys.WIDGET_ENDING_TIME_REGISTRATION_COMMENT_PREFERENCE);
