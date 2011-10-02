@@ -171,6 +171,7 @@
     <!-- Results -->
     <string name="lbl_reporting_result_title">Reporting Result</string>
     <string name="lbl_reporting_result_loading_dialog">Loading results...</string>
+    <string name="lbl_reporting_results_table_total">Total</string>
 
     <!-- PREFERENCES -->
     <string name="lbl_preferences_title">Preferences</string>
