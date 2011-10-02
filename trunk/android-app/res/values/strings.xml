@@ -212,6 +212,9 @@
         <item>7</item>
     </string-array>
     <string name="pref_widget_category_title">Widget</string>
+    <string name="pref_widget_ask_for_task_selection_if_only_one_title">Ask for task if only one available</string>
+    <string name="pref_widget_ask_for_task_selection_if_only_one_summary_on">If only one task is selectable, ask me to select a task when starting a time registration</string>
+    <string name="pref_widget_ask_for_task_selection_if_only_one_summary_off">If only one task is selectable, do not ask me to select a task when starting a time registration but auto-select the only task found</string>
     <string name="pref_widget_ask_for_comment_title">Ask for comment?</string>
     <string name="pref_widget_ask_for_comment_summary_on">Ending a time registration will ask for a summary for the registration.</string>
     <string name="pref_widget_ask_for_comment_summary_off">Ending a time registration will not ask to enter a summary for the registation.</string>
