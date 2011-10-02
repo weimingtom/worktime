@@ -98,6 +98,7 @@ public class Constants {
         public static final String TIME_REGISTRATION_PREVIOUS = "timeRegistrationPrevious";
         public static final String TIME_REGISTRATION_START_DATE = "timeRegistrationStartDate";
         public static final String TIME_REGISTRATION_END_DATE = "timeRegistrationEndDate";
+        public static final String REPORTING_DATA_DISPLAY = "reportingDataDisplay";
     }
     public class ContentMenuItemIds {
         public static final int PROJECT_DETAILS = 1;

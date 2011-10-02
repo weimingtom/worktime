@@ -35,48 +35,6 @@
                       android:layout_height="fill_parent"
                       android:orientation="vertical">
             <TableLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:stretchColumns="*" id="@+id/reporting_result_result_table">
-                <TableRow android:background="@color/sub_title_background">
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" />
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" />
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" />
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="00h 00m 00s" />
-                </TableRow>
-                <TableRow>
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="01/01/1970" />
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" />
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" />
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="00h 00m 00s" />
-                </TableRow>
-                <TableRow>
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" />
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Dummy Project A" />
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" />
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="00h 00m 00s" />
-                </TableRow>
-                <TableRow>
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" />
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" />
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Dummy Task AA" />
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="00h 00m 00s" />
-                </TableRow>
-                <TableRow>
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" />
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" />
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Dummy Task AB" />
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="00h 00m 00s" />
-                </TableRow>
-                <TableRow>
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" />
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Project B" />
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" />
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="00h 05m 00s" />
-                </TableRow>
-                <TableRow>
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" />
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" />
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Task BA" />
-                    <TextView android:textSize="@dimen/text_size_small" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="00h 05m 00s" />
-                </TableRow>
             </TableLayout>
         </LinearLayout>
     </ScrollView>

@@ -53,6 +53,7 @@ public class ReportingCriteriaActivity extends GuiceActivity {
     @Nullable
     private Project project;
     private Task task;
+    private ReportingDataDisplay dataDisplay;
 
     private List<Project> availableProjects = null;
     private List<Task> availableTasks = null;
@@ -161,6 +162,19 @@ public class ReportingCriteriaActivity extends GuiceActivity {
         dataDisplayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dataDisplaySpinner.setAdapter(dataDisplayAdapter);
         dataDisplaySpinner.setSelection(ReportingDataDisplay.GROUPED_BY_START_DATE.getOrder()); //Set default value...
+        this.dataDisplay = ReportingDataDisplay.GROUPED_BY_START_DATE;
+
+        dataDisplaySpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                ReportingDataDisplay[] dataDisplays = ReportingDataDisplay.values();
+                for (ReportingDataDisplay dataDisplay : dataDisplays) {
+                    if (dataDisplay.getOrder() == pos) {
+                        ReportingCriteriaActivity.this.dataDisplay = dataDisplay;
+                    }
+                }
+            }
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
 
         updateViewOnDateRangeSpinnerSelection();
         updateViewOnProjectAndTaskSelection();
@@ -457,6 +471,7 @@ public class ReportingCriteriaActivity extends GuiceActivity {
         intent.putExtra(Constants.Extras.TIME_REGISTRATION_END_DATE, endDate);
         intent.putExtra(Constants.Extras.PROJECT, project);
         intent.putExtra(Constants.Extras.TASK, task);
+        intent.putExtra(Constants.Extras.REPORTING_DATA_DISPLAY, dataDisplay);
         startActivity(intent);
     }
 
