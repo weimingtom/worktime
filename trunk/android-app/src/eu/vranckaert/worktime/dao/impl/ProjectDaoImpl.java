@@ -4,9 +4,9 @@ import android.content.Context;
 import android.util.Log;
 import com.google.inject.Inject;
 import com.j256.ormlite.dao.CloseableIterator;
-import com.j256.ormlite.dao.RawResults;
-import com.j256.ormlite.stmt.PreparedStmt;
-import com.j256.ormlite.stmt.StatementBuilder;
+import com.j256.ormlite.dao.GenericRawResults;
+import com.j256.ormlite.stmt.PreparedQuery;
+import com.j256.ormlite.stmt.QueryBuilder;
 import eu.vranckaert.worktime.dao.ProjectDao;
 import eu.vranckaert.worktime.dao.generic.GenericDaoImpl;
 import eu.vranckaert.worktime.exceptions.CorruptProjectDataException;
@@ -29,11 +29,11 @@ public class ProjectDaoImpl extends GenericDaoImpl<Project, Integer> implements 
      */
     public boolean isNameAlreadyUsed(String projectName) {
         List<Project> projects = null;
-        StatementBuilder<Project, Integer> sb = dao.statementBuilder();
+        QueryBuilder<Project, Integer> qb = dao.queryBuilder();
         try {
-            sb.where().eq("name", projectName);
-            PreparedStmt<Project> ps = sb.prepareStatement();
-            projects = dao.query(ps);
+            qb.where().eq("name", projectName);
+            PreparedQuery<Project> pq = qb.prepare();
+            projects = dao.query(pq);
         } catch (SQLException e) {
             Log.d(LOG_TAG, "Could not execute the query... Returning false");
             return false;
@@ -48,19 +48,22 @@ public class ProjectDaoImpl extends GenericDaoImpl<Project, Integer> implements 
     }
 
     public int countTotalNumberOfProjects() {
-        int numRecs = 0;
+        int rowCount = 0;
+        List<String[]> results = null;
         try {
-            RawResults result = dao.queryForAllRaw("select count(*) from project");
-            Log.d(LOG_TAG, result.getNumberColumns() + " number of columns found!");
-            CloseableIterator<String[]> iterator = result.iterator();
-            while(iterator.hasNext()) {
-                String[] values = iterator.next();
-                numRecs = Integer.parseInt(values[0]);
-            }
+            GenericRawResults rawResults = dao.queryRaw("select count(*) from project");
+            results = rawResults.getResults();
         } catch (SQLException e) {
             throwFatalException(e);
         }
-        return numRecs;
+
+        if (results != null && results.size() > 0) {
+            rowCount = Integer.parseInt(results.get(0)[0]);
+        }
+
+        Log.d(LOG_TAG, "Rowcount: " + rowCount);
+
+        return rowCount;
     }
 
     public Project findDefaultProject() {
@@ -71,11 +74,11 @@ public class ProjectDaoImpl extends GenericDaoImpl<Project, Integer> implements 
 
         projects = null;
 
-        StatementBuilder<Project, Integer> sb = dao.statementBuilder();
+        QueryBuilder<Project, Integer> qb = dao.queryBuilder();
         try {
-            sb.where().eq("defaultValue", 1);
-            PreparedStmt<Project> ps = sb.prepareStatement();
-            projects = dao.query(ps);
+            qb.where().eq("defaultValue", 1);
+            PreparedQuery<Project> pq = qb.prepare();
+            projects = dao.query(pq);
         } catch (SQLException e) {
             Log.e(LOG_TAG, "Could not execute the query... Returning null.", e);
             return null;

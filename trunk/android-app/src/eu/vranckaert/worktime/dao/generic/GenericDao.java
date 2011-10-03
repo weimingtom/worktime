@@ -1,8 +1,5 @@
 package eu.vranckaert.worktime.dao.generic;
 
-import eu.vranckaert.worktime.dao.utils.ResultMapper;
-
-import java.util.Collection;
 import java.util.List;
 
 public interface GenericDao<T, ID> {
@@ -45,12 +42,4 @@ public interface GenericDao<T, ID> {
      * @return The number of entities refreshed. If everything is ok this should always be one!
      */
     int refresh(T entity);
-
-    /**
-     * Execute a raw query string and maps the result to object.
-     * @param sqlQuery The raw query string
-     * @param mapper The mapper implementation.
-     * @return A collection of the mapped entities.
-     */
-    Collection<T> queryForAllRaw(String sqlQuery, ResultMapper<T> mapper);
 }

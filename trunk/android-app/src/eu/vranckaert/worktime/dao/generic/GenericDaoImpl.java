@@ -3,17 +3,11 @@ package eu.vranckaert.worktime.dao.generic;
 import android.content.Context;
 import android.util.Log;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
-import com.j256.ormlite.dao.CloseableIterator;
 import com.j256.ormlite.dao.Dao;
-import eu.vranckaert.worktime.dao.utils.DaoConstants;
 import eu.vranckaert.worktime.dao.utils.DatabaseHelper;
-import eu.vranckaert.worktime.dao.utils.ResultMapper;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -23,7 +17,7 @@ import java.util.List;
  *
  * @author Dirk Vranckaert
  */
-public abstract class GenericDaoImpl<T, ID> extends OrmLiteBaseActivity<DatabaseHelper<T, ID>> implements GenericDao<T, ID> {
+public abstract class GenericDaoImpl<T, ID> implements GenericDao<T, ID> {
     /**
      * Logging
      */
@@ -34,6 +28,8 @@ public abstract class GenericDaoImpl<T, ID> extends OrmLiteBaseActivity<Database
      */
     public Dao<T, ID> dao;
 
+    private Context context;
+
     /**
      * This constructor should always be called in order to have a DAO!
      * @param clazz The entity-class for which the DAO should be created!
@@ -41,13 +37,23 @@ public abstract class GenericDaoImpl<T, ID> extends OrmLiteBaseActivity<Database
     public GenericDaoImpl(final java.lang.Class<T> clazz, final Context context) {
         Log.d(LOG_TAG, "Creating DAO for " + clazz.getSimpleName() + " from " + getClass().getSimpleName());
 
-        OpenHelperManager.setOpenHelperFactory(new OpenHelperManager.SqliteOpenHelperFactory() {
-            public OrmLiteSqliteOpenHelper getHelper(Context ctx) {
-                return new DatabaseHelper(context, DaoConstants.DATABASE, DaoConstants.VERSION);
-            }
-        });
+        OrmLiteSqliteOpenHelper helper = OpenHelperManager.getHelper(context, DatabaseHelper.class);
+        try {
+            dao = helper.getDao(clazz);
+        } catch (SQLException e) {
+            throw new RuntimeException("Could not instantiate a DAO for class " + clazz.getName(), e);
+        }
+        //helper.close();
+        //OpenHelperManager.releaseHelper();
+        this.context = context;
+    }
 
-        dao = getHelper().getDao(clazz);
+    public Context getContext() {
+        return context;
+    }
+
+    private void setContext(Context context) {
+        this.context = context;
     }
 
     /**
@@ -134,36 +140,5 @@ public abstract class GenericDaoImpl<T, ID> extends OrmLiteBaseActivity<Database
             throwFatalException(e);
         }
         return result;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public Collection<T> queryForAllRaw(String sqlQuery, ResultMapper<T> mapper) {
-        CloseableIterator<String []> resultSet = null;
-        List<T> results = null;
-
-        try {
-            resultSet = dao.queryForAllRaw(sqlQuery).iterator();
-            results = new ArrayList<T>();
-            if(resultSet.hasNext()) {
-                do {
-                    T result = mapper.mapResult(resultSet.next());
-                    results.add(result);
-                }
-                while(resultSet.hasNext());
-            }
-        } catch (SQLException e) {
-            throwFatalException(e);
-        } finally {
-            if(resultSet != null) {
-                try {
-                    resultSet.close();
-                } catch (SQLException e) {
-                    throwFatalException(e);
-                }
-            }
-        }
-        return results;
     }
 }

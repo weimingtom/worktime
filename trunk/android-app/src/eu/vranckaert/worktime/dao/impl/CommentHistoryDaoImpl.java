@@ -3,10 +3,9 @@ package eu.vranckaert.worktime.dao.impl;
 import android.content.Context;
 import android.util.Log;
 import com.google.inject.Inject;
-import com.j256.ormlite.dao.CloseableIterator;
-import com.j256.ormlite.dao.RawResults;
-import com.j256.ormlite.stmt.PreparedStmt;
-import com.j256.ormlite.stmt.StatementBuilder;
+import com.j256.ormlite.dao.GenericRawResults;
+import com.j256.ormlite.stmt.PreparedQuery;
+import com.j256.ormlite.stmt.QueryBuilder;
 import eu.vranckaert.worktime.dao.CommentHistoryDao;
 import eu.vranckaert.worktime.dao.generic.GenericDaoImpl;
 import eu.vranckaert.worktime.model.CommentHistory;
@@ -26,9 +25,6 @@ public class CommentHistoryDaoImpl extends GenericDaoImpl<CommentHistory, Intege
     private static final String LOG_TAG = CommentHistoryDaoImpl.class.getSimpleName();
 
     @Inject
-    Context ctx;
-
-    @Inject
     public CommentHistoryDaoImpl(final Context context) {
         super(CommentHistory.class, context);
     }
@@ -41,12 +37,12 @@ public class CommentHistoryDaoImpl extends GenericDaoImpl<CommentHistory, Intege
         Log.d(LOG_TAG, "About to save a new comment: " + comment);
         String optimizedComment = StringUtils.optimizeString(comment);
 
-        StatementBuilder<CommentHistory, Integer> sb = dao.statementBuilder();
+        QueryBuilder<CommentHistory, Integer> qb = dao.queryBuilder();
         List<CommentHistory> comments = new ArrayList<CommentHistory>();
         try {
-            sb.where().eq("comment", comment);
-            PreparedStmt<CommentHistory> ps = sb.prepareStatement();
-            comments = dao.query(ps);
+            qb.where().eq("comment", comment);
+            PreparedQuery<CommentHistory> pq = qb.prepare();
+            comments = dao.query(pq);
             Log.d(LOG_TAG, "Did we found the same comment already? " + (comments.size()>0));
         } catch (SQLException e) {
             Log.e(LOG_TAG, "Could not execute the query...", e);
@@ -66,20 +62,23 @@ public class CommentHistoryDaoImpl extends GenericDaoImpl<CommentHistory, Intege
      */
     private int count() {
         Log.d(LOG_TAG, "Counting the number of comments in the history...");
-        int numRecs = 0;
+
+        int rowCount = 0;
+        List<String[]> results = null;
         try {
-            RawResults result = dao.queryForAllRaw("select count(*) from commenthistory");
-            Log.d(LOG_TAG, result.getNumberColumns() + " number of columns found!");
-            CloseableIterator<String[]> iterator = result.iterator();
-            while(iterator.hasNext()) {
-                String[] values = iterator.next();
-                numRecs = Integer.parseInt(values[0]);
-            }
+            GenericRawResults rawResults = dao.queryRaw("select count(*) from commenthistory");
+            results = rawResults.getResults();
         } catch (SQLException e) {
             throwFatalException(e);
         }
-        Log.d(LOG_TAG, numRecs + " comments found in the history");
-        return numRecs;
+
+        if (results != null && results.size() > 0) {
+            rowCount = Integer.parseInt(results.get(0)[0]);
+        }
+
+        Log.d(LOG_TAG, "Rowcount: " + rowCount);
+
+        return rowCount;
     }
 
     /**
@@ -110,14 +109,14 @@ public class CommentHistoryDaoImpl extends GenericDaoImpl<CommentHistory, Intege
      */
     public void checkNumberOfCommentsStored() {
         Log.d(LOG_TAG, "Checking the preference-rule for the maximum number of comments to be stored...");
-        int numberOfCommentsAllowed = Preferences.getWidgetEndingTimeRegistrationCommentMaxHistoryStoragePreference(ctx);
+        int numberOfCommentsAllowed = Preferences.getWidgetEndingTimeRegistrationCommentMaxHistoryStoragePreference(getContext());
         Log.d(LOG_TAG, "Maximum number of comments allowed in history: " + numberOfCommentsAllowed);
-        StatementBuilder<CommentHistory, Integer> sb = dao.statementBuilder();
+        QueryBuilder<CommentHistory, Integer> qb = dao.queryBuilder();
         List<CommentHistory> comments = new ArrayList<CommentHistory>();
         try {
-            sb.orderBy("entranceDate", true);
-            PreparedStmt<CommentHistory> ps = sb.prepareStatement();
-            comments = dao.query(ps);
+            qb.orderBy("entranceDate", true);
+            PreparedQuery<CommentHistory> pq = qb.prepare();
+            comments = dao.query(pq);
             Log.d(LOG_TAG, "Number of comments found in the history: " + comments.size());
         } catch (SQLException e) {
             Log.e(LOG_TAG, "Could not execute the query...", e);

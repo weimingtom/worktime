@@ -45,13 +45,24 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
     /**
      * Create a new database helper.
      * @param context The context.
-     * @param database The database name.
-     * @param version The version of the database.
      */
-    public DatabaseHelper(Context context, String database, int version) {
-        super(context, database, null, version);
+    public DatabaseHelper(Context context) {
+        super(context, DaoConstants.DATABASE, null, DaoConstants.VERSION);
         this.context = context;
-        Log.i(LOG_TAG, "Installing database, databasename = " + database + ", version = " + version);
+        Log.i(LOG_TAG, "Installing database, databasename = " + DaoConstants.DATABASE + ", version = " + DaoConstants.VERSION);
+    }
+
+    /**
+     * Create a new database helper.
+     * @param context The context.
+     * @param databaseName The database name.
+     * @param factory The factory.
+     * @param databaseVersion The database version.
+     */
+    public DatabaseHelper(Context context, String databaseName, SQLiteDatabase.CursorFactory factory, int databaseVersion) {
+        super(context, databaseName, factory, databaseVersion);
+        this.context = context;
+        Log.i(LOG_TAG, "Installing database, databasename = " + databaseName + ", version = " + databaseVersion);
     }
 
     @Override
@@ -59,7 +70,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
         try {
             Log.d(LOG_TAG, "Creating the database");
             for(Tables table : Tables.values()) {
-                TableUtils.createTable(databaseType, connectionSource, table.getTableClass());
+                TableUtils.createTable(connectionSource, table.getTableClass());
             }
 
             int defaultProjectId = 1;
@@ -148,12 +159,15 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
         super.close();
     }
 
+
     /**
      * Retrieve a DAO object.
-     * @param clazz The entity-class for which a DAO object must be retrieved.
+     * //@param clazz The entity-class for which a DAO object must be retrieved.
      * @return The DAO-instance.
      */
+    /*
     public Dao<T, ID> getDao(java.lang.Class<T> clazz) {
+        super.getDao(clazz);
         String className = clazz.getName();
 
         if (daoCache.containsKey(className)) {
@@ -172,33 +186,24 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
         daoCache.put(className, dao);
         return dao;
     }
+    */
 
-    public static String convertDateToSqliteDate(Date date, boolean maxTime) {
+    public static Date convertDateToSqliteDate(Date date, boolean maxTime) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
-        String seperator = "-";
-        String result = "";
-
-        result += cal.get(Calendar.YEAR) + seperator;
-
-        int month = cal.get(Calendar.MONTH) + 1;
-        String strMonth = String.valueOf(month);
-        if (month < 10) {
-            strMonth = "0" + strMonth;
-        }
-        result += strMonth + seperator;
-
-        int day = cal.get(Calendar.DAY_OF_MONTH);
-        String strDay = String.valueOf(day);
-        if (day < 10) {
-            strDay = "0" + strDay;
-        }
-        result += strDay;
 
         if (maxTime) {
-            result += " 23:59:59.999999";
+            cal.set(Calendar.HOUR, 23);
+            cal.set(Calendar.MINUTE, 59);
+            cal.set(Calendar.SECOND, 59);
+            cal.set(Calendar.MILLISECOND, 999999);
+        } else {
+            cal.set(Calendar.HOUR, 0);
+            cal.set(Calendar.MINUTE, 0);
+            cal.set(Calendar.SECOND, 0);
+            cal.set(Calendar.MILLISECOND, 0);
         }
 
-        return result;
+        return cal.getTime();
     }
 }
