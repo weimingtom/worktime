@@ -3,8 +3,8 @@ package eu.vranckaert.worktime.dao.impl;
 import android.content.Context;
 import android.util.Log;
 import com.google.inject.Inject;
-import com.j256.ormlite.stmt.PreparedStmt;
-import com.j256.ormlite.stmt.StatementBuilder;
+import com.j256.ormlite.stmt.PreparedQuery;
+import com.j256.ormlite.stmt.QueryBuilder;
 import eu.vranckaert.worktime.dao.TaskDao;
 import eu.vranckaert.worktime.dao.generic.GenericDaoImpl;
 import eu.vranckaert.worktime.model.Project;
@@ -25,11 +25,11 @@ public class TaskDaoImpl extends GenericDaoImpl<Task, Integer> implements TaskDa
      * {@inheritDoc}
      */
     public List<Task> findTasksForProject(Project project) {
-        StatementBuilder<Task, Integer> sb = dao.statementBuilder();
+        QueryBuilder<Task, Integer> qb = dao.queryBuilder();
         try {
-            sb.where().eq("projectId", project.getId());
-            PreparedStmt<Task> ps = sb.prepareStatement();
-            return dao.query(ps);
+            qb.where().eq("projectId", project.getId());
+            PreparedQuery<Task> pq = qb.prepare();
+            return dao.query(pq);
         } catch (SQLException e) {
             Log.e(LOG_TAG, "Could not execute the query... Returning null.", e);
             return null;
@@ -40,12 +40,12 @@ public class TaskDaoImpl extends GenericDaoImpl<Task, Integer> implements TaskDa
      * {@inheritDoc}
      */
     public List<Task> findNotFinishedTasksForProject(Project project) {
-        StatementBuilder<Task, Integer> sb = dao.statementBuilder();
+        QueryBuilder<Task, Integer> qb = dao.queryBuilder();
         try {
-            sb.where().eq("projectId", project.getId())
+            qb.where().eq("projectId", project.getId())
                     .and().eq("finished", 0);
-            PreparedStmt<Task> ps = sb.prepareStatement();
-            return dao.query(ps);
+            PreparedQuery<Task> pq = qb.prepare();
+            return dao.query(pq);
         } catch (SQLException e) {
             Log.e(LOG_TAG, "Could not execute the query... Returning null.", e);
             return null;

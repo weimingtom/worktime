@@ -4,16 +4,12 @@ import android.content.Context;
 import android.util.Log;
 import com.google.inject.Inject;
 import com.j256.ormlite.dao.CloseableIterator;
-import com.j256.ormlite.dao.RawResults;
-import com.j256.ormlite.stmt.PreparedStmt;
-import com.j256.ormlite.stmt.StatementBuilder;
-import com.j256.ormlite.stmt.Where;
-import com.sun.xml.internal.messaging.saaj.util.LogDomainConstants;
+import com.j256.ormlite.dao.GenericRawResults;
+import com.j256.ormlite.stmt.*;
 import eu.vranckaert.worktime.comparators.TimeRegistrationDescendingByStartdate;
 import eu.vranckaert.worktime.dao.TimeRegistrationDao;
 import eu.vranckaert.worktime.dao.generic.GenericDaoImpl;
 import eu.vranckaert.worktime.dao.utils.DatabaseHelper;
-import eu.vranckaert.worktime.model.Project;
 import eu.vranckaert.worktime.model.Task;
 import eu.vranckaert.worktime.model.TimeRegistration;
 
@@ -37,19 +33,22 @@ public class TimeRegistrationDaoImpl extends GenericDaoImpl<TimeRegistration, In
     }
 
     public int countTotalNumberOfTimeRegistrations() {
-        int numRecs = 0;
+        int rowCount = 0;
+        List<String[]> results = null;
         try {
-            RawResults result = dao.queryForAllRaw("select count(*) from timeregistration");
-            Log.d(LOG_TAG, result.getNumberColumns() + " number of columns found!");
-            CloseableIterator<String[]> iterator = result.iterator();
-            while(iterator.hasNext()) {
-                String[] values = iterator.next();
-                numRecs = Integer.parseInt(values[0]);
-            }
+            GenericRawResults rawResults = dao.queryRaw("select count(*) from timeregistration");
+            results = rawResults.getResults();
         } catch (SQLException e) {
             throwFatalException(e);
         }
-        return numRecs;
+
+        if (results != null && results.size() > 0) {
+            rowCount = Integer.parseInt(results.get(0)[0]);
+        }
+
+        Log.d(LOG_TAG, "Rowcount: " + rowCount);
+
+        return rowCount;
     }
 
     /**
@@ -66,11 +65,11 @@ public class TimeRegistrationDaoImpl extends GenericDaoImpl<TimeRegistration, In
     }
 
     public List<TimeRegistration> findTimeRegistrationsForTask(Task task) {
-        StatementBuilder<TimeRegistration,Integer> sb = dao.statementBuilder();
+        QueryBuilder<TimeRegistration,Integer> qb = dao.queryBuilder();
         try {
-            sb.where().eq("taskId", task.getId());
-            PreparedStmt<TimeRegistration> ps = sb.prepareStatement();
-            return dao.query(ps);
+            qb.where().eq("taskId", task.getId());
+            PreparedQuery<TimeRegistration> pq = qb.prepare();
+            return dao.query(pq);
         } catch (SQLException e) {
             Log.e(LOG_TAG, "Could not execute the query...");
             throwFatalException(e);
@@ -85,11 +84,11 @@ public class TimeRegistrationDaoImpl extends GenericDaoImpl<TimeRegistration, In
             taskIds.add(task.getId());
         }
 
-        StatementBuilder<TimeRegistration,Integer> sb = dao.statementBuilder();
+        QueryBuilder<TimeRegistration,Integer> qb = dao.queryBuilder();
         try {
-            sb.where().in("taskId", taskIds);
-            PreparedStmt<TimeRegistration> ps = sb.prepareStatement();
-            return dao.query(ps);
+            qb.where().in("taskId", taskIds);
+            PreparedQuery<TimeRegistration> pq = qb.prepare();
+            return dao.query(pq);
         } catch (SQLException e) {
             Log.e(LOG_TAG, "Could not execute the query...");
             throwFatalException(e);
@@ -110,35 +109,40 @@ public class TimeRegistrationDaoImpl extends GenericDaoImpl<TimeRegistration, In
             }
         }
 
-        StatementBuilder<TimeRegistration,Integer> sb = dao.statementBuilder();
+        QueryBuilder<TimeRegistration,Integer> qb = dao.queryBuilder();
 
 
-        if (taskIds != null && !taskIds.isEmpty()) {
-            Log.d(LOG_TAG, "Updating where clause for dates and taskIds...");
-            try {
-                sb.where().ge("startTime", DatabaseHelper.convertDateToSqliteDate(startDate, false))
-                    .and().le("endTime", DatabaseHelper.convertDateToSqliteDate(endDate, true))
-                    .and().in("taskId", taskIds);
-            } catch (SQLException e) {
-                Log.e(LOG_TAG, "Could not build the dates- and tasks-where-clause in the query...");
-                throwFatalException(e);
-            }
-        } else {
-            Log.d(LOG_TAG, "Updating where clause for dates...");
-            try {
-                sb.where().ge("startTime", DatabaseHelper.convertDateToSqliteDate(startDate, false))
-                    .and().le("endTime", DatabaseHelper.convertDateToSqliteDate(endDate, true));
-            } catch (SQLException e) {
-                Log.e(LOG_TAG, "Could not build the dates-where-clause in the query...");
-                throwFatalException(e);
-            }
+        endDate = DatabaseHelper.convertDateToSqliteDate(endDate, true);
+        startDate = DatabaseHelper.convertDateToSqliteDate(startDate, false);
+        boolean includeOngoingTimeRegistration = false;
+        Date now = new Date();
+        if (endDate.after(now)) {
+            Log.e(LOG_TAG, "Ongoing time registration should be included in reporting result...");
+            includeOngoingTimeRegistration = true;
         }
 
+        Where where = qb.where();
         try {
-            Log.d(LOG_TAG, "About to execute query: " + sb.toString());
-            PreparedStmt<TimeRegistration> ps = sb.prepareStatement();
-            Log.d(LOG_TAG, "Prepared statement: " + ps.toString());
-            return dao.query(ps);
+            where.ge("startTime", startDate);
+            if (includeOngoingTimeRegistration) {
+                Where orClause = where.le("endTime", endDate).or().isNull("endTime");
+                where.and(where, orClause);
+            } else {
+                where.and().le("endTime", endDate);
+            }
+            if (taskIds != null && !taskIds.isEmpty()) {
+                where.and().in("taskId", taskIds);
+            }
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, "Could not build the dates- and tasks-where-clause in the query...");
+            throwFatalException(e);
+        }
+        qb.setWhere(where);
+
+        try {
+            PreparedQuery<TimeRegistration> pq = qb.prepare();
+            Log.d(LOG_TAG, "Prepared query: " + pq.toString());
+            return dao.query(pq);
         } catch (SQLException e) {
             Log.e(LOG_TAG, "Could not execute the query...");
             throwFatalException(e);
