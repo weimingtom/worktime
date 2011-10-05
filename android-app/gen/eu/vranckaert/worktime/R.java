@@ -11,10 +11,10 @@ public final class R {
     public static final class array {
         public static final int array_reporting_criteria_data_display_spinner=0x7f090001;
         public static final int array_reporting_criteria_date_range_spinner=0x7f090000;
-        public static final int pref_general_display_hour_12_24_format_option_values=0x7f090003;
-        public static final int pref_general_display_hour_12_24_format_options=0x7f090002;
-        public static final int pref_general_week_starts_on_option_values=0x7f090005;
-        public static final int pref_general_week_starts_on_options=0x7f090004;
+        public static final int pref_date_and_time_display_hour_12_24_format_option_values=0x7f090003;
+        public static final int pref_date_and_time_display_hour_12_24_format_options=0x7f090002;
+        public static final int pref_date_and_time_week_starts_on_option_values=0x7f090005;
+        public static final int pref_date_and_time_week_starts_on_options=0x7f090004;
     }
     public static final class attr {
     }
@@ -431,14 +431,14 @@ public final class R {
         public static final int pref_comments_clear_history_storage_title=0x7f08009d;
         public static final int pref_comments_max_history_storage_summary=0x7f08009c;
         public static final int pref_comments_max_history_storage_title=0x7f08009b;
+        public static final int pref_date_and_time_category_title=0x7f08008b;
+        public static final int pref_date_and_time_display_hour_12_24_format_prompt=0x7f08008c;
+        public static final int pref_date_and_time_display_hour_12_24_format_summary=0x7f08008d;
+        public static final int pref_date_and_time_week_starts_on_prompt=0x7f08008e;
+        public static final int pref_date_and_time_week_starts_on_summary=0x7f08008f;
         public static final int pref_export_category_title=0x7f080088;
         public static final int pref_export_time_reg_file_name_summary=0x7f08008a;
         public static final int pref_export_time_reg_file_name_title=0x7f080089;
-        public static final int pref_general_category_title=0x7f08008b;
-        public static final int pref_general_display_hour_12_24_format_prompt=0x7f08008c;
-        public static final int pref_general_display_hour_12_24_format_summary=0x7f08008d;
-        public static final int pref_general_week_starts_on_prompt=0x7f08008e;
-        public static final int pref_general_week_starts_on_summary=0x7f08008f;
         public static final int pref_restore_summary=0x7f0800ad;
         public static final int pref_restore_title=0x7f0800ac;
         public static final int pref_stat_bar_notifs_ask_for_comment_summary_off=0x7f0800a1;

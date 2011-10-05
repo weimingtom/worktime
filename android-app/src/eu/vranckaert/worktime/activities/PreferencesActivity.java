@@ -2,7 +2,6 @@ package eu.vranckaert.worktime.activities;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,10 +14,8 @@ import eu.vranckaert.worktime.activities.backup.BackupActivity;
 import eu.vranckaert.worktime.activities.backup.RestoreActivity;
 import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.constants.TrackerConstants;
-import eu.vranckaert.worktime.model.TimeRegistration;
 import eu.vranckaert.worktime.service.*;
 import eu.vranckaert.worktime.utils.context.IntentUtil;
-import eu.vranckaert.worktime.utils.notifications.NotificationBarManager;
 import eu.vranckaert.worktime.utils.preferences.Preferences;
 import eu.vranckaert.worktime.utils.preferences.SeekBarPreference;
 import eu.vranckaert.worktime.utils.tracker.AnalyticsTracker;
@@ -63,11 +60,11 @@ public class PreferencesActivity extends GuicePreferenceActivity {
         PreferenceScreen preferences = ctx.getPreferenceManager().createPreferenceScreen(ctx);
         setPreferenceScreen(preferences);
 
-        //Category GENERAL
-        PreferenceCategory generalCategory = new PreferenceCategory(ctx);
-        generalCategory.setTitle(R.string.pref_general_category_title);
-        preferences.addPreference(generalCategory);
-        createGeneralCategoryPreferences(ctx, generalCategory);
+        //Category DATE AND TIME
+        PreferenceCategory dateAndTimeCategory = new PreferenceCategory(ctx);
+        dateAndTimeCategory.setTitle(R.string.pref_date_and_time_category_title);
+        preferences.addPreference(dateAndTimeCategory);
+        createDateAndTimeCategoryPreferences(ctx, dateAndTimeCategory);
 
         //Category TASKS
         PreferenceCategory tasksCategory = new PreferenceCategory(ctx);
@@ -106,23 +103,23 @@ public class PreferencesActivity extends GuicePreferenceActivity {
         createBackupCategory(ctx, backupCategory);
     }
 
-    private void createGeneralCategoryPreferences(GuicePreferenceActivity ctx, PreferenceCategory generalCategory) {
+    private void createDateAndTimeCategoryPreferences(GuicePreferenceActivity ctx, PreferenceCategory generalCategory) {
         ListPreference displayHour1224Format = new ListPreference(ctx);
         displayHour1224Format.setKey(Constants.Preferences.Keys.DISPLAY_HOUR_12_24_FORMAT);
         displayHour1224Format.setDefaultValue(Constants.Preferences.DISPLAY_HOUR_12_24_FORMAT_DEFAULT_VALUE);
-        displayHour1224Format.setTitle(R.string.pref_general_display_hour_12_24_format_prompt);
-        displayHour1224Format.setSummary(R.string.pref_general_display_hour_12_24_format_summary);
-        displayHour1224Format.setEntries(R.array.pref_general_display_hour_12_24_format_options);
-        displayHour1224Format.setEntryValues(R.array.pref_general_display_hour_12_24_format_option_values);
+        displayHour1224Format.setTitle(R.string.pref_date_and_time_display_hour_12_24_format_prompt);
+        displayHour1224Format.setSummary(R.string.pref_date_and_time_display_hour_12_24_format_summary);
+        displayHour1224Format.setEntries(R.array.pref_date_and_time_display_hour_12_24_format_options);
+        displayHour1224Format.setEntryValues(R.array.pref_date_and_time_display_hour_12_24_format_option_values);
         generalCategory.addPreference(displayHour1224Format);
 
         ListPreference weekStartOn = new ListPreference(ctx);
         weekStartOn.setKey(Constants.Preferences.Keys.WEEK_STARTS_ON);
         weekStartOn.setDefaultValue(Constants.Preferences.WEEK_STARTS_ON_DEFAULT_VALUE);
-        weekStartOn.setTitle(R.string.pref_general_week_starts_on_prompt);
-        weekStartOn.setSummary(R.string.pref_general_week_starts_on_summary);
-        weekStartOn.setEntries(R.array.pref_general_week_starts_on_options);
-        weekStartOn.setEntryValues(R.array.pref_general_week_starts_on_option_values);
+        weekStartOn.setTitle(R.string.pref_date_and_time_week_starts_on_prompt);
+        weekStartOn.setSummary(R.string.pref_date_and_time_week_starts_on_summary);
+        weekStartOn.setEntries(R.array.pref_date_and_time_week_starts_on_options);
+        weekStartOn.setEntryValues(R.array.pref_date_and_time_week_starts_on_option_values);
         generalCategory.addPreference(weekStartOn);
     }
 
