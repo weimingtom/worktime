@@ -11,6 +11,8 @@ public class ReportingTableRecord {
     private String column3;
     private String columnTotal;
 
+    private boolean isOngoingTr;
+
     private ReportingTableRecordLevel level;
 
     public ReportingTableRecord() {}
@@ -53,6 +55,14 @@ public class ReportingTableRecord {
 
     public void setColumnTotal(String columnTotal) {
         this.columnTotal = columnTotal;
+    }
+
+    public boolean isOngoingTr() {
+        return isOngoingTr;
+    }
+
+    public void setOngoingTr(boolean ongoingTr) {
+        isOngoingTr = ongoingTr;
     }
 
     public ReportingTableRecordLevel getLevel() {
