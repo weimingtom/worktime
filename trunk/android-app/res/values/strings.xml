@@ -178,22 +178,22 @@
     <string name="pref_export_category_title">Export</string>
     <string name="pref_export_time_reg_file_name_title">Export file name</string>
     <string name="pref_export_time_reg_file_name_summary">Define the file name to be used when exporting time regsitrations</string>
-    <string name="pref_general_category_title">General</string>
-    <string name="pref_general_display_hour_12_24_format_prompt">12h/24h time configuration</string>
-    <string name="pref_general_display_hour_12_24_format_summary">Choose the 12-hour, 24-hour or the system default display method for hours.</string>
-    <string-array name="pref_general_display_hour_12_24_format_options">
+    <string name="pref_date_and_time_category_title">Date and Time</string>
+    <string name="pref_date_and_time_display_hour_12_24_format_prompt">12h/24h time configuration</string>
+    <string name="pref_date_and_time_display_hour_12_24_format_summary">Choose the 12-hour, 24-hour or the system default display method for hours.</string>
+    <string-array name="pref_date_and_time_display_hour_12_24_format_options">
         <item>System Default</item>
         <item>12-Hour</item>
         <item>24-Hour</item>
     </string-array>
-    <string-array name="pref_general_display_hour_12_24_format_option_values">
+    <string-array name="pref_date_and_time_display_hour_12_24_format_option_values">
         <item>system-default</item>
         <item>12-hour</item>
         <item>24-hour</item>
     </string-array>
-    <string name="pref_general_week_starts_on_prompt">Week starts on...</string>
-    <string name="pref_general_week_starts_on_summary">Choose the day that the week starts on.</string>
-    <string-array name="pref_general_week_starts_on_options">
+    <string name="pref_date_and_time_week_starts_on_prompt">Week starts on...</string>
+    <string name="pref_date_and_time_week_starts_on_summary">Choose the day that the week starts on.</string>
+    <string-array name="pref_date_and_time_week_starts_on_options">
         <item>Monday</item>
         <item>Tuesday</item>
         <item>Wednesday</item>
@@ -202,7 +202,7 @@
         <item>Saturday</item>
         <item>Sunday</item>
     </string-array>
-    <string-array name="pref_general_week_starts_on_option_values">
+    <string-array name="pref_date_and_time_week_starts_on_option_values">
         <item>1</item>
         <item>2</item>
         <item>3</item>
