@@ -20,6 +20,7 @@ import eu.vranckaert.worktime.ui.reporting.ReportingTableRecord;
 import eu.vranckaert.worktime.utils.date.DateUtils;
 import roboguice.activity.GuiceActivity;
 import roboguice.inject.InjectExtra;
+import roboguice.inject.InjectView;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,6 +49,9 @@ public class ReportingResultActivity extends GuiceActivity {
     private Task task;
     @InjectExtra(value = Constants.Extras.REPORTING_DATA_DISPLAY)
     private ReportingDataDisplay dataDisplay;
+
+    @InjectView(R.id.reporting_result_includes_ongoing_tr_label)
+    private TextView resultIncludesOngoingTrsLabel;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,11 +87,12 @@ public class ReportingResultActivity extends GuiceActivity {
     }
 
     private void buildTable(List<ReportingTableRecord> tableRecords) {
+        //TODO clean code to get TableLayout (this is a dirty fix because @InjectView didn't work for some reason...)
         View titleBarView = findViewById(R.id.title_container);
         LinearLayout windowView = (LinearLayout) titleBarView.getParent();
         ScrollView scrollView = (ScrollView) windowView.getChildAt(1);
         LinearLayout scrollViewContent = (LinearLayout) scrollView.getChildAt(0);
-        TableLayout resultTable = (TableLayout) scrollViewContent.getChildAt(0);
+        TableLayout resultTable = (TableLayout) scrollViewContent.getChildAt(1);
 
         for (ReportingTableRecord record : tableRecords) {
             TableRow row = new TableRow(ReportingResultActivity.this);
@@ -106,6 +111,10 @@ public class ReportingResultActivity extends GuiceActivity {
             row.addView(recordTotalCol4);
 
             resultTable.addView(row);
+
+            if (record.isOngoingTr()) {
+                resultIncludesOngoingTrsLabel.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -116,6 +125,15 @@ public class ReportingResultActivity extends GuiceActivity {
         String totalDuration = DateUtils.calculatePeriod(ReportingResultActivity.this, timeRegistrations);
         totalRecord.setColumn1(getText(R.string.lbl_reporting_results_table_total).toString());
         totalRecord.setColumn3(totalDuration);
+
+        //TODO move this code to determine if an ongoing TR is in the list to the switch...
+        for (TimeRegistration timeRegistration : timeRegistrations) {
+            if (timeRegistration.isOngoingTimeRegistration()) {
+                totalRecord.setOngoingTr(true);
+                break;
+            }
+        }
+
         tableRecords.add(totalRecord);
 
         switch (reportingDataDisplay) {

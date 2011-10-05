@@ -235,10 +235,10 @@ public class DateUtils {
 
         /*Temporary fix for calculating the days, otherwise the days are always zero...*/
         //TODO search for a fix with the PeriodType.dayTime() to calculate the days as well...
-        days = hours/24;
+        /*days = hours/24;
         if (days > 0) {
             hours = hours - (days * 24);
-        }
+        }*/
         /*End of fix...*/
 
         Log.d(LOG_TAG, days + "d " + hours + "h " + minutes + "m " + seconds + "s");
@@ -367,7 +367,7 @@ public class DateUtils {
         return hourMinuteSeconds;
     }
 
-    	public static Map<Integer, Date> calculateWeekBoundaries(int weekDiff, Context ctx) {
+    public static Map<Integer, Date> calculateWeekBoundaries(int weekDiff, Context ctx) {
 		int weekStartsOn = Preferences.getWeekStartsOn(ctx);
 
 		LocalDate now = new LocalDate();

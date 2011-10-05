@@ -171,6 +171,7 @@
     <!-- Results -->
     <string name="lbl_reporting_result_title">Reporting Result</string>
     <string name="lbl_reporting_result_loading_dialog">Loading results...</string>
+    <string name="lbl_reporting_result_includes_ongoing_time_registrations">Warning: the result contains data from ongoing time registrations. The calculations are based on the current date and time.</string>
     <string name="lbl_reporting_results_table_total">Total</string>
 
     <!-- PREFERENCES -->
