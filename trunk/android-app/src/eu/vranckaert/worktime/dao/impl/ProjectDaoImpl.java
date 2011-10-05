@@ -76,7 +76,7 @@ public class ProjectDaoImpl extends GenericDaoImpl<Project, Integer> implements 
 
         QueryBuilder<Project, Integer> qb = dao.queryBuilder();
         try {
-            qb.where().eq("defaultValue", 1);
+            qb.where().eq("defaultValue", true);
             PreparedQuery<Project> pq = qb.prepare();
             projects = dao.query(pq);
         } catch (SQLException e) {

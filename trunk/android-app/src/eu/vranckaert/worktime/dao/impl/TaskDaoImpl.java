@@ -43,7 +43,7 @@ public class TaskDaoImpl extends GenericDaoImpl<Task, Integer> implements TaskDa
         QueryBuilder<Task, Integer> qb = dao.queryBuilder();
         try {
             qb.where().eq("projectId", project.getId())
-                    .and().eq("finished", 0);
+                    .and().eq("finished", true);
             PreparedQuery<Task> pq = qb.prepare();
             return dao.query(pq);
         } catch (SQLException e) {
