@@ -50,4 +50,32 @@ public class StringUtils {
     public static String optimizeString(final String string) {
         return string.trim();
     }
+
+    /**
+     * Add a certain text to the left of a specified text to get to the defined maximum text length.<br/>
+     * <b><u>Examples:</u></b><br/>
+     * leftPad("test", "a", 5) <i> returns </i> <b>atest</b><br/>
+     * leftPad("test", "a", 7) <i> returns </i> <b>aaatest</b><br/>
+     * leftPad("test", "abc", 5) <i> returns </i> <b>abctest</b><br/>
+     * leftPad("test", "abc", -3) <i> returns </i> <b>test</b><br/>
+     * leftPad("test", "abc", 4) <i> returns </i> <b>test</b>
+     * @param text The to add the padding text to.
+     * @param padText The padding text.
+     * @param textLenght The maximum length of the text.
+     * @return The padded text.
+     */
+    public static String leftPad(String text, String padText, int textLenght) {
+        if (textLenght < 0) {
+            return text;
+        }
+
+        if (text.length() == textLenght) {
+            return text;
+        }
+
+        while (text.length() < textLenght) {
+            text = padText + text;
+        }
+        return text;
+    }
 }

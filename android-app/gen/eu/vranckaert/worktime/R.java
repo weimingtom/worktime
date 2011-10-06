@@ -9,12 +9,13 @@ package eu.vranckaert.worktime;
 
 public final class R {
     public static final class array {
-        public static final int array_reporting_criteria_data_display_spinner=0x7f090001;
+        public static final int array_reporting_criteria_data_display_duration_spinner=0x7f090002;
+        public static final int array_reporting_criteria_data_grouping_spinner=0x7f090001;
         public static final int array_reporting_criteria_date_range_spinner=0x7f090000;
-        public static final int pref_date_and_time_display_hour_12_24_format_option_values=0x7f090003;
-        public static final int pref_date_and_time_display_hour_12_24_format_options=0x7f090002;
-        public static final int pref_date_and_time_week_starts_on_option_values=0x7f090005;
-        public static final int pref_date_and_time_week_starts_on_options=0x7f090004;
+        public static final int pref_date_and_time_display_hour_12_24_format_option_values=0x7f090004;
+        public static final int pref_date_and_time_display_hour_12_24_format_options=0x7f090003;
+        public static final int pref_date_and_time_week_starts_on_option_values=0x7f090006;
+        public static final int pref_date_and_time_week_starts_on_options=0x7f090005;
     }
     public static final class attr {
     }
@@ -127,41 +128,42 @@ public final class R {
         public static final int btn_save=0x7f070004;
         public static final int comment=0x7f070029;
         public static final int comment_label=0x7f070028;
-        public static final int dialog_layout_root=0x7f070037;
+        public static final int dialog_layout_root=0x7f070038;
         public static final int duration=0x7f070027;
         public static final int end=0x7f070026;
         public static final int export_filename_required=0x7f07001b;
         public static final int home_root=0x7f070020;
         public static final int img_finished=0x7f070005;
-        public static final int lbl_registrations_comment=0x7f070040;
-        public static final int lbl_timereg_duration=0x7f07003d;
-        public static final int lbl_timereg_enddate=0x7f07003c;
-        public static final int lbl_timereg_projectname_taskname=0x7f07003e;
-        public static final int lbl_timereg_startdate=0x7f07003b;
+        public static final int lbl_registrations_comment=0x7f070041;
+        public static final int lbl_timereg_duration=0x7f07003e;
+        public static final int lbl_timereg_enddate=0x7f07003d;
+        public static final int lbl_timereg_projectname_taskname=0x7f07003f;
+        public static final int lbl_timereg_startdate=0x7f07003c;
         public static final int project=0x7f07002a;
         public static final int projectComment=0x7f070021;
         public static final int project_name=0x7f070018;
         public static final int projectcomment=0x7f070017;
         public static final int projectname=0x7f070016;
-        public static final int projectname_listitem=0x7f070039;
+        public static final int projectname_listitem=0x7f07003a;
         public static final int projectname_required=0x7f070014;
         public static final int projectname_unique=0x7f070015;
-        public static final int registrations_comment_view=0x7f07003f;
-        public static final int reporting_criteria_data_display_spinner=0x7f070034;
+        public static final int registrations_comment_view=0x7f070040;
+        public static final int reporting_criteria_data_display_duration_spinner=0x7f070035;
+        public static final int reporting_criteria_data_grouping_spinner=0x7f070034;
         public static final int reporting_criteria_date_range_end=0x7f07002e;
         public static final int reporting_criteria_date_range_spinner=0x7f07002c;
         public static final int reporting_criteria_date_range_start=0x7f07002d;
         public static final int reporting_criteria_project=0x7f07002f;
         public static final int reporting_criteria_show_finished_tasks=0x7f070033;
         public static final int reporting_criteria_task=0x7f070031;
-        public static final int reporting_result_includes_ongoing_tr_label=0x7f070035;
-        public static final int reporting_result_result_table=0x7f070036;
+        public static final int reporting_result_includes_ongoing_tr_label=0x7f070036;
+        public static final int reporting_result_result_table=0x7f070037;
         public static final int start=0x7f070025;
         public static final int sub_title_container=0x7f070007;
         public static final int sub_title_text=0x7f070008;
         public static final int task=0x7f07002b;
         public static final int task_name=0x7f07001a;
-        public static final int task_name_listitem=0x7f07003a;
+        public static final int task_name_listitem=0x7f07003b;
         public static final int task_name_required=0x7f070019;
         public static final int timeRegistrationsExportCsvSeparatorBtn=0x7f07001f;
         public static final int timeRegistrationsExportCsvSeperatorContainer=0x7f07001e;
@@ -171,7 +173,7 @@ public final class R {
         public static final int title_logo=0x7f070001;
         public static final int title_refresh_progress=0x7f070006;
         public static final int title_text=0x7f070002;
-        public static final int tr_comment=0x7f070038;
+        public static final int tr_comment=0x7f070039;
         public static final int txt_project_details_punch_in_count=0x7f070023;
         public static final int txt_project_details_total_time_spent=0x7f070022;
         public static final int widget=0x7f070009;
@@ -206,11 +208,11 @@ public final class R {
         /**  MANAGE PROJECTS 
          */
         public static final int btn_manage_projects_title=0x7f08001d;
-        public static final int btn_widget_open_app=0x7f0800c7;
+        public static final int btn_widget_open_app=0x7f0800ca;
         /**  WIDGET 
          */
-        public static final int btn_widget_start=0x7f0800c5;
-        public static final int btn_widget_stop=0x7f0800c6;
+        public static final int btn_widget_start=0x7f0800c8;
+        public static final int btn_widget_stop=0x7f0800c9;
         public static final int cancel=0x7f080004;
         public static final int close=0x7f080005;
         public static final int dash=0x7f080006;
@@ -224,30 +226,30 @@ public final class R {
         public static final int default_project_name=0x7f080014;
         public static final int default_task_comment=0x7f080017;
         public static final int default_task_name=0x7f080016;
-        public static final int err_widget_corrupt_data=0x7f0800cf;
+        public static final int err_widget_corrupt_data=0x7f0800d2;
         public static final int home_btn_about=0x7f08001c;
-        public static final int home_btn_clear_data=0x7f0800de;
+        public static final int home_btn_clear_data=0x7f0800e1;
         public static final int home_btn_preferences=0x7f08001a;
         public static final int home_btn_projects=0x7f080019;
         public static final int home_btn_reporting=0x7f08001b;
         /**  DEVELOPMENT 
          */
-        public static final int home_btn_sample_data=0x7f0800dd;
+        public static final int home_btn_sample_data=0x7f0800e0;
         /**  HOME 
          */
         public static final int home_btn_timeregs=0x7f080018;
         public static final int hours=0x7f08000b;
         public static final int hoursShort=0x7f08000f;
-        public static final int lbl_about_bug_tracking_website=0x7f0800c4;
-        public static final int lbl_about_database_name=0x7f0800c1;
-        public static final int lbl_about_database_version=0x7f0800c2;
-        public static final int lbl_about_project=0x7f0800be;
+        public static final int lbl_about_bug_tracking_website=0x7f0800c7;
+        public static final int lbl_about_database_name=0x7f0800c4;
+        public static final int lbl_about_database_version=0x7f0800c5;
+        public static final int lbl_about_project=0x7f0800c1;
         /**  ABOUT 
          */
-        public static final int lbl_about_title=0x7f0800bd;
-        public static final int lbl_about_version_code=0x7f0800c0;
-        public static final int lbl_about_version_name=0x7f0800bf;
-        public static final int lbl_about_website=0x7f0800c3;
+        public static final int lbl_about_title=0x7f0800c0;
+        public static final int lbl_about_version_code=0x7f0800c3;
+        public static final int lbl_about_version_name=0x7f0800c2;
+        public static final int lbl_about_website=0x7f0800c6;
         public static final int lbl_add_project_comment=0x7f080028;
         public static final int lbl_add_project_name=0x7f080027;
         /**  ADD/EDIT PROJECT 
@@ -259,12 +261,12 @@ public final class R {
  ADD/EDIT TASK 
          */
         public static final int lbl_add_task_title=0x7f080039;
-        public static final int lbl_backup_restore_documentation_title=0x7f0800bb;
-        public static final int lbl_backup_restore_restore_backup_list_title=0x7f0800b7;
-        public static final int lbl_backup_restore_restoring_backup_from_sd=0x7f0800b8;
+        public static final int lbl_backup_restore_documentation_title=0x7f0800be;
+        public static final int lbl_backup_restore_restore_backup_list_title=0x7f0800ba;
+        public static final int lbl_backup_restore_restoring_backup_from_sd=0x7f0800bb;
         /**  BACKUP 
          */
-        public static final int lbl_backup_restore_writing_backup_sd=0x7f0800b1;
+        public static final int lbl_backup_restore_writing_backup_sd=0x7f0800b4;
         /**  GENERAL - OTHERS 
          */
         public static final int lbl_delete_all=0x7f080012;
@@ -276,17 +278,17 @@ public final class R {
         public static final int lbl_empty_task_list=0x7f08002c;
         public static final int lbl_export_sebd_file_app_chooser_title=0x7f080046;
         public static final int lbl_export_send_file=0x7f080045;
-        public static final int lbl_notif_end_time_registration_request=0x7f0800dc;
-        public static final int lbl_notif_end_time_registration_request_title=0x7f0800db;
+        public static final int lbl_notif_end_time_registration_request=0x7f0800df;
+        public static final int lbl_notif_end_time_registration_request_title=0x7f0800de;
         /**  NOTIFICATION BAR 
          */
-        public static final int lbl_notif_new_tr_started=0x7f0800d7;
-        public static final int lbl_notif_project_task_name=0x7f0800d9;
-        public static final int lbl_notif_title_ongoing_tr=0x7f0800da;
-        public static final int lbl_notif_update_tr=0x7f0800d8;
+        public static final int lbl_notif_new_tr_started=0x7f0800da;
+        public static final int lbl_notif_project_task_name=0x7f0800dc;
+        public static final int lbl_notif_title_ongoing_tr=0x7f0800dd;
+        public static final int lbl_notif_update_tr=0x7f0800db;
         /**  PREFERENCES 
          */
-        public static final int lbl_preferences_title=0x7f080088;
+        public static final int lbl_preferences_title=0x7f08008b;
         public static final int lbl_project_details_no_comment=0x7f08002d;
         public static final int lbl_project_details_punch_in_count=0x7f08002f;
         /**  PROJECT DETAILS 
@@ -353,7 +355,10 @@ public final class R {
          */
         public static final int lbl_registrations_title=0x7f08003e;
         public static final int lbl_reporting_criteria_data_display=0x7f080075;
-        public static final int lbl_reporting_criteria_data_display_prompt=0x7f080083;
+        public static final int lbl_reporting_criteria_data_display_duration=0x7f080085;
+        public static final int lbl_reporting_criteria_data_display_duration_prompt=0x7f080086;
+        public static final int lbl_reporting_criteria_data_grouping=0x7f080083;
+        public static final int lbl_reporting_criteria_data_grouping_prompt=0x7f080084;
         public static final int lbl_reporting_criteria_date_from=0x7f080076;
         public static final int lbl_reporting_criteria_date_from_picker=0x7f080078;
         public static final int lbl_reporting_criteria_date_range=0x7f080073;
@@ -372,36 +377,36 @@ public final class R {
  Criteria 
          */
         public static final int lbl_reporting_criteria_title=0x7f080072;
-        public static final int lbl_reporting_result_includes_ongoing_time_registrations=0x7f080086;
-        public static final int lbl_reporting_result_loading_dialog=0x7f080085;
+        public static final int lbl_reporting_result_includes_ongoing_time_registrations=0x7f080089;
+        public static final int lbl_reporting_result_loading_dialog=0x7f080088;
         /**  Results 
          */
-        public static final int lbl_reporting_result_title=0x7f080084;
-        public static final int lbl_reporting_results_table_total=0x7f080087;
+        public static final int lbl_reporting_result_title=0x7f080087;
+        public static final int lbl_reporting_results_table_total=0x7f08008a;
         public static final int lbl_task_name_required=0x7f08003c;
         public static final int lbl_tasks_menu_add=0x7f080038;
         public static final int lbl_tasks_menu_delete=0x7f080037;
         public static final int lbl_tasks_menu_edit=0x7f080034;
         public static final int lbl_tasks_menu_mark_finished=0x7f080036;
         public static final int lbl_tasks_menu_mark_unfinished=0x7f080035;
-        public static final int lbl_widget_dialog_title_edit_comment=0x7f0800d6;
-        public static final int lbl_widget_dialog_title_enter_comment=0x7f0800d5;
-        public static final int lbl_widget_ending_timeregistration=0x7f0800d4;
-        public static final int lbl_widget_instructions=0x7f0800d0;
-        public static final int lbl_widget_starting_new_timeregistration=0x7f0800d3;
-        public static final int lbl_widget_title_select_project=0x7f0800d1;
-        public static final int lbl_widget_title_select_task=0x7f0800d2;
+        public static final int lbl_widget_dialog_title_edit_comment=0x7f0800d9;
+        public static final int lbl_widget_dialog_title_enter_comment=0x7f0800d8;
+        public static final int lbl_widget_ending_timeregistration=0x7f0800d7;
+        public static final int lbl_widget_instructions=0x7f0800d3;
+        public static final int lbl_widget_starting_new_timeregistration=0x7f0800d6;
+        public static final int lbl_widget_title_select_project=0x7f0800d4;
+        public static final int lbl_widget_title_select_task=0x7f0800d5;
         public static final int loading=0x7f080009;
         public static final int minutes=0x7f08000c;
         public static final int minutesShort=0x7f080010;
-        public static final int msg_backup_restore_are_your_sure=0x7f0800b9;
-        public static final int msg_backup_restore_documentation_content=0x7f0800bc;
-        public static final int msg_backup_restore_no_backup_files_found=0x7f0800b5;
-        public static final int msg_backup_restore_sd_card_unavailable=0x7f0800b6;
-        public static final int msg_backup_restore_success=0x7f0800ba;
-        public static final int msg_backup_restore_writing_backup_file_not_be_created=0x7f0800b3;
-        public static final int msg_backup_restore_writing_backup_file_not_written=0x7f0800b4;
-        public static final int msg_backup_restore_writing_backup_sd_success=0x7f0800b2;
+        public static final int msg_backup_restore_are_your_sure=0x7f0800bc;
+        public static final int msg_backup_restore_documentation_content=0x7f0800bf;
+        public static final int msg_backup_restore_no_backup_files_found=0x7f0800b8;
+        public static final int msg_backup_restore_sd_card_unavailable=0x7f0800b9;
+        public static final int msg_backup_restore_success=0x7f0800bd;
+        public static final int msg_backup_restore_writing_backup_file_not_be_created=0x7f0800b6;
+        public static final int msg_backup_restore_writing_backup_file_not_written=0x7f0800b7;
+        public static final int msg_backup_restore_writing_backup_sd_success=0x7f0800b5;
         public static final int msg_delete_project_at_least_one_required=0x7f080020;
         public static final int msg_delete_project_confirmation=0x7f08001e;
         public static final int msg_delete_registration_confirmation=0x7f080041;
@@ -412,59 +417,59 @@ public final class R {
         public static final int msg_export_not_available=0x7f080042;
         public static final int msg_export_not_available_detail=0x7f080043;
         public static final int msg_mark_task_finished_not_possible_ongoing_tr=0x7f080033;
-        public static final int msg_no_tasks_available=0x7f0800cd;
-        public static final int msg_no_tasks_available_choose_other_project=0x7f0800ce;
+        public static final int msg_no_tasks_available=0x7f0800d0;
+        public static final int msg_no_tasks_available_choose_other_project=0x7f0800d1;
         public static final int msg_registrations_export_saving_to_mail=0x7f080069;
         public static final int msg_reporting_criteria_date_till_picker_validation_error_before_start_date=0x7f08007b;
-        public static final int msg_widget_ask_finish_task_message=0x7f0800cc;
-        public static final int msg_widget_ask_finish_task_title=0x7f0800cb;
-        public static final int msg_widget_create_project_before_time_reg=0x7f0800ca;
-        public static final int msg_widget_time_reg_created=0x7f0800c8;
-        public static final int msg_widget_time_reg_ended=0x7f0800c9;
+        public static final int msg_widget_ask_finish_task_message=0x7f0800cf;
+        public static final int msg_widget_ask_finish_task_title=0x7f0800ce;
+        public static final int msg_widget_create_project_before_time_reg=0x7f0800cd;
+        public static final int msg_widget_time_reg_created=0x7f0800cb;
+        public static final int msg_widget_time_reg_ended=0x7f0800cc;
         public static final int next=0x7f080008;
         public static final int no=0x7f080002;
         public static final int now=0x7f080040;
         public static final int ok=0x7f080003;
-        public static final int pref_backup_category_title=0x7f0800aa;
-        public static final int pref_backup_restore_doc_summary=0x7f0800b0;
-        public static final int pref_backup_restore_doc_title=0x7f0800af;
-        public static final int pref_backup_summary=0x7f0800ac;
-        public static final int pref_backup_title=0x7f0800ab;
-        public static final int pref_comments_category_title=0x7f08009b;
-        public static final int pref_comments_clear_history_storage_title=0x7f08009e;
-        public static final int pref_comments_max_history_storage_summary=0x7f08009d;
-        public static final int pref_comments_max_history_storage_title=0x7f08009c;
-        public static final int pref_date_and_time_category_title=0x7f08008c;
-        public static final int pref_date_and_time_display_hour_12_24_format_prompt=0x7f08008d;
-        public static final int pref_date_and_time_display_hour_12_24_format_summary=0x7f08008e;
-        public static final int pref_date_and_time_week_starts_on_prompt=0x7f08008f;
-        public static final int pref_date_and_time_week_starts_on_summary=0x7f080090;
-        public static final int pref_export_category_title=0x7f080089;
-        public static final int pref_export_time_reg_file_name_summary=0x7f08008b;
-        public static final int pref_export_time_reg_file_name_title=0x7f08008a;
-        public static final int pref_restore_summary=0x7f0800ae;
-        public static final int pref_restore_title=0x7f0800ad;
-        public static final int pref_stat_bar_notifs_ask_for_comment_summary_off=0x7f0800a2;
-        public static final int pref_stat_bar_notifs_ask_for_comment_summary_on=0x7f0800a1;
-        public static final int pref_stat_bar_notifs_ask_for_comment_title=0x7f0800a0;
-        public static final int pref_stat_bar_notifs_category_title=0x7f08009f;
-        public static final int pref_tasks_category_title=0x7f0800a3;
-        public static final int pref_tasks_display_tasks_hide_finished_summary_off=0x7f0800a9;
-        public static final int pref_tasks_display_tasks_hide_finished_summary_on=0x7f0800a8;
-        public static final int pref_tasks_display_tasks_hide_finished_title=0x7f0800a7;
-        public static final int pref_tasks_select_task_hide_finished_summary_off=0x7f0800a6;
-        public static final int pref_tasks_select_task_hide_finished_summary_on=0x7f0800a5;
-        public static final int pref_tasks_select_task_hide_finished_title=0x7f0800a4;
-        public static final int pref_widget_ask_for_comment_summary_off=0x7f080097;
-        public static final int pref_widget_ask_for_comment_summary_on=0x7f080096;
-        public static final int pref_widget_ask_for_comment_title=0x7f080095;
-        public static final int pref_widget_ask_for_finishing_task_summary_off=0x7f08009a;
-        public static final int pref_widget_ask_for_finishing_task_summary_on=0x7f080099;
-        public static final int pref_widget_ask_for_finishing_task_title=0x7f080098;
-        public static final int pref_widget_ask_for_task_selection_if_only_one_summary_off=0x7f080094;
-        public static final int pref_widget_ask_for_task_selection_if_only_one_summary_on=0x7f080093;
-        public static final int pref_widget_ask_for_task_selection_if_only_one_title=0x7f080092;
-        public static final int pref_widget_category_title=0x7f080091;
+        public static final int pref_backup_category_title=0x7f0800ad;
+        public static final int pref_backup_restore_doc_summary=0x7f0800b3;
+        public static final int pref_backup_restore_doc_title=0x7f0800b2;
+        public static final int pref_backup_summary=0x7f0800af;
+        public static final int pref_backup_title=0x7f0800ae;
+        public static final int pref_comments_category_title=0x7f08009e;
+        public static final int pref_comments_clear_history_storage_title=0x7f0800a1;
+        public static final int pref_comments_max_history_storage_summary=0x7f0800a0;
+        public static final int pref_comments_max_history_storage_title=0x7f08009f;
+        public static final int pref_date_and_time_category_title=0x7f08008f;
+        public static final int pref_date_and_time_display_hour_12_24_format_prompt=0x7f080090;
+        public static final int pref_date_and_time_display_hour_12_24_format_summary=0x7f080091;
+        public static final int pref_date_and_time_week_starts_on_prompt=0x7f080092;
+        public static final int pref_date_and_time_week_starts_on_summary=0x7f080093;
+        public static final int pref_export_category_title=0x7f08008c;
+        public static final int pref_export_time_reg_file_name_summary=0x7f08008e;
+        public static final int pref_export_time_reg_file_name_title=0x7f08008d;
+        public static final int pref_restore_summary=0x7f0800b1;
+        public static final int pref_restore_title=0x7f0800b0;
+        public static final int pref_stat_bar_notifs_ask_for_comment_summary_off=0x7f0800a5;
+        public static final int pref_stat_bar_notifs_ask_for_comment_summary_on=0x7f0800a4;
+        public static final int pref_stat_bar_notifs_ask_for_comment_title=0x7f0800a3;
+        public static final int pref_stat_bar_notifs_category_title=0x7f0800a2;
+        public static final int pref_tasks_category_title=0x7f0800a6;
+        public static final int pref_tasks_display_tasks_hide_finished_summary_off=0x7f0800ac;
+        public static final int pref_tasks_display_tasks_hide_finished_summary_on=0x7f0800ab;
+        public static final int pref_tasks_display_tasks_hide_finished_title=0x7f0800aa;
+        public static final int pref_tasks_select_task_hide_finished_summary_off=0x7f0800a9;
+        public static final int pref_tasks_select_task_hide_finished_summary_on=0x7f0800a8;
+        public static final int pref_tasks_select_task_hide_finished_title=0x7f0800a7;
+        public static final int pref_widget_ask_for_comment_summary_off=0x7f08009a;
+        public static final int pref_widget_ask_for_comment_summary_on=0x7f080099;
+        public static final int pref_widget_ask_for_comment_title=0x7f080098;
+        public static final int pref_widget_ask_for_finishing_task_summary_off=0x7f08009d;
+        public static final int pref_widget_ask_for_finishing_task_summary_on=0x7f08009c;
+        public static final int pref_widget_ask_for_finishing_task_title=0x7f08009b;
+        public static final int pref_widget_ask_for_task_selection_if_only_one_summary_off=0x7f080097;
+        public static final int pref_widget_ask_for_task_selection_if_only_one_summary_on=0x7f080096;
+        public static final int pref_widget_ask_for_task_selection_if_only_one_title=0x7f080095;
+        public static final int pref_widget_category_title=0x7f080094;
         public static final int seconds=0x7f08000d;
         public static final int secondsShort=0x7f080011;
         public static final int value=0x7f080007;

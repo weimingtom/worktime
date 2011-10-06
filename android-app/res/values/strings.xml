@@ -163,10 +163,18 @@
     <string name="lbl_reporting_criteria_project_dialog_title_select_project">Select project</string>
     <string name="lbl_reporting_criteria_task_any">Any task</string>
     <string name="lbl_reporting_criteria_show_finished_tasks">Show finished tasks in selection</string>
-    <string name="lbl_reporting_criteria_data_display_prompt">Data grouped by</string>
-    <string-array name="array_reporting_criteria_data_display_spinner">
-        <item>Group by Start Date</item>
-        <item>Group by Project</item>
+    <string name="lbl_reporting_criteria_data_grouping">Data grouping</string>
+    <string name="lbl_reporting_criteria_data_grouping_prompt">Data grouped by</string>
+    <string-array name="array_reporting_criteria_data_grouping_spinner">
+        <item>By Start Date</item>
+        <item>By Project</item>
+    </string-array>
+    <string name="lbl_reporting_criteria_data_display_duration">Display duration</string>
+    <string name="lbl_reporting_criteria_data_display_duration_prompt">Select duration display method</string>
+    <string-array name="array_reporting_criteria_data_display_duration_spinner">
+        <item>27h 05m 00s</item>
+        <item>01d 03h 05m 00s (24h/day)</item>
+        <item>03d 03h 05m 00s (8h/day)</item>
     </string-array>
     <!-- Results -->
     <string name="lbl_reporting_result_title">Reporting Result</string>

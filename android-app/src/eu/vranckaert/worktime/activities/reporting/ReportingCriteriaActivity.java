@@ -1,26 +1,23 @@
 package eu.vranckaert.worktime.activities.reporting;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.opengl.Visibility;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import com.google.inject.Inject;
 import com.google.inject.internal.Nullable;
 import eu.vranckaert.worktime.R;
-import eu.vranckaert.worktime.activities.widget.StartTimeRegistrationActivity;
 import eu.vranckaert.worktime.comparators.ProjectByNameComparator;
 import eu.vranckaert.worktime.comparators.TaskByNameComparator;
 import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.constants.TrackerConstants;
-import eu.vranckaert.worktime.enums.reporting.ReportingDataDisplay;
+import eu.vranckaert.worktime.enums.reporting.ReportingDataGrouping;
 import eu.vranckaert.worktime.enums.reporting.ReportingDateRange;
+import eu.vranckaert.worktime.enums.reporting.ReportingDisplayDuration;
 import eu.vranckaert.worktime.model.Project;
 import eu.vranckaert.worktime.model.Task;
 import eu.vranckaert.worktime.service.ProjectService;
@@ -29,8 +26,6 @@ import eu.vranckaert.worktime.utils.context.IntentUtil;
 import eu.vranckaert.worktime.utils.date.DateConstants;
 import eu.vranckaert.worktime.utils.date.DateFormat;
 import eu.vranckaert.worktime.utils.date.DateUtils;
-import eu.vranckaert.worktime.utils.date.TimeFormat;
-import eu.vranckaert.worktime.utils.preferences.Preferences;
 import eu.vranckaert.worktime.utils.string.StringUtils;
 import eu.vranckaert.worktime.utils.tracker.AnalyticsTracker;
 import roboguice.activity.GuiceActivity;
@@ -46,22 +41,27 @@ import java.util.*;
  */
 public class ReportingCriteriaActivity extends GuiceActivity {
     private List<ReportingDateRange> dateRanges;
-    private List<ReportingDataDisplay> dataDisplays;
+    private List<ReportingDataGrouping> dataGroupings;
+    private List<ReportingDisplayDuration> displayDurations;
+
     private Date startDate;
     private Date endDate;
     @InjectExtra(value = Constants.Extras.PROJECT, optional = true)
     @Nullable
     private Project project;
     private Task task;
-    private ReportingDataDisplay dataDisplay;
+    private ReportingDataGrouping dataGrouping;
+    private ReportingDisplayDuration displayDuration;
 
     private List<Project> availableProjects = null;
     private List<Task> availableTasks = null;
 
     @InjectView(R.id.reporting_criteria_date_range_spinner)
     private Spinner dateRangeSpinner;
-    @InjectView(R.id.reporting_criteria_data_display_spinner)
-    private Spinner dataDisplaySpinner;
+    @InjectView(R.id.reporting_criteria_data_grouping_spinner)
+    private Spinner dataGroupingSpinner;
+    @InjectView(R.id.reporting_criteria_data_display_duration_spinner)
+    private Spinner displayDurationSpinner;
     @InjectView(R.id.reporting_criteria_date_range_start)
     private Button dateRangeStartButton;
     @InjectView(R.id.reporting_criteria_date_range_end)
@@ -94,6 +94,7 @@ public class ReportingCriteriaActivity extends GuiceActivity {
     }
 
     private void initializeView() {
+        //Date Range spinner
         dateRanges = Arrays.asList(ReportingDateRange.values());
         Collections.sort(dateRanges, new Comparator<ReportingDateRange>() {
             public int compare(ReportingDateRange reportingDateRange, ReportingDateRange reportingDateRange1) {
@@ -113,24 +114,27 @@ public class ReportingCriteriaActivity extends GuiceActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
+        //Date Range start button
         dateRangeStartButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 showDialog(Constants.Dialog.REPORTING_CRITERIA_SELECT_START_DATE);
             }
         });
 
+        //Date Range end button
         dateRangeEndButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 showDialog(Constants.Dialog.REPORTING_CRITERIA_SELECT_END_DATE);
             }
         });
 
+        //Project select button
         projectButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 showDialog(Constants.Dialog.REPORTING_CRITERIA_SELECT_PROJECT);
             }
         });
-
+        //Project delete button
         deleteProjectButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 project = null;
@@ -138,12 +142,13 @@ public class ReportingCriteriaActivity extends GuiceActivity {
             }
         });
 
+        //Task select button
         taskButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 showDialog(Constants.Dialog.REPORTING_CRITERIA_SELECT_TASK);
             }
         });
-
+        //Task delete button
         deleteTaskButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 task = null;
@@ -151,31 +156,60 @@ public class ReportingCriteriaActivity extends GuiceActivity {
             }
         });
 
-        dataDisplays = Arrays.asList(ReportingDataDisplay.values());
-        Collections.sort(dataDisplays, new Comparator<ReportingDataDisplay>() {
-            public int compare(ReportingDataDisplay reportingDataDisplay, ReportingDataDisplay reportingDataDisplay1) {
-                return ((Integer)reportingDataDisplay.getOrder()).compareTo((Integer)reportingDataDisplay.getOrder());
+        //Data Grouping spinner
+        dataGroupings = Arrays.asList(ReportingDataGrouping.values());
+        Collections.sort(dataGroupings, new Comparator<ReportingDataGrouping>() {
+            public int compare(ReportingDataGrouping reportingDataGrouping, ReportingDataGrouping reportingDataGrouping1) {
+                return ((Integer) reportingDataGrouping.getOrder()).compareTo((Integer) reportingDataGrouping1.getOrder());
             }
         });
-        ArrayAdapter<CharSequence> dataDisplayAdapter = ArrayAdapter.createFromResource(this,
-                R.array.array_reporting_criteria_data_display_spinner, android.R.layout.simple_spinner_item);
-        dataDisplayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dataDisplaySpinner.setAdapter(dataDisplayAdapter);
-        dataDisplaySpinner.setSelection(ReportingDataDisplay.GROUPED_BY_START_DATE.getOrder()); //Set default value...
-        this.dataDisplay = ReportingDataDisplay.GROUPED_BY_START_DATE;
+        ArrayAdapter<CharSequence> dataGroupingAdapter = ArrayAdapter.createFromResource(this,
+                R.array.array_reporting_criteria_data_grouping_spinner, android.R.layout.simple_spinner_item);
+        dataGroupingAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataGroupingSpinner.setAdapter(dataGroupingAdapter);
+        dataGroupingSpinner.setSelection(ReportingDataGrouping.GROUPED_BY_START_DATE.getOrder()); //Set default value...
+        this.dataGrouping = ReportingDataGrouping.GROUPED_BY_START_DATE;
 
-        dataDisplaySpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+        dataGroupingSpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                ReportingDataDisplay[] dataDisplays = ReportingDataDisplay.values();
-                for (ReportingDataDisplay dataDisplay : dataDisplays) {
-                    if (dataDisplay.getOrder() == pos) {
-                        ReportingCriteriaActivity.this.dataDisplay = dataDisplay;
+                ReportingDataGrouping[] dataGroupings = ReportingDataGrouping.values();
+                for (ReportingDataGrouping dataGrouping : dataGroupings) {
+                    if (dataGrouping.getOrder() == pos) {
+                        ReportingCriteriaActivity.this.dataGrouping = dataGrouping;
                     }
                 }
             }
             public void onNothingSelected(AdapterView<?> adapterView) {}
         });
 
+        //Display Duration spinner
+        displayDurations = Arrays.asList(ReportingDisplayDuration.values());
+        Collections.sort(displayDurations, new Comparator<ReportingDisplayDuration>() {
+            public int compare(ReportingDisplayDuration reportingDisplayDuration, ReportingDisplayDuration reportingDisplayDuration1) {
+                return ((Integer) reportingDisplayDuration.getOrder()).compareTo((Integer) reportingDisplayDuration1.getOrder());
+            }
+        });
+        ArrayAdapter<CharSequence> displayDurationAdapater = ArrayAdapter.createFromResource(this,
+                R.array.array_reporting_criteria_data_display_duration_spinner, android.R.layout.simple_spinner_item);
+
+        displayDurationAdapater.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        displayDurationSpinner.setAdapter(displayDurationAdapater);
+        displayDurationSpinner.setSelection(ReportingDisplayDuration.HOUR_MINUTES_SECONDS.getOrder()); //Set default value...
+        this.displayDuration = ReportingDisplayDuration.HOUR_MINUTES_SECONDS;
+
+        displayDurationSpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                ReportingDisplayDuration[] displayDurations = ReportingDisplayDuration.values();
+                for (ReportingDisplayDuration displayDuration : displayDurations) {
+                    if (displayDuration.getOrder() == pos) {
+                        ReportingCriteriaActivity.this.displayDuration = displayDuration;
+                    }
+                }
+            }
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+
+        //Handle changes...
         updateViewOnDateRangeSpinnerSelection();
         updateViewOnProjectAndTaskSelection();
     }
@@ -471,7 +505,8 @@ public class ReportingCriteriaActivity extends GuiceActivity {
         intent.putExtra(Constants.Extras.TIME_REGISTRATION_END_DATE, endDate);
         intent.putExtra(Constants.Extras.PROJECT, project);
         intent.putExtra(Constants.Extras.TASK, task);
-        intent.putExtra(Constants.Extras.REPORTING_DATA_DISPLAY, dataDisplay);
+        intent.putExtra(Constants.Extras.REPORTING_DATA_GROUPING, dataGrouping);
+        intent.putExtra(Constants.Extras.REPORTING_DATA_DISPLAY_DURATION, displayDuration);
         startActivity(intent);
     }
 

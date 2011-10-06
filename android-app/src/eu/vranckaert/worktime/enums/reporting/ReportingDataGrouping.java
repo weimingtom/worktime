@@ -5,13 +5,13 @@ package eu.vranckaert.worktime.enums.reporting;
  * Date: 27/09/11
  * Time: 00:05
  */
-public enum ReportingDataDisplay {
+public enum ReportingDataGrouping {
     GROUPED_BY_START_DATE(0),
     GROUPED_BY_PROJECT(1);
 
     private int order;
 
-    ReportingDataDisplay(int order) {
+    ReportingDataGrouping(int order) {
         setOrder(order);
     }
 
