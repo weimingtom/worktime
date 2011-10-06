@@ -17,9 +17,9 @@ import java.util.Date;
 public class TimeRegistration implements Serializable {
     @DatabaseField(generatedId = true, columnName = "id")
     private Integer id;
-    @DatabaseField(columnName = "startTime")
+    @DatabaseField(columnName = "startTime", dataType = DataType.DATE_STRING)
     private Date startTime;
-    @DatabaseField(columnName = "endTime")
+    @DatabaseField(columnName = "endTime", dataType = DataType.DATE_STRING)
     private Date endTime;
     @DatabaseField(columnName = "comment")
     private String comment;

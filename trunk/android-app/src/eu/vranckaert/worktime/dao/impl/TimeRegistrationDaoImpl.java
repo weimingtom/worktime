@@ -14,10 +14,7 @@ import eu.vranckaert.worktime.model.Task;
 import eu.vranckaert.worktime.model.TimeRegistration;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * User: DIRK VRANCKAERT
@@ -112,8 +109,13 @@ public class TimeRegistrationDaoImpl extends GenericDaoImpl<TimeRegistration, In
         QueryBuilder<TimeRegistration,Integer> qb = dao.queryBuilder();
 
 
-        endDate = DatabaseHelper.convertDateToSqliteDate(endDate, true);
-        startDate = DatabaseHelper.convertDateToSqliteDate(startDate, false);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(endDate);
+        cal.add(Calendar.DAY_OF_MONTH, 1);
+        endDate = cal.getTime();
+
+        endDate = DatabaseHelper.convertDateToSqliteDate(endDate);
+        startDate = DatabaseHelper.convertDateToSqliteDate(startDate);
         boolean includeOngoingTimeRegistration = false;
         Date now = new Date();
         if (endDate.after(now)) {
@@ -125,7 +127,7 @@ public class TimeRegistrationDaoImpl extends GenericDaoImpl<TimeRegistration, In
         try {
             where.ge("startTime", startDate);
             if (includeOngoingTimeRegistration) {
-                Where orClause = where.le("endTime", endDate).or().isNull("endTime");
+                Where orClause = where.lt("endTime", endDate).or().isNull("endTime");
                 where.and(where, orClause);
             } else {
                 where.and().le("endTime", endDate);
