@@ -159,35 +159,6 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
         super.close();
     }
 
-
-    /**
-     * Retrieve a DAO object.
-     * //@param clazz The entity-class for which a DAO object must be retrieved.
-     * @return The DAO-instance.
-     */
-    /*
-    public Dao<T, ID> getDao(java.lang.Class<T> clazz) {
-        super.getDao(clazz);
-        String className = clazz.getName();
-
-        if (daoCache.containsKey(className)) {
-            Log.d(LOG_TAG, "DAO found DAO-cache, not creating a new instance...");
-            return daoCache.get(className);
-        }
-
-        Dao<T, ID> dao = null;
-        try {
-            Log.d(LOG_TAG, "Creation of DAO for class " + clazz.getSimpleName());
-            dao = BaseDaoImpl.createDao(databaseType, getConnectionSource(), clazz);
-        } catch (SQLException e) {
-            Log.e(LOG_TAG, "Creation of dao failed for " + clazz.getSimpleName());
-            throw new RuntimeException("Creation of dao failed for " + clazz.getSimpleName(), e);
-        }
-        daoCache.put(className, dao);
-        return dao;
-    }
-    */
-
     public static Date convertDateToSqliteDate(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);

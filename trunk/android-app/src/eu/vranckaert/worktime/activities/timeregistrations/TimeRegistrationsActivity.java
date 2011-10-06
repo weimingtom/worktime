@@ -1,4 +1,4 @@
-package eu.vranckaert.worktime.activities;
+package eu.vranckaert.worktime.activities.timeregistrations;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -13,7 +13,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import com.google.inject.Inject;
 import eu.vranckaert.worktime.R;
-import eu.vranckaert.worktime.activities.timeregistrations.*;
 import eu.vranckaert.worktime.comparators.TimeRegistrationDescendingByStartdate;
 import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.constants.TrackerConstants;
