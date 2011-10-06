@@ -17,6 +17,7 @@ import eu.vranckaert.worktime.activities.tasks.AddEditTaskActivity;
 import eu.vranckaert.worktime.comparators.TaskByNameComparator;
 import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.constants.TrackerConstants;
+import eu.vranckaert.worktime.enums.reporting.ReportingDisplayDuration;
 import eu.vranckaert.worktime.exceptions.AtLeastOneProjectRequiredException;
 import eu.vranckaert.worktime.exceptions.ProjectStillInUseException;
 import eu.vranckaert.worktime.exceptions.TaskStillInUseException;
@@ -149,7 +150,11 @@ public class ProjectDetailsActivity extends GuiceListActivity {
             protected Object doInBackground(Object... objects) {
                 List<Task> allTasksForProject = taskService.findTasksForProject(project);
                 registrationsForProject = timeRegistrationService.getTimeRegistrationForTasks(allTasksForProject);
-                String totalDuration = DateUtils.calculatePeriod(ProjectDetailsActivity.this, registrationsForProject);
+                String totalDuration = DateUtils.calculatePeriod(
+                        ProjectDetailsActivity.this,
+                        registrationsForProject,
+                        ReportingDisplayDuration.HOUR_MINUTES_SECONDS
+                );
                 return totalDuration;
             }
 

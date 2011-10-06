@@ -2,10 +2,14 @@ package eu.vranckaert.worktime.utils.date;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 import eu.vranckaert.worktime.R;
+import eu.vranckaert.worktime.activities.reporting.ReportingResultActivity;
+import eu.vranckaert.worktime.enums.reporting.ReportingDisplayDuration;
 import eu.vranckaert.worktime.model.TimeRegistration;
 import eu.vranckaert.worktime.utils.context.ContextUtils;
 import eu.vranckaert.worktime.utils.preferences.Preferences;
+import eu.vranckaert.worktime.utils.string.StringUtils;
 import org.joda.time.*;
 
 import java.text.ParseException;
@@ -202,11 +206,13 @@ public class DateUtils {
     /**
      * Calculates the time between the start and end time of a list of {@link TimeRegistration} instances in days,
      * hours, minutes and seconds (short-text: 1d 4h 13m 0s)
+     *
      * @param ctx The context.
-     * @param registrations A list of {@link TimeRegistration} instances.
+     * @param registrations A list of {@link eu.vranckaert.worktime.model.TimeRegistration} instances.
+     * @param displayDuration
      * @return The formatted string that represents the sum of the duration for each {@link TimeRegistration}.
      */
-    public static final String calculatePeriod(Context ctx, List<TimeRegistration> registrations) {
+    public static final String calculatePeriod(Context ctx, List<TimeRegistration> registrations, ReportingDisplayDuration displayDuration) {
         Long duration = 0L;
 
         Log.d(LOG_TAG, "Calculating period for " + registrations.size() + " TR's...");
@@ -225,28 +231,37 @@ public class DateUtils {
         Log.d(LOG_TAG, "Total duration calculated: " + duration);
         Duration totalDuration = new Duration(duration);
         Log.d(LOG_TAG, "Total duration created from milis: " + totalDuration);
-        Period period = totalDuration.toPeriod(PeriodType.dayTime());
+        Period period = totalDuration.toPeriod(PeriodType.time());
         Log.d(LOG_TAG,  "Total period: " + period);
 
-        int days = period.getDays();
+        int days = 0;
         int hours = period.getHours();
         int minutes = period.getMinutes();
         int seconds = period.getSeconds();
 
-        /*Temporary fix for calculating the days, otherwise the days are always zero...*/
-        //TODO search for a fix with the PeriodType.dayTime() to calculate the days as well...
-        /*days = hours/24;
-        if (days > 0) {
-            hours = hours - (days * 24);
-        }*/
-        /*End of fix...*/
+        switch (displayDuration) {
+            case DAYS_HOUR_MINUTES_SECONDS_24H: {
+                days = hours/24;
+                if (days > 0) {
+                    hours = hours - (days * 24);
+                }
+                break;
+            }
+            case DAYS_HOUR_MINUTES_SECONDS_08H: {
+                days = hours/8;
+                if (days > 0) {
+                    hours = hours - (days * 8);
+                }
+                break;
+            }
+        }
 
         Log.d(LOG_TAG, days + "d " + hours + "h " + minutes + "m " + seconds + "s");
 
-        String daysString = days + ctx.getString(R.string.daysShort) + " ";
-        String hoursString = hours + ctx.getString(R.string.hoursShort) + " ";
-        String minutesString = minutes + ctx.getString(R.string.minutesShort) + " ";
-        String secondsString = seconds + ctx.getString(R.string.secondsShort);
+        String daysString = StringUtils.leftPad(String.valueOf(days), "0", 2) + ctx.getString(R.string.daysShort) + " ";
+        String hoursString = StringUtils.leftPad(String.valueOf(hours), "0", 2) + ctx.getString(R.string.hoursShort) + " ";
+        String minutesString = StringUtils.leftPad(String.valueOf(minutes), "0", 2) + ctx.getString(R.string.minutesShort) + " ";
+        String secondsString = StringUtils.leftPad(String.valueOf(seconds), "0", 2) + ctx.getString(R.string.secondsShort);
         String periodString;
         if (days > 0) {
             periodString = daysString + hoursString + minutesString + secondsString;
