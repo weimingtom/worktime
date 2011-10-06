@@ -8,7 +8,7 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import eu.vranckaert.worktime.R;
-import eu.vranckaert.worktime.activities.TimeRegistrationsActivity;
+import eu.vranckaert.worktime.activities.timeregistrations.TimeRegistrationsActivity;
 import eu.vranckaert.worktime.activities.timeregistrations.*;
 import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.constants.TrackerConstants;

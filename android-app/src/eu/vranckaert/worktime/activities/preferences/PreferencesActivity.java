@@ -1,4 +1,4 @@
-package eu.vranckaert.worktime.activities;
+package eu.vranckaert.worktime.activities.preferences;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

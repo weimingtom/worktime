@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <!-- Project specific activities -->
-        <activity android:name=".activities.ManageProjectsActivity"
+        <activity android:name=".activities.projects.ManageProjectsActivity"
                   android:theme="@android:style/Theme.Light.NoTitleBar"
                   android:configChanges="orientation|keyboardHidden"/>
         <activity android:name=".activities.projects.AddEditProjectActivity"
@@ -32,7 +32,7 @@
                   android:theme="@android:style/Theme.Light.NoTitleBar"
                   android:configChanges="orientation|keyboardHidden"/>
         <!-- TimeRegistration specific activities -->
-        <activity android:name=".activities.TimeRegistrationsActivity"
+        <activity android:name=".activities.timeregistrations.TimeRegistrationsActivity"
                   android:theme="@android:style/Theme.Light.NoTitleBar"
                   android:configChanges="orientation|keyboardHidden"/>
         <activity android:name=".activities.timeregistrations.RegistrationDetailsActivity"
@@ -61,11 +61,11 @@
                   android:theme="@android:style/Theme.Light.NoTitleBar"
                   android:configChanges="orientation|keyboardHidden"/>
         <!-- About specific activities -->
-        <activity android:name=".activities.AboutActivity"
+        <activity android:name=".activities.about.AboutActivity"
                   android:theme="@android:style/Theme.Light.NoTitleBar"
                   android:configChanges="orientation|keyboardHidden"/>
         <!-- Preferences specific activities -->
-        <activity android:name=".activities.PreferencesActivity"
+        <activity android:name=".activities.preferences.PreferencesActivity"
                   android:theme="@android:style/Theme.Light.NoTitleBar"
                   android:configChanges="orientation|keyboardHidden"/>
 

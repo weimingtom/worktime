@@ -1,4 +1,4 @@
-package eu.vranckaert.worktime.activities;
+package eu.vranckaert.worktime.activities.projects;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -10,8 +10,6 @@ import android.view.*;
 import android.widget.*;
 import com.google.inject.Inject;
 import eu.vranckaert.worktime.R;
-import eu.vranckaert.worktime.activities.projects.AddEditProjectActivity;
-import eu.vranckaert.worktime.activities.projects.ProjectDetailsActivity;
 import eu.vranckaert.worktime.comparators.ProjectByNameComparator;
 import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.constants.TrackerConstants;

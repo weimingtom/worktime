@@ -1,4 +1,4 @@
-package eu.vranckaert.worktime.activities;
+package eu.vranckaert.worktime.activities.about;
 
 import android.os.Bundle;
 import android.text.util.Linkify;
