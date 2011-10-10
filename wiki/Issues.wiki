@@ -1,1 +1,11 @@
-http://code.google.com/p/worktime/issues
+=Issue Tracking=
+To keep track of improvements, issues, bugs,... for the WorkTime for Android project we use the Google Code tools.
+
+==How we work with issues==
+TO COME...
+
+==Register an issue==
+If you want to register a new bug, go [http://code.google.com/p/worktime/issues/entry here].
+
+==View all issues==
+For an overview of all open issues (planned or unplanned) go [http://code.google.com/p/worktime/issues here].
