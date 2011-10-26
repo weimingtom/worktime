@@ -14,7 +14,7 @@ import com.google.inject.Inject;
 import eu.vranckaert.worktime.R;
 import eu.vranckaert.worktime.activities.reporting.ReportingCriteriaActivity;
 import eu.vranckaert.worktime.activities.tasks.AddEditTaskActivity;
-import eu.vranckaert.worktime.comparators.TaskByNameComparator;
+import eu.vranckaert.worktime.comparators.task.TaskByNameComparator;
 import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.constants.TrackerConstants;
 import eu.vranckaert.worktime.enums.reporting.ReportingDisplayDuration;

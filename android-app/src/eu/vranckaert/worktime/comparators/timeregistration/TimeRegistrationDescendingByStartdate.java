@@ -1,4 +1,4 @@
-package eu.vranckaert.worktime.comparators;
+package eu.vranckaert.worktime.comparators.timeregistration;
 
 import eu.vranckaert.worktime.model.TimeRegistration;
 

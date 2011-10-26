@@ -5,7 +5,7 @@ import android.os.Environment;
 import android.util.Log;
 import com.google.inject.Inject;
 import eu.vranckaert.worktime.R;
-import eu.vranckaert.worktime.comparators.TimeRegistrationDescendingByStartdate;
+import eu.vranckaert.worktime.comparators.timeregistration.TimeRegistrationDescendingByStartdate;
 import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.constants.TextConstants;
 import eu.vranckaert.worktime.dao.ProjectDao;

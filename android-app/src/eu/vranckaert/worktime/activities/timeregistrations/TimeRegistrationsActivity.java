@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import com.google.inject.Inject;
 import eu.vranckaert.worktime.R;
-import eu.vranckaert.worktime.comparators.TimeRegistrationDescendingByStartdate;
+import eu.vranckaert.worktime.comparators.timeregistration.TimeRegistrationDescendingByStartdate;
 import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.constants.TrackerConstants;
 import eu.vranckaert.worktime.model.TimeRegistration;

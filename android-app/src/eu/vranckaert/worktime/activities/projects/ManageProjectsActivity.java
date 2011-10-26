@@ -10,7 +10,7 @@ import android.view.*;
 import android.widget.*;
 import com.google.inject.Inject;
 import eu.vranckaert.worktime.R;
-import eu.vranckaert.worktime.comparators.ProjectByNameComparator;
+import eu.vranckaert.worktime.comparators.project.ProjectByNameComparator;
 import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.constants.TrackerConstants;
 import eu.vranckaert.worktime.exceptions.AtLeastOneProjectRequiredException;

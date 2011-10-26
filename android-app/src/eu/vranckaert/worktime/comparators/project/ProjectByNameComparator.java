@@ -1,4 +1,4 @@
-package eu.vranckaert.worktime.comparators;
+package eu.vranckaert.worktime.comparators.project;
 
 import eu.vranckaert.worktime.model.Project;
 
