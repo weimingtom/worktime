@@ -26,4 +26,9 @@
     <color name="infoproject">#ff999999</color>
     <color name="pref_category_background">#ffdf5f71</color>
     <color name="list_separator">#ffcccccc</color>
+
+    <color name="table_record_lvl_n_0">#ffffffff</color>
+    <color name="table_record_lvl_n_1">#ffcccccc</color>
+    <color name="table_record_lvl_n_2">#ff999999</color>
+    <color name="table_record_lvl_n_3">#ffcccccc</color>
 </resources>

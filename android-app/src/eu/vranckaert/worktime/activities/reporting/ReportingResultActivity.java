@@ -35,6 +35,7 @@ import eu.vranckaert.worktime.service.ProjectService;
 import eu.vranckaert.worktime.service.TaskService;
 import eu.vranckaert.worktime.service.TimeRegistrationService;
 import eu.vranckaert.worktime.ui.reporting.ReportingTableRecord;
+import eu.vranckaert.worktime.ui.reporting.ReportingTableRecordLevel;
 import eu.vranckaert.worktime.ui.reporting.datalevels.ReportingDataLvl0;
 import eu.vranckaert.worktime.ui.reporting.datalevels.ReportingDataLvl1;
 import eu.vranckaert.worktime.ui.reporting.datalevels.ReportingDataLvl2;
@@ -141,6 +142,29 @@ public class ReportingResultActivity extends GuiceActivity {
             row.addView(recordTotalCol3);
             row.addView(recordTotalCol4);
 
+            Log.d(LOG_TAG, "Level of record: " + record.getLevel());
+            switch(record.getLevel()) {
+                case LVL0: {
+                    Log.d(LOG_TAG, "Setting color for row for record level 0");
+                    row.setBackgroundResource(R.color.table_record_lvl_n_0);
+                }
+                case LVL1: {
+                    Log.d(LOG_TAG, "Setting color for row for record level 1");
+                    row.setBackgroundResource(R.color.table_record_lvl_n_1);
+                    break;
+                }
+                case LVL2: {
+                    Log.d(LOG_TAG, "Setting color for row for record level 2");
+                    row.setBackgroundResource(R.color.table_record_lvl_n_2);
+                    break;
+                }
+                case LVL3: {
+                    Log.d(LOG_TAG, "Setting color for row for record level 3");
+                    row.setBackgroundResource(R.color.table_record_lvl_n_3);
+                    break;
+                }
+            }
+
             resultTable.addView(row);
 
             if (record.isOngoingTr()) {
@@ -161,6 +185,7 @@ public class ReportingResultActivity extends GuiceActivity {
         String totalDuration = DateUtils.calculatePeriod(ReportingResultActivity.this, timeRegistrations, displayDuration);
         totalRecord.setColumn1(getText(R.string.lbl_reporting_results_table_total).toString());
         totalRecord.setColumnTotal(totalDuration);
+        totalRecord.setLevel(ReportingTableRecordLevel.LVL0);
         tableRecords.add(totalRecord);
 
         List<ReportingDataLvl0> reportingDataLevels = buildReportingDataLevels(timeRegistrations, reportingDataGrouping);
@@ -169,16 +194,19 @@ public class ReportingResultActivity extends GuiceActivity {
         	ReportingTableRecord lvl0Record = new ReportingTableRecord();
         	lvl0Record.setColumn1(String.valueOf(lvl0.getKey()));
         	lvl0Record.setColumnTotal(DateUtils.calculatePeriod(ReportingResultActivity.this, lvl0.getTimeRegistrations(), displayDuration));
+            lvl0Record.setLevel(ReportingTableRecordLevel.LVL1);
         	tableRecords.add(lvl0Record);
         	for (ReportingDataLvl1 lvl1 : lvl0.getReportingDataLvl1()) {
         		ReportingTableRecord lvl1Record = new ReportingTableRecord();
             	lvl1Record.setColumn2(String.valueOf(lvl1.getKey()));
             	lvl1Record.setColumnTotal(DateUtils.calculatePeriod(ReportingResultActivity.this, lvl1.getTimeRegistrations(), displayDuration));
+                lvl1Record.setLevel(ReportingTableRecordLevel.LVL2);
             	tableRecords.add(lvl1Record);
             	for (ReportingDataLvl2 lvl2 : lvl1.getReportingDataLvl2()) {
             		ReportingTableRecord lvl2Record = new ReportingTableRecord();
                 	lvl2Record.setColumn3(String.valueOf(lvl2.getKey()));
                 	lvl2Record.setColumnTotal(DateUtils.calculatePeriod(ReportingResultActivity.this, lvl2.getTimeRegistrations(), displayDuration));
+                    lvl2Record.setLevel(ReportingTableRecordLevel.LVL3);
                 	tableRecords.add(lvl2Record);
                 	for (TimeRegistration timeRegistration : lvl2.getTimeRegistrations()) {
                 		if (timeRegistration.isOngoingTimeRegistration()) {
