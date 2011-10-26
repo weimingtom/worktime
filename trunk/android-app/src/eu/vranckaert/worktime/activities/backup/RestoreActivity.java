@@ -1,6 +1,5 @@
 package eu.vranckaert.worktime.activities.backup;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -9,10 +8,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
-import android.widget.Toast;
 import com.google.inject.Inject;
 import eu.vranckaert.worktime.R;
-import eu.vranckaert.worktime.comparators.DatabaseBackupFileComparator;
+import eu.vranckaert.worktime.comparators.preferences.DatabaseBackupFileComparator;
 import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.exceptions.SDCardUnavailableException;
 import eu.vranckaert.worktime.exceptions.backup.BackupFileCouldNotBeWritten;

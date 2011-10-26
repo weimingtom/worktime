@@ -437,4 +437,20 @@ public class DateUtils {
 
 		return date;
 	}
+
+    /**
+     * Reset the time-part of a date to midnight (00:00:00.000000).
+     * @param date The date to reset.
+     * @return The time reset to midnight.
+     */
+    public static Date resetTimeInDate(Date date) {
+    	Calendar cal = Calendar.getInstance();
+    	cal.setTime(date);
+    	cal.set(Calendar.HOUR, 0);
+    	cal.set(Calendar.HOUR_OF_DAY, 0);
+    	cal.set(Calendar.MINUTE, 0);
+    	cal.set(Calendar.SECOND, 0);
+    	cal.set(Calendar.MILLISECOND, 0);
+    	return cal.getTime();
+    }
 }

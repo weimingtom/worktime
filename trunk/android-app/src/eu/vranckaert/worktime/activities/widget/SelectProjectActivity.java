@@ -6,7 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import com.google.inject.Inject;
 import eu.vranckaert.worktime.R;
-import eu.vranckaert.worktime.comparators.ProjectByNameComparator;
+import eu.vranckaert.worktime.comparators.project.ProjectByNameComparator;
 import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.model.Project;
 import eu.vranckaert.worktime.service.ProjectService;

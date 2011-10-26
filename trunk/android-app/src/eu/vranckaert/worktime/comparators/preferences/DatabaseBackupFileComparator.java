@@ -1,4 +1,4 @@
-package eu.vranckaert.worktime.comparators;
+package eu.vranckaert.worktime.comparators.preferences;
 
 import java.io.File;
 import java.util.Comparator;
