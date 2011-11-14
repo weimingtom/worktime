@@ -20,9 +20,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.enums.export.CsvSeparator;
-import eu.vranckaert.worktime.enums.export.FileType;
 import eu.vranckaert.worktime.utils.date.DateUtils;
 import eu.vranckaert.worktime.utils.date.HourPreference12Or24;
+import eu.vranckaert.worktime.utils.string.StringUtils;
 
 /**
  * Access all the preferences. This class is mainly used to read the preferences but can be used in some rare cases
@@ -40,89 +40,6 @@ public class Preferences {
      */
     private static final SharedPreferences getSharedPreferences(Context ctx) {
         return ctx.getSharedPreferences(Constants.Preferences.PREFERENCES_NAME, Activity.MODE_PRIVATE);
-    }
-
-    /**
-     * Get the preference for key {@link Constants.Preferences.Keys#EXPORT_TIME_REG_FILE_NAME}.
-     * @param ctx The context when accessing the preference.
-     * @return The {@link String} value for the key.
-     */
-    public static String getTimeRegistrationExportFileName(Context ctx) {
-        SharedPreferences preferences = getSharedPreferences(ctx);
-        return preferences.getString(
-                Constants.Preferences.Keys.EXPORT_TIME_REG_FILE_NAME,
-                Constants.Preferences.EXPORT_TIME_REG_FILE_NAME_DEFAULT_VALUE
-        );
-    }
-
-    /**
-     * Updates the preference {@link Constants.Preferences.Keys#EXPORT_TIME_REG_FILE_NAME}.
-     * @param ctx The context when updating the preference.
-     * @param fileName The {@link String} to store in the preferences.
-     */
-    public static void setTimeRegistrationExportFileName(Context ctx, String fileName) {
-        if(fileName == null) {
-            return;
-        }
-        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
-        editor.putString(Constants.Preferences.Keys.EXPORT_TIME_REG_FILE_NAME, fileName);
-        editor.commit();
-    }
-
-    /**
-     * Get the preference for key {@link Constants.Preferences.Keys#EXPROT_TIME_REG_FILE_TYPE}.
-     * @param ctx The context when accessing the preference.
-     * @return The {@link FileType} represented by the value in the preferences. If the value in the preferences
-     * could not be matched on any instance of the enum it will return null.
-     */
-    public static FileType getTimeRegistrationExportFileType(Context ctx) {
-        String extension = getSharedPreferences(ctx).getString(
-                Constants.Preferences.Keys.EXPROT_TIME_REG_FILE_TYPE,
-                FileType.COMMA_SERPERATED_VALUES.getExtension()
-        );
-        return FileType.matchFileType(extension);
-    }
-
-    /**
-     * Updates the preference {@link Constants.Preferences.Keys#EXPROT_TIME_REG_FILE_TYPE}.
-     * @param ctx The context when updating the preference.
-     * @param fileType The {@link FileType} to store in the preferences.
-     */
-    public static void setTimeRegistrationExportFileType(Context ctx, FileType fileType) {
-        if(fileType == null) {
-            return;
-        }
-        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
-        editor.putString(Constants.Preferences.Keys.EXPROT_TIME_REG_FILE_TYPE, fileType.getExtension());
-        editor.commit();
-    }
-
-    /**
-     * Get the preference for key {@link Constants.Preferences.Keys#EXPROT_TIME_REG_CSV_SEPARATOR}.
-     * @param ctx The context when accessing the preference.
-     * @return The {@link CsvSeparator} represented by the value in the preferences. If the value in the preferences
-     * could not be matched on any instance of the enum it will return null.
-     */
-    public static CsvSeparator getTrimeRegistrationCsvSeparator(Context ctx) {
-        String seperator = getSharedPreferences(ctx).getString(
-                Constants.Preferences.Keys.EXPROT_TIME_REG_CSV_SEPARATOR,
-                String.valueOf(CsvSeparator.SEMICOLON.getSeperator())
-        );
-        return CsvSeparator.matchFileType(seperator);
-    }
-
-    /**
-     * Updates the preference {@link Constants.Preferences.Keys#EXPROT_TIME_REG_CSV_SEPARATOR}.
-     * @param ctx The context when updating the preference.
-     * @param separator The {@link CsvSeparator} to store in the preferences.
-     */
-    public static void setTrimeRegistrationCsvSeparator(Context ctx, CsvSeparator separator) {
-        if(separator == null) {
-            return;
-        }
-        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
-        editor.putString(Constants.Preferences.Keys.EXPROT_TIME_REG_CSV_SEPARATOR, String.valueOf(separator.getSeperator()));
-        editor.commit();
     }
 
     /**
@@ -397,6 +314,61 @@ public class Preferences {
     public static void setWeekStartsOn(Context ctx, Integer weekStartsOn) {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putString(Constants.Preferences.Keys.WEEK_STARTS_ON, weekStartsOn.toString());
+        editor.commit();
+    }
+
+    /**
+     * Get the preference for key {@link Constants.Preferences.Keys#REPORTING_EXPORT_FILE_NAME}. If no value is found for
+     * the preference the default value will be {@link Constants.Preferences#REPORTING_EXPORT_FILE_NAME_DEFAULT_VALUE}.
+     * @param ctx The context when getting the preference for file name of the reporting export.
+     * @return The {@link String} value.
+     */
+    public static String getReportingExportFileName(Context ctx) {
+        return getSharedPreferences(ctx).getString(
+                Constants.Preferences.Keys.REPORTING_EXPORT_FILE_NAME,
+                Constants.Preferences.REPORTING_EXPORT_FILE_NAME_DEFAULT_VALUE
+        );
+    }
+
+    /**
+     * Updates the preference {@link Constants.Preferences.Keys#REPORTING_EXPORT_FILE_NAME}.
+     * @param ctx The context when updating the preference.
+     * @param reportingExportFileName A {@link String} value.
+     */
+    public static void setReportingExportFileName(Context ctx, String reportingExportFileName) {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        if (StringUtils.isBlank(reportingExportFileName)) {
+            reportingExportFileName = Constants.Preferences.REPORTING_EXPORT_FILE_NAME_DEFAULT_VALUE;
+        }
+        editor.putString(Constants.Preferences.Keys.REPORTING_EXPORT_FILE_NAME, reportingExportFileName);
+        editor.commit();
+    }
+
+    /**
+     * Get the preference for key {@link Constants.Preferences.Keys#REPORTING_EXPORT_CSV_SEPARATOR}.
+     * @param ctx The context when accessing the preference.
+     * @return The {@link CsvSeparator} represented by the value in the preferences. If the value in the preferences
+     * could not be matched on any instance of the enum it will return null.
+     */
+    public static CsvSeparator getReportingExportCsvSeparator(Context ctx) {
+        String separator = getSharedPreferences(ctx).getString(
+                Constants.Preferences.Keys.REPORTING_EXPORT_CSV_SEPARATOR,
+                String.valueOf(CsvSeparator.SEMICOLON.getSeperator())
+        );
+        return CsvSeparator.matchFileType(separator);
+    }
+
+    /**
+     * Updates the preference {@link Constants.Preferences.Keys#REPORTING_EXPORT_CSV_SEPARATOR}.
+     * @param ctx The context when updating the preference.
+     * @param separator The {@link CsvSeparator} to store in the preferences.
+     */
+    public static void setReportingExportCsvSeparator(Context ctx, CsvSeparator separator) {
+        if(separator == null) {
+            return;
+        }
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putString(Constants.Preferences.Keys.REPORTING_EXPORT_CSV_SEPARATOR, String.valueOf(separator.getSeperator()));
         editor.commit();
     }
 }

@@ -38,9 +38,6 @@
         <activity android:name=".activities.timeregistrations.RegistrationDetailsActivity"
                   android:theme="@android:style/Theme.Light.NoTitleBar"
                   android:configChanges="orientation|keyboardHidden"/>
-        <activity android:name=".activities.timeregistrations.ExportTimeRegistrationsActivity"
-                  android:theme="@android:style/Theme.Light.NoTitleBar"
-                  android:configChanges="orientation|keyboardHidden"/>
         <activity android:name=".activities.timeregistrations.AddEditTimeRegistrationsComment"
                   android:theme="@android:style/Theme.Translucent.NoTitleBar"
                   android:configChanges="orientation|keyboardHidden"/>
@@ -104,6 +101,9 @@
                   android:theme="@android:style/Theme.Light.NoTitleBar"
                   android:configChanges="orientation|keyboardHidden"
                   android:screenOrientation="landscape"/>
+        <activity android:name=".activities.reporting.ReportingExportActivity"
+                  android:theme="@android:style/Theme.Light.NoTitleBar"
+                  android:configChanges="orientation|keyboardHidden"/>
 
     </application>
 

@@ -30,16 +30,18 @@ public class ExportServiceImpl implements ExportService {
         String emptyValue = "\"\"";
 
         StringBuilder result = new StringBuilder();
-        for (String header : headers) {
-            if (StringUtils.isNotBlank(header)) {
-                result.append("\"" + header + "\"");
-            } else {
-                result.append(emptyValue);
-            }
-            result.append(seperator);
-        }
 
-        result.append(TextConstants.NEW_LINE);
+        if (headers != null && headers.size() > 0) {
+            for (String header : headers) {
+                if (StringUtils.isNotBlank(header)) {
+                    result.append("\"" + header + "\"");
+                } else {
+                    result.append(emptyValue);
+                }
+                result.append(seperator);
+            }
+            result.append(TextConstants.NEW_LINE);
+        }
 
         for (String[] valuesRecord : values) {
             for (int i=0; i<valuesRecord.length; i++) {

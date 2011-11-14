@@ -17,6 +17,7 @@ package eu.vranckaert.worktime.activities.reporting;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -49,11 +50,15 @@ import eu.vranckaert.worktime.ui.reporting.datalevels.ReportingDataLvl2;
 import eu.vranckaert.worktime.utils.context.IntentUtil;
 import eu.vranckaert.worktime.utils.date.DateFormat;
 import eu.vranckaert.worktime.utils.date.DateUtils;
+import eu.vranckaert.worktime.utils.date.TimeFormat;
+import eu.vranckaert.worktime.utils.string.StringUtils;
 import eu.vranckaert.worktime.utils.tracker.AnalyticsTracker;
 import roboguice.activity.GuiceActivity;
 import roboguice.inject.InjectExtra;
 import roboguice.inject.InjectView;
 
+import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -98,6 +103,9 @@ public class ReportingResultActivity extends GuiceActivity {
 
     private AnalyticsTracker tracker;
 
+    private List<TimeRegistration> timeRegistrations = new ArrayList<TimeRegistration>();
+    private List<ReportingTableRecord> tableRecords = new ArrayList<ReportingTableRecord>();
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reporting_result);
@@ -117,10 +125,10 @@ public class ReportingResultActivity extends GuiceActivity {
 
             @Override
             protected Object doInBackground(Object... objects) {
-                List<TimeRegistration> timeRegistrations = timeRegistrationService
+                timeRegistrations = timeRegistrationService
                     .getTimeRegistrations(startDate, endDate, project, task);
                 Log.d(LOG_TAG, "Number of time registrations found: " + timeRegistrations.size());
-                List<ReportingTableRecord> tableRecords = buildTableRecords(timeRegistrations, dataGrouping);
+                tableRecords = buildTableRecords(timeRegistrations, dataGrouping);
                 return tableRecords;
             }
 
@@ -382,43 +390,76 @@ public class ReportingResultActivity extends GuiceActivity {
             public void onItemClick(QuickAction source, int pos, int actionId) {
                 List<String> headers = new ArrayList<String>();
                 List<String[]> values = new ArrayList<String[]>();
-                String filename = "";
 
                 switch (actionId) {
                     case QuickActionIds.EXPORT_TABLE_DATA: {
                         //Construct headers
-                        headers.add(null);
-                        headers.add(null);
-                        headers.add(null);
-                        headers.add(getString(R.string.lbl_reporting_results_export_table_data_csv_total));
+                        headers = null;
 
-                        filename = "testA";
+                        //Construct body
+                        for (ReportingTableRecord tableRecord : tableRecords) {
+                            String[] exportLine = {
+                                tableRecord.getColumn1(),
+                                tableRecord.getColumn2(),
+                                tableRecord.getColumn3(),
+                                tableRecord.getColumnTotal()
+                            };
+                            values.add(exportLine);
+                        }
 
                         break;
                     }
                     case QuickActionIds.EXPORT_RAW_DATA: {
                         //Construct headers
-                        headers.add(getString(R.string.lbl_reporting_results_export_raw_data_csv_starttime));
-                        headers.add(getString(R.string.lbl_reporting_results_export_raw_data_csv_endtime));
                         headers.add(getString(R.string.lbl_reporting_results_export_raw_data_csv_startdate));
+                        headers.add(getString(R.string.lbl_reporting_results_export_raw_data_csv_starttime));
                         headers.add(getString(R.string.lbl_reporting_results_export_raw_data_csv_enddate));
+                        headers.add(getString(R.string.lbl_reporting_results_export_raw_data_csv_endtime));
                         headers.add(getString(R.string.lbl_reporting_results_export_raw_data_csv_comment));
                         headers.add(getString(R.string.lbl_reporting_results_export_raw_data_csv_project));
                         headers.add(getString(R.string.lbl_reporting_results_export_raw_data_csv_task));
                         headers.add(getString(R.string.lbl_reporting_results_export_raw_data_csv_projectcomment));
 
-                        filename = "testB";
+                        //Construct body
+                        for (TimeRegistration timeRegistration : timeRegistrations) {
+                            String startDate = DateUtils.convertDateToString(timeRegistration.getStartTime(), DateFormat.SHORT, ReportingResultActivity.this);
+                            String startTime = DateUtils.convertTimeToString(timeRegistration.getStartTime(), TimeFormat.MEDIUM, ReportingResultActivity.this);
+                            String endDate = "";
+                            String endTime = "";
+                            String trComment = "";
+                            String projectName = timeRegistration.getTask().getProject().getName();
+                            String taskName = timeRegistration.getTask().getName();
+                            String projectComment = "";
+
+                            if(timeRegistration.getEndTime() != null) {
+                                endDate = DateUtils.convertDateToString(timeRegistration.getEndTime(), DateFormat.SHORT, ReportingResultActivity.this);
+                                endTime = DateUtils.convertTimeToString(timeRegistration.getEndTime(), TimeFormat.MEDIUM, ReportingResultActivity.this);
+                            } else {
+                                endDate = getString(R.string.now);
+                                endTime = "";
+                            }
+                            if (StringUtils.isNotBlank(timeRegistration.getComment())) {
+                                trComment = timeRegistration.getComment();
+                            }
+                            if (StringUtils.isNotBlank(timeRegistration.getTask().getProject().getComment())) {
+                                projectComment = timeRegistration.getTask().getProject().getComment();
+                            }
+
+                            String[] exportLine = {
+                                    startDate, startTime, endDate, endTime, trComment,
+                                    projectName, taskName, projectComment
+                            };
+                            values.add(exportLine);
+                        }
 
                         break;
                     }
                 }
 
-                exportService.exportCsvFile(
-                        filename,
-                        headers,
-                        values,
-                        CsvSeparator.SEMICOLON
-                );
+                Intent intent = new Intent(ReportingResultActivity.this, ReportingExportActivity.class);
+                intent.putExtra(Constants.Extras.EXPORT_HEADERS, (Serializable) headers);
+                intent.putExtra(Constants.Extras.EXPORT_VALUES, (Serializable) values);
+                startActivity(intent);
             }
         });
 
