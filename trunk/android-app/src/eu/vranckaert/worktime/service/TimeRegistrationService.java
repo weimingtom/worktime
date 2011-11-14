@@ -79,14 +79,6 @@ public interface TimeRegistrationService {
     TimeRegistration getLatestTimeRegistration();
 
     /**
-     * Export all time registrations.
-     * @param exportType The type of export.
-     * @param ctx The context.
-     * @return The exported file.
-     */
-    File export(final ExportType exportType, final Context ctx);
-
-    /**
      * Removes an existing timeregistration.
      *
      * @param timeRegistration The registration to remove.
