@@ -61,6 +61,10 @@ public class Constants {
         public static final int REPORTING_CRITERIA_SELECT_END_DATE_ERROR_BEFORE_START_DATE = 38;
         public static final int LOADING_REPORTING_RESULTS = 39;
         public static final int TIMEREGISTRATIONS_EXPORT_FILE_EXPORT_DONE = 40;
+        public static final int REPORTING_EXPORT_CHOOSE_CSV_SEPARATOR = 41;
+        public static final int REPORTING_EXPORT_DONE = 42;
+        public static final int REPORTING_EXPORT_LOADING = 43;
+        public static final int REPORTING_EXPORT_UNAVAILABLE = 44;
     }
     public class IntentRequestCodes {
         public static final int ADD_PROJECT = 0;
@@ -86,6 +90,7 @@ public class Constants {
         public static final boolean SELECT_TASK_HIDE_FINISHED_DEFAULT_VALUE = true;
         public static final boolean DISPLAY_TASKS_HIDE_FINISHED_DEFAULT_VALUE = false;
         public static final String WEEK_STARTS_ON_DEFAULT_VALUE = "7";
+        public static final String REPORTING_EXPORT_FILE_NAME_DEFAULT_VALUE = "export";
 
         public class Keys {
             public static final String EXPORT_TIME_REG_FILE_NAME = "exportFileName";
@@ -101,6 +106,8 @@ public class Constants {
             public static final String DISPLAY_TASKS_HIDE_FINISHED = "displayTasksHideFinished";
             public static final String SELECT_TASK_HIDE_FINISHED = "selectTaskHideFinished";
             public static final String WEEK_STARTS_ON = "weekStartsOn";
+            public static final String REPORTING_EXPORT_FILE_NAME = "reportingExportFileName";
+            public static final String REPORTING_EXPORT_CSV_SEPARATOR = "reportingExportCsvSeparator";
         }
     }
     public class Export {
@@ -117,6 +124,8 @@ public class Constants {
         public static final String TIME_REGISTRATION_END_DATE = "timeRegistrationEndDate";
         public static final String REPORTING_DATA_GROUPING = "reportingDataDisplay";
         public static final String REPORTING_DATA_DISPLAY_DURATION = "reportingDataDisplayDuration";
+        public static final String EXPORT_HEADERS = "exportHeaders";
+        public static final String EXPORT_VALUES = "exportValues";
     }
     public class ContentMenuItemIds {
         public static final int PROJECT_DETAILS = 1;

@@ -105,12 +105,6 @@ public class PreferencesActivity extends GuicePreferenceActivity {
         preferences.addPreference(commentsCategory);
         createCommentsCategoryPreferences(ctx, commentsCategory);
 
-        //Category EXPORT
-        PreferenceCategory exportCategory = new PreferenceCategory(ctx);
-        exportCategory.setTitle(R.string.pref_export_category_title);
-        preferences.addPreference(exportCategory);
-        createExportCategoryPreferences(ctx, exportCategory);
-
         //Category BACKUP
         PreferenceCategory backupCategory = new PreferenceCategory(ctx);
         backupCategory.setTitle(R.string.pref_backup_category_title);
@@ -227,15 +221,6 @@ public class PreferencesActivity extends GuicePreferenceActivity {
             }
         });
         commentsCategory.addPreference(clearCommentsPreference);
-    }
-
-    private void createExportCategoryPreferences(GuicePreferenceActivity ctx, PreferenceCategory exportCategory) {
-        EditTextPreference exportFileName = new EditTextPreference(ctx);
-        exportFileName.setDefaultValue(Constants.Preferences.EXPORT_TIME_REG_FILE_NAME_DEFAULT_VALUE);
-        exportFileName.setKey(Constants.Preferences.Keys.EXPORT_TIME_REG_FILE_NAME);
-        exportFileName.setTitle(R.string.pref_export_time_reg_file_name_title);
-        exportFileName.setSummary(R.string.pref_export_time_reg_file_name_summary);
-        exportCategory.addPreference(exportFileName);
     }
 
     private void createBackupCategory(GuicePreferenceActivity ctx, PreferenceCategory backupCategory) {

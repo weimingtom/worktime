@@ -99,11 +99,6 @@
     <string name="lbl_empty_registration_list">No time registrations available yet.</string>
     <string name="now">Until now...</string>
     <string name="msg_delete_registration_confirmation">Do you want to delete this time registration?</string>
-    <string name="msg_export_not_available">Export is not available</string>
-    <string name="msg_export_not_available_detail">You do not have an SD-card or any other external storage possibilities or the storage is read-only.</string>
-    <string name="msg_export_done">Export successfull to location: %1$s</string>
-    <string name="lbl_export_send_file">Send...</string>
-    <string name="lbl_export_sebd_file_app_chooser_title">Choose application...</string>
     <string name="lbl_registrations_comment">Comment:</string>
     <string name="lbl_registrations_menu_title">Registration Options</string>
     <string name="lbl_registrations_menu_details">View details</string>
@@ -130,18 +125,6 @@
     <string name="lbl_registration_edit_start_validation_error_date_higher_limit">The date and time you entered need to be before the ending date and time: %1$s. Press ok and and correct your errors.</string>
     <string name="lbl_registration_edit_end_validation_error_date_lower_limit">The date and time you entered need to be after the starting date and time: %1$s. Press ok and and correct your errors.</string>
     <string name="lbl_registration_edit_end_validation_error_date_higher_limit">The date and time you entered need to be before the next starting date and time: %1$s. Press ok and and correct your errors.</string>
-    <!-- EXPORT -->
-    <string name="lbl_registrations_export_title">Export Time Registrations</string>
-    <string name="lbl_registrations_export_filename">Filename</string>
-    <string name="lbl_registrations_export_filetype">File Type</string>
-    <string name="lbl_registrations_export_csv_separator">Separator Value</string>
-    <string name="lbl_registrations_export_file_type_CSV">Comma Seperated Values (CSV)</string>
-    <string name="lbl_registrations_export_file_type_chooser_title">Select File Type</string>
-    <string name="lbl_registrations_export_csv_separator_comma">Comma (,)</string>
-    <string name="lbl_registrations_export_csv_separator_semicolon">Semicolon (;)</string>
-    <string name="lbl_registrations_export_csv_separator_chooser_title">Select File Type</string>
-    <string name="lbl_registrations_export_filename_required">The filename is required and should be at least 3 characters</string>
-    <string name="msg_registrations_export_saving_to_mail">Exporting time registrations to SD-card</string>
     <!-- EXPORT FILE STRINGS -->
     <string name="lbl_registrations_export_file_csv_starttime">Starttime</string>
     <string name="lbl_registrations_export_file_csv_endtime">Endtime</string>
@@ -198,8 +181,21 @@
     <string name="lbl_reporting_results_table_total">Total</string>
     <string name="lbl_reporting_results_export_table_data">Table Data</string>
     <string name="lbl_reporting_results_export_raw_data">Raw Data</string>
+    <!-- EXPORT -->
+    <string name="lbl_reporting_export_title">Export Result</string>
+    <string name="lbl_reporting_export_filename">Filename</string>
+    <string name="lbl_reporting_export_filename_required">The filename is required and should contain at least 3 characters</string>
+    <string name="lbl_reporting_export_csv_separator">CSV Seperator</string>
+    <string name="lbl_reporting_export_csv_separator_comma">Comma (,)</string>
+    <string name="lbl_reporting_export_csv_separator_semicolon">Semicolon (;)</string>
+    <string name="lbl_reporting_export_csv_separator_chooser_title">Select CSV Separator</string>
+    <string name="msg_reporting_export_saving_sd">Exporting to SD-card</string>
+    <string name="msg_reporting_export_done">Export successful to location: %1$s</string>
+    <string name="msg_reporting_export_done_send_file">Send...</string>
+    <string name="lbl_reporting_export_app_chooser_title">Choose application...</string>
+    <string name="msg_reporting_export_sd_unavailable">Export is not available</string>
+    <string name="msg_reporting_export_sd_unavailable_detail">You do not have an SD-card or any other external storage possibilities or the storage is read-only.</string>
     <!-- TABLE DATA EXPORT -->
-    <string name="lbl_reporting_results_export_table_data_csv_total">Total</string>
     <!-- RAW DATA EXPORT -->
     <string name="lbl_reporting_results_export_raw_data_csv_starttime">Starttime</string>
     <string name="lbl_reporting_results_export_raw_data_csv_endtime">Endtime</string>
@@ -212,9 +208,6 @@
 
     <!-- PREFERENCES -->
     <string name="lbl_preferences_title">Preferences</string>
-    <string name="pref_export_category_title">Export</string>
-    <string name="pref_export_time_reg_file_name_title">Export file name</string>
-    <string name="pref_export_time_reg_file_name_summary">Define the file name to be used when exporting time regsitrations</string>
     <string name="pref_date_and_time_category_title">Date and Time</string>
     <string name="pref_date_and_time_display_hour_12_24_format_prompt">12h/24h time configuration</string>
     <string name="pref_date_and_time_display_hour_12_24_format_summary">Choose the 12-hour, 24-hour or the system default display method for hours.</string>

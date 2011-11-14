@@ -28,6 +28,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import com.google.inject.Inject;
 import eu.vranckaert.worktime.R;
+import eu.vranckaert.worktime.activities.reporting.ReportingCriteriaActivity;
 import eu.vranckaert.worktime.comparators.timeregistration.TimeRegistrationDescendingByStartdate;
 import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.constants.TrackerConstants;
@@ -131,12 +132,8 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
      * @param view The view.
      */
     public void onExportClick(View view) {
-        if(ContextUtils.isSdCardAvailable() && ContextUtils.isSdCardWritable()) {
-            Intent intent = new Intent(TimeRegistrationsActivity.this, ExportTimeRegistrationsActivity.class);
-            startActivity(intent);
-        } else {
-            showDialog(Constants.Dialog.EXPORT_UNAVAILABLE);
-        }
+        Intent intent = new Intent(TimeRegistrationsActivity.this, ReportingCriteriaActivity.class);
+        startActivity(intent);
     }
 
     //TimRegistrationsListAdapter
@@ -257,31 +254,18 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
 						   .setMessage(R.string.msg_delete_registration_confirmation)
 						   .setCancelable(false)
 						   .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog, int which) {
-                                    deleteTimeRegistration(timeRegistrationToDelete, false);
-                                    dialog.cancel();
-								}
-							})
-						   .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog, int which) {
-                                    timeRegistrationToDelete = null;
-									dialog.cancel();
-								}
-							});
-				dialog = alertRemoveAllRegs.create();
-                break;
-            }
-            case Constants.Dialog.EXPORT_UNAVAILABLE: {
-                AlertDialog.Builder alertExportUnavailable = new AlertDialog.Builder(this);
-				alertExportUnavailable.setTitle(R.string.msg_export_not_available)
-                           .setMessage(R.string.msg_export_not_available_detail)
-						   .setCancelable(false)
-						   .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                                public void onClick(DialogInterface dialog, int which) {
+                                   deleteTimeRegistration(timeRegistrationToDelete, false);
+                                   dialog.cancel();
+                               }
+                           })
+						   .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                               public void onClick(DialogInterface dialog, int which) {
+                                   timeRegistrationToDelete = null;
                                    dialog.cancel();
                                }
                            });
-				dialog = alertExportUnavailable.create();
+				dialog = alertRemoveAllRegs.create();
                 break;
             }
         }
