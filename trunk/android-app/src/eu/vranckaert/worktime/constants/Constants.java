@@ -122,10 +122,11 @@ public class Constants {
         public static final String TIME_REGISTRATION_PREVIOUS = "timeRegistrationPrevious";
         public static final String TIME_REGISTRATION_START_DATE = "timeRegistrationStartDate";
         public static final String TIME_REGISTRATION_END_DATE = "timeRegistrationEndDate";
-        public static final String REPORTING_DATA_GROUPING = "reportingDataDisplay";
-        public static final String REPORTING_DATA_DISPLAY_DURATION = "reportingDataDisplayDuration";
         public static final String EXPORT_HEADERS = "exportHeaders";
         public static final String EXPORT_VALUES = "exportValues";
+        public static final String DATA_GROUPING = "dataGrouping";
+        public static final String DISPLAY_DURATION = "displayDuration";
+        public static final String DATA_ORDER = "dataOrder";
     }
     public class ContentMenuItemIds {
         public static final int PROJECT_DETAILS = 1;

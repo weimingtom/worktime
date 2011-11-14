@@ -167,6 +167,12 @@
         <item>By Start Date</item>
         <item>By Project</item>
     </string-array>
+    <string name="lbl_reporting_criteria_data_order">Data Order</string>
+    <string name="lbl_reporting_criteria_data_order_prompt">Select the data order</string>
+    <string-array name="lbl_reporting_criteria_data_order_spinner">
+        <item>Ascending</item>
+        <item>Descending</item>
+    </string-array>
     <string name="lbl_reporting_criteria_data_display_duration">Display duration</string>
     <string name="lbl_reporting_criteria_data_display_duration_prompt">Select duration display method</string>
     <string-array name="array_reporting_criteria_data_display_duration_spinner">

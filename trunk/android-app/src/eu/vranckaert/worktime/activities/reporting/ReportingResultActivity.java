@@ -29,13 +29,12 @@ import com.google.inject.internal.Nullable;
 import eu.vranckaert.worktime.R;
 import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.constants.TrackerConstants;
-import eu.vranckaert.worktime.enums.export.CsvSeparator;
 import eu.vranckaert.worktime.enums.reporting.ReportingDataGrouping;
+import eu.vranckaert.worktime.enums.reporting.ReportingDataOrder;
 import eu.vranckaert.worktime.enums.reporting.ReportingDisplayDuration;
 import eu.vranckaert.worktime.model.Project;
 import eu.vranckaert.worktime.model.Task;
 import eu.vranckaert.worktime.model.TimeRegistration;
-import eu.vranckaert.worktime.service.ExportService;
 import eu.vranckaert.worktime.service.ProjectService;
 import eu.vranckaert.worktime.service.TaskService;
 import eu.vranckaert.worktime.service.TimeRegistrationService;
@@ -57,7 +56,6 @@ import roboguice.activity.GuiceActivity;
 import roboguice.inject.InjectExtra;
 import roboguice.inject.InjectView;
 
-import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -80,9 +78,6 @@ public class ReportingResultActivity extends GuiceActivity {
     @Inject
     private TaskService taskService;
 
-    @Inject
-    private ExportService exportService;
-
     @InjectExtra(value= Constants.Extras.TIME_REGISTRATION_START_DATE)
     private Date startDate;
     @InjectExtra(value= Constants.Extras.TIME_REGISTRATION_END_DATE)
@@ -93,9 +88,12 @@ public class ReportingResultActivity extends GuiceActivity {
     @InjectExtra(value = Constants.Extras.TASK, optional = true)
     @Nullable
     private Task task;
-    @InjectExtra(value = Constants.Extras.REPORTING_DATA_GROUPING)
+    @InjectExtra(value = Constants.Extras.DATA_GROUPING)
     private ReportingDataGrouping dataGrouping;
-    @InjectExtra(value = Constants.Extras.REPORTING_DATA_DISPLAY_DURATION)
+    @InjectExtra(value = Constants.Extras.DATA_ORDER, optional = true)
+    @Nullable
+    private ReportingDataOrder dataOrder;
+    @InjectExtra(value = Constants.Extras.DISPLAY_DURATION)
     private ReportingDisplayDuration displayDuration;
 
     @InjectView(R.id.reporting_result_includes_ongoing_tr_label)
