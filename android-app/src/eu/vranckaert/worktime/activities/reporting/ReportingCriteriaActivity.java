@@ -31,6 +31,7 @@ import eu.vranckaert.worktime.comparators.task.TaskByNameComparator;
 import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.constants.TrackerConstants;
 import eu.vranckaert.worktime.enums.reporting.ReportingDataGrouping;
+import eu.vranckaert.worktime.enums.reporting.ReportingDataOrder;
 import eu.vranckaert.worktime.enums.reporting.ReportingDateRange;
 import eu.vranckaert.worktime.enums.reporting.ReportingDisplayDuration;
 import eu.vranckaert.worktime.model.Project;
@@ -58,14 +59,28 @@ public class ReportingCriteriaActivity extends GuiceActivity {
     private List<ReportingDateRange> dateRanges;
     private List<ReportingDataGrouping> dataGroupings;
     private List<ReportingDisplayDuration> displayDurations;
+    private List<ReportingDataOrder> dataOrders;
 
+    @InjectExtra(value = Constants.Extras.TIME_REGISTRATION_START_DATE, optional = true)
+    @Nullable
     private Date startDate;
+    @InjectExtra(value = Constants.Extras.TIME_REGISTRATION_END_DATE, optional = true)
+    @Nullable
     private Date endDate;
     @InjectExtra(value = Constants.Extras.PROJECT, optional = true)
     @Nullable
     private Project project;
+    @InjectExtra(value = Constants.Extras.TASK, optional = true)
+    @Nullable
     private Task task;
+    @InjectExtra(value = Constants.Extras.DATA_GROUPING, optional = true)
+    @Nullable
     private ReportingDataGrouping dataGrouping;
+    @InjectExtra(value = Constants.Extras.DATA_ORDER, optional = true)
+    @Nullable
+    private ReportingDataOrder dataOrder;
+    @InjectExtra(value = Constants.Extras.DISPLAY_DURATION, optional = true)
+    @Nullable
     private ReportingDisplayDuration displayDuration;
 
     private List<Project> availableProjects = null;
@@ -77,6 +92,8 @@ public class ReportingCriteriaActivity extends GuiceActivity {
     private Spinner dataGroupingSpinner;
     @InjectView(R.id.reporting_criteria_data_display_duration_spinner)
     private Spinner displayDurationSpinner;
+    @InjectView(R.id.reporting_criteria_data_order_spinner)
+    private Spinner dataOrderSpinner;
     @InjectView(R.id.reporting_criteria_date_range_start)
     private Button dateRangeStartButton;
     @InjectView(R.id.reporting_criteria_date_range_end)
@@ -191,6 +208,32 @@ public class ReportingCriteriaActivity extends GuiceActivity {
                 for (ReportingDataGrouping dataGrouping : dataGroupings) {
                     if (dataGrouping.getOrder() == pos) {
                         ReportingCriteriaActivity.this.dataGrouping = dataGrouping;
+                    }
+                }
+            }
+            public void onNothingSelected(AdapterView<?> adapterView) {}
+        });
+
+        //Data Order spinner
+        dataOrders = Arrays.asList(ReportingDataOrder.values());
+        Collections.sort(dataOrders, new Comparator<ReportingDataOrder>() {
+            public int compare(ReportingDataOrder reportingDataOrder, ReportingDataOrder reportingDataOrder1) {
+                return ((Integer) reportingDataOrder.getOrder()).compareTo((Integer) reportingDataOrder1.getOrder());
+            }
+        });
+        ArrayAdapter<CharSequence> dataOrderAdapter = ArrayAdapter.createFromResource(this,
+                R.array.lbl_reporting_criteria_data_order_spinner, android.R.layout.simple_spinner_item);
+        dataOrderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataOrderSpinner.setAdapter(dataOrderAdapter);
+        dataOrderSpinner.setSelection(ReportingDataOrder.ASC.getOrder()); //Set default value...
+        this.dataOrder = ReportingDataOrder.ASC;
+
+        dataOrderSpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                ReportingDataOrder[] dataOrders = ReportingDataOrder.values();
+                for (ReportingDataOrder dataOrder : dataOrders) {
+                    if (dataOrder.getOrder() == pos) {
+                        ReportingCriteriaActivity.this.dataOrder = dataOrder;
                     }
                 }
             }
@@ -520,8 +563,9 @@ public class ReportingCriteriaActivity extends GuiceActivity {
         intent.putExtra(Constants.Extras.TIME_REGISTRATION_END_DATE, endDate);
         intent.putExtra(Constants.Extras.PROJECT, project);
         intent.putExtra(Constants.Extras.TASK, task);
-        intent.putExtra(Constants.Extras.REPORTING_DATA_GROUPING, dataGrouping);
-        intent.putExtra(Constants.Extras.REPORTING_DATA_DISPLAY_DURATION, displayDuration);
+        intent.putExtra(Constants.Extras.DATA_GROUPING, dataGrouping);
+        intent.putExtra(Constants.Extras.DATA_ORDER, dataOrder);
+        intent.putExtra(Constants.Extras.DISPLAY_DURATION, displayDuration);
         startActivity(intent);
     }
 
