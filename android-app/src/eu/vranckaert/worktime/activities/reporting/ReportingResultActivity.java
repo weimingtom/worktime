@@ -20,33 +20,41 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.*;
 import com.google.inject.Inject;
 import com.google.inject.internal.Nullable;
 import eu.vranckaert.worktime.R;
 import eu.vranckaert.worktime.constants.Constants;
+import eu.vranckaert.worktime.constants.TrackerConstants;
+import eu.vranckaert.worktime.enums.export.CsvSeparator;
 import eu.vranckaert.worktime.enums.reporting.ReportingDataGrouping;
 import eu.vranckaert.worktime.enums.reporting.ReportingDisplayDuration;
 import eu.vranckaert.worktime.model.Project;
 import eu.vranckaert.worktime.model.Task;
 import eu.vranckaert.worktime.model.TimeRegistration;
+import eu.vranckaert.worktime.service.ExportService;
 import eu.vranckaert.worktime.service.ProjectService;
 import eu.vranckaert.worktime.service.TaskService;
 import eu.vranckaert.worktime.service.TimeRegistrationService;
+import eu.vranckaert.worktime.ui.quickaction.ActionItem;
+import eu.vranckaert.worktime.ui.quickaction.QuickAction;
+import eu.vranckaert.worktime.ui.quickaction.QuickActionIds;
 import eu.vranckaert.worktime.ui.reporting.ReportingTableRecord;
 import eu.vranckaert.worktime.ui.reporting.ReportingTableRecordLevel;
 import eu.vranckaert.worktime.ui.reporting.datalevels.ReportingDataLvl0;
 import eu.vranckaert.worktime.ui.reporting.datalevels.ReportingDataLvl1;
 import eu.vranckaert.worktime.ui.reporting.datalevels.ReportingDataLvl2;
+import eu.vranckaert.worktime.utils.context.IntentUtil;
 import eu.vranckaert.worktime.utils.date.DateFormat;
 import eu.vranckaert.worktime.utils.date.DateUtils;
+import eu.vranckaert.worktime.utils.tracker.AnalyticsTracker;
 import roboguice.activity.GuiceActivity;
 import roboguice.inject.InjectExtra;
 import roboguice.inject.InjectView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -67,6 +75,9 @@ public class ReportingResultActivity extends GuiceActivity {
     @Inject
     private TaskService taskService;
 
+    @Inject
+    private ExportService exportService;
+
     @InjectExtra(value= Constants.Extras.TIME_REGISTRATION_START_DATE)
     private Date startDate;
     @InjectExtra(value= Constants.Extras.TIME_REGISTRATION_END_DATE)
@@ -85,9 +96,14 @@ public class ReportingResultActivity extends GuiceActivity {
     @InjectView(R.id.reporting_result_includes_ongoing_tr_label)
     private TextView resultIncludesOngoingTrsLabel;
 
+    private AnalyticsTracker tracker;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reporting_result);
+
+        tracker = AnalyticsTracker.getInstance(getApplicationContext());
+        tracker.trackPageView(TrackerConstants.PageView.REPORTING_RESULT_ACTIVITY);
 
         initializeView();
     }
@@ -136,6 +152,7 @@ public class ReportingResultActivity extends GuiceActivity {
             recordTotalCol3.setText(record.getColumn3());
             TextView recordTotalCol4 = new TextView(ReportingResultActivity.this);
             recordTotalCol4.setText(record.getColumnTotal());
+            recordTotalCol4.setGravity(Gravity.RIGHT);
 
             row.addView(recordTotalCol1);
             row.addView(recordTotalCol2);
@@ -147,6 +164,7 @@ public class ReportingResultActivity extends GuiceActivity {
                 case LVL0: {
                     Log.d(LOG_TAG, "Setting color for row for record level 0");
                     row.setBackgroundResource(R.color.table_record_lvl_n_0);
+                    break;
                 }
                 case LVL1: {
                     Log.d(LOG_TAG, "Setting color for row for record level 1");
@@ -339,5 +357,81 @@ public class ReportingResultActivity extends GuiceActivity {
                 Log.e(LOG_TAG, "Dialog id " + id + " is not supported in this activity!");
         }
         return dialog;
+    }
+
+    public void onExportClick(View view) {
+        tracker.trackEvent(
+                TrackerConstants.EventSources.REPORTING_RESULT_ACTIVITY,
+                TrackerConstants.EventActions.EXPORT_RESULT
+        );
+
+        //Source:
+        //http://mobilegui.net/how-to-create-quickaction-dialog-in-android/
+        //http://www.londatiga.net/it/how-to-create-quickaction-dialog-in-android/
+
+        ActionItem exportData = new ActionItem(QuickActionIds.EXPORT_TABLE_DATA, getString(R.string.lbl_reporting_results_export_table_data));
+        ActionItem exportRaw = new ActionItem(QuickActionIds.EXPORT_RAW_DATA, getString(R.string.lbl_reporting_results_export_raw_data));
+
+        QuickAction quickAction = new QuickAction(ReportingResultActivity.this);
+
+        quickAction.addActionItem(exportData);
+        quickAction.addActionItem(exportRaw);
+
+        quickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
+            @Override
+            public void onItemClick(QuickAction source, int pos, int actionId) {
+                List<String> headers = new ArrayList<String>();
+                List<String[]> values = new ArrayList<String[]>();
+                String filename = "";
+
+                switch (actionId) {
+                    case QuickActionIds.EXPORT_TABLE_DATA: {
+                        //Construct headers
+                        headers.add(null);
+                        headers.add(null);
+                        headers.add(null);
+                        headers.add(getString(R.string.lbl_reporting_results_export_table_data_csv_total));
+
+                        filename = "testA";
+
+                        break;
+                    }
+                    case QuickActionIds.EXPORT_RAW_DATA: {
+                        //Construct headers
+                        headers.add(getString(R.string.lbl_reporting_results_export_raw_data_csv_starttime));
+                        headers.add(getString(R.string.lbl_reporting_results_export_raw_data_csv_endtime));
+                        headers.add(getString(R.string.lbl_reporting_results_export_raw_data_csv_startdate));
+                        headers.add(getString(R.string.lbl_reporting_results_export_raw_data_csv_enddate));
+                        headers.add(getString(R.string.lbl_reporting_results_export_raw_data_csv_comment));
+                        headers.add(getString(R.string.lbl_reporting_results_export_raw_data_csv_project));
+                        headers.add(getString(R.string.lbl_reporting_results_export_raw_data_csv_task));
+                        headers.add(getString(R.string.lbl_reporting_results_export_raw_data_csv_projectcomment));
+
+                        filename = "testB";
+
+                        break;
+                    }
+                }
+
+                exportService.exportCsvFile(
+                        filename,
+                        headers,
+                        values,
+                        CsvSeparator.SEMICOLON
+                );
+            }
+        });
+
+        quickAction.show(view);
+    }
+
+    public void onHomeClick(View view) {
+        IntentUtil.goHome(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        tracker.stopSession();
     }
 }

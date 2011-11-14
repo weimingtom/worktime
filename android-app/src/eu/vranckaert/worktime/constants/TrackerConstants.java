@@ -32,6 +32,7 @@ public class TrackerConstants {
         public static final String ADD_EDIT_PROJECT_ACTIVITY = "addEditProjectActivity";
         public static final String ADD_EDIT_TASK_ACTIVITY = "addEditTaskActivity";
         public static final String REPORTING_CRITERIA_ACTIVITY = "reportingCriteriaActivity";
+        public static final String REPORTING_RESULT_ACTIVITY = "reportingResultActivity";
     }
 
     public class EventSources {
@@ -43,7 +44,8 @@ public class TrackerConstants {
         public static final String REGISTRATION_DETAILS_ACTIVITY = "registrationDetailsActivity";
         public static final String TIME_REGISTRATIONS_ACTIVITY = "timeRegistrationsActivity";
         public static final String ADD_EDIT_TASK_ACTIVITY = "addEditTaskActivity";
-        public static final String REPORTING_CRITERIA_SELECT_END_DATE = "reportingCriteriaActivity";
+        public static final String REPORTING_CRITERIA_ACTIVITY = "reportingCriteriaActivity";
+        public static final String REPORTING_RESULT_ACTIVITY = "reportingResultActivity";
     }
 
     public class EventActions {
@@ -64,6 +66,7 @@ public class TrackerConstants {
         public static final String EDIT_TR_START_TIME = "editTrStartTime";
         public static final String EDIT_TR_PROJECT_AND_TASK = "editTrProjectAndTask";
         public static final String RESTART_TIME_REGISTRATION = "restartTimeRegistration";
-        public static final String START_REPORTING = "startReporting";
+        public static final String GENERATE_REPORT = "generateReport";
+        public static final String EXPORT_RESULT = "exportResult";
     }
 }

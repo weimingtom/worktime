@@ -196,6 +196,19 @@
     <string name="lbl_reporting_result_loading_dialog">Loading results...</string>
     <string name="lbl_reporting_result_includes_ongoing_time_registrations">Warning: the result contains data from ongoing time registrations. The calculations are based on the current date and time.</string>
     <string name="lbl_reporting_results_table_total">Total</string>
+    <string name="lbl_reporting_results_export_table_data">Table Data</string>
+    <string name="lbl_reporting_results_export_raw_data">Raw Data</string>
+    <!-- TABLE DATA EXPORT -->
+    <string name="lbl_reporting_results_export_table_data_csv_total">Total</string>
+    <!-- RAW DATA EXPORT -->
+    <string name="lbl_reporting_results_export_raw_data_csv_starttime">Starttime</string>
+    <string name="lbl_reporting_results_export_raw_data_csv_endtime">Endtime</string>
+    <string name="lbl_reporting_results_export_raw_data_csv_startdate">Startdate</string>
+    <string name="lbl_reporting_results_export_raw_data_csv_enddate">Enddate</string>
+    <string name="lbl_reporting_results_export_raw_data_csv_comment">Comment</string>
+    <string name="lbl_reporting_results_export_raw_data_csv_project">Project</string>
+    <string name="lbl_reporting_results_export_raw_data_csv_task">Task</string>
+    <string name="lbl_reporting_results_export_raw_data_csv_projectcomment">Project-comment</string>
 
     <!-- PREFERENCES -->
     <string name="lbl_preferences_title">Preferences</string>
