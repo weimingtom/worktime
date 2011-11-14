@@ -55,6 +55,7 @@ public class Module extends AbstractAndroidModule {
         bind(TaskService.class).to(TaskServiceImpl.class);
         bind(CommentHistoryService.class).to(CommentHistoryServiceImpl.class);
         bind(BackupService.class).to(DatabaseFileBackupServiceImpl.class);
+        bind(ExportService.class).to(ExportServiceImpl.class);
         //Widget service
         bind(WidgetService.class).to(WidgetServiceImpl.class);
     }

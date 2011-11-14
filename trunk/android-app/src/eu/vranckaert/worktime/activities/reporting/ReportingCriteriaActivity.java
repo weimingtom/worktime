@@ -511,8 +511,8 @@ public class ReportingCriteriaActivity extends GuiceActivity {
         }
 
         tracker.trackEvent(
-                TrackerConstants.EventSources.REPORTING_CRITERIA_SELECT_END_DATE,
-                TrackerConstants.EventActions.START_REPORTING
+                TrackerConstants.EventSources.REPORTING_CRITERIA_ACTIVITY,
+                TrackerConstants.EventActions.GENERATE_REPORT
         );
 
         Intent intent = new Intent(ReportingCriteriaActivity.this, ReportingResultActivity.class);

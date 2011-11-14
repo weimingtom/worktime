@@ -27,6 +27,11 @@
         <ImageView style="@style/TitleBarSeparator" />
         <eu.vranckaert.worktime.utils.view.CustomTextView
                 style="@style/TitleBarText" android:text="@string/lbl_reporting_result_title"/>
+
+        <ImageView style="@style/TitleBarSeparator" />
+        <ImageButton style="@style/TitleBarAction"
+            android:src="@drawable/ic_title_export"
+            android:onClick="onExportClick" />
     </LinearLayout>
 
     <ScrollView android:layout_width="fill_parent"
