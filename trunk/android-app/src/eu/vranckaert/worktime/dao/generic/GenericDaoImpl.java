@@ -84,6 +84,7 @@ public abstract class GenericDaoImpl<T, ID> implements GenericDao<T, ID> {
     /**
      * @Override
      */
+    @Override
     public T findById(ID id) {
         T result = null;
         try {
@@ -97,6 +98,7 @@ public abstract class GenericDaoImpl<T, ID> implements GenericDao<T, ID> {
     /**
      * @Override
      */
+    @Override
     public List<T> findAll() {
         List<T> results = null;
         try {
@@ -110,6 +112,7 @@ public abstract class GenericDaoImpl<T, ID> implements GenericDao<T, ID> {
     /**
      * @Override
      */
+    @Override
     public T save(T entity) {
         try {
             dao.create(entity);
@@ -122,6 +125,7 @@ public abstract class GenericDaoImpl<T, ID> implements GenericDao<T, ID> {
     /**
      * @Override
      */
+    @Override
     public T update(T entity) {
         try {
             dao.update(entity);
@@ -134,6 +138,7 @@ public abstract class GenericDaoImpl<T, ID> implements GenericDao<T, ID> {
     /**
      * @Override
      */
+    @Override
     public void delete(T entity) {
         int result = 0;
         try {
@@ -147,10 +152,25 @@ public abstract class GenericDaoImpl<T, ID> implements GenericDao<T, ID> {
     /**
      * {@inheritDoc}
      */
+    @Override
     public int refresh(T entity) {
         int result = -1;
         try {
              result = dao.refresh(entity);
+        } catch (SQLException e) {
+            throwFatalException(e);
+        }
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Long size() {
+        Long result = 0L;
+        try {
+            result = dao.countOf();
         } catch (SQLException e) {
             throwFatalException(e);
         }

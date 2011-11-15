@@ -27,6 +27,11 @@ import android.widget.*;
 import com.google.inject.Inject;
 import com.google.inject.internal.Nullable;
 import eu.vranckaert.worktime.R;
+import eu.vranckaert.worktime.comparators.project.ProjectByNameComparator;
+import eu.vranckaert.worktime.comparators.reporting.TimeRegistrationByProjectNameAscComparator;
+import eu.vranckaert.worktime.comparators.reporting.TimeRegistrationByProjectNameDescComparator;
+import eu.vranckaert.worktime.comparators.reporting.TimeRegistrationByStartDateAscComparator;
+import eu.vranckaert.worktime.comparators.reporting.TimeRegistrationByStartDateDescComparator;
 import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.constants.TrackerConstants;
 import eu.vranckaert.worktime.enums.reporting.ReportingDataGrouping;
@@ -58,6 +63,7 @@ import roboguice.inject.InjectView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -125,6 +131,30 @@ public class ReportingResultActivity extends GuiceActivity {
             protected Object doInBackground(Object... objects) {
                 timeRegistrations = timeRegistrationService
                     .getTimeRegistrations(startDate, endDate, project, task);
+                switch (dataGrouping) {
+                    case GROUPED_BY_START_DATE: {
+                        if (dataOrder.equals(ReportingDataOrder.ASC)) {
+                            Log.d(LOG_TAG, "Ordering time registrations ASC on START-DATE");
+                            Collections.sort(timeRegistrations, new TimeRegistrationByStartDateAscComparator());
+                        } else {
+                            Log.d(LOG_TAG, "Ordering time registrations DESC on START-DATE");
+                            Collections.sort(timeRegistrations, new TimeRegistrationByStartDateDescComparator());
+                        }
+                        break;
+                    }
+                    case GROUPED_BY_PROJECT: {
+                        if (dataOrder.equals(ReportingDataOrder.ASC)) {
+                            //TODO fix, the comparator cannot access tr->task->project ...
+                            Log.d(LOG_TAG, "Ordering time registrations ASC on PROJECT-NAME");
+                            Collections.sort(timeRegistrations, new TimeRegistrationByProjectNameAscComparator());
+                        } else {
+                            //TODO fix, the comparator cannot access tr->task->project ...
+                            Log.d(LOG_TAG, "Ordering time registrations DESC on PROJECT-NAME");
+                            Collections.sort(timeRegistrations, new TimeRegistrationByProjectNameDescComparator());
+                        }
+                        break;
+                    }
+                }
                 Log.d(LOG_TAG, "Number of time registrations found: " + timeRegistrations.size());
                 tableRecords = buildTableRecords(timeRegistrations, dataGrouping);
                 return tableRecords;
