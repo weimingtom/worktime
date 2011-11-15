@@ -25,6 +25,7 @@ One or more scopes around which we will work will be defined as well as the deta
    * Error messages when editing time registration start/end times should be simplified (issue 33)
    * Move task to other project (issue 69)
    * Add comment to unfinished time registration (issue 72)
+   * Multi-line input for time registration comments (issue 49)
    * Remove 'delete' button in list of time registrations (issue 73)
  * Bugs:
   * Time Registrations:
@@ -41,7 +42,6 @@ One or more scopes around which we will work will be defined as well as the deta
    * Mini widget with same behavior as large default widget (issue 56)
 ==Milestone-Release1.1.6==
  * Enhancements:
-  * Multi-line input for time registration comments (issue 49)
   * Show/Hide switch for "finished tasks" in the project details (issue 66)
   * Auto show keyboard for input fields (issue 46)
 ==Milestone-Releasex.x.x==
