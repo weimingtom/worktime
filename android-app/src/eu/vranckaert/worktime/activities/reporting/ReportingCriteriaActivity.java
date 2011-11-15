@@ -225,8 +225,8 @@ public class ReportingCriteriaActivity extends GuiceActivity {
                 R.array.lbl_reporting_criteria_data_order_spinner, android.R.layout.simple_spinner_item);
         dataOrderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dataOrderSpinner.setAdapter(dataOrderAdapter);
-        dataOrderSpinner.setSelection(ReportingDataOrder.ASC.getOrder()); //Set default value...
-        this.dataOrder = ReportingDataOrder.ASC;
+        dataOrderSpinner.setSelection(ReportingDataOrder.DESC.getOrder()); //Set default value...
+        this.dataOrder = ReportingDataOrder.DESC;
 
         dataOrderSpinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {

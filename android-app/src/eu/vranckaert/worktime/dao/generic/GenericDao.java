@@ -57,4 +57,10 @@ public interface GenericDao<T, ID> {
      * @return The number of entities refreshed. If everything is ok this should always be one!
      */
     int refresh(T entity);
+
+    /**
+     * Count the total number of records in the database.
+     * @return The number of records in the database.
+     */
+    Long size();
 }
