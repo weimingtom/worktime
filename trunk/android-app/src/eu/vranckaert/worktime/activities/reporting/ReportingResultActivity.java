@@ -131,6 +131,14 @@ public class ReportingResultActivity extends GuiceActivity {
             protected Object doInBackground(Object... objects) {
                 timeRegistrations = timeRegistrationService
                     .getTimeRegistrations(startDate, endDate, project, task);
+
+                //Make sure all the time registration details are loaded (task and project)
+                for (TimeRegistration timeRegistration : timeRegistrations) {
+                    taskService.refresh(timeRegistration.getTask());
+                    projectService.refresh(timeRegistration.getTask().getProject());
+                }
+
+                //Apply the data order on the time registrations
                 switch (dataGrouping) {
                     case GROUPED_BY_START_DATE: {
                         if (dataOrder.equals(ReportingDataOrder.ASC)) {
@@ -228,11 +236,6 @@ public class ReportingResultActivity extends GuiceActivity {
     }
 
     private List<ReportingTableRecord> buildTableRecords(List<TimeRegistration> timeRegistrations, ReportingDataGrouping reportingDataGrouping) {
-        for (TimeRegistration timeRegistration : timeRegistrations) {
-            taskService.refresh(timeRegistration.getTask());
-            projectService.refresh(timeRegistration.getTask().getProject());
-        }
-
         List<ReportingTableRecord> tableRecords = new ArrayList<ReportingTableRecord>();
 
         ReportingTableRecord totalRecord = new ReportingTableRecord();
