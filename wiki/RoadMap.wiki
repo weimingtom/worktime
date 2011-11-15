@@ -25,6 +25,7 @@ One or more scopes around which we will work will be defined as well as the deta
    * Error messages when editing time registration start/end times should be simplified (issue 33)
    * Move task to other project (issue 69)
    * Add comment to unfinished time registration (issue 72)
+   * Remove 'delete' button in list of time registrations (issue 73)
  * Bugs:
   * Time Registrations:
    * Time Registration startDate >= previous endDate (issue 61)
