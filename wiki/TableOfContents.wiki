@@ -9,7 +9,7 @@
       * [ManualApplicationPreferences Preferences]
       * [ManualApplicationAbout About]
   * Release Info
-    * [ReleaseStrategy Release Strategy]
     * [RoadMap Road Map]
+    * [ReleaseStrategy Release Strategy]
     * [ReleaseNotes Release Notes]
   * [Issues Bug Tracking]
