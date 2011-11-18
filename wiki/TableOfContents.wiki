@@ -8,8 +8,9 @@
       * [ManualApplicationReporting Reporting]
       * [ManualApplicationPreferences Preferences]
       * [ManualApplicationAbout About]
-  * Release Info
+  * Project Development Info
     * [RoadMap Road Map]
     * [ReleaseStrategy Release Strategy]
     * [ReleaseNotes Release Notes]
+    * [VersioningStrategy VersioningStrategy]
   * [Issues Bug Tracking]
