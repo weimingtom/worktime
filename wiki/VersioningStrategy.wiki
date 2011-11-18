@@ -1,4 +1,5 @@
 #summary Info about the strategy to version the application code
+#labels Featured
 
 =Versioning Strategy=
 This document describes our vision on versioning the application on the Google Code platform.
