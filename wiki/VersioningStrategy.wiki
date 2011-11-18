@@ -1,9 +1,9 @@
 #summary Info about the strategy to version the application code
 
-<wiki:toc max_depth="10" />
-
 =Versioning Strategy=
 This document describes our vision on versioning the application on the Google Code platform.
+==Table Of Contents==
+<wiki:toc max_depth="10" />
 ==Source Code==
 All the code is released under the Apache License 2.0, so the entire project is open sourced! The source code of the application is available in the [http://code.google.com/p/worktime/source Source Tab]. Over there you have the options to do a checkout of the code, just browse through the code or see the entire change log. The system used for versioning the code is [http://subversion.apache.org/ Subversion].
 You can do an entire checkout of the code but you cannot commit. Altough if you found an issue or have an idea to improve the application you can work on the code you checked out, play around and apply your changes and then submit an issue in the issue tracker and attach a patch to the issue. We can then accept your patch.
