@@ -1,7 +1,6 @@
 #summary Info about the release strategy
 #labels Featured
 =Release Strategy=
-<wiki:toc max_depth="10" />
 This document contains an overview of the basic release strategy we try to keep up for this project.
 
 Every release has a version number. A version number should be of the format x.y.z or x.y.z.c, where x, y and z represent a number and c represents a number or a character.
