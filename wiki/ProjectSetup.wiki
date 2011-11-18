@@ -2,13 +2,15 @@
 =Project Setup=
 ==Table Of Contents==
 <wiki:toc max_depth="10" />
-==Setup environment==
+==Getting Started==
 ===Android SDK===
 ===IDE===
 ===Source Code===
 ===Emulator===
 ==Architecture==
-===Activities===
-===Services===
-===Database===
+===Dependency Injection==
+====Activities====
+====Services====
+====DAO's====
+===Database Connectivity===
 ==Testing==
