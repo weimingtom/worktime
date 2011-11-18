@@ -14,4 +14,4 @@
     * [ReleaseNotes Release Notes]
     * [VersioningStrategy Versioning Strategy]
     * [ProjectSetup Project Setup]
-  * [Issues Bug Tracking]
+    * [Issues Bug Tracking]
