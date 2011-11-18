@@ -1,5 +1,5 @@
-
 #summary Info about the release strategy
+#labels Featured
 =Release Strategy=
 This document contains an overview of the basic release strategy we try to keep up for this project.
 
