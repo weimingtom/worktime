@@ -1,4 +1,3 @@
-
   * [Manual User Manual]
     * [ManualWidget Widget]
     * [ManualApplication Application]
@@ -9,7 +8,7 @@
       * [ManualApplicationReporting Reporting]
       * [ManualApplicationPreferences Preferences]
       * [ManualApplicationAbout About]
-  * Release Info
+  * [ReleaseInfo Release Info]
     * [RoadMap Road Map]
     * [ReleaseNotes Release Notes]
   * [Issues Bug Tracking]
