@@ -1,5 +1,7 @@
 #summary Info about the release strategy
 #labels Featured
+==Table Of Contents==
+<wiki:toc max_depth="10" />
 =Release Strategy=
 This document contains an overview of the basic release strategy we try to keep up for this project.
 
