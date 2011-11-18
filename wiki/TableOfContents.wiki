@@ -1,4 +1,4 @@
-  * [Manual User Manual]
+  * User Manual
     * [ManualWidget Widget]
     * [ManualApplication Application]
       * [ManualApplicationDashboard Application Dasboard]
@@ -8,7 +8,8 @@
       * [ManualApplicationReporting Reporting]
       * [ManualApplicationPreferences Preferences]
       * [ManualApplicationAbout About]
-  * [ReleaseInfo Release Info]
+  * Release Info
+    * [ReleaseStrategy Release Strategy]
     * [RoadMap Road Map]
     * [ReleaseNotes Release Notes]
   * [Issues Bug Tracking]
