@@ -1,0 +1,3 @@
+#summary Info about the release strategy
+=Release Strategy=
+==Major Releases==
