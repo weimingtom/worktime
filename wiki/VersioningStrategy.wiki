@@ -41,5 +41,5 @@ Example file structure:
     * ...
 ==Contribute==
 As mentioned before you can check out the source code but by default you cannot contribute and commit any code. However there are two ways you can contribute:
-# Create patches
-# Become a project member
+ # Create patches
+ # Become a project member
