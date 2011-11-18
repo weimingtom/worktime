@@ -4,4 +4,42 @@ This document describes our vision on versioning the application on the Google C
 ==Source Code==
 The source code of the application is available in the [http://code.google.com/p/worktime/source Source Tab].
 Over there you have the options to do a checkout of the code, just browse through the code or see the entire change log. The system used for versioning the code is [http://subversion.apache.org/ Subversion].
-You can do an entire checkout of the code but you cannot commit. Altough if you found an issue or have an idea to improve the application you can work on the code you checked out, play around and apply your changes and then submit an issue in the issue tracker and attach a patch to the issue. We can then accept your patch. [b]If you submit a patch, do not forget to mention on which source-directory you have been working (trunk, a specific tag or brach) and on which revision this patch should work.[/b]
+You can do an entire checkout of the code but you cannot commit. Altough if you found an issue or have an idea to improve the application you can work on the code you checked out, play around and apply your changes and then submit an issue in the issue tracker and attach a patch to the issue. We can then accept your patch.
+*If you submit a patch, do not forget to mention on which source-directory you have been working (trunk, a specific tag or brach) and on which revision this patch should work.*
+==Subversion==
+===Trunk===
+All the code we are currently working on (for a new release) is available in the [http://code.google.com/p/worktime/source/browse/#svn%2Ftrunk trunk] directory. So that is were all the new work is going on and the interesting stuff is happening.
+===Branches===
+In the [http://code.google.com/p/worktime/source/browse/#svn%2Fbranches Branches] directory you will find a directory for each new release that is made. These branches are not under development, only under maintenance. Whenever a new release is made, a new branch is created. New branches are, however, only created for mainstream releases. For a bug release the branch is updated, but no extra branch is created.
+===File Structure===
+Example file structure:
+ * svn
+  * trunk
+   * src
+   * AndroidManifest.xml
+   * ...
+  * branches
+   * 1.1.1
+    * src
+	* AndroidManifest.xml
+	...
+   * 1.1.2.a
+    * src
+	* AndroidManifest.xml
+	...
+   * 1.1.2.b
+    * src
+	* AndroidManifest.xml
+	...
+   * 1.1.2
+    * src
+	* AndroidManifest.xml
+	...
+   * 1.1.3
+    * src
+	* AndroidManifest.xml
+	...
+==Contribute==
+As mentioned before you can check out the source code but by default you cannot contribute and commit any code. However there are two ways you can contribute:
+1. Create patches
+2. Become a project member
