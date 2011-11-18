@@ -1,0 +1,3 @@
+#summary Info about the strategy we follow in order to version the application code
+=Versioning Strategy=
+The source code of the application is available in the [http://code.google.com/p/worktime/source Source Tab].
