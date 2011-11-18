@@ -5,6 +5,9 @@ This road map is a schedule for what's coming up in the next few versions. The c
 
 For more information on our release strategy you can read the [ReleaseStrategy Release Strategy] document on the wiki.
 
+==Table Of Contents==
+<wiki:toc max_depth="10" />
+
 =Releases=
 ==Milestone-Release1.1.1 (Reporting and widgets-usability)==
  * Enhancements:
