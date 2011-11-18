@@ -12,5 +12,6 @@
     * [RoadMap Road Map]
     * [ReleaseStrategy Release Strategy]
     * [ReleaseNotes Release Notes]
-    * [VersioningStrategy VersioningStrategy]
+    * [VersioningStrategy Versioning Strategy]
+    * [ProjectSetup Project Setup]
   * [Issues Bug Tracking]
