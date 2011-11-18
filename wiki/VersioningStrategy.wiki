@@ -1,4 +1,7 @@
 #summary Info about the strategy to version the application code
+
+<wiki:toc max_depth="10" />
+
 =Versioning Strategy=
 This document describes our vision on versioning the application on the Google Code platform.
 ==Source Code==
