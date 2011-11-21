@@ -2,9 +2,6 @@
 =Issue Tracking=
 To keep track of improvements, issues, bugs,... for this project we use the Google Code tools.
 
-==How we work with issues==
-TO COME...
-
 ==Register an issue==
 If you want to register a new bug, go to the [http://code.google.com/p/worktime/issues/entry Google Code Issue Entry page].
 
