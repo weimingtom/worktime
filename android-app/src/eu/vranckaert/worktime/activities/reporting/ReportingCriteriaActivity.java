@@ -21,6 +21,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import com.google.inject.Inject;
@@ -36,18 +37,21 @@ import eu.vranckaert.worktime.enums.reporting.ReportingDateRange;
 import eu.vranckaert.worktime.enums.reporting.ReportingDisplayDuration;
 import eu.vranckaert.worktime.model.Project;
 import eu.vranckaert.worktime.model.Task;
+import eu.vranckaert.worktime.service.ExportService;
 import eu.vranckaert.worktime.service.ProjectService;
 import eu.vranckaert.worktime.service.TaskService;
 import eu.vranckaert.worktime.utils.context.IntentUtil;
 import eu.vranckaert.worktime.utils.date.DateConstants;
 import eu.vranckaert.worktime.utils.date.DateFormat;
 import eu.vranckaert.worktime.utils.date.DateUtils;
+import eu.vranckaert.worktime.utils.file.CsvFilenameFilter;
 import eu.vranckaert.worktime.utils.string.StringUtils;
 import eu.vranckaert.worktime.utils.tracker.AnalyticsTracker;
 import roboguice.activity.GuiceActivity;
 import roboguice.inject.InjectExtra;
 import roboguice.inject.InjectView;
 
+import java.io.File;
 import java.util.*;
 
 /**
@@ -56,6 +60,8 @@ import java.util.*;
  * Time: 20:28
  */
 public class ReportingCriteriaActivity extends GuiceActivity {
+    private static final String LOG_TAG = ReportingCriteriaActivity.class.getSimpleName();
+
     private List<ReportingDateRange> dateRanges;
     private List<ReportingDataGrouping> dataGroupings;
     private List<ReportingDisplayDuration> displayDurations;
@@ -86,6 +92,8 @@ public class ReportingCriteriaActivity extends GuiceActivity {
     private List<Project> availableProjects = null;
     private List<Task> availableTasks = null;
 
+    @InjectView(R.id.btn_action_export)
+    private View actionExportButton;
     @InjectView(R.id.reporting_criteria_date_range_spinner)
     private Spinner dateRangeSpinner;
     @InjectView(R.id.reporting_criteria_data_grouping_spinner)
@@ -113,6 +121,8 @@ public class ReportingCriteriaActivity extends GuiceActivity {
     private ProjectService projectService;
     @Inject
     private TaskService taskService;
+    @Inject
+    private ExportService exportService;
 
     private AnalyticsTracker tracker;
 
@@ -126,6 +136,9 @@ public class ReportingCriteriaActivity extends GuiceActivity {
     }
 
     private void initializeView() {
+        //Export button
+        checkForEnablingBatchSharing();
+
         //Date Range spinner
         dateRanges = Arrays.asList(ReportingDateRange.values());
         Collections.sort(dateRanges, new Comparator<ReportingDateRange>() {
@@ -270,6 +283,17 @@ public class ReportingCriteriaActivity extends GuiceActivity {
         //Handle changes...
         updateViewOnDateRangeSpinnerSelection();
         updateViewOnProjectAndTaskSelection();
+    }
+
+    private void checkForEnablingBatchSharing() {
+        File documentDirectory = exportService.getDocumentDirectory();
+        File[] documents = documentDirectory.listFiles(new CsvFilenameFilter());
+
+        if (documents.length > 0) {
+            actionExportButton.setVisibility(View.VISIBLE);
+        } else {
+            actionExportButton.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void updateViewOnDateRangeSpinnerSelection() {
@@ -542,9 +566,78 @@ public class ReportingCriteriaActivity extends GuiceActivity {
 				dialog = alertValidationError.create();
                 break;
             }
+            case Constants.Dialog.REPORTING_BATCH_SHARE: {
+                final List<File> selectedDocuments = new ArrayList<File>();
+                final File[] documents = exportService.getDocumentDirectory().listFiles(new CsvFilenameFilter());
+
+                String[] documentNames = new String[documents.length];
+                boolean[] checkedNames = new boolean[documents.length];
+                for (int i=0; i<documents.length; i++) {
+                    File document = documents[i];
+                    documentNames[i] = document.getName();
+                    checkedNames[i] = Boolean.FALSE;
+                }
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.lbl_reporting_criteria_batch_share_dialog_title)
+                       .setMultiChoiceItems(documentNames,
+                               checkedNames,
+                               new DialogInterface.OnMultiChoiceClickListener() {
+                                   @Override
+                                   public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                       Log.d(LOG_TAG, (isChecked?"Selecting":"Unselecting") + " document on position " + which + " with title '" + documents[which].getName() + "'");
+                                       if (isChecked) {
+                                           selectedDocuments.add(documents[which]);
+                                       } else {
+                                           selectedDocuments.remove(documents[which]);
+                                       }
+                                   }
+                               }
+                       )
+                       .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                           @Override
+                           public void onClick(DialogInterface dialogInterface, int i) {
+                               Log.d(LOG_TAG, "Continuing to batch share with " + selectedDocuments.size() + " document(s)");
+                               if (selectedDocuments.size() == 0) {
+                                   Log.d(LOG_TAG, "Showing toast message notifying the user he must select a document to share");
+                                   Toast.makeText(ReportingCriteriaActivity.this, R.string.msg_reporting_criteria_batch_share_no_docs_selected,  Toast.LENGTH_SHORT).show();
+                                   return;
+                               }
+                               removeDialog(Constants.Dialog.REPORTING_BATCH_SHARE);
+                               batchShareDocuments(selectedDocuments);
+                           }
+                       })
+                       .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                           @Override
+                           public void onClick(DialogInterface dialogInterface, int i) {
+                               Log.d(LOG_TAG, "Stopping the batch share procedure using the cancel button");
+                               removeDialog(Constants.Dialog.REPORTING_BATCH_SHARE);
+                           }
+                       })
+                       .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                           public void onCancel(DialogInterface dialogInterface) {
+                               Log.d(LOG_TAG, "Stopping the batch share procedure using the device back");
+                               removeDialog(Constants.Dialog.REPORTING_BATCH_SHARE);
+                           }
+                       });
+                dialog = builder.create();
+                break;
+            }
         }
 
         return dialog;
+    }
+
+    private void batchShareDocuments(List<File> selectedDocuments) {
+        Log.d(LOG_TAG, "Sharing " + selectedDocuments.size() + " document(s)");
+
+        IntentUtil.sendSomething(
+                ReportingCriteriaActivity.this,
+                R.string.lbl_reporting_criteria_batch_share_subject,
+                R.string.lbl_reporting_criteria_batch_share_body,
+                selectedDocuments,
+                R.string.lbl_reporting_criteria_batch_share_app_chooser_title
+        );
     }
 
     public void onGenerateReportClick(View view) {
@@ -569,6 +662,10 @@ public class ReportingCriteriaActivity extends GuiceActivity {
         startActivity(intent);
     }
 
+    public void onBatchShareClick(View view) {
+        showDialog(Constants.Dialog.REPORTING_BATCH_SHARE);
+    }
+
     public void onHomeClick(View view) {
         IntentUtil.goHome(this);
     }
@@ -577,5 +674,12 @@ public class ReportingCriteriaActivity extends GuiceActivity {
     protected void onDestroy() {
         super.onDestroy();
         tracker.stopSession();
+    }
+
+    @Override
+    protected void onRestart() {
+        Log.d(LOG_TAG, "Checking if batch sharing should be enabled when coming back...");
+        super.onRestart();
+        checkForEnablingBatchSharing();
     }
 }

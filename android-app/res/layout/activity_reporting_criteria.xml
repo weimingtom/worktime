@@ -28,6 +28,16 @@
         <eu.vranckaert.worktime.utils.view.CustomTextView
                 style="@style/TitleBarText" android:text="@string/lbl_reporting_criteria_title"/>
 
+
+        <LinearLayout android:layout_width="wrap_content"
+                      android:layout_height="fill_parent"
+                      android:id="@+id/btn_action_export">
+            <ImageView style="@style/TitleBarSeparator" />
+            <ImageButton style="@style/TitleBarAction"
+                android:src="@drawable/ic_title_export"
+                android:onClick="onBatchShareClick" />
+        </LinearLayout>
+
         <ImageView style="@style/TitleBarSeparator" />
         <ImageButton style="@style/TitleBarAction"
             android:src="@drawable/ic_title_generatereport"
