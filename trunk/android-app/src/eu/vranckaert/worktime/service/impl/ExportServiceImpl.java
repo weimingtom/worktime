@@ -22,8 +22,6 @@ import java.util.List;
 public class ExportServiceImpl implements ExportService {
     private static final String LOG_TAG = ExportServiceImpl.class.getSimpleName();
 
-    private final String CSV_EXTENSTION = "csv";
-
     @Override
     public File exportCsvFile(String filename, List<String> headers, List<String[]> values, CsvSeparator separator) {
         Character seperator = separator.getSeperator();
@@ -59,10 +57,7 @@ public class ExportServiceImpl implements ExportService {
 
         File defaultStorageDirectory = Environment.getExternalStorageDirectory();
 
-        File folder = new File(defaultStorageDirectory.getAbsolutePath() +
-                File.separator +
-                Constants.Export.EXPORT_DIRECTORY +
-                File.separator);
+        File folder = new File(getDocumentDirectoryPath());
         if (folder.isFile()) {
             Log.d(LOG_TAG, "Directory seems to be a file... Deleting it now...");
             folder.delete();
@@ -72,10 +67,7 @@ public class ExportServiceImpl implements ExportService {
             folder.mkdir();
         }
 
-        File file = new File(defaultStorageDirectory.getAbsolutePath() +
-                File.separator +
-                Constants.Export.EXPORT_DIRECTORY +
-                File.separator +
+        File file = new File(getDocumentDirectoryPath() +
                 filename +
                 "." +
                 CSV_EXTENSTION
@@ -97,6 +89,21 @@ public class ExportServiceImpl implements ExportService {
             //TODO handle exception
         }
 
+        return file;
+    }
+
+    @Override
+    public String getDocumentDirectoryPath() {
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() +
+            File.separator +
+            Constants.Export.EXPORT_DIRECTORY +
+            File.separator;
+        return path;
+    }
+
+    @Override
+    public File getDocumentDirectory() {
+        File file = new File(getDocumentDirectoryPath());
         return file;
     }
 }

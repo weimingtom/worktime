@@ -180,6 +180,11 @@
         <item>01d 03h 05m 00s (24h/day)</item>
         <item>03d 03h 05m 00s (8h/day)</item>
     </string-array>
+    <string name="lbl_reporting_criteria_batch_share_dialog_title">Select files</string>
+    <string name="lbl_reporting_criteria_batch_share_subject">Shared exported WorkTime reports</string>
+    <string name="lbl_reporting_criteria_batch_share_body">\n\nShared using WorkTime for Android</string>
+    <string name="lbl_reporting_criteria_batch_share_app_chooser_title">Choose application...</string>
+    <string name="msg_reporting_criteria_batch_share_no_docs_selected">You did not select any document to share</string>
     <!-- Results -->
     <string name="lbl_reporting_result_title">Reporting Result</string>
     <string name="lbl_reporting_result_loading_dialog">Loading results...</string>
@@ -197,10 +202,12 @@
     <string name="lbl_reporting_export_csv_separator_chooser_title">Select CSV Separator</string>
     <string name="msg_reporting_export_saving_sd">Exporting to SD-card</string>
     <string name="msg_reporting_export_done">Export successful to location: %1$s</string>
-    <string name="msg_reporting_export_done_send_file">Send...</string>
-    <string name="lbl_reporting_export_app_chooser_title">Choose application...</string>
     <string name="msg_reporting_export_sd_unavailable">Export is not available</string>
     <string name="msg_reporting_export_sd_unavailable_detail">You do not have an SD-card or any other external storage possibilities or the storage is read-only.</string>
+    <string name="msg_reporting_export_share_file">Share...</string>
+    <string name="lbl_reporting_export_share_file_app_chooser_title">Choose application...</string>
+    <string name="lbl_reporting_export_share_subject">Sent exported WorkTime report</string>
+    <string name="lbl_reporting_export_share_body">\n\nSent using WorkTime for Android</string>
     <!-- TABLE DATA EXPORT -->
     <!-- RAW DATA EXPORT -->
     <string name="lbl_reporting_results_export_raw_data_csv_starttime">Starttime</string>

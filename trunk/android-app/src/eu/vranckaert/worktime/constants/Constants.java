@@ -23,11 +23,7 @@ package eu.vranckaert.worktime.constants;
 public class Constants {
     public class Dialog {
         public static final int DELETE_PROJECT_YES_NO = 0;
-        public static final int CHOOSE_EXPORT_FILE_TYPE = 3;
-        public static final int CHOOSE_EXPORT_CSV_SEPARATOR = 4;
-        public static final int LOADING_TIMEREGISTRATIONS_EXPORT = 5;
         public static final int DELETE_TIME_REGISTRATION_YES_NO = 6;
-        public static final int EXPORT_UNAVAILABLE = 7;
         public static final int CHOOSE_SELECTED_PROJECT = 8;
         public static final int LOADING_TIMEREGISTRATION_CHANGE = 9;
         public static final int CHOOSE_TASK = 10;
@@ -60,11 +56,11 @@ public class Constants {
         public static final int REPORTING_CRITERIA_SELECT_END_DATE = 37;
         public static final int REPORTING_CRITERIA_SELECT_END_DATE_ERROR_BEFORE_START_DATE = 38;
         public static final int LOADING_REPORTING_RESULTS = 39;
-        public static final int TIMEREGISTRATIONS_EXPORT_FILE_EXPORT_DONE = 40;
         public static final int REPORTING_EXPORT_CHOOSE_CSV_SEPARATOR = 41;
         public static final int REPORTING_EXPORT_DONE = 42;
         public static final int REPORTING_EXPORT_LOADING = 43;
         public static final int REPORTING_EXPORT_UNAVAILABLE = 44;
+        public static final int REPORTING_BATCH_SHARE = 45;
     }
     public class IntentRequestCodes {
         public static final int ADD_PROJECT = 0;

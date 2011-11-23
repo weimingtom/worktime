@@ -20,9 +20,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -198,7 +196,7 @@ public class ReportingExportActivity extends GuiceActivity {
                                     removeDialog(Constants.Dialog.REPORTING_EXPORT_DONE);
 								}
 							})
-						   .setNegativeButton(R.string.msg_reporting_export_done_send_file, new DialogInterface.OnClickListener() {
+						   .setNegativeButton(R.string.msg_reporting_export_share_file, new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog, int which) {
                                     removeDialog(Constants.Dialog.REPORTING_EXPORT_DONE);
                                     sendExportedFileByMail();
@@ -280,9 +278,12 @@ public class ReportingExportActivity extends GuiceActivity {
     }
 
     private void sendExportedFileByMail() {
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-        emailIntent.setType("text/csv");
-        emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file:/" + exportedFile));
-        startActivity(Intent.createChooser(emailIntent, getText(R.string.lbl_reporting_export_app_chooser_title)));
+        IntentUtil.sendSomething(
+                ReportingExportActivity.this,
+                R.string.lbl_reporting_export_share_subject,
+                R.string.lbl_reporting_export_share_body,
+                exportedFile,
+                R.string.lbl_reporting_export_share_file_app_chooser_title
+        );
     }
 }
