@@ -159,7 +159,9 @@ public class IntentUtil {
             Log.d(LOG_TAG, "Adding multiple files...");
             ArrayList<Uri> uris = new ArrayList<Uri>();
             for (File file : files) {
-                uris.add(Uri.fromFile(file));
+                Uri uri = Uri.fromFile(file);
+                uris.add(uri);
+                emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
             }
             emailIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
         }

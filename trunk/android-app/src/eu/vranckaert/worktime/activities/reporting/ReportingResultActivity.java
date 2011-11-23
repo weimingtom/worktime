@@ -18,6 +18,7 @@ package eu.vranckaert.worktime.activities.reporting;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -59,6 +60,7 @@ import eu.vranckaert.worktime.utils.string.StringUtils;
 import eu.vranckaert.worktime.utils.tracker.AnalyticsTracker;
 import roboguice.activity.GuiceActivity;
 import roboguice.inject.InjectExtra;
+import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;
 
 import java.io.Serializable;
@@ -104,6 +106,12 @@ public class ReportingResultActivity extends GuiceActivity {
 
     @InjectView(R.id.reporting_result_includes_ongoing_tr_label)
     private TextView resultIncludesOngoingTrsLabel;
+
+    @InjectResource(R.drawable.quickaction_export_table_data)
+    private Drawable quickactionExportTableData;
+
+    @InjectResource(R.drawable.quickaction_export_raw_data)
+    private Drawable quickactionExportRawData;
 
     private AnalyticsTracker tracker;
 
@@ -409,7 +417,9 @@ public class ReportingResultActivity extends GuiceActivity {
         //http://www.londatiga.net/it/how-to-create-quickaction-dialog-in-android/
 
         ActionItem exportData = new ActionItem(QuickActionIds.EXPORT_TABLE_DATA, getString(R.string.lbl_reporting_results_export_table_data));
+        exportData.setIcon(quickactionExportTableData);
         ActionItem exportRaw = new ActionItem(QuickActionIds.EXPORT_RAW_DATA, getString(R.string.lbl_reporting_results_export_raw_data));
+        exportRaw.setIcon(quickactionExportRawData);
 
         QuickAction quickAction = new QuickAction(ReportingResultActivity.this);
 
