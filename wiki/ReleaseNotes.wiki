@@ -2,6 +2,18 @@
 #labels Featured,Phase-ReleaseNotes
 
 =Release Notes=
+===Milestone-Release1.1.1 (Reporting and widgets-usability)===
+ * Enhancements:
+  * Reporting: 
+   * Default reporting to generate reports and export to a CSV file (issue 25)
+   * Project details: total work time (issue 4)
+   * Send report file by e-mail (issue 57)
+   * Share multiple generated WorkTime reports (issue 76)
+  * Don't ask for the task (if only one task) at check-in from the widget (issue 58)
+  * Deprecate export in time registrations module (replace by reporting module link) (issue 65)
+ * Tasks:
+  * Release the sources... (issue 64)
+  * Apply the Apache License 2.0 (issue 63)
 ==Milestone-Release1.1.0 (Backup and Restore)==
  * Enhancements:
   * Backup and Restore feature (issue 53)
