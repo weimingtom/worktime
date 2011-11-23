@@ -15,6 +15,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
    * Default reporting to generate reports and export to a CSV file (issue 25)
    * Project details: total work time (issue 4)
    * Send report file by e-mail (issue 57)
+   * Shares multiple generated WorkTime reports (issue 76)
   * Don't ask for the task (if only one task) at check-in from the widget (issue 58)
   * Deprecate export in time registrations module (replace by reporting module link) (issue 65)
  * Tasks:
