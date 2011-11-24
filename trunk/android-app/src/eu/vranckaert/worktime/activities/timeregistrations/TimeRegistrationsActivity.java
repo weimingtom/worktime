@@ -192,14 +192,6 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
             String durationText = DateUtils.calculatePeriod(getApplicationContext(), tr);
             durationView.setText(durationText);
 
-            Log.d(LOG_TAG, "Bind an on click event on the delete button");
-            View deleteButton =  row.findViewById(R.id.btn_delete);
-            deleteButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    deleteTimeRegistration(tr, true);
-                }
-            });
-
             Log.d(LOG_TAG, "Ready to set the comment if available...");
             View view = row.findViewById(R.id.registrations_comment_view);
             if (StringUtils.isNotBlank(tr.getComment())) {
