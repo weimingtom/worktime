@@ -57,15 +57,7 @@ public class ExportServiceImpl implements ExportService {
 
         File defaultStorageDirectory = Environment.getExternalStorageDirectory();
 
-        File folder = new File(getDocumentDirectoryPath());
-        if (folder.isFile()) {
-            Log.d(LOG_TAG, "Directory seems to be a file... Deleting it now...");
-            folder.delete();
-        }
-        if (!folder.exists()) {
-            Log.d(LOG_TAG, "Directory does not exist yet! Creating it now!");
-            folder.mkdir();
-        }
+        File folder = getDocumentDirectory();
 
         File file = new File(getDocumentDirectoryPath() +
                 filename +
@@ -86,7 +78,6 @@ public class ExportServiceImpl implements ExportService {
             fw.close();
         } catch (IOException e) {
             Log.e(LOG_TAG, "Exception occurred during export...", e);
-            //TODO handle exception
         }
 
         return file;
@@ -104,6 +95,14 @@ public class ExportServiceImpl implements ExportService {
     @Override
     public File getDocumentDirectory() {
         File file = new File(getDocumentDirectoryPath());
+        if (file.exists() && file.isFile()) {
+            Log.d(LOG_TAG, "Directory seems to be a file... Deleting it now...");
+            file.delete();
+        }
+        if (!file.exists()) {
+            Log.d(LOG_TAG, "Directory does not exist yet! Creating it now!");
+            file.mkdir();
+        }
         return file;
     }
 }
