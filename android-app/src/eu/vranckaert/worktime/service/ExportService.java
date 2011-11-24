@@ -37,7 +37,8 @@ public interface ExportService {
     String getDocumentDirectoryPath();
 
     /**
-     * Get the file representation where documents will be saved.
+     * Get the file representation where documents will be saved. Also check if the directory exists. If not it will be
+     * created.
      * @return The {@link File} instance pointing to the directory where documents are saved.
      */
     File getDocumentDirectory();

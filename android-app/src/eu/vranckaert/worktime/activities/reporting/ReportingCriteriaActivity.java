@@ -289,7 +289,7 @@ public class ReportingCriteriaActivity extends GuiceActivity {
         File documentDirectory = exportService.getDocumentDirectory();
         File[] documents = documentDirectory.listFiles(new CsvFilenameFilter());
 
-        if (documents.length > 0) {
+        if (documents != null && documents.length > 0) {
             actionExportButton.setVisibility(View.VISIBLE);
         } else {
             actionExportButton.setVisibility(View.INVISIBLE);
