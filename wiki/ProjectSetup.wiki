@@ -36,30 +36,30 @@ For the other steps it's quite strateforward. However what you have to keep in m
 Important to know is that in the [http://code.google.com/p/worktime/source/browse/#svn%2Ftrunk%2Fandroid-app%2Fsrc%2Feu%2Fvranckaert%2Fworktime%2Fguice eu.vranckaert.worktime.guice] package we have the [http://code.google.com/p/worktime/source/browse/trunk/android-app/src/eu/vranckaert/worktime/guice/Module.java Module] class in which we will have to define all the DAO's to be used. In the <i>bindDaos</i> method you will have to bind a DAO-interface on a DAO-implementation.
 ====Services====
 Now let's have a look at the [http://code.google.com/p/worktime/source/browse/trunk/android-app/src/eu/vranckaert/worktime/service/impl/TimeRegistrationServiceImpl.java TimeRegistrationServiceImpl] class. In this class we want to do certain DAO/DB calls, so we need a reference to our, for example, TimeRegistrationDao class. So all we now have to do in this service class to have access to our DAO is:
-[code]@Inject
-private TimeRegistrationDao dao;[/code]
+{{{@Inject
+private TimeRegistrationDao dao;}}}
 That's one thing, but off course we want to use our services also in the activities, so we will also have to configure them. So if you ever want to inject a certain implementation somewhere, it has to be binded in the [http://code.google.com/p/worktime/source/browse/trunk/android-app/src/eu/vranckaert/worktime/guice/Module.java Module] class. For services we have a seperate method <i>bindServices</i> in which we bind the interfaces to their implementations.
 ====Activities====
 For activities we will never try to inject them somewhere else (would be bad, very bad design!) so they don't have to be listed in the [http://code.google.com/p/worktime/source/browse/trunk/android-app/src/eu/vranckaert/worktime/guice/Module.java Module] class. But since we have all the services and dao's mapped in this class we can start injecting and using them in the activities. All you have to do is write this piece of code:
-[code]@Inject
-private TimeRegistrationService timeRegistrationService;[/code]
+{{{@Inject
+private TimeRegistrationService timeRegistrationService;}}}
 =====Resources=====
 However, as mentioned earlier, it is possible to also inject resources. If you need a certain drawable or string for example you can easily inject it as follows:
-[code]@InjectResource(R.drawable.some_drawable)
-private Drawable someInjectedDrawable;[/code]
+{{{@InjectResource(R.drawable.some_drawable)
+private Drawable someInjectedDrawable;}}}
 =====Views=====
 If you want to use views that are defined in the layout file you use in this activity you can easily inject them as follows:
-[code]@InjectView(R.id.registration_button)
+{{{@InjectView(R.id.registration_button)
 private Button registrationButton;
 @InjectView(R.id.first_name)
 private TextView firstName;
 @InjectView(R.id.last_name)
-private TextView lastName;[/code]
+private TextView lastName;}}}
 =====Extras=====
 During navigation between activities if often happens that you want to transfer some data from one activity to another. So on activity A you do something like:
-[code]intent.putExtra("someData", someData);[/code]
+{{{intent.putExtra("someData", someData);}}}
 In the second activity (activity B) you want to access and use that 'someData', so all you have to do is add the next annotation to your activity B:
-[code]@InjectExtra(value= "someDate")
-private Object someDataFromExtras;[/code]
+{{{@InjectExtra(value= "someDate")
+private Object someDataFromExtras;}}}
 ===Database Connectivity - OrmLite ===
 ==Testing==
