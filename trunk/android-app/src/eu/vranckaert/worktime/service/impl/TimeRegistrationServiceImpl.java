@@ -119,4 +119,25 @@ public class TimeRegistrationServiceImpl implements TimeRegistrationService {
     public TimeRegistration get(Integer id) {
         return dao.findById(id);
     }
+
+    @Override
+    public List<TimeRegistration> findAll(int lowerLimit, int maxRows) {
+        List<TimeRegistration> timeRegistrations = dao.findAll(lowerLimit, maxRows);
+        for(TimeRegistration timeRegistration : timeRegistrations) {
+            Log.d(LOG_TAG, "Found timeregistration with ID: " + timeRegistration.getId() + " and according task with ID: " + timeRegistration.getTask().getId());
+            taskDao.refresh(timeRegistration.getTask());
+            projectDao.refresh(timeRegistration.getTask().getProject());
+        }
+        return timeRegistrations;
+    }
+
+    @Override
+    public Long count() {
+        return dao.count();
+    }
+
+    @Override
+    public TimeRegistration getPreviousTimeRegistration(TimeRegistration timeRegistration) {
+        return dao.getPreviousTimeRegistration(timeRegistration);
+    }
 }

@@ -43,25 +43,6 @@ public class TimeRegistrationDaoImpl extends GenericDaoImpl<TimeRegistration, In
         super(TimeRegistration.class, context);
     }
 
-    public int countTotalNumberOfTimeRegistrations() {
-        int rowCount = 0;
-        List<String[]> results = null;
-        try {
-            GenericRawResults rawResults = dao.queryRaw("select count(*) from timeregistration");
-            results = rawResults.getResults();
-        } catch (SQLException e) {
-            throwFatalException(e);
-        }
-
-        if (results != null && results.size() > 0) {
-            rowCount = Integer.parseInt(results.get(0)[0]);
-        }
-
-        Log.d(LOG_TAG, "Rowcount: " + rowCount);
-
-        return rowCount;
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -164,6 +145,46 @@ public class TimeRegistrationDaoImpl extends GenericDaoImpl<TimeRegistration, In
             throwFatalException(e);
         }
 
+        return null;
+    }
+
+    @Override
+    public List<TimeRegistration> findAll(int lowerLimit, int maxRows) {
+        QueryBuilder<TimeRegistration,Integer> qb = dao.queryBuilder();
+        try {
+            Log.d(LOG_TAG, "The starting row for the query is " + lowerLimit);
+            Log.d(LOG_TAG, "The maximum number of rows to load is " + maxRows);
+            qb.offset(Long.valueOf(lowerLimit));
+            qb.limit(Long.valueOf(maxRows));
+            qb.orderBy("startTime", false);
+            PreparedQuery<TimeRegistration> pq = qb.prepare();
+            Log.d(LOG_TAG, pq.toString());
+            return dao.query(pq);
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, "Could not execute the query...");
+            throwFatalException(e);
+        }
+        return null;
+    }
+
+    @Override
+    public TimeRegistration getPreviousTimeRegistration(TimeRegistration timeRegistration) {
+        QueryBuilder<TimeRegistration,Integer> qb = dao.queryBuilder();
+        try {
+            qb.limit(1L);
+            qb.orderBy("startTime", false);
+
+            Where where = qb.where();
+            where.lt("endTime", timeRegistration.getStartTime());
+            qb.setWhere(where);
+
+            PreparedQuery<TimeRegistration> pq = qb.prepare();
+            Log.d(LOG_TAG, pq.toString());
+            return dao.queryForFirst(pq);
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, "Could not execute the query...");
+            throwFatalException(e);
+        }
         return null;
     }
 }

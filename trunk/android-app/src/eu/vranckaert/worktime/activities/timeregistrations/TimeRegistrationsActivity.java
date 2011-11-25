@@ -19,17 +19,15 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.*;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
 import com.google.inject.Inject;
 import eu.vranckaert.worktime.R;
 import eu.vranckaert.worktime.activities.reporting.ReportingCriteriaActivity;
-import eu.vranckaert.worktime.comparators.timeregistration.TimeRegistrationDescendingByStartdate;
+import eu.vranckaert.worktime.activities.timeregistrations.listadapter.TimRegistrationsListAdapter;
 import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.constants.TrackerConstants;
 import eu.vranckaert.worktime.model.TimeRegistration;
@@ -37,7 +35,6 @@ import eu.vranckaert.worktime.service.TimeRegistrationService;
 import eu.vranckaert.worktime.service.WidgetService;
 import eu.vranckaert.worktime.utils.context.IntentUtil;
 import eu.vranckaert.worktime.utils.context.ContextMenuUtils;
-import eu.vranckaert.worktime.utils.context.ContextUtils;
 import eu.vranckaert.worktime.utils.date.DateFormat;
 import eu.vranckaert.worktime.utils.date.DateUtils;
 import eu.vranckaert.worktime.utils.date.TimeFormat;
@@ -46,7 +43,7 @@ import eu.vranckaert.worktime.utils.string.StringUtils;
 import eu.vranckaert.worktime.utils.tracker.AnalyticsTracker;
 import roboguice.activity.GuiceListActivity;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,15 +55,20 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
     private static final String LOG_TAG = TimeRegistrationsActivity.class.getSimpleName();
 
     @Inject
-    TimeRegistrationService timeRegistrationService;
+    private TimeRegistrationService timeRegistrationService;
     @Inject
-    WidgetService widgetService;
+    private WidgetService widgetService;
 
     List<TimeRegistration> timeRegistrations;
     //Vars for deleting time registrations
     TimeRegistration timeRegistrationToDelete = null;
 
     private AnalyticsTracker tracker;
+
+    private Long initialRecordCount = 0L;
+    private int currentLowerLimit = 0;
+    private final int maxRecordsToLoad = 10;
+    public TimeRegistration loadExtraTimeRegistration = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,15 +77,23 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
         tracker = AnalyticsTracker.getInstance(getApplicationContext());
         tracker.trackPageView(TrackerConstants.PageView.TIME_REGISTRATIONS_ACTIVITY);
 
-        loadTimeRegistrations(true);
+        loadExtraTimeRegistration = new TimeRegistration();
+        loadExtraTimeRegistration.setId(-1);
+
+        loadTimeRegistrations(true, true);
 
         getListView().setOnItemClickListener(new ListView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.d(LOG_TAG, "Clicked on TR-item " + position);
                 TimeRegistration selectedRegistration = timeRegistrations.get(position);
 
+                if (selectedRegistration.getId() == loadExtraTimeRegistration.getId()) {
+                    loadExtraTimeRegistrations(view.findViewById(R.id.progress_timeregistration_load_more));
+                    return;
+                }
+
                 TimeRegistration previousTimeRegistration = null;
-                if (timeRegistrations.size() > position + 1) {
+                if (getTimeRegistrationsSize() > position + 1) {
                     previousTimeRegistration = timeRegistrations.get(position + 1);
                 }
 
@@ -99,16 +109,106 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
         registerForContextMenu(getListView());
     }
 
-    private void loadTimeRegistrations(boolean reloadTimeRegistrations) {
-        if (reloadTimeRegistrations) {
-            this.timeRegistrations = timeRegistrationService.findAll();
-            Collections.sort(timeRegistrations, new TimeRegistrationDescendingByStartdate());
-            Log.d(LOG_TAG, this.timeRegistrations.size() + " timeregistrations loaded!");
+    /**
+     * Load time registrations.
+     * @param dbReload Reload the time registrations from the database if set to {@link Boolean#TRUE}. Otherwise only
+     * reset the adapter.
+     * @param startFresh This means that you will start from the first page again if set to {@link Boolean#TRUE}. If
+     * set to {@link Boolean#FALSE} the same amount of time registrations will be reloaded as that are currently loaded.
+     */
+    private void loadTimeRegistrations(boolean dbReload, boolean startFresh) {
+        Long recordCount = timeRegistrationService.count();
+        if (!dbReload && initialRecordCount != recordCount) {
+            dbReload = true;
+        }
+        if (startFresh && !dbReload) {
+            dbReload = true;
         }
 
-        TimRegistrationsListAdapter adapter = new TimRegistrationsListAdapter(timeRegistrations);
-        adapter.notifyDataSetChanged();
-        setListAdapter(adapter);
+        if (dbReload) {
+            initialRecordCount = recordCount;
+            Log.d(LOG_TAG, "totoal count of timeregistrations is " + initialRecordCount);
+            currentLowerLimit = 0;
+            if (startFresh) {
+                //(Re)Load the time registrations for the 'page'
+                this.timeRegistrations = timeRegistrationService.findAll(currentLowerLimit, maxRecordsToLoad);
+            } else {
+                //(Re)Load all time registrations that were loaded before (same range)
+                int maxRecords = getTimeRegistrationsSize();
+                this.timeRegistrations = timeRegistrationService.findAll(currentLowerLimit, maxRecords);
+            }
+
+            if (initialRecordCount > getTimeRegistrationsSize()) {
+                timeRegistrations.add(loadExtraTimeRegistration);
+            }
+
+            Log.d(LOG_TAG, getTimeRegistrationsSize() + " timeregistrations loaded!");
+        }
+
+        refillListView(timeRegistrations);
+    }
+
+    /**
+     * Load extra time registrations and add them to the list.
+     * @param progressBar The progress bar.
+     */
+    private void loadExtraTimeRegistrations(final View progressBar) {
+        AsyncTask asyncTask = new AsyncTask() {
+            @Override
+            protected void onPreExecute() {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            protected Object doInBackground(Object... objects) {
+                Long recordCount = timeRegistrationService.count();
+                if (!initialRecordCount.equals(recordCount)) {
+                    return null;
+                }
+
+                currentLowerLimit = currentLowerLimit + maxRecordsToLoad;
+                List<TimeRegistration> extraTimeRegistrations = timeRegistrationService.findAll(currentLowerLimit, maxRecordsToLoad);
+                Log.d(LOG_TAG, "Loaded " + extraTimeRegistrations.size() + " extra time registrations");
+
+                timeRegistrations.remove(loadExtraTimeRegistration);
+                for (TimeRegistration timeRegistration : extraTimeRegistrations) {
+                    timeRegistrations.add(timeRegistration);
+                }
+
+                Log.d(LOG_TAG, "Total time registrations loaded now: " + getTimeRegistrationsSize());
+
+                if (initialRecordCount > getTimeRegistrationsSize()) {
+                    Log.d(LOG_TAG, "We need an extra item in the list to load more time registrations!");
+                    timeRegistrations.add(loadExtraTimeRegistration);
+                }
+                return timeRegistrations;
+            }
+
+            @Override
+            protected void onPostExecute(Object object) {
+                progressBar.setVisibility(View.INVISIBLE);
+                if (object == null) {
+                    Log.w(LOG_TAG, "Loading extra items failed, reloading entire list!");
+                    loadTimeRegistrations(true, false);
+                    return;
+                }
+                Log.d(LOG_TAG, "Applying the changes...");
+                refillListView((List<TimeRegistration>) object);
+            }
+        };
+        asyncTask.execute();
+    }
+
+    private void refillListView(List<TimeRegistration> timeRegistrations) {
+        List<TimeRegistration> listOfNewTimeRegistrations = new ArrayList<TimeRegistration>();
+        listOfNewTimeRegistrations.addAll(timeRegistrations);
+
+        if (getListView().getAdapter() == null) {
+            TimRegistrationsListAdapter adapter = new TimRegistrationsListAdapter(TimeRegistrationsActivity.this, listOfNewTimeRegistrations);
+            setListAdapter(adapter);
+        } else {
+            ((TimRegistrationsListAdapter) getListView().getAdapter()).refill(listOfNewTimeRegistrations);
+        }
     }
 
     /**
@@ -136,77 +236,14 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
         startActivity(intent);
     }
 
-    //TimRegistrationsListAdapter
-    /**
-     * The list adapater private inner-class used to display the manage projects list.
-     */
-    private class TimRegistrationsListAdapter extends ArrayAdapter<TimeRegistration> {
-        private final String LOG_TAG = TimRegistrationsListAdapter.class.getSimpleName();
-        /**
-         * {@inheritDoc}
-         */
-        public TimRegistrationsListAdapter(List<TimeRegistration> timeRegistrations) {
-            super(TimeRegistrationsActivity.this, R.layout.list_item_time_registrations, timeRegistrations);
-            Log.d(LOG_TAG, "Creating the time registrations list adapater");
+    public int getTimeRegistrationsSize() {
+        int size = timeRegistrations.size();
+
+        if (timeRegistrations.get(timeRegistrations.size()-1).getId().equals(loadExtraTimeRegistration.getId())) {
+            size--;
         }
 
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            Log.d(LOG_TAG, "Start rendering/recycling row " + position);
-            View row;
-            final TimeRegistration tr = timeRegistrations.get(position);
-            Log.d(LOG_TAG, "Got time registration with startDate " +
-                    DateUtils.convertDateTimeToString(tr.getStartTime(),
-                    DateFormat.FULL,
-                    TimeFormat.MEDIUM,
-                    TimeRegistrationsActivity.this));
-
-            if (convertView == null) {
-                Log.d(LOG_TAG, "Render a new line in the list");
-                row = getLayoutInflater().inflate(R.layout.list_item_time_registrations, parent, false);
-            } else {
-                Log.d(LOG_TAG, "Recycling an existing line in the list");
-                row = convertView;
-            }
-
-            Log.d(LOG_TAG, "Ready to update the startdate, enddate and projectname of the timeregistration...");
-            TextView startDate = (TextView) row.findViewById(R.id.lbl_timereg_startdate);
-            startDate.setText(DateUtils.convertDateTimeToString(tr.getStartTime(), DateFormat.MEDIUM,
-                    TimeFormat.MEDIUM, TimeRegistrationsActivity.this));
-            TextView endDate = (TextView) row.findViewById(R.id.lbl_timereg_enddate);
-            String endDateStr = "";
-            if(tr.getEndTime() == null) {
-                endDateStr = getString(R.string.now);
-            } else {
-                endDateStr = DateUtils.convertDateTimeToString(tr.getEndTime(), DateFormat.MEDIUM,
-                    TimeFormat.MEDIUM, TimeRegistrationsActivity.this);
-            }
-            endDate.setText(endDateStr);
-            TextView projectNameTaskName = (TextView) row.findViewById(R.id.lbl_timereg_projectname_taskname);
-            String projectAndTaskText = tr.getTask().getProject().getName() +
-                    " " + getString(R.string.dash) + " " + tr.getTask().getName();
-            projectNameTaskName.setText(projectAndTaskText);
-
-            Log.d(LOG_TAG, "Ready to update the duration of the timeregistration...");
-            TextView durationView = (TextView) row.findViewById(R.id.lbl_timereg_duration);
-            String durationText = DateUtils.calculatePeriod(getApplicationContext(), tr);
-            durationView.setText(durationText);
-
-            Log.d(LOG_TAG, "Ready to set the comment if available...");
-            View view = row.findViewById(R.id.registrations_comment_view);
-            if (StringUtils.isNotBlank(tr.getComment())) {
-                Log.d(LOG_TAG, "CommentHistory available...");
-                view.setVisibility(View.VISIBLE);
-                TextView commentTextView = (TextView) row.findViewById(R.id.lbl_registrations_comment);
-                commentTextView.setText(tr.getComment());
-            } else {
-                Log.d(LOG_TAG, "CommentHistory not available...");
-                view.setVisibility(View.GONE);
-            }
-
-            Log.d(LOG_TAG, "Done rendering row " + position);
-            return row;
-        }
+        return size;
     }
 
     private void deleteTimeRegistration(final TimeRegistration timeRegistration, boolean askPermission) {
@@ -218,6 +255,8 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
 
         timeRegistrationService.remove(timeRegistration);
         timeRegistrations.remove(timeRegistration);
+        initialRecordCount--;
+        currentLowerLimit--;
 
         tracker.trackEvent(
                 TrackerConstants.EventSources.TIME_REGISTRATIONS_ACTIVITY,
@@ -226,7 +265,7 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
 
         timeRegistrationToDelete = null;
         widgetService.updateWidget(TimeRegistrationsActivity.this);
-        loadTimeRegistrations(false);
+        loadTimeRegistrations(false, false);
 
         if (timeRegistration.isOngoingTimeRegistration()) {
             NotificationBarManager notificationBarManager = NotificationBarManager.getInstance(getApplicationContext());
@@ -270,14 +309,14 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
             case Constants.IntentRequestCodes.REGISTRATION_DETAILS : {
                 if (resultCode == RESULT_OK) {
                     Log.d(LOG_TAG, "A TR has been updated on the registrations details view, it's necessary to reload the list of time registrations upon return!");
-                    loadTimeRegistrations(true);
+                    loadTimeRegistrations(true, false);
                 }
                 break;
             }
             case Constants.IntentRequestCodes.REGISTRATION_EDIT_DIALOG: {
                 if (resultCode == RESULT_OK) {
                     Log.d(LOG_TAG, "The time registration has been updated!");
-                    loadTimeRegistrations(true);
+                    loadTimeRegistrations(true, false);
                 }
                 break;
             }
@@ -311,8 +350,11 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
         TimeRegistration timeRegistrationForContext = timeRegistrations.get(element);
 
         TimeRegistration previousTimeRegistration = null;
-        if (timeRegistrations.size() > element + 1) {
+        if (getTimeRegistrationsSize() > element + 1) {
             previousTimeRegistration = timeRegistrations.get(element + 1);
+        } else if (initialRecordCount > timeRegistrations.size()) {
+            Log.d(LOG_TAG, "The previous time registration is not yet loaded, loading it now");
+            previousTimeRegistration = timeRegistrationService.getPreviousTimeRegistration(timeRegistrationForContext);
         }
 
         TimeRegistration nextTimeRegistration = null;

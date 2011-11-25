@@ -134,7 +134,7 @@ public class IntentUtil {
      * @param activity The activity starting the action from.
      * @param subject The subject string.
      * @param body The body string.
-     * @param files The files to attach. Can be null or of size 0 if you do not want to attach any file.
+     * @param files The files to attach. Can be null or of count 0 if you do not want to attach any file.
      * @param chooserTitle The application chooser's title string.
      */
     public static void sendSomething(Activity activity, String subject, String body, List<File> files, String chooserTitle) {

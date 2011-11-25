@@ -91,4 +91,26 @@ public interface TimeRegistrationService {
      * @return Null if nothing found for the identifier, otherwise the time registration.
      */
     TimeRegistration get(Integer id);
+
+    /**
+     * Find all time registrations within a certain limit.
+     * @param lowerLimit The lower limit to find the time registrations for
+     * @param maxRows The maximum number of rows to be loaded
+     * @return A list of time registrations of count lowerLimit - higherLimit.
+     */
+    List<TimeRegistration> findAll(int lowerLimit, int maxRows);
+
+    /**
+     * Count the total number of time registrations available.
+     * @return The total number of time registrations.
+     */
+    Long count();
+
+    /**
+     * Find the time registration which comes just before the time registration provided. Comparison is done on start
+     * and ending time.
+     * @param timeRegistration The {@link TimeRegistration} to search the previous instance of.
+     * @return The previous time registration if any. Otherwise null;
+     */
+    TimeRegistration getPreviousTimeRegistration(TimeRegistration timeRegistration);
 }

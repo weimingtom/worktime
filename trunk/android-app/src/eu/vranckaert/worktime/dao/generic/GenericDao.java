@@ -26,6 +26,13 @@ public interface GenericDao<T, ID> {
     T findById(ID id);
 
     /**
+     * Check if the database has a record with a specific identifier.
+     * @param id The identifier to query on.
+     * @return {@link Boolean#TRUE} if the id is found in the table, otherwise {@link Boolean#FALSE}.
+     */
+    boolean contains(ID id);
+
+    /**
      * Find all entities of one type.
      * @return A list of entities.
      */
@@ -62,5 +69,5 @@ public interface GenericDao<T, ID> {
      * Count the total number of records in the database.
      * @return The number of records in the database.
      */
-    Long size();
+    Long count();
 }
