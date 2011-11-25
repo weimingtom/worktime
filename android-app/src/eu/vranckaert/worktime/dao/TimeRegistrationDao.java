@@ -30,12 +30,6 @@ import java.util.List;
  */
 public interface TimeRegistrationDao extends GenericDao<TimeRegistration, Integer> {
     /**
-     * Count the total number of time registrations available in the database.
-     * @return The number of available time registrations.
-     */
-    int countTotalNumberOfTimeRegistrations();
-
-    /**
      * Find the latest time registration. Returns <b>null</b> if no time regstrations are found!
      * @return The latest time registration.
      */
@@ -66,4 +60,20 @@ public interface TimeRegistrationDao extends GenericDao<TimeRegistration, Intege
      * @return A list of {@link TimeRegistration} instances based on the specified criteria.
      */
     List<TimeRegistration> getTimeRegistrations(Date startDate, Date endDate, List<Task> tasks);
+
+    /**
+     * Find all time registrations within a certain limit.
+     * @param lowerLimit The lower limit to find the time registrations for
+     * @param maxRows The maximum number of rows to be loaded
+     * @return A list of time registrations of count lowerLimit - higherLimit.
+     */
+    List<TimeRegistration> findAll(int lowerLimit, int maxRows);
+
+    /**
+     * Find the time registration which comes just before the time registration provided. Comparison is done on start
+     * and ending time.
+     * @param timeRegistration The {@link TimeRegistration} to search the previous instance of.
+     * @return The previous time registration if any. Otherwise null;
+     */
+    TimeRegistration getPreviousTimeRegistration(TimeRegistration timeRegistration);
 }

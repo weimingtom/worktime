@@ -72,31 +72,6 @@ public class CommentHistoryDaoImpl extends GenericDaoImpl<CommentHistory, Intege
     }
 
     /**
-     * Counts the number of records available in the database table corresponding to the entity {@link CommentHistory}.
-     * @return The number of records available.
-     */
-    private int count() {
-        Log.d(LOG_TAG, "Counting the number of comments in the history...");
-
-        int rowCount = 0;
-        List<String[]> results = null;
-        try {
-            GenericRawResults rawResults = dao.queryRaw("select count(*) from commenthistory");
-            results = rawResults.getResults();
-        } catch (SQLException e) {
-            throwFatalException(e);
-        }
-
-        if (results != null && results.size() > 0) {
-            rowCount = Integer.parseInt(results.get(0)[0]);
-        }
-
-        Log.d(LOG_TAG, "Rowcount: " + rowCount);
-
-        return rowCount;
-    }
-
-    /**
      *
      * {@inheritDoc}
      */

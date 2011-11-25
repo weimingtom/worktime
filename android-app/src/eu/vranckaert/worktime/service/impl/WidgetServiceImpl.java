@@ -61,17 +61,17 @@ public class WidgetServiceImpl implements WidgetService {
 
         boolean timeRegistrationStarted = false;
 
-        int numberOfTimeRegs = timeRegistrationDao.countTotalNumberOfTimeRegistrations();
+        Long numberOfTimeRegs = timeRegistrationDao.count();
 
         TimeRegistration lastTimeRegistration = null;
-        if(numberOfTimeRegs > 0) {
+        if(numberOfTimeRegs > 0L) {
             lastTimeRegistration = timeRegistrationDao.getLatestTimeRegistration();
             Log.d(LOG_TAG, "The last time registration has ID " + lastTimeRegistration.getId());
         } else {
             Log.d(LOG_TAG, "No timeregstrations found yet!");
         }
 
-        if(numberOfTimeRegs == 0 || (lastTimeRegistration != null && lastTimeRegistration.getEndTime() != null)) {
+        if(numberOfTimeRegs == 0L || (lastTimeRegistration != null && lastTimeRegistration.getEndTime() != null)) {
             Log.d(LOG_TAG, "No timeregistrations found yet or it's an ended timeregistration");
             views.setCharSequence(R.id.widget_actionbtn, "setText", ctx.getString(R.string.btn_widget_start));
             //Enable on click for the start button

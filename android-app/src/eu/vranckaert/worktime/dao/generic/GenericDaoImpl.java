@@ -99,6 +99,19 @@ public abstract class GenericDaoImpl<T, ID> implements GenericDao<T, ID> {
      * @Override
      */
     @Override
+    public boolean contains(ID id) {
+        try {
+            return dao.idExists(id);
+        } catch (SQLException e) {
+            throwFatalException(e);
+        }
+        return false;
+    }
+
+    /**
+     * @Override
+     */
+    @Override
     public List<T> findAll() {
         List<T> results = null;
         try {
@@ -167,7 +180,7 @@ public abstract class GenericDaoImpl<T, ID> implements GenericDao<T, ID> {
      * {@inheritDoc}
      */
     @Override
-    public Long size() {
+    public Long count() {
         Long result = 0L;
         try {
             result = dao.countOf();
