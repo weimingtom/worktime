@@ -36,8 +36,10 @@ For the other steps it's quite strateforward. However what you have to keep in m
 Important to know is that in the [http://code.google.com/p/worktime/source/browse/#svn%2Ftrunk%2Fandroid-app%2Fsrc%2Feu%2Fvranckaert%2Fworktime%2Fguice eu.vranckaert.worktime.guice] package we have the [http://code.google.com/p/worktime/source/browse/trunk/android-app/src/eu/vranckaert/worktime/guice/Module.java Module] class in which we will have to define all the DAO's to be used. In the <i>bindDaos</i> method you will have to bind a DAO-interface on a DAO-implementation.
 ====Services====
 Now let's have a look at the [http://code.google.com/p/worktime/source/browse/trunk/android-app/src/eu/vranckaert/worktime/service/impl/TimeRegistrationServiceImpl.java TimeRegistrationServiceImpl] class. In this class we want to do certain DAO/DB calls, so we need a reference to our, for example, TimeRegistrationDao class. So all we now have to do in this service class to have access to our DAO is:
-{{{@Inject
-private TimeRegistrationDao dao;}}}
+{{{
+@Inject
+private TimeRegistrationDao dao;
+}}}
 That's one thing, but off course we want to use our services also in the activities, so we will also have to configure them. So if you ever want to inject a certain implementation somewhere, it has to be binded in the [http://code.google.com/p/worktime/source/browse/trunk/android-app/src/eu/vranckaert/worktime/guice/Module.java Module] class. For services we have a seperate method <i>bindServices</i> in which we bind the interfaces to their implementations.
 ====Activities====
 For activities we will never try to inject them somewhere else (would be bad, very bad design!) so they don't have to be listed in the [http://code.google.com/p/worktime/source/browse/trunk/android-app/src/eu/vranckaert/worktime/guice/Module.java Module] class. But since we have all the services and dao's mapped in this class we can start injecting and using them in the activities. All you have to do is write this piece of code:
