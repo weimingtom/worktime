@@ -2,6 +2,11 @@
 #labels Featured,Phase-ReleaseNotes
 
 =Release Notes=
+===Milestone-Release1.1.2 (Time Registrations)===
+ * 1.1.2.a
+  * Enhancements:
+   * Remove 'delete' button in list of time registrations (issue 73)
+   * Dynamically load time registration to make it more light weight (issue 77)
 ===Milestone-Release1.1.1 (Reporting and widgets-usability)===
  * Enhancements:
   * Reporting: 
