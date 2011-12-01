@@ -371,4 +371,29 @@ public class Preferences {
         editor.putString(Constants.Preferences.Keys.REPORTING_EXPORT_CSV_SEPARATOR, String.valueOf(separator.getSeperator()));
         editor.commit();
     }
+
+    /**
+     * Get the preference for key {@link Constants.Preferences.Keys#TIME_REGISTRATION_AUTO_CLOSE_60S_GAP}. If no value
+     * is found for the preference the default value will be
+     * {@link Constants.Preferences#TIME_REGISTRATION_AUTO_CLOSE_60S_GAP_DEFAULT_VALUE}.
+     * @param ctx The context when getting the preference for file name of the reporting export.
+     * @return The {@link Boolean} value.
+     */
+    public static boolean getTimeRegistrationsAutoClose60sGap(Context ctx) {
+        return getSharedPreferences(ctx).getBoolean(
+                Constants.Preferences.Keys.TIME_REGISTRATION_AUTO_CLOSE_60S_GAP,
+                Constants.Preferences.TIME_REGISTRATION_AUTO_CLOSE_60S_GAP_DEFAULT_VALUE
+        );
+    }
+
+    /**
+     * Updates the preference {@link Constants.Preferences.Keys#TIME_REGISTRATION_AUTO_CLOSE_60S_GAP}.
+     * @param ctx The context when updating the preference.
+     * @param autoCloseGap The boolean if a gap should automatically be closed or not.
+     */
+    public static void setTimeRegistrationsAutoClose60sGap(Context ctx, boolean autoCloseGap) {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putBoolean(Constants.Preferences.Keys.TIME_REGISTRATION_AUTO_CLOSE_60S_GAP, autoCloseGap);
+        editor.commit();
+    }
 }

@@ -34,10 +34,12 @@ import eu.vranckaert.worktime.service.ProjectService;
 import eu.vranckaert.worktime.service.TaskService;
 import eu.vranckaert.worktime.service.TimeRegistrationService;
 import eu.vranckaert.worktime.service.WidgetService;
+import eu.vranckaert.worktime.utils.date.DateUtils;
 import eu.vranckaert.worktime.utils.notifications.NotificationBarManager;
 import eu.vranckaert.worktime.utils.preferences.Preferences;
 import eu.vranckaert.worktime.utils.string.StringUtils;
 import eu.vranckaert.worktime.utils.tracker.AnalyticsTracker;
+import org.joda.time.Duration;
 import roboguice.activity.GuiceActivity;
 
 import java.util.ArrayList;
@@ -119,6 +121,25 @@ public class StartTimeRegistrationActivity extends GuiceActivity {
                 TimeRegistration newTr = new TimeRegistration();
                 newTr.setTask(selectedTask);
                 newTr.setStartTime(startTime);
+
+                /*
+                 * Issue 61
+                 * If the start time of registration, and the end time of the previous registration, have a difference
+                 * off less than 60 seconds, we start the time registration at the same time the previous one is ended.
+                 * This is to prevent gaps in the time registrations that should be modified manual. This is default
+                 * configured to happen (defined in the preferences).
+                 */
+                if (Preferences.getTimeRegistrationsAutoClose60sGap(StartTimeRegistrationActivity.this)) {
+                    Log.d(LOG_TAG, "Check for gap between this new time registration and the previous one");
+                    TimeRegistration previousTimeRegistration = timeRegistrationService.getPreviousTimeRegistration(newTr);
+                    Duration duration = DateUtils.calculateDuration(startTime, previousTimeRegistration.getEndTime());
+                    long durationSeconds = duration.getStandardSeconds();
+                    if (durationSeconds < 60) {
+                        Log.d(LOG_TAG, "Gap is less than 60 seconds, setting start time to end time of previous registration");
+                        newTr.setStartTime(previousTimeRegistration.getEndTime());
+                    }
+                }
+
                 timeRegistrationService.create(newTr);
 
                 tracker.trackEvent(

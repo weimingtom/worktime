@@ -87,6 +87,7 @@ public class Constants {
         public static final boolean DISPLAY_TASKS_HIDE_FINISHED_DEFAULT_VALUE = false;
         public static final String WEEK_STARTS_ON_DEFAULT_VALUE = "7";
         public static final String REPORTING_EXPORT_FILE_NAME_DEFAULT_VALUE = "export";
+        public static final boolean TIME_REGISTRATION_AUTO_CLOSE_60S_GAP_DEFAULT_VALUE = true;
 
         public class Keys {
             public static final String EXPORT_TIME_REG_FILE_NAME = "exportFileName";
@@ -104,6 +105,7 @@ public class Constants {
             public static final String WEEK_STARTS_ON = "weekStartsOn";
             public static final String REPORTING_EXPORT_FILE_NAME = "reportingExportFileName";
             public static final String REPORTING_EXPORT_CSV_SEPARATOR = "reportingExportCsvSeparator";
+            public static final String TIME_REGISTRATION_AUTO_CLOSE_60S_GAP = "timeRegistrationAutoClose60sGap";
         }
     }
     public class Export {

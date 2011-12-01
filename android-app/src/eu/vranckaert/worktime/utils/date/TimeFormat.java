@@ -21,5 +21,12 @@ package eu.vranckaert.worktime.utils.date;
  * Time: 16:41
  */
 public enum TimeFormat {
-    MEDIUM, SHORT;
+    /**
+     * Including hours, minutes and seconds.
+     */
+    MEDIUM,
+    /**
+     * Including hours and minutes.
+     */
+    SHORT;
 }
