@@ -10,22 +10,22 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 
 ==Releases==
 ===Milestone-Release1.1.2 (Time Registrations)===
- * 1.1.2.b
+ * 1.1.2-b
   * Bugs:
    * Time Registration startDate >= previous endDate (issue 61)
   * Enhancements:
    * Error messages when editing time registration start/end times should be simplified (issue 33)
- * 1.1.2.c
+ * 1.1.2-c
   * Enhancements:
    * Splitting time registrations (issue 23)
    * Add comment to unfinished time registration (issue 72)
- * 1.1.2.d
+ * 1.1.2-d
   * Enhancements:
    * Move task to other project (issue 69)
- * 1.1.2.e
+ * 1.1.2-e
   * Enhancements:
    * Date precision preference for time registrations (seconds or minutes) (issue 62)
- * 1.1.2.f
+ * 1.1.2-f
   * Enhancements:
    * Multi-line input for time registration comments (issue 49)
 ===Milestone-Release1.1.3 (Backup and Restore)===
