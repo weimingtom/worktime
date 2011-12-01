@@ -75,17 +75,25 @@ public class PreferencesActivity extends GuicePreferenceActivity {
         PreferenceScreen preferences = ctx.getPreferenceManager().createPreferenceScreen(ctx);
         setPreferenceScreen(preferences);
 
-        //Category DATE AND TIME
-        PreferenceCategory dateAndTimeCategory = new PreferenceCategory(ctx);
-        dateAndTimeCategory.setTitle(R.string.pref_date_and_time_category_title);
-        preferences.addPreference(dateAndTimeCategory);
-        createDateAndTimeCategoryPreferences(ctx, dateAndTimeCategory);
+        //Category TIME REGISTRATIONS
+        PreferenceCategory timeRegistrationsCategory = new PreferenceCategory(ctx);
+        timeRegistrationsCategory.setTitle(R.string.pref_time_registrations_category_title);
+        preferences.addPreference(timeRegistrationsCategory);
+        createTimeRegistrationsCategoryPreferences(ctx, timeRegistrationsCategory);
+
+        //Category PROJECTS
 
         //Category TASKS
         PreferenceCategory tasksCategory = new PreferenceCategory(ctx);
         tasksCategory.setTitle(R.string.pref_tasks_category_title);
         preferences.addPreference(tasksCategory);
         createTasksCategoryPreferences(ctx, tasksCategory);
+
+        //Category DATE AND TIME
+        PreferenceCategory dateAndTimeCategory = new PreferenceCategory(ctx);
+        dateAndTimeCategory.setTitle(R.string.pref_date_and_time_category_title);
+        preferences.addPreference(dateAndTimeCategory);
+        createDateAndTimeCategoryPreferences(ctx, dateAndTimeCategory);
 
         //Category WIDGET
         PreferenceCategory widgetCategory = new PreferenceCategory(ctx);
@@ -112,7 +120,17 @@ public class PreferencesActivity extends GuicePreferenceActivity {
         createBackupCategory(ctx, backupCategory);
     }
 
-    private void createDateAndTimeCategoryPreferences(GuicePreferenceActivity ctx, PreferenceCategory generalCategory) {
+    private void createTimeRegistrationsCategoryPreferences(GuicePreferenceActivity ctx, PreferenceCategory timeRegistrationsCategory) {
+        CheckBoxPreference autoClose60sGaps = new CheckBoxPreference(ctx);
+        autoClose60sGaps.setDefaultValue(Constants.Preferences.TIME_REGISTRATION_AUTO_CLOSE_60S_GAP_DEFAULT_VALUE);
+        autoClose60sGaps.setKey(Constants.Preferences.Keys.TIME_REGISTRATION_AUTO_CLOSE_60S_GAP);
+        autoClose60sGaps.setTitle(R.string.pref_time_registrations_auto_close_60s_gap_title);
+        autoClose60sGaps.setSummaryOn(R.string.pref_time_registrations_auto_close_60s_gap_summary_on);
+        autoClose60sGaps.setSummaryOff(R.string.pref_time_registrations_auto_close_60s_gap_summary_off);
+        timeRegistrationsCategory.addPreference(autoClose60sGaps);
+    }
+
+    private void createDateAndTimeCategoryPreferences(GuicePreferenceActivity ctx, PreferenceCategory dateAndTimeCategory) {
         ListPreference displayHour1224Format = new ListPreference(ctx);
         displayHour1224Format.setKey(Constants.Preferences.Keys.DISPLAY_HOUR_12_24_FORMAT);
         displayHour1224Format.setDefaultValue(Constants.Preferences.DISPLAY_HOUR_12_24_FORMAT_DEFAULT_VALUE);
@@ -120,7 +138,7 @@ public class PreferencesActivity extends GuicePreferenceActivity {
         displayHour1224Format.setSummary(R.string.pref_date_and_time_display_hour_12_24_format_summary);
         displayHour1224Format.setEntries(R.array.pref_date_and_time_display_hour_12_24_format_options);
         displayHour1224Format.setEntryValues(R.array.pref_date_and_time_display_hour_12_24_format_option_values);
-        generalCategory.addPreference(displayHour1224Format);
+        dateAndTimeCategory.addPreference(displayHour1224Format);
 
         ListPreference weekStartOn = new ListPreference(ctx);
         weekStartOn.setKey(Constants.Preferences.Keys.WEEK_STARTS_ON);
@@ -129,7 +147,7 @@ public class PreferencesActivity extends GuicePreferenceActivity {
         weekStartOn.setSummary(R.string.pref_date_and_time_week_starts_on_summary);
         weekStartOn.setEntries(R.array.pref_date_and_time_week_starts_on_options);
         weekStartOn.setEntryValues(R.array.pref_date_and_time_week_starts_on_option_values);
-        generalCategory.addPreference(weekStartOn);
+        dateAndTimeCategory.addPreference(weekStartOn);
     }
 
     private void createTasksCategoryPreferences(GuicePreferenceActivity ctx, PreferenceCategory tasksCategory) {

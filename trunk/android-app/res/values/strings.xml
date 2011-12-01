@@ -122,10 +122,10 @@
     <string name="lbl_registration_edit_pick_date">Pick a new date</string>
     <string name="lbl_registration_edit_pick_time">Pick a new time</string>
     <string name="lbl_registration_edit_validation_error">Validation Error</string>
-    <string name="lbl_registration_edit_start_validation_error_date_lower_limit">The date and time you entered need to be after the previous ending date and time: %1$s. Press ok and and correct your errors.</string>
-    <string name="lbl_registration_edit_start_validation_error_date_higher_limit">The date and time you entered need to be before the ending date and time: %1$s. Press ok and and correct your errors.</string>
-    <string name="lbl_registration_edit_end_validation_error_date_lower_limit">The date and time you entered need to be after the starting date and time: %1$s. Press ok and and correct your errors.</string>
-    <string name="lbl_registration_edit_end_validation_error_date_higher_limit">The date and time you entered need to be before the next starting date and time: %1$s. Press ok and and correct your errors.</string>
+    <string name="lbl_registration_edit_validation_error_less_than_equal_to">The specified date/time needs to be before or equal to the limit. Press ok and correct your error. Limit is %1$s</string>
+    <string name="lbl_registration_edit_validation_error_greater_than_equal_to">The specified date/time needs to be after or equal to the limit. Press ok and correct this error. Limit is %1$s</string>
+    <string name="lbl_registration_edit_validation_error_less_than">The specified date/time needs to be before the limit. Press ok and correct this error. Limit is %1$s</string>
+    <string name="lbl_registration_edit_validation_error_greater_than">The specified date/time needs to be after the limit. Press ok and correct your error. Limit is %1$s</string>
     <!-- EXPORT FILE STRINGS -->
     <string name="lbl_registrations_export_file_csv_starttime">Starttime</string>
     <string name="lbl_registrations_export_file_csv_endtime">Endtime</string>
@@ -287,6 +287,10 @@
     <string name="pref_restore_summary">Restore the WorkTime data on this device from a previous backup from this or another device</string>
     <string name="pref_backup_restore_doc_title">Backup/Restore documentation</string>
     <string name="pref_backup_restore_doc_summary">Read the backup/restore functionality documentation.</string>
+    <string name="pref_time_registrations_category_title">Time Registrations</string>
+    <string name="pref_time_registrations_auto_close_60s_gap_title">Auto close 60s gap</string>
+    <string name="pref_time_registrations_auto_close_60s_gap_summary_on">If, upon starting a new registration, there is gap of less than 60 seconds between the end time of the previous registration and the start time of a new one it will be automatically reduced.</string>
+    <string name="pref_time_registrations_auto_close_60s_gap_summary_off">The start time of the a newly started time registration will not be modified.</string>
 
     <!-- BACKUP -->
     <string name="lbl_backup_restore_writing_backup_sd">Writing backup to SD-card</string>

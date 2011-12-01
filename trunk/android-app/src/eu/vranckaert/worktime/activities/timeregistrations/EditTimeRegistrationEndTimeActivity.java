@@ -61,8 +61,8 @@ public class EditTimeRegistrationEndTimeActivity extends GuiceActivity {
     private TimeRegistrationService timeRegistrationService;
 
     private Calendar newEndTime = null;
-    private Date lowerLimit = null;
-    private Date higherLimit = null;
+    private Calendar lowerLimit = null;
+    private Calendar higherLimit = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,6 +79,8 @@ public class EditTimeRegistrationEndTimeActivity extends GuiceActivity {
     private void setInitialDateAndTime() {
         newEndTime = GregorianCalendar.getInstance();
         newEndTime.setTime(timeRegistration.getEndTime());
+        newEndTime.set(Calendar.SECOND, 0);
+        newEndTime.set(Calendar.MILLISECOND, 0);
     }
 
     @Override
@@ -149,13 +151,13 @@ public class EditTimeRegistrationEndTimeActivity extends GuiceActivity {
             }
             case Constants.Dialog.VALIDATION_DATE_LOWER_LIMIT: {
                 String lowerLimitStr =
-                        DateUtils.convertDateTimeToString(lowerLimit, DateFormat.MEDIUM,
-                                TimeFormat.MEDIUM, getApplicationContext());
+                        DateUtils.convertDateTimeToString(lowerLimit.getTime(), DateFormat.MEDIUM,
+                                TimeFormat.SHORT, getApplicationContext());
                 AlertDialog.Builder alertValidationError = new AlertDialog.Builder(this);
 				alertValidationError
                            .setTitle(R.string.lbl_registration_edit_validation_error)
 						   .setMessage( getString(
-                                   R.string.lbl_registration_edit_end_validation_error_date_lower_limit,
+                                   R.string.lbl_registration_edit_validation_error_greater_than,
                                    lowerLimitStr
                            ))
 						   .setCancelable(false)
@@ -170,13 +172,13 @@ public class EditTimeRegistrationEndTimeActivity extends GuiceActivity {
             }
             case Constants.Dialog.VALIDATION_DATE_HIGHER_LIMIT: {
                 String higherLimitStr =
-                        DateUtils.convertDateTimeToString(higherLimit, DateFormat.MEDIUM,
-                                TimeFormat.MEDIUM, getApplicationContext());
+                        DateUtils.convertDateTimeToString(higherLimit.getTime(), DateFormat.MEDIUM,
+                                TimeFormat.SHORT, getApplicationContext());
                 AlertDialog.Builder alertValidationError = new AlertDialog.Builder(this);
 				alertValidationError
                            .setTitle(R.string.lbl_registration_edit_validation_error)
 						   .setMessage( getString(
-                                   R.string.lbl_registration_edit_end_validation_error_date_higher_limit,
+                                   R.string.lbl_registration_edit_validation_error_less_than_equal_to,
                                    higherLimitStr
                            ))
 						   .setCancelable(false)
@@ -204,29 +206,126 @@ public class EditTimeRegistrationEndTimeActivity extends GuiceActivity {
 
         //Define the limits...
         Log.d(LOG_TAG, "Defining the limits...");
-        lowerLimit = timeRegistration.getStartTime();
-        Log.d(LOG_TAG, "LowerLimit set to " + DateUtils.convertDateTimeToString(lowerLimit, DateFormat.FULL,
-                TimeFormat.MEDIUM, getApplicationContext()));
-        higherLimit = null;
+        //Lower Limit
+        lowerLimit = Calendar.getInstance();
+        lowerLimit.setTime(timeRegistration.getStartTime());
+        Log.d(LOG_TAG, "LowerLimit set to " + DateUtils.convertDateTimeToString(lowerLimit.getTime(), DateFormat.FULL,
+                TimeFormat.SHORT, getApplicationContext()));
+        //Higher Limit
+        higherLimit = Calendar.getInstance();
         if (nextTimeRegistration != null) {
-            higherLimit = nextTimeRegistration.getStartTime();
+            higherLimit.setTime(nextTimeRegistration.getStartTime());
         } else {
-            higherLimit = new Date();
+            higherLimit.setTime(new Date());
         }
-        Log.d(LOG_TAG, "higherLimit set to " + DateUtils.convertDateTimeToString(higherLimit, DateFormat.FULL,
-                TimeFormat.MEDIUM, getApplicationContext()));
+        Log.d(LOG_TAG, "higherLimit set to " + DateUtils.convertDateTimeToString(higherLimit.getTime(), DateFormat.FULL,
+                TimeFormat.SHORT, getApplicationContext()));
 
         //Validation
-        if (!newEndTime.getTime().after(lowerLimit)) {
-            Log.d(LOG_TAG, "The new start time is not after the lowerLimit!");
+        /*
+         * Fix for issue 61
+         * Checks newStartTime >= lowerLimit
+         */
+        boolean validOnLowerLimit = validateAgainstLowerLimit(newEndTime, lowerLimit);
+        boolean validOnHigherLimit = validateAgainstHigherLimit(newEndTime, higherLimit);
+
+        if (!validOnLowerLimit) {
+            Log.d(LOG_TAG, "The new start time is not greater than or equal to the lowerLimit!");
             showDialog(Constants.Dialog.VALIDATION_DATE_LOWER_LIMIT);
-        } else if (!newEndTime.getTime().before(higherLimit)) {
-            Log.d(LOG_TAG, "The new start time is not before the higherLimit!");
+        } else if (!validOnHigherLimit) {
+            Log.d(LOG_TAG, "The new start time is not lower than or equals to the higherLimit!");
             showDialog(Constants.Dialog.VALIDATION_DATE_HIGHER_LIMIT);
         } else {
             Log.d(LOG_TAG, "No validation errors...");
             updateTimeRegistration();
         }
+
+//        if (!newEndTime.getTime().after(lowerLimit)) {
+//            Log.d(LOG_TAG, "The new start time is not after the lowerLimit!");
+//            showDialog(Constants.Dialog.VALIDATION_DATE_LOWER_LIMIT);
+//        } else if (!newEndTime.getTime().before(higherLimit)) {
+//            Log.d(LOG_TAG, "The new start time is not before the higherLimit!");
+//            showDialog(Constants.Dialog.VALIDATION_DATE_HIGHER_LIMIT);
+//        } else {
+//            Log.d(LOG_TAG, "No validation errors...");
+//            updateTimeRegistration();
+//        }
+    }
+
+    /**
+     * Validate a certain time against a certain limit. The validation formula is: time > limit.
+     * @param time The time to be validated.
+     * @param limit The limit to which the time should be validated. This is an optional parameter. If null the
+     * validation will always succeed.
+     * @return {@link Boolean#TRUE} if valid against the validation formula, {@link Boolean#FALSE} if not.
+     */
+    private boolean validateAgainstLowerLimit(Calendar time, Calendar limit) {
+        Log.d(LOG_TAG, "About to start validating time > limit");
+
+        if (limit == null) {
+            //No limit is defined so the time can be anything!
+            Log.d(LOG_TAG, "No limitations defined so validation is ok!");
+            return true;
+        }
+
+        if(time.getTime().after(limit.getTime())) {
+            Log.d(LOG_TAG, "The new time is greater than the limit, validation ok!");
+            return true;
+        }
+
+        Log.d(LOG_TAG, "Validation failed! The new time is not greater than the limit!");
+
+        return false;
+    }
+
+    /**
+     * Validate a certain time against a certain limit. The validation formula is: time <= limit.
+     * @param time The time to be validated.
+     * @param limit The limit to which the time should be validated. This is an optional parameter. If null the
+     * validation will always succeed.
+     * @return {@link Boolean#TRUE} if valid against the validation formula, {@link Boolean#FALSE} if not.
+     */
+    private boolean validateAgainstHigherLimit(Calendar time, Calendar limit) {
+        Log.d(LOG_TAG, "About to start validating time <= limit");
+
+        if (limit == null) {
+            //No limit is defined so the time can be anything!
+            Log.d(LOG_TAG, "No limitations defined so validation is ok!");
+            return true;
+        }
+
+        Long timeMilis = time.getTimeInMillis();
+        Long limitMilis = limit.getTimeInMillis();
+
+        //First check if the time is after the limit, if so everything is ok!
+        //=> checks the greater than part
+        if (time.getTime().before(limit.getTime())) {
+            Log.d(LOG_TAG, "The new time is less than or equal to the limit, validation ok!");
+            return true;
+        }
+
+        //Check if the time and the limit are on the same day and in the same minute... If so it's ok and we set the
+        //the new time to the same seconds and milliseconds as the limit.
+        //=> checks the equals part
+        Calendar timeSameMinuteCheck = Calendar.getInstance();
+        timeSameMinuteCheck.setTimeInMillis(timeMilis);
+        timeSameMinuteCheck.set(Calendar.MILLISECOND, 0);
+        timeSameMinuteCheck.set(Calendar.SECOND, 0);
+        Calendar limitSameMinuteCheck = Calendar.getInstance();
+        limitSameMinuteCheck.setTimeInMillis(limitMilis);
+        limitSameMinuteCheck.set(Calendar.MILLISECOND, 0);
+        limitSameMinuteCheck.set(Calendar.SECOND, 0);
+        if (timeSameMinuteCheck.getTimeInMillis() == limitSameMinuteCheck.getTimeInMillis()) {
+            Log.d(LOG_TAG, "The new time is equal to the limit, validation ok!");
+            Log.d(LOG_TAG, "New time is updated with the seconds and milliseconds of the limit!");
+            time.set(Calendar.MILLISECOND, limit.get(Calendar.MILLISECOND));
+            time.set(Calendar.SECOND, limit.get(Calendar.SECOND));
+            return true;
+        }
+
+        Log.d(LOG_TAG, "Validation failed! The new time is not less than or equal to the limit!");
+
+        return false;
     }
 
     private void updateTimeRegistration() {

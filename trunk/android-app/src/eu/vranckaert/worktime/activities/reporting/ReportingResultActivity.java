@@ -160,11 +160,9 @@ public class ReportingResultActivity extends GuiceActivity {
                     }
                     case GROUPED_BY_PROJECT: {
                         if (dataOrder.equals(ReportingDataOrder.ASC)) {
-                            //TODO fix, the comparator cannot access tr->task->project ...
                             Log.d(LOG_TAG, "Ordering time registrations ASC on PROJECT-NAME");
                             Collections.sort(timeRegistrations, new TimeRegistrationByProjectNameAscComparator());
                         } else {
-                            //TODO fix, the comparator cannot access tr->task->project ...
                             Log.d(LOG_TAG, "Ordering time registrations DESC on PROJECT-NAME");
                             Collections.sort(timeRegistrations, new TimeRegistrationByProjectNameDescComparator());
                         }
