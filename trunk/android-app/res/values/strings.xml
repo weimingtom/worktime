@@ -105,6 +105,7 @@
     <string name="lbl_registrations_menu_details">View details</string>
     <string name="lbl_registrations_menu_edit_start">Edit starting time</string>
     <string name="lbl_registrations_menu_edit_end">Edit end time</string>
+    <string name="lbl_registrations_menu_split">Split</string>
     <string name="lbl_registrations_menu_edit_comment">Edit comment</string>
     <string name="lbl_registrations_menu_add_comment">Add comment</string>
     <string name="lbl_registrations_menu_edit_project_task">Edit project and task</string>
