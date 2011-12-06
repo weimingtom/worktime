@@ -239,7 +239,7 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
     public int getTimeRegistrationsSize() {
         int size = timeRegistrations.size();
 
-        if (timeRegistrations.get(timeRegistrations.size()-1).getId().equals(loadExtraTimeRegistration.getId())) {
+        if (timeRegistrations.size() > 0 && timeRegistrations.get(timeRegistrations.size()-1).getId().equals(loadExtraTimeRegistration.getId())) {
             size--;
         }
 
