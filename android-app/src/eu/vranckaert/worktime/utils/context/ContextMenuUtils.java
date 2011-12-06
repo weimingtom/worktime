@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 import eu.vranckaert.worktime.R;
 import eu.vranckaert.worktime.activities.timeregistrations.TimeRegistrationsActivity;
 import eu.vranckaert.worktime.activities.timeregistrations.*;
@@ -70,6 +71,11 @@ public class ContextMenuUtils {
                     R.string.lbl_registrations_menu_edit_end
             );
         }
+        menu.add(Menu.NONE,
+                Constants.ContentMenuItemIds.TIME_REGISTRATION_SPLIT,
+                Menu.NONE,
+                R.string.lbl_registrations_menu_split
+        );
         if (StringUtils.isNotBlank(registrationForContext.getComment())) {
             menu.add(Menu.NONE,
                     Constants.ContentMenuItemIds.TIME_REGISTRATION_EDIT_COMMENT,
@@ -129,6 +135,10 @@ public class ContextMenuUtils {
                 intent.putExtra(Constants.Extras.TIME_REGISTRATION, timeRegistrationForContext);
                 intent.putExtra(Constants.Extras.TIME_REGISTRATION_NEXT, nextTimeRegistration);
                 activity.startActivityForResult(intent, Constants.IntentRequestCodes.REGISTRATION_EDIT_DIALOG);
+                break;
+            }
+            case Constants.ContentMenuItemIds.TIME_REGISTRATION_SPLIT: {
+                Toast.makeText(activity, "Experimental...", Toast.LENGTH_SHORT).show();
                 break;
             }
             case Constants.ContentMenuItemIds.TIME_REGISTRATION_ADD_COMMENT: {

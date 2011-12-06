@@ -144,5 +144,6 @@ public class Constants {
         public static final int TIME_REGISTRATION_DELETE = 15;
         public static final int TIME_REGISTRATION_RESTART = 16;
         public static final int TIME_REGISTRATION_ADD_COMMENT = 17;
+        public static final int TIME_REGISTRATION_SPLIT = 18;
     }
 }
