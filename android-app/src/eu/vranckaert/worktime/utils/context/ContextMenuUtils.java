@@ -69,19 +69,19 @@ public class ContextMenuUtils {
                     Menu.NONE,
                     R.string.lbl_registrations_menu_edit_end
             );
-            if (StringUtils.isNotBlank(registrationForContext.getComment())) {
-                menu.add(Menu.NONE,
-                        Constants.ContentMenuItemIds.TIME_REGISTRATION_EDIT_COMMENT,
-                        Menu.NONE,
-                        R.string.lbl_registrations_menu_edit_comment
-                );
-            } else {
-                menu.add(Menu.NONE,
-                        Constants.ContentMenuItemIds.TIME_REGISTRATION_ADD_COMMENT,
-                        Menu.NONE,
-                        R.string.lbl_registrations_menu_add_comment
-                );
-            }
+        }
+        if (StringUtils.isNotBlank(registrationForContext.getComment())) {
+            menu.add(Menu.NONE,
+                    Constants.ContentMenuItemIds.TIME_REGISTRATION_EDIT_COMMENT,
+                    Menu.NONE,
+                    R.string.lbl_registrations_menu_edit_comment
+            );
+        } else {
+            menu.add(Menu.NONE,
+                    Constants.ContentMenuItemIds.TIME_REGISTRATION_ADD_COMMENT,
+                    Menu.NONE,
+                    R.string.lbl_registrations_menu_add_comment
+            );
         }
         menu.add(Menu.NONE,
                 Constants.ContentMenuItemIds.TIME_REGISTRATION_RESTART,
