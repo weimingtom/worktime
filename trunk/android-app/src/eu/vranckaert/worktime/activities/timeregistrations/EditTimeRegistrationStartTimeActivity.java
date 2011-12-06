@@ -208,6 +208,7 @@ public class EditTimeRegistrationStartTimeActivity extends GuiceActivity {
             Log.d(LOG_TAG, "LowerLimit set to " + DateUtils.convertDateTimeToString(lowerLimit.getTime(), DateFormat.FULL,
                     TimeFormat.SHORT, getApplicationContext()));
         } else {
+            lowerLimit = null;
             Log.d(LOG_TAG, "No lowerLimit defined!");
         }
         //Higher Limit
