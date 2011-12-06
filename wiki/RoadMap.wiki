@@ -10,12 +10,6 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 
 ==Releases==
 ===Milestone-Release1.1.2 (Time Registrations)===
- * 1.1.2.b
-  * Bugs:
-   * Time Registration startDate >= previous endDate (issue 61)
-   * ArrayIndexOutOfBoundsException (issue 79)
-  * Enhancements:
-   * Error messages when editing time registration start/end times should be simplified (issue 33)
  * 1.1.2.c
   * Enhancements:
    * Splitting time registrations (issue 23)
