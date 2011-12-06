@@ -3,6 +3,12 @@
 
 =Release Notes=
 ===Milestone-Release1.1.2 (Time Registrations)===
+ * 1.1.2.b
+  * Bugs:
+   * Time Registration startDate >= previous endDate (issue 61)
+   * ArrayIndexOutOfBoundsException (issue 79)
+  * Enhancements:
+   * Error messages when editing time registration start/end times should be simplified (issue 33)
  * 1.1.2.a
   * Enhancements:
    * Remove 'delete' button in list of time registrations (issue 73)
