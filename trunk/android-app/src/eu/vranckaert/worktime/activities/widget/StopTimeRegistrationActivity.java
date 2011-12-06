@@ -30,6 +30,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.Toast;
 import com.google.inject.Inject;
 import eu.vranckaert.worktime.R;
@@ -201,6 +202,12 @@ public class StopTimeRegistrationActivity extends GuiceActivity {
                 LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
                 final View layout = inflater.inflate(R.layout.dialog_add_tr_comment,
                                                (ViewGroup) findViewById(R.id.dialog_layout_root));
+                TimeRegistration latestRegistration = timeRegistrationService.getLatestTimeRegistration();
+                if (latestRegistration.getComment() != null) {
+                    EditText editText = (EditText) layout.findViewById(R.id.tr_comment);
+                    editText.setText(latestRegistration.getComment());
+                }
+
                 enterComment.setTitle(R.string.lbl_widget_dialog_title_enter_comment);
                 enterComment.setCancelable(false);
                 enterComment.setPositiveButton(R.string.btn_widget_stop, new AlertDialog.OnClickListener() {
