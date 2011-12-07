@@ -71,11 +71,11 @@ public class Constants {
         public static final int REGISTRATION_DETAILS = 5;
         public static final int STOP_TIME_REGISTRATION = 6;
         public static final int REGISTRATION_EDIT_DIALOG = 7;
+        public static final int REGISTRATION_SPLIT_DIALOG = 8;
     }
     public class Preferences {
         public static final String PREFERENCES_NAME = "WorkTime_0001";
 
-        public static final String EXPORT_TIME_REG_FILE_NAME_DEFAULT_VALUE = "export";
         public static final int SELECTED_PROJECT_ID_DEFAULT_VALUE = -1;
         public static final boolean WIDGET_ASK_FOR_TASK_SELECTION_IF_ONLY_ONE_DEFAULT_VALUE = true;
         public static final boolean WIDGET_ENDING_TIME_REGISTRATION_COMMENT_PREFERENCE_DEFAULT_VALUE = true;
@@ -90,9 +90,6 @@ public class Constants {
         public static final boolean TIME_REGISTRATION_AUTO_CLOSE_60S_GAP_DEFAULT_VALUE = true;
 
         public class Keys {
-            public static final String EXPORT_TIME_REG_FILE_NAME = "exportFileName";
-            public static final String EXPROT_TIME_REG_FILE_TYPE = "exportFileType";
-            public static final String EXPROT_TIME_REG_CSV_SEPARATOR = "exportCsvSeperator";
             public static final String SELECTED_PROJECT_ID = "selectedProjectId";
             public static final String WIDGET_ASK_FOR_TASK_SELECTION_IF_ONLY_ONE = "askForTaskSelectionIfOnlyOne";
             public static final String WIDGET_ENDING_TIME_REGISTRATION_COMMENT_PREFERENCE = "widgetEndingTimeRegistrationCommentPreference";

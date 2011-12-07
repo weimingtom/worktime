@@ -354,6 +354,12 @@
     <string name="lbl_notif_end_time_registration_request_title">End Registration</string>
     <string name="lbl_notif_end_time_registration_request">Do you want to end the time registration?</string>
 
+    <!-- WIZARD -->
+    <string name="wizard_navigation_cancel">Cancel</string>
+    <string name="wizard_navigation_previous">Previous</string>
+    <string name="wizard_navigation_next">Next</string>
+    <string name="wizard_navigation_finish">Finish</string>
+
     <!-- DEVELOPMENT -->
     <string name="home_btn_sample_data">SAMPLE DATA</string>
     <string name="home_btn_clear_data">CLEAR DB</string>
