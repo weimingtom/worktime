@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2011 Dirk Vranckaert
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="eu.vranckaert.worktime"
-      android:versionCode="79"
+      android:versionCode="80"
       android:versionName="1.1.2.c - UNSTABLE">
     <application android:label="WorkTime" android:icon="@drawable/logo" android:name=".guice.Application" android:debuggable="false">
         <!-- Widget configuration -->
@@ -52,6 +67,9 @@
                   android:configChanges="orientation|keyboardHidden"/>
         <activity android:name=".activities.timeregistrations.EditTimeRegistrationRestart"
                   android:theme="@android:style/Theme.Translucent.NoTitleBar"
+                  android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".activities.timeregistrations.EditTimeRegistrationSplitActivity"
+                  android:theme="@android:style/Theme.Light.NoTitleBar"
                   android:configChanges="orientation|keyboardHidden"/>
         <!-- Task specific activities -->
         <activity android:name=".activities.tasks.AddEditTaskActivity"
