@@ -16,10 +16,13 @@
 package eu.vranckaert.worktime.utils.wizard;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import eu.vranckaert.worktime.R;
 
 import java.util.ArrayList;
@@ -47,11 +50,15 @@ public abstract class WizardActivity extends Activity {
     private boolean previousEnabled = true;
     private boolean cancelEnabled = true;
 
+    private LayoutInflater layoutInflater;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         super.setContentView(R.layout.wizard);
+
+        layoutInflater = (LayoutInflater) WizardActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     /**
@@ -154,12 +161,13 @@ public abstract class WizardActivity extends Activity {
         }
 
         int resId = Integer.parseInt(layoutResIDs.get(nextIndex).toString());
-        Log.d(LOG_TAG, "Resource id to load next: " + resId);
-        activeView = WizardActivity.this.getLayoutInflater().inflate(
+        activeView = layoutInflater.inflate(
                 resId,
                 contentContainer,
                 false
         );
+        contentContainer.removeAllViews();
+        contentContainer.addView(activeView);
 
         currentViewIndex = nextIndex;
         if (isInitialLoad) {

@@ -132,8 +132,6 @@ public class RegistrationDetailsActivity extends GuiceActivity {
 
         if (registration.isOngoingTimeRegistration()) {
             timeRegistrationEnd.setText(TextConstants.SPACE + getString(R.string.now));
-            timeRegistrationCommentLabel.setVisibility(View.GONE);
-            timeRegistrationComment.setVisibility(View.GONE);
         } else {
             timeRegistrationEnd.setVisibility(View.VISIBLE);
 
@@ -146,15 +144,15 @@ public class RegistrationDetailsActivity extends GuiceActivity {
                             getApplicationContext()
                     )
             );
+        }
 
-            if (StringUtils.isNotBlank(registration.getComment())) {
-                timeRegistrationCommentLabel.setVisibility(View.VISIBLE);
-                timeRegistrationComment.setVisibility(View.VISIBLE);
-                timeRegistrationComment.setText(registration.getComment());
-            } else {
-                timeRegistrationCommentLabel.setVisibility(View.GONE);
-                timeRegistrationComment.setVisibility(View.GONE);
-            }
+        if (StringUtils.isNotBlank(registration.getComment())) {
+            timeRegistrationCommentLabel.setVisibility(View.VISIBLE);
+            timeRegistrationComment.setVisibility(View.VISIBLE);
+            timeRegistrationComment.setText(registration.getComment());
+        } else {
+            timeRegistrationCommentLabel.setVisibility(View.GONE);
+            timeRegistrationComment.setVisibility(View.GONE);
         }
     }
 
