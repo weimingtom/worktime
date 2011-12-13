@@ -276,6 +276,17 @@ public class RegistrationDetailsActivity extends GuiceActivity {
                 }
                 break;
             }
+            case Constants.IntentRequestCodes.REGISTRATION_SPLIT_DIALOG: {
+                if (resultCode == RESULT_OK) {
+                    Log.d(LOG_TAG, "The time registration has been splitted!");
+                    isUpdated = true;
+                    registration = timeRegistrationService.get(registration.getId());
+                    taskService.refresh(registration.getTask());
+                    projectService.refresh(registration.getTask().getProject());
+                    updateView();
+                }
+                break;
+            }
         }
     }
 

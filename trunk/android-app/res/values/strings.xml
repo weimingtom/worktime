@@ -28,6 +28,7 @@
     <string name="value">Value</string>
     <string name="next">Next</string>
     <string name="loading">Loading...</string>
+    <string name="save">Save</string>
     <!-- GENERAL TIME -->
     <string name="days">days</string>
     <string name="hours">hours</string>
@@ -127,6 +128,13 @@
     <string name="lbl_registration_edit_validation_error_greater_than_equal_to">The specified date/time needs to be after or equal to the limit. Press ok and correct this error. Limit is %1$s</string>
     <string name="lbl_registration_edit_validation_error_less_than">The specified date/time needs to be before the limit. Press ok and correct this error. Limit is %1$s</string>
     <string name="lbl_registration_edit_validation_error_greater_than">The specified date/time needs to be after the limit. Press ok and correct your error. Limit is %1$s</string>
+    <!-- REGISTRATIONS SPLIT -->
+    <string name="lbl_registration_split_title">Split Time Registration</string>
+    <string name="lbl_registration_split_cancel_dialog">Do you want to cancel?</string>
+    <string name="msg_registration_split_cancel_dialog">Canceling will make you loose all your changes. Do you want to continue?</string>
+    <string name="lbl_registration_split_part_one_title">Set end time - Part 1</string>
+    <string name="lbl_registration_split_part_two_title">Set start time - Part 2</string>
+    <string name="lbl_registration_split_part_three_title">Review Changes</string>
     <!-- EXPORT FILE STRINGS -->
     <string name="lbl_registrations_export_file_csv_starttime">Starttime</string>
     <string name="lbl_registrations_export_file_csv_endtime">Endtime</string>
@@ -359,6 +367,8 @@
     <string name="wizard_navigation_previous">Previous</string>
     <string name="wizard_navigation_next">Next</string>
     <string name="wizard_navigation_finish">Finish</string>
+    <string name="wizard_navigation_yes">Yes</string>
+    <string name="wizard_navigation_no">No</string>
 
     <!-- DEVELOPMENT -->
     <string name="home_btn_sample_data">SAMPLE DATA</string>
