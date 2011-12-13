@@ -140,6 +140,7 @@ public class ContextMenuUtils {
             case Constants.ContentMenuItemIds.TIME_REGISTRATION_SPLIT: {
                 Toast.makeText(activity, "Experimental...", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(activity, EditTimeRegistrationSplitActivity.class);
+                intent.putExtra(Constants.Extras.TIME_REGISTRATION, timeRegistrationForContext);
                 activity.startActivityForResult(intent, Constants.IntentRequestCodes.REGISTRATION_SPLIT_DIALOG);
                 break;
             }

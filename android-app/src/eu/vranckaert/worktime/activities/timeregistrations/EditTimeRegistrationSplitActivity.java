@@ -16,10 +16,27 @@
 package eu.vranckaert.worktime.activities.timeregistrations;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.DatePicker;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 import eu.vranckaert.worktime.R;
+import eu.vranckaert.worktime.constants.Constants;
+import eu.vranckaert.worktime.model.TimeRegistration;
+import eu.vranckaert.worktime.utils.context.IntentUtil;
+import eu.vranckaert.worktime.utils.date.DateFormat;
+import eu.vranckaert.worktime.utils.date.DateUtils;
+import eu.vranckaert.worktime.utils.date.HourPreference12Or24;
+import eu.vranckaert.worktime.utils.date.TimeFormat;
+import eu.vranckaert.worktime.utils.preferences.Preferences;
 import eu.vranckaert.worktime.utils.wizard.WizardActivity;
+import org.joda.time.Duration;
+import org.joda.time.PeriodType;
+
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * User: DIRK VRANCKAERT
@@ -27,40 +44,278 @@ import eu.vranckaert.worktime.utils.wizard.WizardActivity;
  * Time: 07:17
  */
 public class EditTimeRegistrationSplitActivity extends WizardActivity {
-    private int[] layouts = {R.layout.wizard_test_1, R.layout.wizard_test_2, R.layout.wizard_test_3};
+    private static final String LOG_TAG = EditTimeRegistrationSplitActivity.class.getSimpleName();
+
+    private TimeRegistration originalTimeRegistration;
+
+    private Calendar endPart1;
+    private Calendar startPart2;
+
+    private Calendar lowerLimitPart1;
+    private Calendar higherLimitPart1;
+    private Calendar lowerLimitPart2;
+    private Calendar higherLimitPart2;
+
+    private DatePicker datePicker;
+    private TimePicker timePicker;
+
+    private int[] layouts = {
+            R.layout.activity_time_registration_split_wizard_1,
+            R.layout.activity_time_registration_split_wizard_2,
+            R.layout.activity_time_registration_split_wizard_3
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentViews(true, false, layouts);
+        loadExtras();
+        validateOriginalTimeRegistration();
+        setInitialDataForTimeRegistrationParts();
+
+        setContentViews(layouts);
+
+        super.setFinishButtonText(R.string.save);
+        setCancelDialog(R.string.lbl_registration_split_cancel_dialog, R.string.msg_registration_split_cancel_dialog);
+    }
+
+    private void loadExtras() {
+        originalTimeRegistration = (TimeRegistration) getIntent().getExtras().get(Constants.Extras.TIME_REGISTRATION);
+        Log.d(LOG_TAG, "Received time registration " + originalTimeRegistration.getId());
+    }
+
+    private void validateOriginalTimeRegistration() {
+        Date endTime = originalTimeRegistration.isOngoingTimeRegistration() ? new Date() : originalTimeRegistration.getEndTime();
+        Duration duration = DateUtils.calculateDuration(originalTimeRegistration.getStartTime(), endTime);
+        long durationMinutes = duration.getStandardMinutes();
+        if (durationMinutes < 2L) {
+            Log.e(LOG_TAG, "The duration of the registration is less than 2 minutes so the registration cannot be split!");
+            //TODO make this a better message towards the users!
+            Toast.makeText(EditTimeRegistrationSplitActivity.this, "Time registrations with a duration of less than 2 minutes cannot be split!", Toast.LENGTH_LONG).show();
+            finish();
+        }
+    }
+
+    private void setInitialDataForTimeRegistrationParts() {
+        Log.d(LOG_TAG, "Setting initial data for the different parts");
+        Calendar partTime = Calendar.getInstance();
+
+        endPart1 = Calendar.getInstance();
+        startPart2 = Calendar.getInstance();
+
+        Date endTime = new Date();
+        if (!originalTimeRegistration.isOngoingTimeRegistration()) {
+            endTime = originalTimeRegistration.getEndTime();
+        }
+        partTime.setTime(endTime);
+        partTime.set(Calendar.SECOND, 0);
+        partTime.set(Calendar.MILLISECOND, 0);
+        partTime.add(Calendar.MINUTE, -1);
+
+        endPart1.setTime(partTime.getTime());
+        startPart2.setTime(partTime.getTime());
+
+        Log.d(LOG_TAG, "The default value for the end of part 1 is: " +
+                DateUtils.convertDateTimeToString(endPart1.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, EditTimeRegistrationSplitActivity.this));
+        Log.d(LOG_TAG, "The default value for the start of part 2 is: " +
+                DateUtils.convertDateTimeToString(startPart2.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, EditTimeRegistrationSplitActivity.this));
+    }
+
+    private void calculateLimits() {
+        Log.d(LOG_TAG, "Calculating limits for part 1");
+
+        lowerLimitPart1 = Calendar.getInstance();
+        lowerLimitPart1.setTime(originalTimeRegistration.getStartTime());
+        lowerLimitPart1.set(Calendar.MILLISECOND, 0);
+        lowerLimitPart1.set(Calendar.SECOND, 0);
+
+        higherLimitPart1 = Calendar.getInstance();
+        higherLimitPart1.setTime(startPart2.getTime());
+
+        Log.d(LOG_TAG, "Lower limit part 1: " + DateUtils.convertDateTimeToString(lowerLimitPart1.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, EditTimeRegistrationSplitActivity.this));
+        Log.d(LOG_TAG, "Higher limit part 1: " + DateUtils.convertDateTimeToString(higherLimitPart1.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, EditTimeRegistrationSplitActivity.this));
+
+        Log.d(LOG_TAG, "Calculating limits for part 2");
+
+        lowerLimitPart2 = Calendar.getInstance();
+        lowerLimitPart2.setTime(endPart1.getTime());
+
+        higherLimitPart2 = Calendar.getInstance();
+        Date originalEndTime = new Date();
+        if (!originalTimeRegistration.isOngoingTimeRegistration()) {
+            originalEndTime = originalTimeRegistration.getEndTime();
+        }
+        higherLimitPart2.setTime(originalEndTime);
+        lowerLimitPart1.set(Calendar.MILLISECOND, 0);
+        higherLimitPart2.set(Calendar.SECOND, 0);
+
+        Log.d(LOG_TAG, "Lower limit part 2: " + DateUtils.convertDateTimeToString(lowerLimitPart2.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, EditTimeRegistrationSplitActivity.this));
+        Log.d(LOG_TAG, "Higher limit part 2: " + DateUtils.convertDateTimeToString(higherLimitPart2.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, EditTimeRegistrationSplitActivity.this));
     }
 
     @Override
     protected void initialize(View view) {
-        Toast.makeText(EditTimeRegistrationSplitActivity.this, "In wizard activity!", Toast.LENGTH_SHORT).show();
+        initDateTimePicker(
+                endPart1,
+                R.id.time_registration_split_wizard_end_date,
+                R.id.time_registration_split_wizard_end_time
+        );
     }
 
     @Override
     public boolean beforePageChange(int currentViewIndex, int nextViewIndex, View view) {
-        Toast.makeText(EditTimeRegistrationSplitActivity.this, "Before changing page...", Toast.LENGTH_SHORT).show();
+        switch (currentViewIndex) {
+            case 0:
+                calculateLimits();
+                //ToDO validate the data, if invalid return false;
+                //ToDO else save changes made on page 1
+                break;
+            case 1:
+                calculateLimits();
+                //ToDO validate the data, if invalid return false;
+                //ToDO else save changes made on page 2
+                break;
+        }
         return true;
     }
 
     @Override
     protected void afterPageChange(int currentViewIndex, int previousViewIndex, View view) {
-        Toast.makeText(EditTimeRegistrationSplitActivity.this, "Page has been changed to page " + currentViewIndex, Toast.LENGTH_SHORT).show();
+        switch (currentViewIndex) {
+            case 0:
+                initDateTimePicker(
+                        endPart1,
+                        R.id.time_registration_split_wizard_end_date,
+                        R.id.time_registration_split_wizard_end_time
+                );
+                break;
+            case 1:
+                initDateTimePicker(
+                        startPart2,
+                        R.id.time_registration_split_wizard_start_date,
+                        R.id.time_registration_split_wizard_start_time
+                );
+                break;
+            case 2:
+                TextView tr1Start = (TextView) findViewById(R.id.time_registration_split_tr1_start);
+                TextView tr1End = (TextView) findViewById(R.id.time_registration_split_tr1_end);
+                TextView tr1Duration = (TextView) findViewById(R.id.time_registration_split_tr1_duration);
+
+                TextView tr2Start = (TextView) findViewById(R.id.time_registration_split_tr2_start);
+                TextView tr2End = (TextView) findViewById(R.id.time_registration_split_tr2_end);
+                TextView tr2Duration = (TextView) findViewById(R.id.time_registration_split_tr2_duration);
+
+                tr1Start.setText(
+                        DateUtils.convertDateTimeToString(
+                                originalTimeRegistration.getStartTime(),
+                                DateFormat.MEDIUM,
+                                TimeFormat.SHORT,
+                                EditTimeRegistrationSplitActivity.this
+                        )
+                );
+                tr1End.setText(
+                        DateUtils.convertDateTimeToString(
+                                endPart1.getTime(),
+                                DateFormat.MEDIUM,
+                                TimeFormat.SHORT,
+                                EditTimeRegistrationSplitActivity.this
+                        )
+                );
+
+                tr2Start.setText(
+                        DateUtils.convertDateTimeToString(
+                                startPart2.getTime(),
+                                DateFormat.MEDIUM,
+                                TimeFormat.SHORT,
+                                EditTimeRegistrationSplitActivity.this
+                        )
+                );
+                Date endTime = new Date();
+                if (!originalTimeRegistration.isOngoingTimeRegistration()) {
+                    endTime = originalTimeRegistration.getEndTime();
+                }
+                tr2End.setText(
+                        DateUtils.convertDateTimeToString(
+                                endTime,
+                                DateFormat.MEDIUM,
+                                TimeFormat.SHORT,
+                                EditTimeRegistrationSplitActivity.this
+                        )
+                );
+
+                TimeRegistration tmpTr = new TimeRegistration();
+                tmpTr.setStartTime(originalTimeRegistration.getStartTime());
+                tmpTr.setEndTime(endPart1.getTime());
+                tr1Duration.setText(
+                        DateUtils.calculatePeriod(EditTimeRegistrationSplitActivity.this, tmpTr)
+                );
+                tmpTr.setStartTime(startPart2.getTime());
+                tmpTr.setEndTime(originalTimeRegistration.getEndTime());
+                tr2Duration.setText(
+                        DateUtils.calculatePeriod(EditTimeRegistrationSplitActivity.this, tmpTr)
+                );
+                break;
+        }
     }
 
     @Override
-    protected boolean onCancel(View view, View button) {
-        Toast.makeText(EditTimeRegistrationSplitActivity.this, "Canceling wizard...", Toast.LENGTH_SHORT).show();
-        return true;
-    }
+    protected boolean onCancel(View view, View button) { return true; }
 
     @Override
     protected boolean onFinish(View view, View button) {
-        Toast.makeText(EditTimeRegistrationSplitActivity.this, "Finishing wizard...", Toast.LENGTH_SHORT).show();
+        //ToDO Save the changes made
+        Toast.makeText(EditTimeRegistrationSplitActivity.this, "New time registrations not yet saved!", Toast.LENGTH_SHORT).show();
         return true;
+    }
+
+    /**
+     * Initialize the date and time picker for a certain {@link Calendar}.
+     * @param part The {@link Calendar} instance to set on the date and time picker.
+     * @param datePickerId The resource id referencing an {@link DatePicker}.
+     * @param timePickerId The resource id referencing an {@link TimePicker}.
+     */
+    private void initDateTimePicker(Calendar part, int datePickerId, int timePickerId) {
+        datePicker = (DatePicker) findViewById(datePickerId);
+        timePicker = (TimePicker) findViewById(timePickerId);
+
+        datePicker.init(part.get(Calendar.YEAR), part.get(Calendar.MONTH), part.get(Calendar.DAY_OF_MONTH), null);
+
+        HourPreference12Or24 preference12or24Hours = Preferences.getDisplayHour1224Format(EditTimeRegistrationSplitActivity.this);
+        timePicker.setIs24HourView(preference12or24Hours.equals(HourPreference12Or24.HOURS_24)?true:false);
+        timePicker.setCurrentHour(part.get(Calendar.HOUR_OF_DAY));
+        timePicker.setCurrentMinute(part.get(Calendar.MINUTE));
+    }
+
+    /**
+     * Go Home.
+     * @param view The view.
+     */
+    public void onHomeClick(View view) {
+        boolean result = onCancel(getActiveView(), view);
+        if (result) {
+            if (isCancelDialogEnabled()) {
+                showCancelDialog(view);
+            } else {
+                closeOnCancel(view);
+            }
+        }
+    }
+
+    @Override
+    public void closeOnCancel(View view) {
+        setResult(RESULT_CANCELED);
+
+        if (view != null && view.getId() == R.id.title_bar_home_button) {
+            IntentUtil.goHome(this);
+            return;
+        }
+
+        super.closeOnCancel(view);
+    }
+
+    @Override
+    public void closeOnFinish() {
+        setResult(RESULT_OK);
+        super.closeOnFinish();
     }
 }

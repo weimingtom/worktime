@@ -320,6 +320,13 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
                 }
                 break;
             }
+            case Constants.IntentRequestCodes.REGISTRATION_SPLIT_DIALOG: {
+                if (resultCode == RESULT_OK) {
+                    Log.d(LOG_TAG, "The time registration has been splitted!");
+                    loadTimeRegistrations(true, false);
+                }
+                break;
+            }
         }
     }
 
