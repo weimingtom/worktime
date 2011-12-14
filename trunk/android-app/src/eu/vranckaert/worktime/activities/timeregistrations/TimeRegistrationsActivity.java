@@ -67,7 +67,7 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
 
     private Long initialRecordCount = 0L;
     private int currentLowerLimit = 0;
-    private final int maxRecordsToLoad = 2; //ToDO reset to 10!!
+    private final int maxRecordsToLoad = 10;
     public TimeRegistration loadExtraTimeRegistration = null;
 
     @Override
