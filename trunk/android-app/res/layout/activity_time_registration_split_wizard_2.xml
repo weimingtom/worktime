@@ -45,5 +45,9 @@
               android:layout_height="wrap_content"
               android:id="@+id/time_registration_split_wizard_error"
               style="@style/WorkTimeValidationError"
-              android:visibility="gone"/>
+              android:visibility="gone"
+              android:paddingLeft="3dip"
+              android:paddingRight="3dip"
+              android:paddingTop="10dip"
+              android:paddingBottom="dip"/>
 </LinearLayout>
