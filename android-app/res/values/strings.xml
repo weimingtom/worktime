@@ -135,6 +135,11 @@
     <string name="lbl_registration_split_part_one_title">Set end time - Part 1</string>
     <string name="lbl_registration_split_part_two_title">Set start time - Part 2</string>
     <string name="lbl_registration_split_part_three_title">Review Changes</string>
+    <string name="lbl_registration_split_validation_greater_than">The specified date and time needs to be after the limit. Limit is %1$s</string>
+    <string name="lbl_registration_split_validation_greater_than_equal_to">The specified date and time needs to be after or equal to the limit. Limit is %1$s</string>
+    <string name="lbl_registration_split_validation_less_than">The specified date and time needs to be before the limit. Limit is %1$s</string>
+    <string name="lbl_registration_split_validation_less_than_equal_to">The specified date and time needs to be before or equal to the limit. Limit is %1$s</string>
+    <string name="lbl_registration_split_validation_original_time_registration">Time registrations with a duration of less than 2 minutes cannot be split!</string>
     <!-- EXPORT FILE STRINGS -->
     <string name="lbl_registrations_export_file_csv_starttime">Starttime</string>
     <string name="lbl_registrations_export_file_csv_endtime">Endtime</string>

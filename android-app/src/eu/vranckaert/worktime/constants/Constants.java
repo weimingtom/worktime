@@ -73,6 +73,9 @@ public class Constants {
         public static final int REGISTRATION_EDIT_DIALOG = 7;
         public static final int REGISTRATION_SPLIT_DIALOG = 8;
     }
+    public class IntentResultCodes {
+        public static final int RESULT_OK_SPLIT = 100;
+    }
     public class Preferences {
         public static final String PREFERENCES_NAME = "WorkTime_0001";
 

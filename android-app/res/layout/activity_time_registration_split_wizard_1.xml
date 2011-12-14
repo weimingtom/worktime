@@ -41,4 +41,9 @@
     <TimePicker android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/time_registration_split_wizard_end_time"/>
+    <TextView android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/time_registration_split_wizard_error"
+              style="@style/WorkTimeValidationError"
+              android:visibility="gone"/>
 </LinearLayout>
