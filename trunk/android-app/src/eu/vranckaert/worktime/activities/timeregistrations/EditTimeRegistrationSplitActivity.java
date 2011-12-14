@@ -24,9 +24,11 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import eu.vranckaert.worktime.R;
 import eu.vranckaert.worktime.constants.Constants;
+import eu.vranckaert.worktime.constants.OSContants;
 import eu.vranckaert.worktime.dao.TimeRegistrationDao;
 import eu.vranckaert.worktime.dao.impl.TimeRegistrationDaoImpl;
 import eu.vranckaert.worktime.model.TimeRegistration;
+import eu.vranckaert.worktime.utils.context.ContextUtils;
 import eu.vranckaert.worktime.utils.context.IntentUtil;
 import eu.vranckaert.worktime.utils.date.DateFormat;
 import eu.vranckaert.worktime.utils.date.DateUtils;
@@ -501,8 +503,6 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
         dao.update(part1);
         dao.save(part2);
 
-        //ToDO remove next line!
-        //Toast.makeText(EditTimeRegistrationSplitActivity.this, "New time registrations not yet saved!", Toast.LENGTH_SHORT).show();
         return true;
     }
 
@@ -524,6 +524,10 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
         timePicker = (TimePicker) findViewById(timePickerId);
 
         datePicker.init(part.get(Calendar.YEAR), part.get(Calendar.MONTH), part.get(Calendar.DAY_OF_MONTH), null);
+        if (ContextUtils.getAndroidApiVersion() >= OSContants.API.HONEYCOMB_3_2) {
+            datePicker.setCalendarViewShown(false);
+            datePicker.setSpinnersShown(true);
+        }
 
         HourPreference12Or24 preference12or24Hours = Preferences.getDisplayHour1224Format(EditTimeRegistrationSplitActivity.this);
         timePicker.setIs24HourView(preference12or24Hours.equals(HourPreference12Or24.HOURS_24)?true:false);

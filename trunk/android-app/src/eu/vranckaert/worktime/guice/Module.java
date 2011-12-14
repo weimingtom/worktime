@@ -49,7 +49,6 @@ public class Module extends AbstractAndroidModule {
     }
 
     private void bindServices() {
-        bind(DevelopmentService.class).to(DevelopmentServiceImpl.class);
         bind(ProjectService.class).to(ProjectServiceImpl.class);
         bind(TimeRegistrationService.class).to(TimeRegistrationServiceImpl.class);
         bind(TaskService.class).to(TaskServiceImpl.class);
