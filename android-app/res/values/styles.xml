@@ -222,4 +222,10 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <!-- Themes -->
+    <style name="Theme.Light.NoTitleBar" parent="android:style/Theme.Light.NoTitleBar"/>
+    <style name="Theme.Translucent" parent="android:style/Theme.Translucent">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
 </resources>
