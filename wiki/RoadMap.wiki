@@ -24,13 +24,20 @@ For more information on our release strategy you can read the [ReleaseStrategy R
   * Enhancements:
    * Multi-line input for time registration comments (issue 49)
 ===Milestone-Release1.1.3 (Projects and Tasks)===
- * Bugs
-  * Export/Import bug (issue 82)
- * Enahcements
-  * Show/Hide switch for "finished tasks" in the project details (issue 66)
-  * Change preferences for tasks (issue 80)
-  * Mark projects finished (issue 81)
-  * Change preferences system (issue 83)
+ * 1.1.3.a
+  * Bugs:
+   * Export/Import bug (issue 82)
+ * 1.1.3.b
+  * Enhancements:
+   * Show/Hide switch for "finished tasks" in the project details (issue 66)
+   * Change preferences for tasks (issue 80)
+   * Change preferences system (issue 83)
+ * 1.1.3.c
+  * Enhancements:
+   * Punch in/out from app instead of widget-only (issue 59)
+ * 1.1.3.d
+  * Enhancements:
+   * Mark projects finished (issue 81)
 ===Milestone-Release1.1.4 (Backup and Restore)===
  * Backup scheduling (issue 55)
  * Backup preferences (issue 75)
@@ -40,7 +47,6 @@ For more information on our release strategy you can read the [ReleaseStrategy R
  * Enhancements:
   * Widgets:
    * Mini widgets per project and task (issue 60)
-   * Punch in/out from app instead of widget-only (issue 59)
    * Mini widget with same behavior as large default widget (issue 56)
 ===Milestone-Release1.1.7===
  * Enhancements:
