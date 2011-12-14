@@ -96,6 +96,7 @@ public class RegistrationDetailsActivity extends GuiceActivity {
     private ProjectService projectService;
 
     private boolean isUpdated = false;
+    private boolean isSplit = false;
 
     private AnalyticsTracker tracker;
 
@@ -278,8 +279,9 @@ public class RegistrationDetailsActivity extends GuiceActivity {
             }
             case Constants.IntentRequestCodes.REGISTRATION_SPLIT_DIALOG: {
                 if (resultCode == RESULT_OK) {
-                    Log.d(LOG_TAG, "The time registration has been splitted!");
+                    Log.d(LOG_TAG, "The time registration has been split!");
                     isUpdated = true;
+                    isSplit = true;
                     registration = timeRegistrationService.get(registration.getId());
                     taskService.refresh(registration.getTask());
                     projectService.refresh(registration.getTask().getProject());
@@ -292,7 +294,9 @@ public class RegistrationDetailsActivity extends GuiceActivity {
 
     @Override
     public void finish() {
-        if (isUpdated) {
+        if (isUpdated && isSplit) {
+            setResult(Constants.IntentResultCodes.RESULT_OK_SPLIT);
+        } else if (isUpdated) {
             setResult(RESULT_OK);
         }
         super.finish();

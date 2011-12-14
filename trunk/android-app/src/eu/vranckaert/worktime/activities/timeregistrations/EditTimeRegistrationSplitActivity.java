@@ -24,6 +24,8 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import eu.vranckaert.worktime.R;
 import eu.vranckaert.worktime.constants.Constants;
+import eu.vranckaert.worktime.dao.TimeRegistrationDao;
+import eu.vranckaert.worktime.dao.impl.TimeRegistrationDaoImpl;
 import eu.vranckaert.worktime.model.TimeRegistration;
 import eu.vranckaert.worktime.utils.context.IntentUtil;
 import eu.vranckaert.worktime.utils.date.DateFormat;
@@ -33,7 +35,6 @@ import eu.vranckaert.worktime.utils.date.TimeFormat;
 import eu.vranckaert.worktime.utils.preferences.Preferences;
 import eu.vranckaert.worktime.utils.wizard.WizardActivity;
 import org.joda.time.Duration;
-import org.joda.time.PeriodType;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -79,23 +80,37 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
         setCancelDialog(R.string.lbl_registration_split_cancel_dialog, R.string.msg_registration_split_cancel_dialog);
     }
 
+    /**
+     * Load all the extra parameters needed.
+     */
     private void loadExtras() {
         originalTimeRegistration = (TimeRegistration) getIntent().getExtras().get(Constants.Extras.TIME_REGISTRATION);
         Log.d(LOG_TAG, "Received time registration " + originalTimeRegistration.getId());
     }
 
+    /**
+     * Validate the time registration that will be split. The minimum duration of the registration needs to be 2 minutes
+     * or the registration cannot be split.
+     */
     private void validateOriginalTimeRegistration() {
         Date endTime = originalTimeRegistration.isOngoingTimeRegistration() ? new Date() : originalTimeRegistration.getEndTime();
         Duration duration = DateUtils.calculateDuration(originalTimeRegistration.getStartTime(), endTime);
         long durationMinutes = duration.getStandardMinutes();
         if (durationMinutes < 2L) {
             Log.e(LOG_TAG, "The duration of the registration is less than 2 minutes so the registration cannot be split!");
-            //TODO make this a better message towards the users!
-            Toast.makeText(EditTimeRegistrationSplitActivity.this, "Time registrations with a duration of less than 2 minutes cannot be split!", Toast.LENGTH_LONG).show();
+            Toast.makeText(
+                    EditTimeRegistrationSplitActivity.this,
+                    R.string.lbl_registration_split_validation_original_time_registration,
+                    Toast.LENGTH_LONG
+            ).show();
             finish();
         }
     }
 
+    /**
+     * Set an initial split value. The validation rules specify that the end of part 1 and the start of part 2 may be
+     * equal so we set them to the same value, which is the end of the original time registration minus 1 minute.
+     */
     private void setInitialDataForTimeRegistrationParts() {
         Log.d(LOG_TAG, "Setting initial data for the different parts");
         Calendar partTime = Calendar.getInstance();
@@ -121,6 +136,9 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
                 DateUtils.convertDateTimeToString(startPart2.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, EditTimeRegistrationSplitActivity.this));
     }
 
+    /**
+     * Calculates the lower and higher limits for both part 1 and part 2.
+     */
     private void calculateLimits() {
         Log.d(LOG_TAG, "Calculating limits for part 1");
 
@@ -146,7 +164,7 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
             originalEndTime = originalTimeRegistration.getEndTime();
         }
         higherLimitPart2.setTime(originalEndTime);
-        lowerLimitPart1.set(Calendar.MILLISECOND, 0);
+        higherLimitPart2.set(Calendar.MILLISECOND, 0);
         higherLimitPart2.set(Calendar.SECOND, 0);
 
         Log.d(LOG_TAG, "Lower limit part 2: " + DateUtils.convertDateTimeToString(lowerLimitPart2.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, EditTimeRegistrationSplitActivity.this));
@@ -164,19 +182,230 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
 
     @Override
     public boolean beforePageChange(int currentViewIndex, int nextViewIndex, View view) {
+        TextView errorTextView = (TextView) view.findViewById(R.id.time_registration_split_wizard_error);
+        if (errorTextView != null) {
+            errorTextView.setVisibility(View.GONE);
+        }
+
         switch (currentViewIndex) {
-            case 0:
+            case 0: {
                 calculateLimits();
-                //ToDO validate the data, if invalid return false;
-                //ToDO else save changes made on page 1
+
+                Calendar tmpPart = getCurrentDateTimePickerValue();
+                boolean validationGreaterThan = validateGreaterThan(tmpPart, lowerLimitPart1);
+                boolean validationLowerThanOrEqualsTo = validateLowerThanOrEqualsTo(tmpPart, higherLimitPart1);
+
+                if (!validationGreaterThan) {
+                    errorTextView.setText(
+                        getString(R.string.lbl_registration_split_validation_greater_than,
+                                DateUtils.convertDateTimeToString(
+                                        lowerLimitPart1.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, getApplicationContext()
+                                )
+                        )
+                    );
+                    errorTextView.setVisibility(View.VISIBLE);
+                    return false;
+                } else if (!validationLowerThanOrEqualsTo) {
+                    errorTextView.setText(
+                        getString(R.string.lbl_registration_split_validation_less_than_equal_to,
+                                DateUtils.convertDateTimeToString(
+                                        higherLimitPart1.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, getApplicationContext()
+                                )
+                        )
+                    );
+                    errorTextView.setVisibility(View.VISIBLE);
+                    return false;
+                }
+
+                endPart1 = tmpPart;
                 break;
-            case 1:
+            }
+            case 1: {
                 calculateLimits();
-                //ToDO validate the data, if invalid return false;
-                //ToDO else save changes made on page 2
+
+                Calendar tmpPart = getCurrentDateTimePickerValue();
+                boolean validationGreaterThanOrEqualsTo = validateGreaterThanOrEqualsTo(tmpPart, lowerLimitPart2);
+                boolean validationLowerThan = validateLowerThan(tmpPart, higherLimitPart2);
+
+                if (!validationGreaterThanOrEqualsTo) {
+                    errorTextView.setText(
+                        getString(R.string.lbl_registration_split_validation_greater_than_equal_to,
+                                DateUtils.convertDateTimeToString(
+                                        lowerLimitPart2.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, getApplicationContext()
+                                )
+                        )
+                    );
+                    errorTextView.setVisibility(View.VISIBLE);
+                    return false;
+                } else if (!validationLowerThan) {
+                    errorTextView.setText(
+                        getString(R.string.lbl_registration_split_validation_less_than,
+                                DateUtils.convertDateTimeToString(
+                                        higherLimitPart2.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, getApplicationContext()
+                                )
+                        )
+                    );
+                    errorTextView.setVisibility(View.VISIBLE);
+                    return false;
+                }
+
+                startPart2 = tmpPart;
                 break;
+            }
         }
         return true;
+    }
+
+    /**
+     * Validate a certain time against a certain limit. The validation formula is: time > limit.
+     * @param time The time to be validated.
+     * @param limit The limit to which the time should be validated. This is an optional parameter. If null the
+     * validation will always succeed.
+     * @return {@link Boolean#TRUE} if valid against the validation formula, {@link Boolean#FALSE} if not.
+     */
+    private boolean validateGreaterThan(Calendar time, Calendar limit) {
+        Log.d(LOG_TAG, "About to start validating time > limit");
+
+        if (limit == null) {
+            //No limit is defined so the time can be anything!
+            Log.d(LOG_TAG, "No limitations defined so validation is ok!");
+            return true;
+        }
+
+        if (time.after(limit)) {
+            Log.d(LOG_TAG, "The time is greater than the limit, validation ok!");
+            return true;
+        }
+
+        Log.d(LOG_TAG, "The time is not greater than the limit, validation NOT ok!");
+        return false;
+    }
+
+    /**
+     * Validate a certain time against a certain limit. The validation formula is: time >= limit.
+     * @param time The time to be validated.
+     * @param limit The limit to which the time should be validated. This is an optional parameter. If null the
+     * validation will always succeed.
+     * @return {@link Boolean#TRUE} if valid against the validation formula, {@link Boolean#FALSE} if not.
+     */
+    private boolean validateGreaterThanOrEqualsTo(Calendar time, Calendar limit) {
+        Log.d(LOG_TAG, "About to start validating time >= limit");
+
+        if (limit == null) {
+            //No limit is defined so the time can be anything!
+            Log.d(LOG_TAG, "No limitations defined so validation is ok!");
+            return true;
+        }
+
+        if (validateGreaterThan(time, limit) || validateEqualTo(time, limit)) {
+            Log.d(LOG_TAG, "The time is greater than or equal to the limit, validation ok!");
+            return true;
+        }
+
+        Log.d(LOG_TAG, "The time is not greater than or equal to the limit, validation NOT ok!");
+        return false;
+    }
+
+    /**
+     * Validate a certain time against a certain limit. The validation formula is: time < limit.
+     * @param time The time to be validated.
+     * @param limit The limit to which the time should be validated. This is an optional parameter. If null the
+     * validation will always succeed.
+     * @return {@link Boolean#TRUE} if valid against the validation formula, {@link Boolean#FALSE} if not.
+     */
+    private boolean validateLowerThan(Calendar time, Calendar limit) {
+        Log.d(LOG_TAG, "About to start validating time < limit");
+
+        if (limit == null) {
+            //No limit is defined so the time can be anything!
+            Log.d(LOG_TAG, "No limitations defined so validation is ok!");
+            return true;
+        }
+
+        if (time.before(limit)) {
+            Log.d(LOG_TAG, "The time is lower than the limit, validation ok!");
+            return true;
+        }
+
+        Log.d(LOG_TAG, "The time is not lower than the limit, validation NOT ok!");
+        return false;
+    }
+
+    /**
+     * Validate a certain time against a certain limit. The validation formula is: time <= limit.
+     * @param time The time to be validated.
+     * @param limit The limit to which the time should be validated. This is an optional parameter. If null the
+     * validation will always succeed.
+     * @return {@link Boolean#TRUE} if valid against the validation formula, {@link Boolean#FALSE} if not.
+     */
+    private boolean validateLowerThanOrEqualsTo(Calendar time, Calendar limit) {
+        Log.d(LOG_TAG, "About to start validating time <= limit");
+
+        if (limit == null) {
+            //No limit is defined so the time can be anything!
+            Log.d(LOG_TAG, "No limitations defined so validation is ok!");
+            return true;
+        }
+
+        if (validateLowerThan(time, limit) || validateEqualTo(time, limit)) {
+            Log.d(LOG_TAG, "The time is lower than or equal to the limit, validation ok!");
+            return true;
+        }
+
+        Log.d(LOG_TAG, "The time is not lower than or equal to the limit, validation NOT ok!");
+        return false;
+    }
+
+    /**
+     * Validate a certain time against a certain limit. The validation formula is: time = limit.
+     * @param time The time to be validated.
+     * @param limit The limit to which the time should be validated. This is an optional parameter. If null the
+     * validation will always succeed.
+     * @return {@link Boolean#TRUE} if valid against the validation formula, {@link Boolean#FALSE} if not.
+     */
+    private boolean validateEqualTo(Calendar time, Calendar limit) {
+        Log.d(LOG_TAG, "About to start validating time = limit");
+
+        if (limit == null) {
+            //No limit is defined so the time can be anything!
+            Log.d(LOG_TAG, "No limitations defined so validation is ok!");
+            return true;
+        }
+
+        Long timeInMilis = time.getTimeInMillis();
+        Long limitInMilis = limit.getTimeInMillis();
+
+        Calendar calendarTime = Calendar.getInstance();
+        calendarTime.setTimeInMillis(timeInMilis);
+        calendarTime.set(Calendar.MILLISECOND, 0);
+        calendarTime.set(Calendar.SECOND, 0);
+        Calendar calendarLimit = Calendar.getInstance();
+        calendarLimit.setTimeInMillis(limitInMilis);
+        calendarLimit.set(Calendar.MILLISECOND, 0);
+        calendarLimit.set(Calendar.SECOND, 0);
+        if (calendarTime.getTimeInMillis() == calendarLimit.getTimeInMillis()) {
+            Log.d(LOG_TAG, "The time is equal to the limit, validation ok!");
+            return true;
+        }
+
+        Log.d(LOG_TAG, "The time is not equal to the limit, validation NOT ok!");
+        return false;
+    }
+
+    /**
+     * Store the current values in the date and time picker.
+     * @return A {@link Calendar} instance with the current values of the date and time picker.
+     */
+    private Calendar getCurrentDateTimePickerValue() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, datePicker.getYear());
+        calendar.set(Calendar.MONTH, datePicker.getMonth());
+        calendar.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
+        calendar.set(Calendar.HOUR_OF_DAY, timePicker.getCurrentHour());
+        calendar.set(Calendar.MINUTE, timePicker.getCurrentMinute());
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar;
     }
 
     @Override
@@ -263,9 +492,25 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
 
     @Override
     protected boolean onFinish(View view, View button) {
-        //ToDO Save the changes made
-        Toast.makeText(EditTimeRegistrationSplitActivity.this, "New time registrations not yet saved!", Toast.LENGTH_SHORT).show();
+        TimeRegistration part1 = createTimeRegistrationForPart(originalTimeRegistration, originalTimeRegistration.getStartTime(), endPart1.getTime());
+        TimeRegistration part2 = createTimeRegistrationForPart(originalTimeRegistration, startPart2.getTime(), originalTimeRegistration.getEndTime());
+        //The original time registration will be kept, and updated with the values from part1.
+        part1.setId(originalTimeRegistration.getId());
+
+        TimeRegistrationDao dao = new TimeRegistrationDaoImpl(EditTimeRegistrationSplitActivity.this);
+        dao.update(part1);
+        dao.save(part2);
+
+        //ToDO remove next line!
+        //Toast.makeText(EditTimeRegistrationSplitActivity.this, "New time registrations not yet saved!", Toast.LENGTH_SHORT).show();
         return true;
+    }
+
+    private TimeRegistration createTimeRegistrationForPart(TimeRegistration timeRegistrationBase, Date startTime, Date endTime) {
+        TimeRegistration timeRegistration = timeRegistrationBase.duplicate();
+        timeRegistration.setStartTime(startTime);
+        timeRegistration.setEndTime(endTime);
+        return timeRegistration;
     }
 
     /**

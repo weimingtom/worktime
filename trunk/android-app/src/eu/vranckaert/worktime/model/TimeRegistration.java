@@ -117,4 +117,16 @@ public class TimeRegistration implements Serializable {
     public void setFlags(String flags) {
         this.flags = flags;
     }
+
+    public TimeRegistration duplicate() {
+        TimeRegistration timeRegistration = new TimeRegistration();
+        timeRegistration.setStartTime(this.getStartTime());
+        timeRegistration.setEndTime(this.getEndTime());
+        timeRegistration.setExternalId(this.getExternalId());
+        timeRegistration.setExternalSystem(this.getExternalSystem());
+        timeRegistration.setTask(this.getTask());
+        timeRegistration.setComment(this.getComment());
+        timeRegistration.setFlags(this.getFlags());
+        return timeRegistration;
+    }
 }

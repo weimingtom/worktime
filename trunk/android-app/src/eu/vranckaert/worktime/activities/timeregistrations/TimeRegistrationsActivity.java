@@ -310,6 +310,9 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
                 if (resultCode == RESULT_OK) {
                     Log.d(LOG_TAG, "A TR has been updated on the registrations details view, it's necessary to reload the list of time registrations upon return!");
                     loadTimeRegistrations(true, false);
+                } else if (resultCode == Constants.IntentResultCodes.RESULT_OK_SPLIT) {
+                    Log.d(LOG_TAG, "A TR has been split on the registrations details view, it's necessary to reload the list of time registrations upon return!");
+                    loadTimeRegistrations(true, true);
                 }
                 break;
             }
@@ -322,8 +325,8 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
             }
             case Constants.IntentRequestCodes.REGISTRATION_SPLIT_DIALOG: {
                 if (resultCode == RESULT_OK) {
-                    Log.d(LOG_TAG, "The time registration has been splitted!");
-                    loadTimeRegistrations(true, false);
+                    Log.d(LOG_TAG, "The time registration has been split!");
+                    loadTimeRegistrations(true, true);
                 }
                 break;
             }
