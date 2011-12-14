@@ -67,7 +67,7 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
 
     private Long initialRecordCount = 0L;
     private int currentLowerLimit = 0;
-    private final int maxRecordsToLoad = 10;
+    private final int maxRecordsToLoad = 2; //ToDO reset to 10!!
     public TimeRegistration loadExtraTimeRegistration = null;
 
     @Override
@@ -239,6 +239,7 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
     public int getTimeRegistrationsSize() {
         int size = timeRegistrations.size();
 
+        //Check if latest time registration is a dummy time registration, if so the size of loaded registrations is size - 1
         if (timeRegistrations.size() > 0 && timeRegistrations.get(timeRegistrations.size()-1).getId().equals(loadExtraTimeRegistration.getId())) {
             size--;
         }
@@ -312,7 +313,8 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
                     loadTimeRegistrations(true, false);
                 } else if (resultCode == Constants.IntentResultCodes.RESULT_OK_SPLIT) {
                     Log.d(LOG_TAG, "A TR has been split on the registrations details view, it's necessary to reload the list of time registrations upon return!");
-                    loadTimeRegistrations(true, true);
+                    timeRegistrations.add(0, new TimeRegistration()); //Forces when reloading to load one extra record!
+                    loadTimeRegistrations(true, false);
                 }
                 break;
             }
@@ -326,7 +328,8 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
             case Constants.IntentRequestCodes.REGISTRATION_SPLIT_DIALOG: {
                 if (resultCode == RESULT_OK) {
                     Log.d(LOG_TAG, "The time registration has been split!");
-                    loadTimeRegistrations(true, true);
+                    timeRegistrations.add(0, new TimeRegistration()); //Forces when reloading to load one extra record!
+                    loadTimeRegistrations(true, false);
                 }
                 break;
             }
