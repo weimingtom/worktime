@@ -26,6 +26,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 ===Milestone-Release1.1.3 (Projects, Tasks and Time Registrations)===
  * 1.1.3.a
   * Bugs:
+   * Cannot access the backup files from my computer (issue 84)
    * Backup/Restore bug (issue 82)
  * 1.1.3.b
   * Enhancements:
@@ -41,6 +42,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 ===Milestone-Release1.1.4 (Backup and Restore)===
  * Backup scheduling (issue 55)
  * Backup preferences (issue 75)
+ * Add option "Remove all backups" in preferences (issue 85)
 ===Milestone-Release1.1.5 (Tablet Support)===
  * Tablet Support (issue 68)
 ===Milestone-Release1.1.6 (Widgets)===
