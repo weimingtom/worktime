@@ -29,6 +29,7 @@ import com.google.inject.Inject;
 import eu.vranckaert.worktime.R;
 import eu.vranckaert.worktime.activities.reporting.ReportingCriteriaActivity;
 import eu.vranckaert.worktime.activities.tasks.AddEditTaskActivity;
+import eu.vranckaert.worktime.comparators.project.ProjectByNameComparator;
 import eu.vranckaert.worktime.comparators.task.TaskByNameComparator;
 import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.constants.TrackerConstants;
@@ -622,6 +623,7 @@ public class ProjectDetailsActivity extends GuiceListActivity {
      */
     private void moveTaskFromProject(final Task task, final Project fromProject) {
         final List<Project> availableProjects = projectService.findAll();
+        Collections.sort(availableProjects, new ProjectByNameComparator());
         Log.d(LOG_TAG, availableProjects.size() + " projects found");
 
         List<String> projectList = new ArrayList<String>();
@@ -671,6 +673,10 @@ public class ProjectDetailsActivity extends GuiceListActivity {
         Log.d(LOG_TAG, "About to move the task away from project " + fromProject.getName() + ", to " + toProject.getName());
         task.setProject(toProject);
         taskService.update(task);
+        tracker.trackEvent(
+                TrackerConstants.EventSources.PROJECT_DETAILS_ACTIVITY,
+                TrackerConstants.EventActions.MOVE_TASK
+        );
         Log.d(LOG_TAG, "Task has been moved!");
         loadProjectTasks(project);
     }
