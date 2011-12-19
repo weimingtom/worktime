@@ -68,5 +68,6 @@ public class TrackerConstants {
         public static final String RESTART_TIME_REGISTRATION = "restartTimeRegistration";
         public static final String GENERATE_REPORT = "generateReport";
         public static final String EXPORT_RESULT = "exportResult";
+        public static final String MOVE_TASK = "moveTask";
     }
 }
