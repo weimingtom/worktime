@@ -52,6 +52,7 @@ import roboguice.activity.GuiceListActivity;
 import roboguice.inject.InjectExtra;
 import roboguice.inject.InjectView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -501,6 +502,10 @@ public class ProjectDetailsActivity extends GuiceListActivity {
                 openEditTaskActivity(taskForContext);
                 break;
             }
+            case Constants.ContentMenuItemIds.TASK_MOVE: {
+                moveTaskFromProject(taskForContext, project);
+                break;
+            }
             case Constants.ContentMenuItemIds.TASK_MARK_FINISHED: {
                 changeTaskFinished(true, element);
                 break;
@@ -608,6 +613,66 @@ public class ProjectDetailsActivity extends GuiceListActivity {
                 showDialog(Constants.Dialog.WARN_PROJECT_DELETE_PROJECT_STILL_IN_USE);
             }
         }
+    }
+
+    /**
+     * Move a task. This will show a selection dialog where one project can be selected to move the task to. This method
+     * will not perform the move itself!
+     * @param task The task to be moved.
+     */
+    private void moveTaskFromProject(final Task task, final Project fromProject) {
+        final List<Project> availableProjects = projectService.findAll();
+        Log.d(LOG_TAG, availableProjects.size() + " projects found");
+
+        List<String> projectList = new ArrayList<String>();
+        int indexOfCurrentProject = -1;
+        for (Project p : availableProjects) {
+            if (!p.getId().equals(fromProject.getId())) {
+                projectList.add(p.getName());
+            } else {
+                indexOfCurrentProject = availableProjects.indexOf(p);
+            }
+        }
+        if (indexOfCurrentProject > -1) {
+            availableProjects.remove(indexOfCurrentProject);
+        }
+        Log.d(LOG_TAG, availableProjects.size() + " projects to choose from");
+        
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.lbl_move_task_title)
+                .setSingleChoiceItems(
+                        StringUtils.convertListToArray(projectList),
+                        -1,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogInterface, int index) {
+                                Log.d(LOG_TAG, "Project at index " + index + " choosen.");
+                                Project selectedProject = availableProjects.get(index);
+                                Log.d(LOG_TAG, "Changing task to project " + selectedProject.getName());
+                                moveTaskToProject(task, fromProject, selectedProject);
+                                dialogInterface.dismiss();
+                            }
+                        }
+                )
+                .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    public void onCancel(DialogInterface dialogInterface) {
+                        Log.d(LOG_TAG, "No project chosen, closing the dialog");
+                    }
+                });
+        Dialog dialog = builder.create();
+        dialog.show();
+    }
+
+    /**
+     * Move a task to a certain project.
+     * @param task The task to be moved.
+     * @param toProject The project to which the task should be moved.
+     */
+    private void moveTaskToProject(Task task, Project fromProject, Project toProject) {
+        Log.d(LOG_TAG, "About to move the task away from project " + fromProject.getName() + ", to " + toProject.getName());
+        task.setProject(toProject);
+        taskService.update(task);
+        Log.d(LOG_TAG, "Task has been moved!");
+        loadProjectTasks(project);
     }
 
     @Override

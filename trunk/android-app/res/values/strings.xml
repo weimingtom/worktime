@@ -95,6 +95,8 @@
     <string name="lbl_add_task_name">Task-name:</string>
     <string name="lbl_task_name_required">The name of the task is a required field!</string>
     <string name="lbl_add_task_project_name">Project:</string>
+    <!-- MOVE -->
+    <string name="lbl_move_task_title">Select project</string>
 
     <!-- REGISTRATIONS -->
     <string name="lbl_registrations_title">Time Registrations</string>
