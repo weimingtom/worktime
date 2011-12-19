@@ -14,6 +14,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
   * Enhancements:
    * Splitting time registrations (issue 23)
    * Add comment to unfinished time registration (issue 72)
+   * Honeycomb and Ice Cream Sandwich support (no tablet!) (issue 86)
  * 1.1.2.d
   * Enhancements:
    * Move task to other project (issue 69)
