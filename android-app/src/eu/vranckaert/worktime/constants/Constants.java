@@ -72,6 +72,7 @@ public class Constants {
         public static final int STOP_TIME_REGISTRATION = 6;
         public static final int REGISTRATION_EDIT_DIALOG = 7;
         public static final int REGISTRATION_SPLIT_DIALOG = 8;
+        public static final int MOVE_TASK = 4;
     }
     public class IntentResultCodes {
         public static final int RESULT_OK_SPLIT = 100;
