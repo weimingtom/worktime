@@ -457,6 +457,12 @@ public class ProjectDetailsActivity extends GuiceListActivity {
                     R.string.lbl_tasks_menu_edit
             );
 
+            menu.add(Menu.NONE,
+                    Constants.ContentMenuItemIds.TASK_MOVE,
+                    Menu.NONE,
+                    R.string.lbl_tasks_menu_move
+            );
+
             if (taskForContext.isFinished()) {
                 menu.add(Menu.NONE,
                     Constants.ContentMenuItemIds.TASK_MARK_UNFINISHED,

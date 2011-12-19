@@ -82,6 +82,7 @@
     <string name="msg_delete_task_unavailable_still_in_use">The project cannot be deleted as it is still used in some tasks. Please remove the tasks first and try again.</string>
     <string name="msg_mark_task_finished_not_possible_ongoing_tr">The task cannot be marked as finished as it\'s used in an ongoing time registration...</string>
     <string name="lbl_tasks_menu_edit">Edit task</string>
+    <string name="lbl_tasks_menu_move">Move task</string>
     <string name="lbl_tasks_menu_mark_unfinished">Mark unfinished</string>
     <string name="lbl_tasks_menu_mark_finished">Mark finished</string>
     <string name="lbl_tasks_menu_delete">Delete task</string>
