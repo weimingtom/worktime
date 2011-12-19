@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2011 Dirk Vranckaert
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<resources>
+    <!-- APP -->
+    <string name="app_name">Work Time</string>
+
+    <!-- GENERAL -->
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="close">Close</string>
+    <string name="dash">-</string>
+    <string name="value">Value</string>
+    <string name="next">Next</string>
+    <string name="loading">Loading...</string>
+    <string name="save">Save</string>
+    <!-- GENERAL TIME -->
+    <string name="days">days</string>
+    <string name="hours">hours</string>
+    <string name="minutes">minutes</string>
+    <string name="seconds">seconds</string>
+    <string name="daysShort">d</string>
+    <string name="hoursShort">h</string>
+    <string name="minutesShort">m</string>
+    <string name="secondsShort">s</string>
+    <!-- GENERAL - OTHERS -->
+    <string name="lbl_delete_all">Delete all</string>
+    <string name="lbl_do_nothing">Do nothing</string>
+
+    <!-- DEFUALT VALUES DB -->
+    <string name="default_project_name">Default Project</string>
+    <string name="default_project_comment">This is the default project, created when installing the application.</string>
+    <string name="default_task_name">Default Task</string>
+    <string name="default_task_comment">This is the default task, created when installing the application.</string>
+
+    <!-- HOME -->
+    <string name="home_btn_timeregs">Registrations</string>
+    <string name="home_btn_projects">Projects</string>
+    <string name="home_btn_preferences">Preferences</string>
+    <string name="home_btn_reporting">Reporting</string>
+    <string name="home_btn_about">About</string>
+
+    <!-- MANAGE PROJECTS -->
+    <string name="btn_manage_projects_title">Manage Projects</string>
+    <string name="msg_delete_project_confirmation">Do you want to delete this project?</string>
+    <string name="lbl_empty_project_list">No projects available yet.</string>
+    <string name="msg_delete_project_at_least_one_required">You cannot delete this project. At least one is required.</string>
+    <string name="lbl_projects_menu_details">View details</string>
+    <string name="lbl_projects_menu_delete">Delete project</string>
+    <string name="lbl_projects_menu_add">Add new project</string>
+    <string name="lbl_projects_menu_edit">Edit project</string>
+    <!-- ADD/EDIT PROJECT -->
+    <string name="lbl_add_project_title">Add Project</string>
+    <string name="lbl_edit_project_title">Edit Project</string>
+    <string name="lbl_add_project_name">Project-name:</string>
+    <string name="lbl_add_project_comment">Comment:</string>
+    <string name="lbl_project_name_not_unique">This name is already in use. Please choose another one.</string>
+    <string name="lbl_project_name_required">The name of the project is a required field!</string>
+    <!-- PROJECT DETAILS -->
+    <string name="lbl_project_details_tasks">Tasks</string>
+    <string name="lbl_empty_task_list">No tasks created yet</string>
+    <string name="lbl_project_details_no_comment">No comment entered for this project</string>
+    <string name="lbl_project_details_total_time_spent">Total time spent:</string>
+    <string name="lbl_project_details_punch_in_count">\"Punch In\" count:</string>
+    <string name="msg_delete_task_confirmation">Do you want to delete this task?</string>
+    <string name="msg_delete_task_and_linked_time_registrations_confirmation">Time registrations for this task have been found. Do you want to delete all those time registrations and the task or do nothing?</string>
+    <string name="msg_delete_task_unavailable_still_in_use">The project cannot be deleted as it is still used in some tasks. Please remove the tasks first and try again.</string>
+    <string name="msg_mark_task_finished_not_possible_ongoing_tr">The task cannot be marked as finished as it\'s used in an ongoing time registration...</string>
+    <string name="lbl_tasks_menu_edit">Edit task</string>
+    <string name="lbl_tasks_menu_move">Move task</string>
+    <string name="lbl_tasks_menu_mark_unfinished">Mark unfinished</string>
+    <string name="lbl_tasks_menu_mark_finished">Mark finished</string>
+    <string name="lbl_tasks_menu_delete">Delete task</string>
+    <string name="lbl_tasks_menu_add">Add new task</string>
+
+    <!-- TASKS -->
+    <!-- ADD/EDIT TASK -->
+    <string name="lbl_add_task_title">Add Task</string>
+    <string name="lbl_edit_task_title">Edit Task</string>
+    <string name="lbl_add_task_name">Task-name:</string>
+    <string name="lbl_task_name_required">The name of the task is a required field!</string>
+    <string name="lbl_add_task_project_name">Project:</string>
+    <!-- MOVE -->
+    <string name="lbl_move_task_title">Select project</string>
+
+    <!-- REGISTRATIONS -->
+    <string name="lbl_registrations_title">Time Registrations</string>
+    <string name="lbl_empty_registration_list">No time registrations available yet.</string>
+    <string name="now">Until now...</string>
+    <string name="lbl_registrations_load_more">Tap to load more...</string>
+    <string name="msg_delete_registration_confirmation">Do you want to delete this time registration?</string>
+    <string name="lbl_registrations_comment">Comment:</string>
+    <string name="lbl_registrations_menu_title">Registration Options</string>
+    <string name="lbl_registrations_menu_details">View details</string>
+    <string name="lbl_registrations_menu_edit_start">Edit starting time</string>
+    <string name="lbl_registrations_menu_edit_end">Edit end time</string>
+    <string name="lbl_registrations_menu_split">Split</string>
+    <string name="lbl_registrations_menu_edit_comment">Edit comment</string>
+    <string name="lbl_registrations_menu_add_comment">Add comment</string>
+    <string name="lbl_registrations_menu_edit_project_task">Edit project and task</string>
+    <string name="lbl_registrations_menu_delete">Delete registration</string>
+    <string name="lbl_registration_menu_restart">Restart registration</string>
+    <!-- REGISTRATION DETAILS -->
+    <string name="lbl_registration_details_title">Registration Details</string>
+    <string name="lbl_registration_details_start">Start: </string>
+    <string name="lbl_registration_details_end">End: </string>
+    <string name="lbl_registration_details_duration">Duration: </string>
+    <string name="lbl_registration_details_comment">Comment:</string>
+    <string name="lbl_registration_details_project">Project: </string>
+    <string name="lbl_registration_details_task">Task: </string>
+    <!-- REGISTRATIONS EDITS -->
+    <string name="lbl_registration_edit_pick_date">Pick a new date</string>
+    <string name="lbl_registration_edit_pick_time">Pick a new time</string>
+    <string name="lbl_registration_edit_validation_error">Validation Error</string>
+    <string name="lbl_registration_edit_validation_error_less_than_equal_to">The specified date/time needs to be before or equal to the limit. Press ok and correct your error. Limit is %1$s</string>
+    <string name="lbl_registration_edit_validation_error_greater_than_equal_to">The specified date/time needs to be after or equal to the limit. Press ok and correct this error. Limit is %1$s</string>
+    <string name="lbl_registration_edit_validation_error_less_than">The specified date/time needs to be before the limit. Press ok and correct this error. Limit is %1$s</string>
+    <string name="lbl_registration_edit_validation_error_greater_than">The specified date/time needs to be after the limit. Press ok and correct your error. Limit is %1$s</string>
+    <!-- REGISTRATIONS SPLIT -->
+    <string name="lbl_registration_split_title">Split Time Registration</string>
+    <string name="lbl_registration_split_cancel_dialog">Do you want to cancel?</string>
+    <string name="msg_registration_split_cancel_dialog">Canceling will make you loose all your changes. Do you want to continue?</string>
+    <string name="lbl_registration_split_part_one_title">Set end time - Part 1</string>
+    <string name="lbl_registration_split_part_two_title">Set start time - Part 2</string>
+    <string name="lbl_registration_split_part_three_title">Review Changes</string>
+    <string name="lbl_registration_split_validation_greater_than">The specified date and time needs to be after the limit. Limit is %1$s</string>
+    <string name="lbl_registration_split_validation_greater_than_equal_to">The specified date and time needs to be after or equal to the limit. Limit is %1$s</string>
+    <string name="lbl_registration_split_validation_less_than">The specified date and time needs to be before the limit. Limit is %1$s</string>
+    <string name="lbl_registration_split_validation_less_than_equal_to">The specified date and time needs to be before or equal to the limit. Limit is %1$s</string>
+    <string name="lbl_registration_split_validation_original_time_registration">Time registrations with a duration of less than 2 minutes cannot be split!</string>
+    <!-- EXPORT FILE STRINGS -->
+    <string name="lbl_registrations_export_file_csv_starttime">Starttime</string>
+    <string name="lbl_registrations_export_file_csv_endtime">Endtime</string>
+    <string name="lbl_registrations_export_file_csv_startdate">Startdate</string>
+    <string name="lbl_registrations_export_file_csv_enddate">Enddate</string>
+    <string name="lbl_registrations_export_file_csv_comment">Comment</string>
+    <string name="lbl_registrations_export_file_csv_project">Project</string>
+    <string name="lbl_registrations_export_file_csv_task">Task</string>
+    <string name="lbl_registrations_export_file_csv_projectcomment">Project-comment</string>
+
+    <!-- REPORTING -->
+    <!-- Criteria -->
+    <string name="lbl_reporting_criteria_title">Reporting</string>
+    <string name="lbl_reporting_criteria_date_range">Date Range</string>
+    <string name="lbl_reporting_criteria_project_and_task">Project and Task</string>
+    <string name="lbl_reporting_criteria_data_display">Data Display</string>
+    <string name="lbl_reporting_criteria_date_from">From</string>
+    <string name="lbl_reporting_criteria_date_till">Till</string>
+    <string name="lbl_reporting_criteria_date_from_picker">Choose starting date</string>
+    <string name="lbl_reporting_criteria_date_till_picker">Choose ending date</string>
+    <string name="lbl_reporting_criteria_date_till_picker_validation_error_title">Validation Error</string>
+    <string name="msg_reporting_criteria_date_till_picker_validation_error_before_start_date">The ending date is set before the start date (%1$s). Please correct this.</string>
+    <string name="lbl_reporting_criteria_project">Project</string>
+    <string name="lbl_reporting_criteria_task">Task</string>
+    <string name="lbl_reporting_criteria_date_range_spinner_prompt">Select a date range...</string>
+    <string-array name="array_reporting_criteria_date_range_spinner">
+        <item>Today</item>
+        <item>This week</item>
+        <item>Last week</item>
+        <item>All times</item>
+        <item>Custom range</item>
+    </string-array>
+    <string name="lbl_reporting_criteria_project_any">Any project</string>
+    <string name="lbl_reporting_criteria_project_dialog_title_select_project">Select project</string>
+    <string name="lbl_reporting_criteria_task_any">Any task</string>
+    <string name="lbl_reporting_criteria_show_finished_tasks">Show finished tasks in selection</string>
+    <string name="lbl_reporting_criteria_data_grouping">Data grouping</string>
+    <string name="lbl_reporting_criteria_data_grouping_prompt">Data grouped by</string>
+    <string-array name="array_reporting_criteria_data_grouping_spinner">
+        <item>By Start Date</item>
+        <item>By Project</item>
+    </string-array>
+    <string name="lbl_reporting_criteria_data_order">Data Order</string>
+    <string name="lbl_reporting_criteria_data_order_prompt">Select the data order</string>
+    <string-array name="lbl_reporting_criteria_data_order_spinner">
+        <item>Ascending</item>
+        <item>Descending</item>
+    </string-array>
+    <string name="lbl_reporting_criteria_data_display_duration">Display duration</string>
+    <string name="lbl_reporting_criteria_data_display_duration_prompt">Select duration display method</string>
+    <string-array name="array_reporting_criteria_data_display_duration_spinner">
+        <item>27h 05m 00s</item>
+        <item>01d 03h 05m 00s (24h/day)</item>
+        <item>03d 03h 05m 00s (8h/day)</item>
+    </string-array>
+    <string name="lbl_reporting_criteria_batch_share_dialog_title">Select files to share</string>
+    <string name="lbl_reporting_criteria_batch_share_subject">Shared exported WorkTime reports</string>
+    <string name="lbl_reporting_criteria_batch_share_body">\n\nShared using WorkTime for Android</string>
+    <string name="lbl_reporting_criteria_batch_share_app_chooser_title">Choose application...</string>
+    <string name="msg_reporting_criteria_batch_share_no_docs_selected">You did not select any document to share</string>
+    <!-- Results -->
+    <string name="lbl_reporting_result_title">Reporting Result</string>
+    <string name="lbl_reporting_result_loading_dialog">Loading results...</string>
+    <string name="lbl_reporting_result_includes_ongoing_time_registrations">Warning: the result contains data from ongoing time registrations. The calculations are based on the current date and time.</string>
+    <string name="lbl_reporting_results_table_total">Total</string>
+    <string name="lbl_reporting_results_export_table_data">Table Data</string>
+    <string name="lbl_reporting_results_export_raw_data">Raw Data</string>
+    <!-- EXPORT -->
+    <string name="lbl_reporting_export_title">Export Result</string>
+    <string name="lbl_reporting_export_filename">Filename</string>
+    <string name="lbl_reporting_export_filename_required">The filename is required and should contain at least 3 characters</string>
+    <string name="lbl_reporting_export_csv_separator">CSV Seperator</string>
+    <string name="lbl_reporting_export_csv_separator_comma">Comma (,)</string>
+    <string name="lbl_reporting_export_csv_separator_semicolon">Semicolon (;)</string>
+    <string name="lbl_reporting_export_csv_separator_chooser_title">Select CSV Separator</string>
+    <string name="msg_reporting_export_saving_sd">Exporting to SD-card</string>
+    <string name="msg_reporting_export_done">Export successful to location: %1$s</string>
+    <string name="msg_reporting_export_sd_unavailable">Export is not available</string>
+    <string name="msg_reporting_export_sd_unavailable_detail">You do not have an SD-card or any other external storage possibilities or the storage is read-only.</string>
+    <string name="msg_reporting_export_share_file">Share...</string>
+    <string name="lbl_reporting_export_share_file_app_chooser_title">Choose application...</string>
+    <string name="lbl_reporting_export_share_subject">Sent exported WorkTime report</string>
+    <string name="lbl_reporting_export_share_body">\n\nSent using WorkTime for Android</string>
+    <!-- TABLE DATA EXPORT -->
+    <!-- RAW DATA EXPORT -->
+    <string name="lbl_reporting_results_export_raw_data_csv_starttime">Starttime</string>
+    <string name="lbl_reporting_results_export_raw_data_csv_endtime">Endtime</string>
+    <string name="lbl_reporting_results_export_raw_data_csv_startdate">Startdate</string>
+    <string name="lbl_reporting_results_export_raw_data_csv_enddate">Enddate</string>
+    <string name="lbl_reporting_results_export_raw_data_csv_comment">Comment</string>
+    <string name="lbl_reporting_results_export_raw_data_csv_project">Project</string>
+    <string name="lbl_reporting_results_export_raw_data_csv_task">Task</string>
+    <string name="lbl_reporting_results_export_raw_data_csv_projectcomment">Project-comment</string>
+
+    <!-- PREFERENCES -->
+    <string name="lbl_preferences_title">Preferences</string>
+    <string name="pref_date_and_time_category_title">Date and Time</string>
+    <string name="pref_date_and_time_display_hour_12_24_format_prompt">12h/24h time configuration</string>
+    <string name="pref_date_and_time_display_hour_12_24_format_summary">Choose the 12-hour, 24-hour or the system default display method for hours.</string>
+    <string-array name="pref_date_and_time_display_hour_12_24_format_options">
+        <item>System Default</item>
+        <item>12-Hour</item>
+        <item>24-Hour</item>
+    </string-array>
+    <string-array name="pref_date_and_time_display_hour_12_24_format_option_values">
+        <item>system-default</item>
+        <item>12-hour</item>
+        <item>24-hour</item>
+    </string-array>
+    <string name="pref_date_and_time_week_starts_on_prompt">Week starts on...</string>
+    <string name="pref_date_and_time_week_starts_on_summary">Choose the day that the week starts on.</string>
+    <string-array name="pref_date_and_time_week_starts_on_options">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+    <string-array name="pref_date_and_time_week_starts_on_option_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
+    <string name="pref_widget_category_title">Widget</string>
+    <string name="pref_widget_ask_for_task_selection_if_only_one_title">Ask for task if only one available</string>
+    <string name="pref_widget_ask_for_task_selection_if_only_one_summary_on">If only one task is selectable, ask me to select a task when starting a time registration</string>
+    <string name="pref_widget_ask_for_task_selection_if_only_one_summary_off">If only one task is selectable, do not ask me to select a task when starting a time registration but auto-select the only task found</string>
+    <string name="pref_widget_ask_for_comment_title">Ask for comment?</string>
+    <string name="pref_widget_ask_for_comment_summary_on">Ending a time registration will ask for a summary for the registration.</string>
+    <string name="pref_widget_ask_for_comment_summary_off">Ending a time registration will not ask to enter a summary for the registation.</string>
+    <string name="pref_widget_ask_for_finishing_task_title">Ask for finishing task?</string>
+    <string name="pref_widget_ask_for_finishing_task_summary_on">Ending a time registration will ask if you want to finish the selected task.</string>
+    <string name="pref_widget_ask_for_finishing_task_summary_off">Ending a time registration will not ask if you want to finish the selected task.</string>
+    <string name="pref_comments_category_title">Comments</string>
+    <string name="pref_comments_max_history_storage_title">Number of comments to store</string>
+    <string name="pref_comments_max_history_storage_summary">The number latest entered comments which should be stored.</string>
+    <string name="pref_comments_clear_history_storage_title">Clear the comments history...</string>
+    <string name="pref_stat_bar_notifs_category_title">Notifications</string>
+    <string name="pref_stat_bar_notifs_ask_for_comment_title">Show status bar notifications?</string>
+    <string name="pref_stat_bar_notifs_ask_for_comment_summary_on">Notifications will be shown in the status bar.</string>
+    <string name="pref_stat_bar_notifs_ask_for_comment_summary_off">No notifications will be shown in the status bar.</string>
+    <string name="pref_tasks_category_title">Tasks</string>
+    <string name="pref_tasks_select_task_hide_finished_title">Hide finished tasks in selection</string>
+    <string name="pref_tasks_select_task_hide_finished_summary_on">Finished tasks are hidden in task selection</string>
+    <string name="pref_tasks_select_task_hide_finished_summary_off">Finished tasks are shown in task selection</string>
+    <string name="pref_tasks_display_tasks_hide_finished_title">Hide finished tasks in project details</string>
+    <string name="pref_tasks_display_tasks_hide_finished_summary_on">Finished tasks will not be shown in the project details</string>
+    <string name="pref_tasks_display_tasks_hide_finished_summary_off">Finished tasks will be shown in the project details</string>
+    <string name="pref_backup_category_title">Backup and Restore</string>
+    <string name="pref_backup_title">Backup</string>
+    <string name="pref_backup_summary">Backup all WorkTime data on this device</string>
+    <string name="pref_restore_title">Restore</string>
+    <string name="pref_restore_summary">Restore the WorkTime data on this device from a previous backup from this or another device</string>
+    <string name="pref_backup_restore_doc_title">Backup/Restore documentation</string>
+    <string name="pref_backup_restore_doc_summary">Read the backup/restore functionality documentation.</string>
+    <string name="pref_time_registrations_category_title">Time Registrations</string>
+    <string name="pref_time_registrations_auto_close_60s_gap_title">Auto close 60s gap</string>
+    <string name="pref_time_registrations_auto_close_60s_gap_summary_on">The start time of the a newly started time registration will be modified to close maximum a 60s gap with the previous time registration</string>
+    <string name="pref_time_registrations_auto_close_60s_gap_summary_off">The start time of the a newly started time registration will not be modified.</string>
+
+    <!-- BACKUP -->
+    <string name="lbl_backup_restore_writing_backup_sd">Writing backup to SD-card</string>
+    <string name="msg_backup_restore_writing_backup_sd_success">The backup is written to your SD-card: %1$s</string>
+    <string name="msg_backup_restore_writing_backup_file_not_be_created">The backup file on the SD-card could not be created. Check the SD-card to be mounted and try again. If the error keeps appearing please report a bug.</string>
+    <string name="msg_backup_restore_writing_backup_file_not_written">Something went wrong while writing the backup file to the SD-card. Try again or if the error keeps appearing please report a bug.</string>
+    <string name="msg_backup_restore_no_backup_files_found">No backup files have been found on the SD-card. Please read the \'Backup/Restore documentation\' first.</string>
+    <string name="msg_backup_restore_sd_card_unavailable">Make sure the SD-card is in the device and the SD-card is mounted.</string>
+    <string name="lbl_backup_restore_restore_backup_list_title">Choose a backup to restore</string>
+    <string name="lbl_backup_restore_restoring_backup_from_sd">Restoring backup \'%1$s\' from SD-card</string>
+    <string name="msg_backup_restore_are_your_sure">Restoring this backup will erase all the current data and replace it with the backup data. Even if the backup data seems to be corrupt afterwards. This action cannot be undone. Are you sure you want to continue the restore of the backup \'%1$s\'?</string>
+    <string name="msg_backup_restore_success">The backup file %1$s is successfully restored. Restart the application and check if the data is correct. Otherwise try to restore another backup if available.</string>
+    <string name="lbl_backup_restore_documentation_title">Backup/Restore Documentation</string>
+    <string name="msg_backup_restore_documentation_content">Backup:\n
+    * An SD-card is required to make a backup\n
+    * All the data is included in the backup, not the preferences\n
+    * The backups are placed in the SD-card directory \'worktime-backup\'\n
+    * A backup file always starts with \'worktimedb-\' and ends with \'.bak\'\n
+    * The combination in between is the date and time of the backup ending with 0 for an AM-time and 1 for PM\n
+    * Example file-name: \'worktimedb-20111003090431-1\'
+     \nRestore:\n
+    * Only files in the backup directory \'worktime-backup\' on the SD-card are shown as possible restore points\n
+    * If a backup is renamed and doest not start with \'worktimedb-\' AND does not end on \'.bak\' it will be ignored and not shown as possible restore point\n
+    * All listed restore points are sorted by their last modified date</string>
+    <!-- ABOUT -->
+    <string name="lbl_about_title">About</string>
+    <string name="lbl_about_project">Project: </string>
+    <string name="lbl_about_version_name">Version: </string>
+    <string name="lbl_about_version_code">Version code: </string>
+    <string name="lbl_about_database_name">Database name: </string>
+    <string name="lbl_about_database_version">Database version: </string>
+    <string name="lbl_about_website">Website: </string>
+    <string name="lbl_about_bug_tracking_website">Bug tracking: </string>
+
+    <!-- WIDGET -->
+    <string name="btn_widget_start">Punch In</string>
+    <string name="btn_widget_stop">Punch Out</string>
+    <string name="btn_widget_open_app">Open</string>
+    <string name="msg_widget_time_reg_created">Punched in</string>
+    <string name="msg_widget_time_reg_ended">Punched out</string>
+    <string name="msg_widget_create_project_before_time_reg">At least one project is required to create a time registration. You can add a project by launching the application.</string>
+    <string name="msg_widget_ask_finish_task_title">Finish task?</string>
+    <string name="msg_widget_ask_finish_task_message">Do you want to mark the task \'%1$s\' finished? This can be undone in the project details!</string>
+    <string name="msg_no_tasks_available">No unfinished tasks are available for the selected project. Please create one first or select a different project.</string>
+    <string name="msg_no_tasks_available_choose_other_project">No tasks are available for the selected project. Select another project or go back and create a task for the project first.</string>
+    <string name="err_widget_corrupt_data">Corrupt data! Clear the application data!</string>
+    <string name="lbl_widget_instructions">Click the widget to open the app.</string>
+    <string name="lbl_widget_title_select_project">Select project</string>
+    <string name="lbl_widget_title_select_task">Select task</string>
+    <string name="lbl_widget_starting_new_timeregistration">Starting a new time registration</string>
+    <string name="lbl_widget_ending_timeregistration">Ending the time registration</string>
+    <string name="lbl_widget_dialog_title_enter_comment">Enter a comment</string>
+    <string name="lbl_widget_dialog_title_edit_comment">Edit comment</string>
+
+    <!-- NOTIFICATION BAR -->
+    <string name="lbl_notif_new_tr_started">A new time registration has been started</string>
+    <string name="lbl_notif_update_tr">A time registration is ongoing</string>
+    <string name="lbl_notif_project_task_name">%1$s - %2$s</string>
+    <string name="lbl_notif_title_ongoing_tr">Ongoing Time Registration</string>
+    <string name="lbl_notif_end_time_registration_request_title">End Registration</string>
+    <string name="lbl_notif_end_time_registration_request">Do you want to end the time registration?</string>
+
+    <!-- WIZARD -->
+    <string name="wizard_navigation_cancel">Cancel</string>
+    <string name="wizard_navigation_previous">Previous</string>
+    <string name="wizard_navigation_next">Next</string>
+    <string name="wizard_navigation_finish">Finish</string>
+    <string name="wizard_navigation_yes">Yes</string>
+    <string name="wizard_navigation_no">No</string>
+
+    <!-- DEVELOPMENT -->
+    <string name="home_btn_sample_data">SAMPLE DATA</string>
+    <string name="home_btn_clear_data">CLEAR DB</string>
+</resources>
