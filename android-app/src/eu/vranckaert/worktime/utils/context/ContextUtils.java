@@ -22,6 +22,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import eu.vranckaert.worktime.constants.OSContants;
@@ -49,11 +50,11 @@ public class ContextUtils {
     /**
      * Hides the soft keyboard of the device.
      * @param context The context on which a keyboard is shown.
-     * @param someEditText Some {@link EditText} instance available on the view on which the keyboard should be hidden.
+     * @param view Some {@link View} instance on which the keyboard should be hidden.
      */
-    public static void hideKeyboard(Context context, EditText someEditText) {
+    public static void hideKeyboard(Context context, View view) {
         InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(someEditText.getWindowToken(), 0);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     /**

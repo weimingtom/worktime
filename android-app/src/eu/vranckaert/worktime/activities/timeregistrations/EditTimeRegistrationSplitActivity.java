@@ -265,7 +265,7 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
      * validation will always succeed.
      * @return {@link Boolean#TRUE} if valid against the validation formula, {@link Boolean#FALSE} if not.
      */
-    private boolean validateGreaterThan(Calendar time, Calendar limit) {
+    private boolean validateGreaterThan(final Calendar time, final Calendar limit) {
         Log.d(LOG_TAG, "About to start validating time > limit");
 
         if (limit == null) {
@@ -290,7 +290,7 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
      * validation will always succeed.
      * @return {@link Boolean#TRUE} if valid against the validation formula, {@link Boolean#FALSE} if not.
      */
-    private boolean validateGreaterThanOrEqualsTo(Calendar time, Calendar limit) {
+    private boolean validateGreaterThanOrEqualsTo(final Calendar time, final Calendar limit) {
         Log.d(LOG_TAG, "About to start validating time >= limit");
 
         if (limit == null) {
@@ -315,7 +315,7 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
      * validation will always succeed.
      * @return {@link Boolean#TRUE} if valid against the validation formula, {@link Boolean#FALSE} if not.
      */
-    private boolean validateLowerThan(Calendar time, Calendar limit) {
+    private boolean validateLowerThan(final Calendar time, final Calendar limit) {
         Log.d(LOG_TAG, "About to start validating time < limit");
 
         if (limit == null) {
@@ -340,7 +340,7 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
      * validation will always succeed.
      * @return {@link Boolean#TRUE} if valid against the validation formula, {@link Boolean#FALSE} if not.
      */
-    private boolean validateLowerThanOrEqualsTo(Calendar time, Calendar limit) {
+    private boolean validateLowerThanOrEqualsTo(final Calendar time, final Calendar limit) {
         Log.d(LOG_TAG, "About to start validating time <= limit");
 
         if (limit == null) {
@@ -365,7 +365,7 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
      * validation will always succeed.
      * @return {@link Boolean#TRUE} if valid against the validation formula, {@link Boolean#FALSE} if not.
      */
-    private boolean validateEqualTo(Calendar time, Calendar limit) {
+    private boolean validateEqualTo(final Calendar time, final Calendar limit) {
         Log.d(LOG_TAG, "About to start validating time = limit");
 
         if (limit == null) {
@@ -399,6 +399,14 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
      * @return A {@link Calendar} instance with the current values of the date and time picker.
      */
     private Calendar getCurrentDateTimePickerValue() {
+        //By clearing the focus we make sure that the latest value entered in the date or time picker is submitted to
+        //to the date or time picker itself. Otherwise when editing the value in the time picker for example, using the
+        //keyboard, and immediately pressing the next button the value is not yet changed because the focus is still on
+        //view. By clearing the focus manually we make sure that the submitted value is changed to what the user wants.
+        //We need to do this for both the date AND the time picker!
+        clearFocusAndRemoveSoftKeyboard(datePicker);
+        clearFocusAndRemoveSoftKeyboard(timePicker);
+
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, datePicker.getYear());
         calendar.set(Calendar.MONTH, datePicker.getMonth());
@@ -408,6 +416,15 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         return calendar;
+    }
+
+    /**
+     * Removes the focus for a view and (if it was shown) the soft keyboard.
+     * @param view The view on which to remove the focus and soft keyboard.
+     */
+    private void clearFocusAndRemoveSoftKeyboard(View view) {
+        view.clearFocus();
+        ContextUtils.hideKeyboard(EditTimeRegistrationSplitActivity.this, view);
     }
 
     @Override
@@ -525,8 +542,9 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
 
         datePicker.init(part.get(Calendar.YEAR), part.get(Calendar.MONTH), part.get(Calendar.DAY_OF_MONTH), null);
         if (ContextUtils.getAndroidApiVersion() >= OSContants.API.HONEYCOMB_3_2) {
-            datePicker.setCalendarViewShown(false);
-            datePicker.setSpinnersShown(true);
+            datePicker.setMaxDate((new Date()).getTime());
+            datePicker.setCalendarViewShown(true);
+            datePicker.setSpinnersShown(false);
         }
 
         HourPreference12Or24 preference12or24Hours = Preferences.getDisplayHour1224Format(EditTimeRegistrationSplitActivity.this);
