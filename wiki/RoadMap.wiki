@@ -10,9 +10,6 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 
 ==Releases==
 ===Milestone-Release1.1.2 (Time Registrations)===
- * 1.1.2.d
-  * Enhancements:
-   * Move task to other project (issue 69)
  * 1.1.2.e
   * Enhancements:
    * Date precision preference for time registrations (seconds or minutes) (issue 62)
