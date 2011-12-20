@@ -3,6 +3,9 @@
 
 =Release Notes=
 ===Milestone-Release1.1.2 (Time Registrations)===
+ * 1.1.2.d
+  * Enhancements:
+   * Move task to other project (issue 69)
  * 1.1.2.c
   * Enhancements:
    * Splitting time registrations (issue 23)
