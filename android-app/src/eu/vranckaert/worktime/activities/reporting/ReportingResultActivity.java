@@ -28,7 +28,6 @@ import android.widget.*;
 import com.google.inject.Inject;
 import com.google.inject.internal.Nullable;
 import eu.vranckaert.worktime.R;
-import eu.vranckaert.worktime.comparators.project.ProjectByNameComparator;
 import eu.vranckaert.worktime.comparators.reporting.TimeRegistrationByProjectNameAscComparator;
 import eu.vranckaert.worktime.comparators.reporting.TimeRegistrationByProjectNameDescComparator;
 import eu.vranckaert.worktime.comparators.reporting.TimeRegistrationByStartDateAscComparator;
@@ -306,7 +305,7 @@ public class ReportingResultActivity extends GuiceActivity {
 
     	for (TimeRegistration tr : timeRegistrations) {
     		//Check for start date
-    		Date startTime = DateUtils.resetTimeInDate(tr.getStartTime());
+    		Date startTime = DateUtils.resetToMidnight(tr.getStartTime());
     		ReportingDataLvl0 dateLvl = new ReportingDataLvl0(DateUtils.convertDateToString(startTime, DateFormat.SHORT, ReportingResultActivity.this));
     		int dateLvlIndex = reportingDataLevels.indexOf(dateLvl);
     		if (dateLvlIndex > -1) {
@@ -365,7 +364,7 @@ public class ReportingResultActivity extends GuiceActivity {
     		}
 
     		//Check for start date
-    		Date startTime = DateUtils.resetTimeInDate(tr.getStartTime());
+    		Date startTime = DateUtils.resetToMidnight(tr.getStartTime());
             ReportingDataLvl2 dateLvl = new ReportingDataLvl2(DateUtils.convertDateToString(startTime, DateFormat.SHORT, ReportingResultActivity.this));
     		int dateLvlIndex = taskLvl.getReportingDataLvl2().indexOf(dateLvl);;
     		if (dateLvlIndex > -1) {

@@ -396,4 +396,32 @@ public class Preferences {
         editor.putBoolean(Constants.Preferences.Keys.TIME_REGISTRATION_AUTO_CLOSE_60S_GAP, autoCloseGap);
         editor.commit();
     }
+
+    /**
+     * Get the preference for key {@link Constants.Preferences.Keys#TIME_PRECISION}. If no value is found for the
+     * preference the default value will be
+     * {@link eu.vranckaert.worktime.utils.preferences.TimePrecisionPreference#getDefaultValue()}.
+     * @param ctx The context when getting the preference for the day the week starts on.
+     * @return The {@link TimePrecisionPreference}.
+     */
+    public static TimePrecisionPreference getTimePrecision(Context ctx) {
+        String value = getSharedPreferences(ctx).getString(
+                Constants.Preferences.Keys.TIME_PRECISION,
+                TimePrecisionPreference.getDefaultValue()
+        );
+
+        TimePrecisionPreference preference = TimePrecisionPreference.getPreferenceForValue(value);
+        return preference;
+    }
+
+    /**
+     * Updates the preference {@link Constants.Preferences.Keys#TIME_PRECISION}.
+     * @param ctx The context when updating the preference.
+     * @param preference A {@link TimePrecisionPreference}.
+     */
+    public static void setTimePrecision(Context ctx, TimePrecisionPreference preference) {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putString(Constants.Preferences.Keys.TIME_PRECISION, preference.getValue());
+        editor.commit();
+    }
 }
