@@ -107,6 +107,7 @@ public class Constants {
             public static final String REPORTING_EXPORT_FILE_NAME = "reportingExportFileName";
             public static final String REPORTING_EXPORT_CSV_SEPARATOR = "reportingExportCsvSeparator";
             public static final String TIME_REGISTRATION_AUTO_CLOSE_60S_GAP = "timeRegistrationAutoClose60sGap";
+            public static final String TIME_PRECISION = "timePrecision";
         }
     }
     public class Export {

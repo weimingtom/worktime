@@ -348,6 +348,11 @@ public class DateUtils {
         return getYearMonthDayAsString(date) + getHourMinuteSecondAsString(date) + "-" + cal.get(Calendar.AM_PM);
     }
 
+    /**
+     * Convert a date to a string including the year, month and day.
+     * @param date The {@link Date} to convert.
+     * @return The converted date in year, month and day.
+     */
     private static String getYearMonthDayAsString(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
@@ -372,6 +377,11 @@ public class DateUtils {
         return yearMonthDay;
     }
 
+    /**
+     * Convert a date to a string including the hour, minute and seconds.
+     * @param date The {@link Date} to convert.
+     * @return The converted date in hours, minutes and seconds.
+     */
     private static String getHourMinuteSecondAsString(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
@@ -446,6 +456,12 @@ public class DateUtils {
 		return result;
 	}
 
+    /**
+     * Add an amount of weeks to a certain date. If amount of weeks to add is negative it will be subtracted.
+     * @param date The {@link LocalDate} instance to calculate on.
+     * @param weekDiff The number of weeks to add to the provided date.
+     * @return The {@link LocalDate} with the weeks added or subtracted.
+     */
 	private static LocalDate addWeeksToDate(LocalDate date, int weekDiff) {
 		int weekOfYear = date.get(DateTimeFieldType.weekOfWeekyear());
 		date = date.withWeekOfWeekyear(weekOfYear + weekDiff);
@@ -458,7 +474,7 @@ public class DateUtils {
      * @param date The date to reset.
      * @return The time reset to midnight.
      */
-    public static Date resetTimeInDate(Date date) {
+    public static Date resetToMidnight(Date date) {
     	Calendar cal = Calendar.getInstance();
     	cal.setTime(date);
     	cal.set(Calendar.HOUR, 0);

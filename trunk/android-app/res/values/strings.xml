@@ -272,6 +272,12 @@
         <item>6</item>
         <item>7</item>
     </string-array>
+
+    <string name="pref_date_and_time_time_registrations_precision_prompt">Time precision</string>
+    <string name="pref_date_and_time_time_registrations_precision_summary">Choose the time precision strategy to use.</string>
+    <string name="pref_date_and_time_time_registrations_precision_option_seconds">Seconds</string>
+    <string name="pref_date_and_time_time_registrations_precision_option_minutes">Minutes</string>
+
     <string name="pref_widget_category_title">Widget</string>
     <string name="pref_widget_ask_for_task_selection_if_only_one_title">Ask for task if only one available</string>
     <string name="pref_widget_ask_for_task_selection_if_only_one_summary_on">If only one task is selectable, ask me to select a task when starting a time registration</string>

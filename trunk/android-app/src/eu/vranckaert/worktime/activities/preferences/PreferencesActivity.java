@@ -33,6 +33,7 @@ import eu.vranckaert.worktime.service.*;
 import eu.vranckaert.worktime.utils.context.IntentUtil;
 import eu.vranckaert.worktime.utils.preferences.Preferences;
 import eu.vranckaert.worktime.utils.preferences.SeekBarPreference;
+import eu.vranckaert.worktime.utils.preferences.TimePrecisionPreference;
 import eu.vranckaert.worktime.utils.tracker.AnalyticsTracker;
 import roboguice.activity.GuicePreferenceActivity;
 
@@ -148,6 +149,15 @@ public class PreferencesActivity extends GuicePreferenceActivity {
         weekStartOn.setEntries(R.array.pref_date_and_time_week_starts_on_options);
         weekStartOn.setEntryValues(R.array.pref_date_and_time_week_starts_on_option_values);
         dateAndTimeCategory.addPreference(weekStartOn);
+
+        ListPreference timePrecision = new ListPreference(ctx);
+        timePrecision.setKey(Constants.Preferences.Keys.TIME_PRECISION);
+        timePrecision.setDefaultValue(TimePrecisionPreference.getDefaultValue());
+        timePrecision.setTitle(R.string.pref_date_and_time_time_registrations_precision_prompt);
+        timePrecision.setSummary(R.string.pref_date_and_time_time_registrations_precision_summary);
+        timePrecision.setEntries(TimePrecisionPreference.getEntries(PreferencesActivity.this));
+        timePrecision.setEntryValues(TimePrecisionPreference.getEntryValues());
+        dateAndTimeCategory.addPreference(timePrecision);
     }
 
     private void createTasksCategoryPreferences(GuicePreferenceActivity ctx, PreferenceCategory tasksCategory) {
