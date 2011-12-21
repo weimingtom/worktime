@@ -22,6 +22,7 @@ import eu.vranckaert.worktime.enums.reporting.ReportingDisplayDuration;
 import eu.vranckaert.worktime.model.TimeRegistration;
 import eu.vranckaert.worktime.utils.context.ContextUtils;
 import eu.vranckaert.worktime.utils.preferences.Preferences;
+import eu.vranckaert.worktime.utils.preferences.TimePrecisionPreference;
 import eu.vranckaert.worktime.utils.string.StringUtils;
 import org.joda.time.*;
 
@@ -87,17 +88,18 @@ public class DateUtils {
          */
         public static final String convertTimeToString(Date date, TimeFormat format, Context context) {
             HourPreference12Or24 preference = Preferences.getDisplayHour1224Format(context);
-            return convertTimeToString(date, format, preference);
+            return convertTimeToString(context, date, format, preference);
         }
 
         /**
          * Converts a certain date to a time-string based on the users locale.
+         * @param ctx The context.
          * @param date The date to convert.
          * @param format The date format to use.
          * @param preference The hour preference, 12-hour or 24-hours based.
          * @return The formatted string.
          */
-        public static final String convertTimeToString(Date date, TimeFormat format, HourPreference12Or24 preference) {
+        public static final String convertTimeToString(Context ctx, Date date, TimeFormat format, HourPreference12Or24 preference) {
             //TODO TimePrecision!
             String separator = ":";
             String seconds = "ss";
@@ -110,7 +112,17 @@ public class DateUtils {
 
             switch(format) {
                 case MEDIUM: {
-                    dateFormat = separator + minutes + separator + seconds;
+                    TimePrecisionPreference timePrecisionPreference = Preferences.getTimePrecision(ctx);
+                    switch (timePrecisionPreference) {
+                        case SECOND: {
+                            dateFormat = separator + minutes + separator + seconds;
+                            break;
+                        }
+                        case MINUTE: {
+                            dateFormat = separator + minutes;
+                            break;
+                        }
+                    }
                     break;
                 }
                 case SHORT: {
@@ -225,19 +237,15 @@ public class DateUtils {
         /**
          * Calculates the time ({@link org.joda.time.Interval}) between two dates. If the startDate is not before the endDate the dates
          * will be swapped.
+         * @param ctx The context.
          * @param startDate The start date for the interval.
          * @param endDate The ending date for the interval.
          * @return The {@link org.joda.time.Interval} between the two dates.
          */
-        public static final Interval calculateInterval(Date startDate, Date endDate) {
-            //TODO TimePrecision!
-            Calendar start = Calendar.getInstance();
-            start.setTime(startDate);
-            start.set(Calendar.MILLISECOND, 0);
+        public static final Interval calculateInterval(Context ctx, Date startDate, Date endDate) {
+            Calendar start = TimePrecision.applyTimePrecisionCalendar(ctx, startDate);
 
-            Calendar end = Calendar.getInstance();
-            end.setTime(endDate);
-            end.set(Calendar.MILLISECOND, 0);
+            Calendar end = TimePrecision.applyTimePrecisionCalendar(ctx, endDate);
 
             if(end.before(start)) {
                 Calendar swap = start;
@@ -253,12 +261,13 @@ public class DateUtils {
         /**
          * Calculates the time ({@link org.joda.time.Duration}) between two dates. If the startDate is not before the endDate the dates
          * will be swapped.
+         * @param ctx The context.
          * @param startDate The start date for the interval.
          * @param endDate The ending date for the interval.
          * @return The {@link org.joda.time.Duration} between the two dates.
          */
-        public static final Duration calculateDuration(Date startDate, Date endDate) {
-            Interval interval = calculateInterval(startDate, endDate);
+        public static final Duration calculateDuration(Context ctx, Date startDate, Date endDate) {
+            Interval interval = calculateInterval(ctx, startDate, endDate);
             Duration duration = interval.toDuration();
             return duration;
         }
@@ -266,13 +275,14 @@ public class DateUtils {
         /**
          * Calculates the time ({@link org.joda.time.Period}) between two dates. If the startDate is not before the endDate the dates
          * will be swapped.
+         * @param ctx The context.
          * @param startDate The start date for the interval.
          * @param endDate The ending date for the interval.
          * @param periodType The type of period ({@link org.joda.time.PeriodType}) to return.
          * @return The {@link org.joda.time.Period} between the two dates.
          */
-        public static final Period calculatePeriod(Date startDate, Date endDate, PeriodType periodType) {
-            Interval interval = calculateInterval(startDate, endDate);
+        public static final Period calculatePeriod(Context ctx, Date startDate, Date endDate, PeriodType periodType) {
+            Interval interval = calculateInterval(ctx, startDate, endDate);
             Period period = interval.toPeriod(periodType);
             return period;
         }
@@ -287,27 +297,45 @@ public class DateUtils {
         public static final String calculatePeriod(Context ctx, TimeRegistration registration) {
             Period period = null;
             if (registration.isOngoingTimeRegistration()) {
-                period = calculatePeriod(registration.getStartTime(), new Date(), PeriodType.time());
+                period = calculatePeriod(ctx, registration.getStartTime(), new Date(), PeriodType.time());
             } else {
-                period = calculatePeriod(registration.getStartTime(), registration.getEndTime(), PeriodType.time());
+                period = calculatePeriod(ctx, registration.getStartTime(), registration.getEndTime(), PeriodType.time());
             }
 
             int hours = period.getHours();
             int minutes = period.getMinutes();
             int seconds = period.getSeconds();
 
-            //TODO TimePrecision!
-
-            String hoursString = hours + " " + ctx.getString(R.string.hours) + ", ";
-            String minutesString = minutes + " " + ctx.getString(R.string.minutes) + ", ";
-            String secondsString = seconds + " " + ctx.getString(R.string.seconds);
-            String periodString;
-            if (hours > 0) {
-                periodString = hoursString + minutesString + secondsString;
-            } else if (minutes > 0) {
-                periodString = minutesString + secondsString;
-            } else {
-                periodString = secondsString;
+            String hoursString = "";
+            String minutesString = "";
+            String secondsString = "";
+            String periodString = "";
+            
+            TimePrecisionPreference preference = Preferences.getTimePrecision(ctx);
+            switch (preference) {
+                case SECOND: {
+                    hoursString = hours + " " + ctx.getString(R.string.hours) + ", ";
+                    minutesString = minutes + " " + ctx.getString(R.string.minutes) + ", ";
+                    secondsString = seconds + " " + ctx.getString(R.string.seconds);
+                    if (hours > 0) {
+                        periodString = hoursString + minutesString + secondsString;
+                    } else if (minutes > 0) {
+                        periodString = minutesString + secondsString;
+                    } else {
+                        periodString = secondsString;
+                    }
+                    break;
+                }
+                case MINUTE: {
+                    hoursString = hours + " " + ctx.getString(R.string.hours) + ", ";
+                    minutesString = minutes + " " + ctx.getString(R.string.minutes);
+                    if (hours > 0) {
+                        periodString = hoursString + minutesString;
+                    } else {
+                        periodString = minutesString;
+                    }
+                    break;
+                }
             }
             return periodString;
         }
@@ -318,7 +346,7 @@ public class DateUtils {
          *
          * @param ctx The context.
          * @param registrations A list of {@link eu.vranckaert.worktime.model.TimeRegistration} instances.
-         * @param displayDuration
+         * @param displayDuration The format that defines the output.
          * @return The formatted string that represents the sum of the duration for each {@link eu.vranckaert.worktime.model.TimeRegistration}.
          */
         public static final String calculatePeriod(Context ctx, List<TimeRegistration> registrations, ReportingDisplayDuration displayDuration) {
@@ -328,9 +356,9 @@ public class DateUtils {
             for (TimeRegistration registration : registrations) {
                 Duration regDuration = null;
                 if (registration.isOngoingTimeRegistration()) {
-                    regDuration = calculateDuration(registration.getStartTime(), new Date());
+                    regDuration = calculateDuration(ctx, registration.getStartTime(), new Date());
                 } else {
-                    regDuration = calculateDuration(registration.getStartTime(), registration.getEndTime());
+                    regDuration = calculateDuration(ctx, registration.getStartTime(), registration.getEndTime());
                 }
                 Log.d(LOG_TAG, "Calculated duration: " + regDuration);
                 Log.d(LOG_TAG, "About to add milis: " + regDuration.getMillis());
@@ -347,8 +375,6 @@ public class DateUtils {
             int hours = period.getHours();
             int minutes = period.getMinutes();
             int seconds = period.getSeconds();
-
-            //TODO TimePrecision!
 
             switch (displayDuration) {
                 case DAYS_HOUR_MINUTES_SECONDS_24H: {
@@ -369,19 +395,43 @@ public class DateUtils {
 
             Log.d(LOG_TAG, days + "d " + hours + "h " + minutes + "m " + seconds + "s");
 
-            String daysString = StringUtils.leftPad(String.valueOf(days), "0", 2) + ctx.getString(R.string.daysShort) + " ";
-            String hoursString = StringUtils.leftPad(String.valueOf(hours), "0", 2) + ctx.getString(R.string.hoursShort) + " ";
-            String minutesString = StringUtils.leftPad(String.valueOf(minutes), "0", 2) + ctx.getString(R.string.minutesShort) + " ";
-            String secondsString = StringUtils.leftPad(String.valueOf(seconds), "0", 2) + ctx.getString(R.string.secondsShort);
-            String periodString;
-            if (days > 0) {
-                periodString = daysString + hoursString + minutesString + secondsString;
-            } else if (hours > 0) {
-                periodString = hoursString + minutesString + secondsString;
-            } else if (minutes > 0) {
-                periodString = minutesString + secondsString;
-            } else {
-                periodString = secondsString;
+            String daysString = "";
+            String hoursString = "";
+            String minutesString = "";
+            String secondsString = "";
+            String periodString = "";
+
+            TimePrecisionPreference preference = Preferences.getTimePrecision(ctx);
+            switch (preference) {
+                case SECOND: {
+                    daysString = StringUtils.leftPad(String.valueOf(days), "0", 2) + ctx.getString(R.string.daysShort) + " ";
+                    hoursString = StringUtils.leftPad(String.valueOf(hours), "0", 2) + ctx.getString(R.string.hoursShort) + " ";
+                    minutesString = StringUtils.leftPad(String.valueOf(minutes), "0", 2) + ctx.getString(R.string.minutesShort) + " ";
+                    secondsString = StringUtils.leftPad(String.valueOf(seconds), "0", 2) + ctx.getString(R.string.secondsShort);
+                    if (days > 0) {
+                        periodString = daysString + hoursString + minutesString + secondsString;
+                    } else if (hours > 0) {
+                        periodString = hoursString + minutesString + secondsString;
+                    } else if (minutes > 0) {
+                        periodString = minutesString + secondsString;
+                    } else {
+                        periodString = secondsString;
+                    }
+                    break;
+                }
+                case MINUTE: {
+                    daysString = StringUtils.leftPad(String.valueOf(days), "0", 2) + ctx.getString(R.string.daysShort) + " ";
+                    hoursString = StringUtils.leftPad(String.valueOf(hours), "0", 2) + ctx.getString(R.string.hoursShort) + " ";
+                    minutesString = StringUtils.leftPad(String.valueOf(minutes), "0", 2) + ctx.getString(R.string.minutesShort) + " ";
+                    if (days > 0) {
+                        periodString = daysString + hoursString + minutesString;
+                    } else if (hours > 0) {
+                        periodString = hoursString + minutesString;
+                    } else {
+                        periodString = minutesString;
+                    }
+                    break;
+                }
             }
             return periodString;
         }
@@ -515,21 +565,58 @@ public class DateUtils {
      * Containing some methods to determine the time precision to be used in this utility class.
      */
     private static class TimePrecision {
-        private Date applyTimePrecision(Context ctx, Date date) {
-            //TODO TimePrecision!
-            return null;
+        /**
+         * Apply the user's selected {@link TimePrecisionPreference} on the provided {@link Date}.
+         * @param ctx The context to search for the preference setting.
+         * @param date The {@link Date} to which the the {@link TimePrecisionPreference} must be applied.
+         * @return The {@link Date} with the applied {@link TimePrecisionPreference}.
+         */
+        private static Date applyTimePrecision(Context ctx, Date date) {
+            return applyTimePrecisionCalendar(ctx, date).getTime();
         }
-        private Date applyTimePrecision(Context ctx, Calendar cal) {
-            //TODO TimePrecision!
-            return null;
+
+        /**
+         * Apply the user's selected {@link TimePrecisionPreference} on the provided {@link Calendar}.
+         * @param ctx The context to search for the preference setting.
+         * @param cal The {@link Calendar} to which the the {@link TimePrecisionPreference} must be applied.
+         * @return The {@link Date} with the applied {@link TimePrecisionPreference}.
+         */
+        private static Date applyTimePrecision(Context ctx, Calendar cal) {
+            return applyTimePrecisionCalendar(ctx, cal).getTime();
         }
-        private Calendar applyTimePrecisionCalendar(Context ctx, Date date) {
-            //TODO TimePrecision!
-            return null;
+
+        /**
+         * Apply the user's selected {@link TimePrecisionPreference} on the provided {@link Date}.
+         * @param ctx The context to search for the preference setting.
+         * @param date The {@link Date} to which the the {@link TimePrecisionPreference} must be applied.
+         * @return The {@link Calendar} with the applied {@link TimePrecisionPreference}.
+         */
+        private static Calendar applyTimePrecisionCalendar(Context ctx, Date date) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            return applyTimePrecisionCalendar(ctx, cal);
         }
-        private Calendar applyTimePrecisionCalendar(Context ctx, Calendar cal) {
-            //TODO TimePrecision!
-            return null;
+
+        /**
+         * Apply the user's selected {@link TimePrecisionPreference} on the provided {@link Calendar}.
+         * @param ctx The context to search for the preference setting.
+         * @param cal The {@link Calendar} to which the the {@link TimePrecisionPreference} must be applied.
+         * @return The {@link Calendar} with the applied {@link TimePrecisionPreference}.
+         */
+        private static Calendar applyTimePrecisionCalendar(Context ctx, Calendar cal) {
+            TimePrecisionPreference preference = Preferences.getTimePrecision(ctx);
+            
+            switch (preference) {
+                case SECOND:
+                    cal.set(Calendar.MILLISECOND, 0);
+                    break;
+                case MINUTE:
+                    cal.set(Calendar.MILLISECOND, 0);
+                    cal.set(Calendar.SECOND, 0);
+                    break;
+            }
+            
+            return cal;
         }
     }
 

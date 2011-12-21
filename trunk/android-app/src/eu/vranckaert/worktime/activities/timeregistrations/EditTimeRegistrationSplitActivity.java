@@ -96,7 +96,11 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
      */
     private void validateOriginalTimeRegistration() {
         Date endTime = originalTimeRegistration.isOngoingTimeRegistration() ? new Date() : originalTimeRegistration.getEndTime();
-        Duration duration = DateUtils.TimeCalculator.calculateDuration(originalTimeRegistration.getStartTime(), endTime);
+        Duration duration = DateUtils.TimeCalculator.calculateDuration(
+                EditTimeRegistrationSplitActivity.this,
+                originalTimeRegistration.getStartTime(),
+                endTime
+        );
         long durationMinutes = duration.getStandardMinutes();
         if (durationMinutes < 2L) {
             Log.e(LOG_TAG, "The duration of the registration is less than 2 minutes so the registration cannot be split!");
