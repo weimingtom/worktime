@@ -244,7 +244,7 @@ public class ReportingResultActivity extends GuiceActivity {
         List<ReportingTableRecord> tableRecords = new ArrayList<ReportingTableRecord>();
 
         ReportingTableRecord totalRecord = new ReportingTableRecord();
-        String totalDuration = DateUtils.calculatePeriod(ReportingResultActivity.this, timeRegistrations, displayDuration);
+        String totalDuration = DateUtils.TimeCalculator.calculatePeriod(ReportingResultActivity.this, timeRegistrations, displayDuration);
         totalRecord.setColumn1(getText(R.string.lbl_reporting_results_table_total).toString());
         totalRecord.setColumnTotal(totalDuration);
         totalRecord.setLevel(ReportingTableRecordLevel.LVL0);
@@ -255,19 +255,19 @@ public class ReportingResultActivity extends GuiceActivity {
         for (ReportingDataLvl0 lvl0 : reportingDataLevels) {
         	ReportingTableRecord lvl0Record = new ReportingTableRecord();
         	lvl0Record.setColumn1(String.valueOf(lvl0.getKey()));
-        	lvl0Record.setColumnTotal(DateUtils.calculatePeriod(ReportingResultActivity.this, lvl0.getTimeRegistrations(), displayDuration));
+        	lvl0Record.setColumnTotal(DateUtils.TimeCalculator.calculatePeriod(ReportingResultActivity.this, lvl0.getTimeRegistrations(), displayDuration));
             lvl0Record.setLevel(ReportingTableRecordLevel.LVL1);
         	tableRecords.add(lvl0Record);
         	for (ReportingDataLvl1 lvl1 : lvl0.getReportingDataLvl1()) {
         		ReportingTableRecord lvl1Record = new ReportingTableRecord();
             	lvl1Record.setColumn2(String.valueOf(lvl1.getKey()));
-            	lvl1Record.setColumnTotal(DateUtils.calculatePeriod(ReportingResultActivity.this, lvl1.getTimeRegistrations(), displayDuration));
+            	lvl1Record.setColumnTotal(DateUtils.TimeCalculator.calculatePeriod(ReportingResultActivity.this, lvl1.getTimeRegistrations(), displayDuration));
                 lvl1Record.setLevel(ReportingTableRecordLevel.LVL2);
             	tableRecords.add(lvl1Record);
             	for (ReportingDataLvl2 lvl2 : lvl1.getReportingDataLvl2()) {
             		ReportingTableRecord lvl2Record = new ReportingTableRecord();
                 	lvl2Record.setColumn3(String.valueOf(lvl2.getKey()));
-                	lvl2Record.setColumnTotal(DateUtils.calculatePeriod(ReportingResultActivity.this, lvl2.getTimeRegistrations(), displayDuration));
+                	lvl2Record.setColumnTotal(DateUtils.TimeCalculator.calculatePeriod(ReportingResultActivity.this, lvl2.getTimeRegistrations(), displayDuration));
                     lvl2Record.setLevel(ReportingTableRecordLevel.LVL3);
                 	tableRecords.add(lvl2Record);
                 	for (TimeRegistration timeRegistration : lvl2.getTimeRegistrations()) {
@@ -305,8 +305,8 @@ public class ReportingResultActivity extends GuiceActivity {
 
     	for (TimeRegistration tr : timeRegistrations) {
     		//Check for start date
-    		Date startTime = DateUtils.resetToMidnight(tr.getStartTime());
-    		ReportingDataLvl0 dateLvl = new ReportingDataLvl0(DateUtils.convertDateToString(startTime, DateFormat.SHORT, ReportingResultActivity.this));
+    		Date startTime = DateUtils.Various.resetToMidnight(tr.getStartTime());
+    		ReportingDataLvl0 dateLvl = new ReportingDataLvl0(DateUtils.DateTimeConverter.convertDateToString(startTime, DateFormat.SHORT, ReportingResultActivity.this));
     		int dateLvlIndex = reportingDataLevels.indexOf(dateLvl);
     		if (dateLvlIndex > -1) {
     			dateLvl = reportingDataLevels.get(dateLvlIndex);
@@ -364,8 +364,8 @@ public class ReportingResultActivity extends GuiceActivity {
     		}
 
     		//Check for start date
-    		Date startTime = DateUtils.resetToMidnight(tr.getStartTime());
-            ReportingDataLvl2 dateLvl = new ReportingDataLvl2(DateUtils.convertDateToString(startTime, DateFormat.SHORT, ReportingResultActivity.this));
+    		Date startTime = DateUtils.Various.resetToMidnight(tr.getStartTime());
+            ReportingDataLvl2 dateLvl = new ReportingDataLvl2(DateUtils.DateTimeConverter.convertDateToString(startTime, DateFormat.SHORT, ReportingResultActivity.this));
     		int dateLvlIndex = taskLvl.getReportingDataLvl2().indexOf(dateLvl);;
     		if (dateLvlIndex > -1) {
     			dateLvl = taskLvl.getReportingDataLvl2().get(dateLvlIndex);
@@ -460,8 +460,8 @@ public class ReportingResultActivity extends GuiceActivity {
 
                         //Construct body
                         for (TimeRegistration timeRegistration : timeRegistrations) {
-                            String startDate = DateUtils.convertDateToString(timeRegistration.getStartTime(), DateFormat.SHORT, ReportingResultActivity.this);
-                            String startTime = DateUtils.convertTimeToString(timeRegistration.getStartTime(), TimeFormat.MEDIUM, ReportingResultActivity.this);
+                            String startDate = DateUtils.DateTimeConverter.convertDateToString(timeRegistration.getStartTime(), DateFormat.SHORT, ReportingResultActivity.this);
+                            String startTime = DateUtils.DateTimeConverter.convertTimeToString(timeRegistration.getStartTime(), TimeFormat.MEDIUM, ReportingResultActivity.this);
                             String endDate = "";
                             String endTime = "";
                             String trComment = "";
@@ -470,8 +470,8 @@ public class ReportingResultActivity extends GuiceActivity {
                             String projectComment = "";
 
                             if(timeRegistration.getEndTime() != null) {
-                                endDate = DateUtils.convertDateToString(timeRegistration.getEndTime(), DateFormat.SHORT, ReportingResultActivity.this);
-                                endTime = DateUtils.convertTimeToString(timeRegistration.getEndTime(), TimeFormat.MEDIUM, ReportingResultActivity.this);
+                                endDate = DateUtils.DateTimeConverter.convertDateToString(timeRegistration.getEndTime(), DateFormat.SHORT, ReportingResultActivity.this);
+                                endTime = DateUtils.DateTimeConverter.convertTimeToString(timeRegistration.getEndTime(), TimeFormat.MEDIUM, ReportingResultActivity.this);
                             } else {
                                 endDate = getString(R.string.now);
                                 endTime = "";

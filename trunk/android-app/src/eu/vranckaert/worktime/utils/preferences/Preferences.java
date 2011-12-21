@@ -214,7 +214,7 @@ public class Preferences {
         HourPreference12Or24 preference = HourPreference12Or24.findHourPreference12Or24(value);
 
         if (preference == null) {
-            if (DateUtils.is24HourClock(ctx)) {
+            if (DateUtils.System.is24HourClock(ctx)) {
                 preference = HourPreference12Or24.HOURS_24;
             } else {
                 preference = HourPreference12Or24.HOURS_12;

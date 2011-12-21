@@ -24,7 +24,6 @@ import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.TextView;
 import com.google.inject.Inject;
 import com.google.inject.internal.Nullable;
@@ -117,7 +116,7 @@ public class RegistrationDetailsActivity extends GuiceActivity {
     private void updateView() {
         timeRegistrationStart.setText(
                 TextConstants.SPACE +
-                DateUtils.convertDateTimeToString(
+                DateUtils.DateTimeConverter.convertDateTimeToString(
                         registration.getStartTime(),
                         DateFormat.MEDIUM,
                         TimeFormat.MEDIUM,
@@ -126,7 +125,7 @@ public class RegistrationDetailsActivity extends GuiceActivity {
         );
         timeRegistrationDuration.setText(
                 TextConstants.SPACE +
-                DateUtils.calculatePeriod(getApplicationContext(), registration)
+                DateUtils.TimeCalculator.calculatePeriod(getApplicationContext(), registration)
         );
         timeRegistrationProject.setText(TextConstants.SPACE + registration.getTask().getProject().getName());
         timeRegistrationTask.setText(TextConstants.SPACE + registration.getTask().getName());
@@ -138,7 +137,7 @@ public class RegistrationDetailsActivity extends GuiceActivity {
 
             timeRegistrationEnd.setText(
                     TextConstants.SPACE +
-                    DateUtils.convertDateTimeToString(
+                    DateUtils.DateTimeConverter.convertDateTimeToString(
                             registration.getEndTime(),
                             DateFormat.MEDIUM,
                             TimeFormat.MEDIUM,

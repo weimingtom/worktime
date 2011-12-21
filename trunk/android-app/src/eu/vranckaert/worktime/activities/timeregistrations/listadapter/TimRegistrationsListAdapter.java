@@ -46,7 +46,7 @@ public class TimRegistrationsListAdapter extends ArrayAdapter<TimeRegistration> 
         }
 
         Log.d(LOG_TAG, "Got time registration with startDate " +
-                DateUtils.convertDateTimeToString(tr.getStartTime(),
+                DateUtils.DateTimeConverter.convertDateTimeToString(tr.getStartTime(),
                         DateFormat.FULL,
                         TimeFormat.MEDIUM,
                         ctx));
@@ -65,15 +65,15 @@ public class TimRegistrationsListAdapter extends ArrayAdapter<TimeRegistration> 
 
         Log.d(LOG_TAG, "Ready to update the startdate, enddate and projectname of the timeregistration...");
         TextView startDate = (TextView) row.findViewById(R.id.lbl_timereg_startdate);
-        startDate.setText(DateUtils.convertDateTimeToString(tr.getStartTime(), DateFormat.MEDIUM,
+        startDate.setText(DateUtils.DateTimeConverter.convertDateTimeToString(tr.getStartTime(), DateFormat.MEDIUM,
                 TimeFormat.MEDIUM, ctx));
         TextView endDate = (TextView) row.findViewById(R.id.lbl_timereg_enddate);
         String endDateStr = "";
         if(tr.getEndTime() == null) {
             endDateStr = ctx.getString(R.string.now);
         } else {
-            endDateStr = DateUtils.convertDateTimeToString(tr.getEndTime(), DateFormat.MEDIUM,
-                TimeFormat.MEDIUM, ctx);
+            endDateStr = DateUtils.DateTimeConverter.convertDateTimeToString(tr.getEndTime(), DateFormat.MEDIUM,
+                    TimeFormat.MEDIUM, ctx);
         }
         endDate.setText(endDateStr);
         TextView projectNameTaskName = (TextView) row.findViewById(R.id.lbl_timereg_projectname_taskname);
@@ -83,7 +83,7 @@ public class TimRegistrationsListAdapter extends ArrayAdapter<TimeRegistration> 
 
         Log.d(LOG_TAG, "Ready to update the duration of the timeregistration...");
         TextView durationView = (TextView) row.findViewById(R.id.lbl_timereg_duration);
-        String durationText = DateUtils.calculatePeriod(ctx.getApplicationContext(), tr);
+        String durationText = DateUtils.TimeCalculator.calculatePeriod(ctx.getApplicationContext(), tr);
         durationView.setText(durationText);
 
         Log.d(LOG_TAG, "Ready to set the comment if available...");

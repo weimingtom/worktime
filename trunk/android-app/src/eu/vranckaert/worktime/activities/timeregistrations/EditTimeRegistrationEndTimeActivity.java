@@ -151,7 +151,7 @@ public class EditTimeRegistrationEndTimeActivity extends GuiceActivity {
             }
             case Constants.Dialog.VALIDATION_DATE_LOWER_LIMIT: {
                 String lowerLimitStr =
-                        DateUtils.convertDateTimeToString(lowerLimit.getTime(), DateFormat.MEDIUM,
+                        DateUtils.DateTimeConverter.convertDateTimeToString(lowerLimit.getTime(), DateFormat.MEDIUM,
                                 TimeFormat.SHORT, getApplicationContext());
                 AlertDialog.Builder alertValidationError = new AlertDialog.Builder(this);
 				alertValidationError
@@ -172,7 +172,7 @@ public class EditTimeRegistrationEndTimeActivity extends GuiceActivity {
             }
             case Constants.Dialog.VALIDATION_DATE_HIGHER_LIMIT: {
                 String higherLimitStr =
-                        DateUtils.convertDateTimeToString(higherLimit.getTime(), DateFormat.MEDIUM,
+                        DateUtils.DateTimeConverter.convertDateTimeToString(higherLimit.getTime(), DateFormat.MEDIUM,
                                 TimeFormat.SHORT, getApplicationContext());
                 AlertDialog.Builder alertValidationError = new AlertDialog.Builder(this);
 				alertValidationError
@@ -209,7 +209,7 @@ public class EditTimeRegistrationEndTimeActivity extends GuiceActivity {
         //Lower Limit
         lowerLimit = Calendar.getInstance();
         lowerLimit.setTime(timeRegistration.getStartTime());
-        Log.d(LOG_TAG, "LowerLimit set to " + DateUtils.convertDateTimeToString(lowerLimit.getTime(), DateFormat.FULL,
+        Log.d(LOG_TAG, "LowerLimit set to " + DateUtils.DateTimeConverter.convertDateTimeToString(lowerLimit.getTime(), DateFormat.FULL,
                 TimeFormat.SHORT, getApplicationContext()));
         //Higher Limit
         higherLimit = Calendar.getInstance();
@@ -218,7 +218,7 @@ public class EditTimeRegistrationEndTimeActivity extends GuiceActivity {
         } else {
             higherLimit.setTime(new Date());
         }
-        Log.d(LOG_TAG, "higherLimit set to " + DateUtils.convertDateTimeToString(higherLimit.getTime(), DateFormat.FULL,
+        Log.d(LOG_TAG, "higherLimit set to " + DateUtils.DateTimeConverter.convertDateTimeToString(higherLimit.getTime(), DateFormat.FULL,
                 TimeFormat.SHORT, getApplicationContext()));
 
         //Validation
