@@ -17,7 +17,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="eu.vranckaert.worktime"
       android:versionCode="100"
-      android:versionName="1.1.2.e">
+      android:versionName="1.1.2.f - UNSTABLE">
     <application android:label="WorkTime" android:icon="@drawable/logo" android:name=".guice.Application" android:debuggable="false">
         <!-- Widget configuration -->
         <receiver android:name=".providers.WorkTimeWidgetProvider" android:process=":otherPrivateProcess">
