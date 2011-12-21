@@ -294,7 +294,7 @@ public class ProjectDetailsActivity extends GuiceListActivity {
                 Log.d(LOG_TAG, "Ready to actually remove the task!");
                 TimeRegistration registration = timeRegistrationService.getLatestTimeRegistration();
                 boolean reloadWidget = false;
-                if (registration.getTask().getId().equals(task.getId())) {
+                if (registration != null && registration.getTask().getId().equals(task.getId())) {
                     reloadWidget = true;
                 }
 
