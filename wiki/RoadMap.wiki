@@ -11,6 +11,8 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 ==Releases==
 ===Milestone-Release1.1.2 (Time Registrations)===
  * 1.1.2.e
+  * Bugs:
+   * Crash when deleting a task when no time registration yet
   * Enhancements:
    * Date precision preference for time registrations (seconds or minutes) (issue 62)
  * 1.1.2.f
