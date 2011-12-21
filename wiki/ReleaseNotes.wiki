@@ -3,6 +3,11 @@
 
 =Release Notes=
 ===Milestone-Release1.1.2 (Time Registrations)===
+ * 1.1.2.e
+  * Bugs:
+   * Crash when deleting a task when no time registration yet (issue 87)
+  * Enhancements:
+   * Date precision preference for time registrations (seconds or minutes) (issue 62)
  * 1.1.2.d
   * Enhancements:
    * Move task to other project (issue 69)
