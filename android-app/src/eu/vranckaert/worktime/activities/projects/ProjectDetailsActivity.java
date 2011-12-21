@@ -167,7 +167,7 @@ public class ProjectDetailsActivity extends GuiceListActivity {
             protected Object doInBackground(Object... objects) {
                 List<Task> allTasksForProject = taskService.findTasksForProject(project);
                 registrationsForProject = timeRegistrationService.getTimeRegistrationForTasks(allTasksForProject);
-                String totalDuration = DateUtils.calculatePeriod(
+                String totalDuration = DateUtils.TimeCalculator.calculatePeriod(
                         ProjectDetailsActivity.this,
                         registrationsForProject,
                         ReportingDisplayDuration.HOUR_MINUTES_SECONDS

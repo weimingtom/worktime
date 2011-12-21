@@ -46,7 +46,7 @@ public class DatabaseFileBackupServiceImpl implements BackupService {
             throw new SDCardUnavailableException("Make sure the SD-card is in the device and the SD-card is mounted.");
         }
 
-        String fileName = BASE_FILE_NAME + DateUtils.getUniqueDateTimeStampString() + FILE_EXTENSION;
+        String fileName = BASE_FILE_NAME + DateUtils.DateTimeConverter.getUniqueTimestampString() + FILE_EXTENSION;
 
         File folder = new File(BACKUP_PATH);
         if (folder.isFile()) {

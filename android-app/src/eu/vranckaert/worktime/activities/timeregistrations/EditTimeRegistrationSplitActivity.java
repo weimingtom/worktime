@@ -96,7 +96,7 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
      */
     private void validateOriginalTimeRegistration() {
         Date endTime = originalTimeRegistration.isOngoingTimeRegistration() ? new Date() : originalTimeRegistration.getEndTime();
-        Duration duration = DateUtils.calculateDuration(originalTimeRegistration.getStartTime(), endTime);
+        Duration duration = DateUtils.TimeCalculator.calculateDuration(originalTimeRegistration.getStartTime(), endTime);
         long durationMinutes = duration.getStandardMinutes();
         if (durationMinutes < 2L) {
             Log.e(LOG_TAG, "The duration of the registration is less than 2 minutes so the registration cannot be split!");
@@ -133,9 +133,9 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
         startPart2.setTime(partTime.getTime());
 
         Log.d(LOG_TAG, "The default value for the end of part 1 is: " +
-                DateUtils.convertDateTimeToString(endPart1.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, EditTimeRegistrationSplitActivity.this));
+                DateUtils.DateTimeConverter.convertDateTimeToString(endPart1.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, EditTimeRegistrationSplitActivity.this));
         Log.d(LOG_TAG, "The default value for the start of part 2 is: " +
-                DateUtils.convertDateTimeToString(startPart2.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, EditTimeRegistrationSplitActivity.this));
+                DateUtils.DateTimeConverter.convertDateTimeToString(startPart2.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, EditTimeRegistrationSplitActivity.this));
     }
 
     /**
@@ -152,8 +152,8 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
         higherLimitPart1 = Calendar.getInstance();
         higherLimitPart1.setTime(startPart2.getTime());
 
-        Log.d(LOG_TAG, "Lower limit part 1: " + DateUtils.convertDateTimeToString(lowerLimitPart1.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, EditTimeRegistrationSplitActivity.this));
-        Log.d(LOG_TAG, "Higher limit part 1: " + DateUtils.convertDateTimeToString(higherLimitPart1.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, EditTimeRegistrationSplitActivity.this));
+        Log.d(LOG_TAG, "Lower limit part 1: " + DateUtils.DateTimeConverter.convertDateTimeToString(lowerLimitPart1.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, EditTimeRegistrationSplitActivity.this));
+        Log.d(LOG_TAG, "Higher limit part 1: " + DateUtils.DateTimeConverter.convertDateTimeToString(higherLimitPart1.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, EditTimeRegistrationSplitActivity.this));
 
         Log.d(LOG_TAG, "Calculating limits for part 2");
 
@@ -169,8 +169,8 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
         higherLimitPart2.set(Calendar.MILLISECOND, 0);
         higherLimitPart2.set(Calendar.SECOND, 0);
 
-        Log.d(LOG_TAG, "Lower limit part 2: " + DateUtils.convertDateTimeToString(lowerLimitPart2.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, EditTimeRegistrationSplitActivity.this));
-        Log.d(LOG_TAG, "Higher limit part 2: " + DateUtils.convertDateTimeToString(higherLimitPart2.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, EditTimeRegistrationSplitActivity.this));
+        Log.d(LOG_TAG, "Lower limit part 2: " + DateUtils.DateTimeConverter.convertDateTimeToString(lowerLimitPart2.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, EditTimeRegistrationSplitActivity.this));
+        Log.d(LOG_TAG, "Higher limit part 2: " + DateUtils.DateTimeConverter.convertDateTimeToString(higherLimitPart2.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, EditTimeRegistrationSplitActivity.this));
     }
 
     @Override
@@ -200,7 +200,7 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
                 if (!validationGreaterThan) {
                     errorTextView.setText(
                         getString(R.string.lbl_registration_split_validation_greater_than,
-                                DateUtils.convertDateTimeToString(
+                                DateUtils.DateTimeConverter.convertDateTimeToString(
                                         lowerLimitPart1.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, getApplicationContext()
                                 )
                         )
@@ -210,7 +210,7 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
                 } else if (!validationLowerThanOrEqualsTo) {
                     errorTextView.setText(
                         getString(R.string.lbl_registration_split_validation_less_than_equal_to,
-                                DateUtils.convertDateTimeToString(
+                                DateUtils.DateTimeConverter.convertDateTimeToString(
                                         higherLimitPart1.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, getApplicationContext()
                                 )
                         )
@@ -232,7 +232,7 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
                 if (!validationGreaterThanOrEqualsTo) {
                     errorTextView.setText(
                         getString(R.string.lbl_registration_split_validation_greater_than_equal_to,
-                                DateUtils.convertDateTimeToString(
+                                DateUtils.DateTimeConverter.convertDateTimeToString(
                                         lowerLimitPart2.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, getApplicationContext()
                                 )
                         )
@@ -242,7 +242,7 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
                 } else if (!validationLowerThan) {
                     errorTextView.setText(
                         getString(R.string.lbl_registration_split_validation_less_than,
-                                DateUtils.convertDateTimeToString(
+                                DateUtils.DateTimeConverter.convertDateTimeToString(
                                         higherLimitPart2.getTime(), DateFormat.MEDIUM, TimeFormat.SHORT, getApplicationContext()
                                 )
                         )
@@ -454,7 +454,7 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
                 TextView tr2Duration = (TextView) findViewById(R.id.time_registration_split_tr2_duration);
 
                 tr1Start.setText(
-                        DateUtils.convertDateTimeToString(
+                        DateUtils.DateTimeConverter.convertDateTimeToString(
                                 originalTimeRegistration.getStartTime(),
                                 DateFormat.MEDIUM,
                                 TimeFormat.SHORT,
@@ -462,7 +462,7 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
                         )
                 );
                 tr1End.setText(
-                        DateUtils.convertDateTimeToString(
+                        DateUtils.DateTimeConverter.convertDateTimeToString(
                                 endPart1.getTime(),
                                 DateFormat.MEDIUM,
                                 TimeFormat.SHORT,
@@ -471,7 +471,7 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
                 );
 
                 tr2Start.setText(
-                        DateUtils.convertDateTimeToString(
+                        DateUtils.DateTimeConverter.convertDateTimeToString(
                                 startPart2.getTime(),
                                 DateFormat.MEDIUM,
                                 TimeFormat.SHORT,
@@ -483,7 +483,7 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
                     endTime = originalTimeRegistration.getEndTime();
                 }
                 tr2End.setText(
-                        DateUtils.convertDateTimeToString(
+                        DateUtils.DateTimeConverter.convertDateTimeToString(
                                 endTime,
                                 DateFormat.MEDIUM,
                                 TimeFormat.SHORT,
@@ -495,12 +495,12 @@ public class EditTimeRegistrationSplitActivity extends WizardActivity {
                 tmpTr.setStartTime(originalTimeRegistration.getStartTime());
                 tmpTr.setEndTime(endPart1.getTime());
                 tr1Duration.setText(
-                        DateUtils.calculatePeriod(EditTimeRegistrationSplitActivity.this, tmpTr)
+                        DateUtils.TimeCalculator.calculatePeriod(EditTimeRegistrationSplitActivity.this, tmpTr)
                 );
                 tmpTr.setStartTime(startPart2.getTime());
                 tmpTr.setEndTime(originalTimeRegistration.getEndTime());
                 tr2Duration.setText(
-                        DateUtils.calculatePeriod(EditTimeRegistrationSplitActivity.this, tmpTr)
+                        DateUtils.TimeCalculator.calculatePeriod(EditTimeRegistrationSplitActivity.this, tmpTr)
                 );
                 break;
         }
