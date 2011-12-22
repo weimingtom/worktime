@@ -25,25 +25,15 @@ import java.util.List;
  * Time: 18:32
  */
 public interface CommentHistoryService {
-    /**
-     * Get all comments available in the system.
-     * @return The list of {@link String} instances.
-     */
-    List<String> getAll();
 
     /**
      * Save a comment in the comment history.
      * @param comment The comment to save.
      */
-    void saveComment(String comment);
-
+    void updateLastComment(String comment);
     /**
-     * Delete the entire comment history.
+     * Find the last comment.
+     * @return
      */
-    void deleteAll();
-
-    /**
-     * Check the number of comments stored in the {@link eu.vranckaert.worktime.model.CommentHistory}.
-     */
-    void checkNumberOfCommentsStored();
+    String findLastComment();
 }

@@ -72,7 +72,7 @@ public class Preferences {
      * Get the preference for key {@link Constants.Preferences.Keys#WIDGET_ASK_FOR_TASK_SELECTION_IF_ONLY_ONE}.
      * If no value is found for the preference the default value will be
      * {@link Constants.Preferences#WIDGET_ASK_FOR_TASK_SELECTION_IF_ONLY_ONE_DEFAULT_VALUE}.
-     * @param ctx The context when getting the preference for asking a comment when ending a time registration.
+     * @param ctx The context when getting the preference for asking to select a task when starting a time registration.
      * @return The {@link Boolean} which represents weather should be asked to select a task or not if only one task for
      * a project is available.
      */
@@ -86,11 +86,11 @@ public class Preferences {
     /**
      * Updates the preference {@link Constants.Preferences.Keys#WIDGET_ASK_FOR_TASK_SELECTION_IF_ONLY_ONE}.
      * @param ctx The context when updating the preference.
-     * @param askComment Weather should be asked to select a task or not if only one task for a project is available.
+     * @param askTaskSelection Weather should be asked to select a task or not if only one task for a project is available.
      */
-    public static void setWidgetAskForTaskSelectionIfOnlyOnePreference(Context ctx, boolean askComment) {
+    public static void setWidgetAskForTaskSelectionIfOnlyOnePreference(Context ctx, boolean askTaskSelection) {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
-        editor.putBoolean(Constants.Preferences.Keys.WIDGET_ASK_FOR_TASK_SELECTION_IF_ONLY_ONE, askComment);
+        editor.putBoolean(Constants.Preferences.Keys.WIDGET_ASK_FOR_TASK_SELECTION_IF_ONLY_ONE, askTaskSelection);
         editor.commit();
     }
 
@@ -149,33 +149,6 @@ public class Preferences {
     }
 
     /**
-     * Get the preference for key
-     * {@link Constants.Preferences.Keys#WIDGET_ENDING_TIME_REGISTRATION_COMMENT_MAX_HISTORY_STORAGE_PREFERENCE}. If no
-     * value is found for the preference the default value will be
-     * {@link Constants.Preferences#WIDGET_ENDING_TIME_REGISTRATION_COMMENT_MAX_HISTORY_STORAGE_PREFERENCE_DEFAULT_VALUE}.
-     * @param ctx The context when getting the preference for asking a comment when ending a time registration.
-     * @return The {@link int} which represents the number of comments to be stored.
-     */
-    public static int getWidgetEndingTimeRegistrationCommentMaxHistoryStoragePreference(Context ctx) {
-        return getSharedPreferences(ctx).getInt(
-                Constants.Preferences.Keys.WIDGET_ENDING_TIME_REGISTRATION_COMMENT_MAX_HISTORY_STORAGE_PREFERENCE,
-                Constants.Preferences.WIDGET_ENDING_TIME_REGISTRATION_COMMENT_MAX_HISTORY_STORAGE_PREFERENCE_DEFAULT_VALUE
-        );
-    }
-
-    /**
-     * Updates the preference
-     * {@link Constants.Preferences.Keys#WIDGET_ENDING_TIME_REGISTRATION_COMMENT_MAX_HISTORY_STORAGE_PREFERENCE}.
-     * @param ctx The context when updating the preference.
-     * @param number The number of comments to store.
-     */
-    public static void setWidgetEndingTimeRegistrationCommentMaxHistoryStoragePreference(Context ctx, int number) {
-        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
-        editor.putInt(Constants.Preferences.Keys.WIDGET_ENDING_TIME_REGISTRATION_COMMENT_MAX_HISTORY_STORAGE_PREFERENCE, number);
-        editor.commit();
-    }
-
-    /**
      * Get the preference for key {@link Constants.Preferences.Keys#SHOW_STATUS_BAR_NOTIFICATIONS_PREFERENCE}. If no
      * value is found for the preference the default value will be
      * {@link Constants.Preferences#SHOW_STATUS_BAR_NOTIFICATIONS_PREFERENCE_DEFAULT_VALUE}.
@@ -203,7 +176,7 @@ public class Preferences {
     /**
      * Get the preference for key {@link Constants.Preferences.Keys#DISPLAY_HOUR_12_24_FORMAT}. If no value is found for
      * the preference the default value will be {@link Constants.Preferences#DISPLAY_HOUR_12_24_FORMAT_DEFAULT_VALUE}.
-     * @param ctx The context when getting the preference for asking a comment when ending a time registration.
+     * @param ctx The context when getting the preference for the hour display format.
      * @return The {@link HourPreference12Or24} value or null.
      */
     public static HourPreference12Or24 getDisplayHour1224Format(Context ctx) {

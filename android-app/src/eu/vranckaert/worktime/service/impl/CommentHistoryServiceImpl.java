@@ -34,37 +34,18 @@ public class CommentHistoryServiceImpl implements CommentHistoryService {
     @Inject
     private CommentHistoryDao dao;
 
-    /**
-     * {@inheritDoc}
-     */
-    public List<String> getAll() {
-        List<CommentHistory> commentHistories = dao.findAll();
-
-        List<String> commentStrings = new ArrayList<String>();
-        for (CommentHistory commentHistory : commentHistories) {
-            commentStrings.add(commentHistory.getComment());
-        }
-        return commentStrings;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void saveComment(String comment) {
+    @Override
+    public void updateLastComment(String comment) {
+        dao.deleteAll();
         dao.save(comment);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public void deleteAll() {
-        dao.deleteAll();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void checkNumberOfCommentsStored() {
-        dao.checkNumberOfCommentsStored();
+    @Override
+    public String findLastComment() {
+        List<CommentHistory> commentHistories = dao.findAll();
+        if (commentHistories.size() > 0) {
+            return commentHistories.get(0).getComment();
+        }
+        return null;
     }
 }

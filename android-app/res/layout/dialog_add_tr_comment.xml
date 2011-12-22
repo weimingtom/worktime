@@ -20,24 +20,16 @@
     android:layout_height="fill_parent"
     android:id="@+id/dialog_layout_root">
 
-    <AutoCompleteTextView android:id="@+id/tr_comment"
-                          android:layout_width="fill_parent"
-                          android:layout_height="wrap_content"
-                          android:lines="1"
-                          android:singleLine="true"
-                          android:inputType="text|textCapSentences"/>
+    <EditText android:id="@+id/tr_comment"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:lines="3"
+              android:singleLine="false"
+              android:inputType="textMultiLine|textCapSentences|textAutoComplete|textAutoCorrect"
+              android:gravity="top"/>
 
-    <!--
-    <LinearLayout android:orientation="horizontal"
-                  android:layout_width="fill_parent"
-                  android:layout_height="fill_parent">
-        <Button android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="Cancel"/>
-
-        <Button android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="Save"/>
-    </LinearLayout>
-    -->
+    <Button android:id="@+id/tr_reuse_btn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_widget_dialog_btn_reuse_last_comment"/>
 </LinearLayout>

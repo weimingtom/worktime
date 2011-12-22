@@ -85,7 +85,6 @@ public class Constants {
         public static final boolean WIDGET_ENDING_TIME_REGISTRATION_COMMENT_PREFERENCE_DEFAULT_VALUE = true;
         public static final boolean WIDGET_ENDING_TIME_REGISTRATION_FINISH_TASK_PREFERENCE_DEFAULT_VALUE = false;
         public static final boolean SHOW_STATUS_BAR_NOTIFICATIONS_PREFERENCE_DEFAULT_VALUE = true;
-        public static final int WIDGET_ENDING_TIME_REGISTRATION_COMMENT_MAX_HISTORY_STORAGE_PREFERENCE_DEFAULT_VALUE = 5;
         public static final String DISPLAY_HOUR_12_24_FORMAT_DEFAULT_VALUE = "system-default";
         public static final boolean SELECT_TASK_HIDE_FINISHED_DEFAULT_VALUE = true;
         public static final boolean DISPLAY_TASKS_HIDE_FINISHED_DEFAULT_VALUE = false;
@@ -98,7 +97,6 @@ public class Constants {
             public static final String WIDGET_ASK_FOR_TASK_SELECTION_IF_ONLY_ONE = "askForTaskSelectionIfOnlyOne";
             public static final String WIDGET_ENDING_TIME_REGISTRATION_COMMENT_PREFERENCE = "widgetEndingTimeRegistrationCommentPreference";
             public static final String WIDGET_ENDING_TIME_REGISTRATION_FINISH_TASK_PREFERENCE = "widgetEndingTimeRegistrationFinishTaskPreference";
-            public static final String WIDGET_ENDING_TIME_REGISTRATION_COMMENT_MAX_HISTORY_STORAGE_PREFERENCE = "widgetEndingTimeRegistrationCommentMaxHistoryStoragePreference";
             public static final String SHOW_STATUS_BAR_NOTIFICATIONS_PREFERENCE = "showStatusBarNotificationsPreference";
             public static final String DISPLAY_HOUR_12_24_FORMAT = "displayHour1224Format";
             public static final String DISPLAY_TASKS_HIDE_FINISHED = "displayTasksHideFinished";

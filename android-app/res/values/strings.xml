@@ -288,10 +288,6 @@
     <string name="pref_widget_ask_for_finishing_task_title">Ask for finishing task?</string>
     <string name="pref_widget_ask_for_finishing_task_summary_on">Ending a time registration will ask if you want to finish the selected task.</string>
     <string name="pref_widget_ask_for_finishing_task_summary_off">Ending a time registration will not ask if you want to finish the selected task.</string>
-    <string name="pref_comments_category_title">Comments</string>
-    <string name="pref_comments_max_history_storage_title">Number of comments to store</string>
-    <string name="pref_comments_max_history_storage_summary">The number latest entered comments which should be stored.</string>
-    <string name="pref_comments_clear_history_storage_title">Clear the comments history...</string>
     <string name="pref_stat_bar_notifs_category_title">Notifications</string>
     <string name="pref_stat_bar_notifs_ask_for_comment_title">Show status bar notifications?</string>
     <string name="pref_stat_bar_notifs_ask_for_comment_summary_on">Notifications will be shown in the status bar.</string>
@@ -367,6 +363,7 @@
     <string name="lbl_widget_ending_timeregistration">Ending the time registration</string>
     <string name="lbl_widget_dialog_title_enter_comment">Enter a comment</string>
     <string name="lbl_widget_dialog_title_edit_comment">Edit comment</string>
+    <string name="lbl_widget_dialog_btn_reuse_last_comment">Reuse last comment</string>
 
     <!-- NOTIFICATION BAR -->
     <string name="lbl_notif_new_tr_started">A new time registration has been started</string>

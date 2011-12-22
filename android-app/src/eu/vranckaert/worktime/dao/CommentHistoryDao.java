@@ -34,9 +34,4 @@ public interface CommentHistoryDao extends GenericDao<CommentHistory, Integer> {
      * Delete the entire comment history.
      */
     void deleteAll();
-
-    /**
-     * Check the number of comments stored in the {@link eu.vranckaert.worktime.model.CommentHistory}.
-     */
-    void checkNumberOfCommentsStored();
 }
