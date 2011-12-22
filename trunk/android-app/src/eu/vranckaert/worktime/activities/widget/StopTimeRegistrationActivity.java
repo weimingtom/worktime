@@ -28,10 +28,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.*;
 import com.google.inject.Inject;
 import eu.vranckaert.worktime.R;
 import eu.vranckaert.worktime.activities.HomeActivity;
@@ -51,7 +48,6 @@ import eu.vranckaert.worktime.utils.tracker.AnalyticsTracker;
 import roboguice.activity.GuiceActivity;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * User: DIRK VRANCKAERT
@@ -137,7 +133,7 @@ public class StopTimeRegistrationActivity extends GuiceActivity {
                 }
 
                 if (StringUtils.isNotBlank(comment)) {
-                    commentHistoryService.saveComment(comment);
+                    commentHistoryService.updateLastComment(comment);
                 }
 
                 return null;
@@ -203,9 +199,9 @@ public class StopTimeRegistrationActivity extends GuiceActivity {
                 final View layout = inflater.inflate(R.layout.dialog_add_tr_comment,
                                                (ViewGroup) findViewById(R.id.dialog_layout_root));
                 TimeRegistration latestRegistration = timeRegistrationService.getLatestTimeRegistration();
+                final EditText commentEditText = (EditText) layout.findViewById(R.id.tr_comment);
                 if (latestRegistration.getComment() != null) {
-                    EditText editText = (EditText) layout.findViewById(R.id.tr_comment);
-                    editText.setText(latestRegistration.getComment());
+                    commentEditText.setText(latestRegistration.getComment());
                 }
 
                 enterComment.setTitle(R.string.lbl_widget_dialog_title_enter_comment);
@@ -214,8 +210,9 @@ public class StopTimeRegistrationActivity extends GuiceActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Log.d(LOG_TAG, "CommentHistory entered, ready to save...");
                         removeDialog(Constants.Dialog.ENTER_COMMENT_FOR_TR);
-                        AutoCompleteTextView commentEditText =
-                                (AutoCompleteTextView) layout.findViewById(R.id.tr_comment);
+//                        AutoCompleteTextView commentEditText =
+//                                (AutoCompleteTextView) layout.findViewById(R.id.tr_comment);
+                        EditText commentEditText = (EditText) layout.findViewById(R.id.tr_comment);
                         String comment = commentEditText.getText().toString();
                         ContextUtils.hideKeyboard(mContext, commentEditText);
                         Log.d(LOG_TAG, "Time Registration will be saved with comment: " + comment);
@@ -241,11 +238,22 @@ public class StopTimeRegistrationActivity extends GuiceActivity {
                     }
                 });
 
-                AutoCompleteTextView commentEditText = (AutoCompleteTextView) layout.findViewById(R.id.tr_comment);
-                List<String> options = commentHistoryService.getAll();
-                ArrayAdapter<String> autoCompleteAdapter =
-                        new ArrayAdapter<String>(this, R.layout.autocomplete_list_item, options);
-                commentEditText.setAdapter(autoCompleteAdapter);
+                Button reuseComment = (Button) layout.findViewById(R.id.tr_reuse_btn);
+                reuseComment.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String comment = commentHistoryService.findLastComment();
+                        if (comment != null) {
+                            commentEditText.setText(comment);
+                        }
+                    }
+                });
+
+//                AutoCompleteTextView commentEditText = (AutoCompleteTextView) layout.findViewById(R.id.tr_comment);
+//                List<String> options = commentHistoryService.getAll();
+//                ArrayAdapter<String> autoCompleteAdapter =
+//                        new ArrayAdapter<String>(this, R.layout.autocomplete_list_item, options);
+//                commentEditText.setAdapter(autoCompleteAdapter);
 
                 enterComment.setView(layout);
                 dialog = enterComment.create();

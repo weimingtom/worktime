@@ -29,10 +29,9 @@ import eu.vranckaert.worktime.activities.backup.BackupActivity;
 import eu.vranckaert.worktime.activities.backup.RestoreActivity;
 import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.constants.TrackerConstants;
-import eu.vranckaert.worktime.service.*;
+import eu.vranckaert.worktime.service.WidgetService;
 import eu.vranckaert.worktime.utils.context.IntentUtil;
 import eu.vranckaert.worktime.utils.preferences.Preferences;
-import eu.vranckaert.worktime.utils.preferences.SeekBarPreference;
 import eu.vranckaert.worktime.utils.preferences.TimePrecisionPreference;
 import eu.vranckaert.worktime.utils.tracker.AnalyticsTracker;
 import roboguice.activity.GuicePreferenceActivity;
@@ -46,19 +45,12 @@ public class PreferencesActivity extends GuicePreferenceActivity {
     private static final String LOG_TAG = PreferencesActivity.class.getSimpleName();
 
     @Inject
-    private CommentHistoryService commentHistoryService;
-
-    @Inject
     private WidgetService widgetService;
-
-    private int maxNumberOfCommentsOriginal;
 
     private AnalyticsTracker tracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        maxNumberOfCommentsOriginal = Preferences.
-            getWidgetEndingTimeRegistrationCommentMaxHistoryStoragePreference(getApplicationContext());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences);
         tracker = AnalyticsTracker.getInstance(getApplicationContext());
@@ -107,12 +99,6 @@ public class PreferencesActivity extends GuicePreferenceActivity {
         statBarNotifsCategory.setTitle(R.string.pref_stat_bar_notifs_category_title);
         preferences.addPreference(statBarNotifsCategory);
         createStatBarNotifsCategoryPreferences(ctx, statBarNotifsCategory);
-
-        //Category COMMENTS
-        PreferenceCategory commentsCategory = new PreferenceCategory(ctx);
-        commentsCategory.setTitle(R.string.pref_comments_category_title);
-        preferences.addPreference(commentsCategory);
-        createCommentsCategoryPreferences(ctx, commentsCategory);
 
         //Category BACKUP
         PreferenceCategory backupCategory = new PreferenceCategory(ctx);
@@ -230,27 +216,6 @@ public class PreferencesActivity extends GuicePreferenceActivity {
         widgetCategory.addPreference(showStatusBarNotifications);
     }
 
-    private void createCommentsCategoryPreferences(GuicePreferenceActivity ctx, PreferenceCategory commentsCategory) {
-        SeekBarPreference maxCommentsInMemory = new SeekBarPreference(ctx);
-        maxCommentsInMemory.setMaxValue(10);
-        maxCommentsInMemory.setIncrement(1);
-        maxCommentsInMemory.setKey(Constants.Preferences.Keys.WIDGET_ENDING_TIME_REGISTRATION_COMMENT_MAX_HISTORY_STORAGE_PREFERENCE);
-        maxCommentsInMemory.setDefaultValue(Constants.Preferences.WIDGET_ENDING_TIME_REGISTRATION_COMMENT_MAX_HISTORY_STORAGE_PREFERENCE_DEFAULT_VALUE);
-        maxCommentsInMemory.setTitle(R.string.pref_comments_max_history_storage_title);
-        maxCommentsInMemory.setSummary(R.string.pref_comments_max_history_storage_summary);
-        commentsCategory.addPreference(maxCommentsInMemory);
-
-        Preference clearCommentsPreference = new Preference(ctx);
-        clearCommentsPreference.setTitle(R.string.pref_comments_clear_history_storage_title);
-        clearCommentsPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            public boolean onPreferenceClick(Preference preference) {
-                commentHistoryService.deleteAll();
-                return true;
-            }
-        });
-        commentsCategory.addPreference(clearCommentsPreference);
-    }
-
     private void createBackupCategory(GuicePreferenceActivity ctx, PreferenceCategory backupCategory) {
         Preference backupButton = new Preference(ctx);
         backupButton.setTitle(R.string.pref_backup_title);
@@ -317,12 +282,6 @@ public class PreferencesActivity extends GuicePreferenceActivity {
 
     @Override
     public void finish() {
-        int maxNumberOfCommentsInTheEnd = Preferences.
-            getWidgetEndingTimeRegistrationCommentMaxHistoryStoragePreference(getApplicationContext());
-        if (maxNumberOfCommentsOriginal > maxNumberOfCommentsInTheEnd) {
-            Log.d(LOG_TAG, "Number of comments in history has changed, verifying the database state...");
-            commentHistoryService.checkNumberOfCommentsStored();
-        }
         super.finish();
     }
 

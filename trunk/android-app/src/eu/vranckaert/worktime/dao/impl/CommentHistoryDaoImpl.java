@@ -18,13 +18,9 @@ package eu.vranckaert.worktime.dao.impl;
 import android.content.Context;
 import android.util.Log;
 import com.google.inject.Inject;
-import com.j256.ormlite.dao.GenericRawResults;
-import com.j256.ormlite.stmt.PreparedQuery;
-import com.j256.ormlite.stmt.QueryBuilder;
 import eu.vranckaert.worktime.dao.CommentHistoryDao;
 import eu.vranckaert.worktime.dao.generic.GenericDaoImpl;
 import eu.vranckaert.worktime.model.CommentHistory;
-import eu.vranckaert.worktime.utils.preferences.Preferences;
 import eu.vranckaert.worktime.utils.string.StringUtils;
 
 import java.sql.SQLException;
@@ -52,23 +48,8 @@ public class CommentHistoryDaoImpl extends GenericDaoImpl<CommentHistory, Intege
         Log.d(LOG_TAG, "About to save a new comment: " + comment);
         String optimizedComment = StringUtils.optimizeString(comment);
 
-        QueryBuilder<CommentHistory, Integer> qb = dao.queryBuilder();
-        List<CommentHistory> comments = new ArrayList<CommentHistory>();
-        try {
-            qb.where().eq("comment", comment);
-            PreparedQuery<CommentHistory> pq = qb.prepare();
-            comments = dao.query(pq);
-            Log.d(LOG_TAG, "Did we found the same comment already? " + (comments.size()>0));
-        } catch (SQLException e) {
-            Log.e(LOG_TAG, "Could not execute the query...", e);
-        }
-
-        if (comments == null || comments.size() == 0) {
-            Log.d(LOG_TAG, "We did not find the comment in the DB. Creating a new one right now...");
-            this.save(new CommentHistory(comment));
-            Log.d(LOG_TAG, "Executing check after save...");
-            checkNumberOfCommentsStored();
-        }
+        this.save(new CommentHistory(comment));
+        Log.d(LOG_TAG, "Executing check after save...");
     }
 
     /**
@@ -92,37 +73,5 @@ public class CommentHistoryDaoImpl extends GenericDaoImpl<CommentHistory, Intege
             return;
         }
         Log.d(LOG_TAG, "All comments are deleted!");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void checkNumberOfCommentsStored() {
-        Log.d(LOG_TAG, "Checking the preference-rule for the maximum number of comments to be stored...");
-        int numberOfCommentsAllowed = Preferences.getWidgetEndingTimeRegistrationCommentMaxHistoryStoragePreference(getContext());
-        Log.d(LOG_TAG, "Maximum number of comments allowed in history: " + numberOfCommentsAllowed);
-        QueryBuilder<CommentHistory, Integer> qb = dao.queryBuilder();
-        List<CommentHistory> comments = new ArrayList<CommentHistory>();
-        try {
-            qb.orderBy("entranceDate", true);
-            PreparedQuery<CommentHistory> pq = qb.prepare();
-            comments = dao.query(pq);
-            Log.d(LOG_TAG, "Number of comments found in the history: " + comments.size());
-        } catch (SQLException e) {
-            Log.e(LOG_TAG, "Could not execute the query...", e);
-        }
-        int numberOfRecordsToDelete = 0;
-
-        if (comments.size() > numberOfCommentsAllowed) {
-            Log.d(LOG_TAG, "Too many comments available in the database");
-            numberOfRecordsToDelete = comments.size() - numberOfCommentsAllowed;
-            Log.d(LOG_TAG, numberOfRecordsToDelete + " comments should be deleted!");
-        }
-
-        for (int i = 0; i<numberOfRecordsToDelete; i++) {
-            CommentHistory comment = comments.get(i);
-            Log.d(LOG_TAG, "Comment with id " + comment.getId() + " will be deleted. The text for the comment was: " + comment.getComment());
-            delete(comment);
-        }
     }
 }
