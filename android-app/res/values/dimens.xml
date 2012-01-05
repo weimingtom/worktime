@@ -23,5 +23,8 @@
     <dimen name="text_size_medium_list">18sp</dimen>
     <dimen name="text_size_large_list">22sp</dimen>
 
+    <dimen name="text_size_about_title">18sp</dimen>
+    <dimen name="text_size_about_summary">14sp</dimen>
+
     <dimen name="widget_title">17sp</dimen>
 </resources>

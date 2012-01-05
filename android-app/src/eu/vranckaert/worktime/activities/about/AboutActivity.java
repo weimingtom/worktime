@@ -15,64 +15,117 @@
  */
 package eu.vranckaert.worktime.activities.about;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.text.util.Linkify;
+import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import eu.vranckaert.worktime.R;
-import eu.vranckaert.worktime.constants.TextConstants;
+import eu.vranckaert.worktime.activities.about.listadapter.AboutListAdapter;
 import eu.vranckaert.worktime.constants.TrackerConstants;
 import eu.vranckaert.worktime.dao.utils.DaoConstants;
-import eu.vranckaert.worktime.utils.context.IntentUtil;
 import eu.vranckaert.worktime.utils.context.ContextUtils;
+import eu.vranckaert.worktime.utils.context.IntentUtil;
 import eu.vranckaert.worktime.utils.tracker.AnalyticsTracker;
-import roboguice.activity.GuiceActivity;
-import roboguice.inject.InjectView;
+import roboguice.activity.GuiceListActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User: DIRK VRANCKAERT
  * Date: 05/02/11
  * Time: 19:06
  */
-public class AboutActivity extends GuiceActivity {
-
-    @InjectView(R.id.about_project_text) TextView projectText;
-    @InjectView(R.id.about_version_name_text) TextView versionNameText;
-    @InjectView(R.id.about_version_code_text) TextView versionCodeText;
-    @InjectView(R.id.about_database_name_text) TextView databaseNameText;
-    @InjectView(R.id.about_database_version_text) TextView databaseVersionText;
-    @InjectView(R.id.about_website_text) TextView websiteText;
-    @InjectView(R.id.about_bug_tracking_website_text) TextView bugTrackingWebsiteText;
-
+public class AboutActivity extends GuiceListActivity {
+    private static final String LOG_TAG = AboutActivity.class.getSimpleName();
+    
     private AnalyticsTracker tracker;
+
+    private List<AboutListElement> aboutListElements;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+        
         tracker = AnalyticsTracker.getInstance(getApplicationContext());
         tracker.trackPageView(TrackerConstants.PageView.ABOUT_ACTIVITY);
 
+        aboutListElements = createElementList();
+
+        refill(aboutListElements);
+        addClickEvent();
+    }
+
+    private void addClickEvent() {
+        getListView().setOnItemClickListener(new ListView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(LOG_TAG, "Clicked on about item " + position);
+                AboutListElement aboutListElement = aboutListElements.get(position);
+
+                if (aboutListElement.getIntent() != null) {
+                    Log.d(LOG_TAG, "An intent is found for this about item (" + aboutListElement.getTitle() + "), firing it now!");
+                    startActivity(aboutListElement.getIntent());
+                } else {
+                    Log.d(LOG_TAG, "No intent is found to be fired for this about item (" + aboutListElement.getTitle() + ") !");
+                }
+            }
+        });
+    }
+
+    private List<AboutListElement> createElementList() {
+        List<AboutListElement> aboutListElements = new ArrayList<AboutListElement>();
+
         String project = getString(R.string.app_name);
+        AboutListElement projectElement = new AboutListElement(R.string.lbl_about_project, project);
+        aboutListElements.add(projectElement);
+
         String versionName = ContextUtils.getCurrentApplicationVersionName(AboutActivity.this);
+        AboutListElement versionNameElement = new AboutListElement(R.string.lbl_about_version_name, versionName);
+        aboutListElements.add(versionNameElement);
+
         int versionCode = ContextUtils.getCurrentApplicationVersionCode(AboutActivity.this);
+        AboutListElement versionCodeElement = new AboutListElement(R.string.lbl_about_version_code, String.valueOf(versionCode));
+        aboutListElements.add(versionCodeElement);
+
+        Intent licenseIntent = new Intent(Intent.ACTION_VIEW);
+        licenseIntent.setData(Uri.parse("http://www.apache.org/licenses/LICENSE-2.0"));
+        AboutListElement licensingElement = new AboutListElement(R.string.lbl_about_license, getString(R.string.lbl_about_license_apache_2_0), licenseIntent);
+        aboutListElements.add(licensingElement);
+
+        String databaseName  = DaoConstants.DATABASE;
+        AboutListElement databaseNameElement = new AboutListElement(R.string.lbl_about_database_name, databaseName);
+        aboutListElements.add(databaseNameElement);
 
         int databaseVersionCode = DaoConstants.VERSION;
-        String databaseName  = DaoConstants.DATABASE;
+        AboutListElement databaseVersionElement = new AboutListElement(R.string.lbl_about_database_version, String.valueOf(databaseVersionCode));
+        aboutListElements.add(databaseVersionElement);
 
-        String website = "http://code.google.com/p/worktime/";
-        String bugTrackingWebsite = "http://code.google.com/p/worktime/issues/entry";
+        final String website = "http://code.google.com/p/worktime/";
+        Intent websiteIntent = new Intent(Intent.ACTION_VIEW);
+        websiteIntent.setData(Uri.parse(website));
+        AboutListElement websiteElement = new AboutListElement(R.string.lbl_about_website, website, websiteIntent);
+        aboutListElements.add(websiteElement);
 
-        projectText.setText(TextConstants.SPACE + project);
-        versionNameText.setText(TextConstants.SPACE + versionName);
-        versionCodeText.setText(TextConstants.SPACE + String.valueOf(versionCode));
-        databaseNameText.setText(TextConstants.SPACE + databaseName);
-        databaseVersionText.setText(TextConstants.SPACE + String.valueOf(databaseVersionCode));
-        websiteText.setText(TextConstants.SPACE + website);
-        bugTrackingWebsiteText.setText(TextConstants.SPACE + bugTrackingWebsite);
+        final String bugTrackingWebsite = "http://code.google.com/p/worktime/issues/entry";
+        Intent bugTrackingIntent = new Intent(Intent.ACTION_VIEW);
+        bugTrackingIntent.setData(Uri.parse(bugTrackingWebsite));
+        AboutListElement bugTrackingWebsiteElement = new AboutListElement(R.string.lbl_about_bug_tracking_website, bugTrackingWebsite, bugTrackingIntent);
+        aboutListElements.add(bugTrackingWebsiteElement);
 
-        Linkify.addLinks(websiteText, Linkify.WEB_URLS);
-        Linkify.addLinks(bugTrackingWebsiteText, Linkify.WEB_URLS);
+        return aboutListElements;
+    }
+
+    private void refill(List<AboutListElement> aboutListElements) {
+        if (getListView().getAdapter() == null) {
+            AboutListAdapter adapter = new AboutListAdapter(AboutActivity.this, aboutListElements);
+            setListAdapter(adapter);
+        } else {
+            ((AboutListAdapter) getListView().getAdapter()).refill(aboutListElements);
+        }
     }
 
     public void onHomeClick(View view) {
