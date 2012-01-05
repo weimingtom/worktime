@@ -198,6 +198,8 @@ public class StopTimeRegistrationActivity extends GuiceActivity {
                 LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
                 final View layout = inflater.inflate(R.layout.dialog_add_tr_comment,
                                                (ViewGroup) findViewById(R.id.dialog_layout_root));
+                // Issue 89: No null-check on latestTimeRegistration required because it can never be null as at least
+                // one time registration should be started in order to be able to stop one..!
                 TimeRegistration latestRegistration = timeRegistrationService.getLatestTimeRegistration();
                 final EditText commentEditText = (EditText) layout.findViewById(R.id.tr_comment);
                 if (latestRegistration.getComment() != null) {
@@ -261,6 +263,8 @@ public class StopTimeRegistrationActivity extends GuiceActivity {
                 break;
             }
             case Constants.Dialog.ASK_FINISH_TASK: {
+                // Issue 89: No null-check on latestTimeRegistration required because it can never be null as at least
+                // one time registration should be started in order to be able to stop one..!
                 final Task task = timeRegistrationService.getLatestTimeRegistration().getTask();
                 taskService.refresh(task);
 

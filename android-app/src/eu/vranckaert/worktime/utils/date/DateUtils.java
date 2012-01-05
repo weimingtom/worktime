@@ -100,7 +100,6 @@ public class DateUtils {
          * @return The formatted string.
          */
         public static final String convertTimeToString(Context ctx, Date date, TimeFormat format, HourPreference12Or24 preference) {
-            //TODO TimePrecision!
             String separator = ":";
             String seconds = "ss";
             String minutes = "mm";

@@ -243,10 +243,12 @@ public class RegistrationDetailsActivity extends GuiceActivity {
                 true
         );
         TimeRegistration latestRegistration = timeRegistrationService.getLatestTimeRegistration();
-        Log.d(LOG_TAG, "Latest time registration id: " + latestRegistration.getId());
-        Log.d(LOG_TAG, "Current viewing time registration id: " + registration.getId());
-        if (registration.isOngoingTimeRegistration() || !registration.getId().equals(latestRegistration.getId())) {
-            menu.removeItem(Constants.ContentMenuItemIds.TIME_REGISTRATION_RESTART);
+        if (latestRegistration == null) {
+            Log.d(LOG_TAG, "Latest time registration id: " + latestRegistration.getId());
+            Log.d(LOG_TAG, "Current viewing time registration id: " + registration.getId());
+            if (registration.isOngoingTimeRegistration() || !registration.getId().equals(latestRegistration.getId())) {
+                menu.removeItem(Constants.ContentMenuItemIds.TIME_REGISTRATION_RESTART);
+            }
         }
     }
 

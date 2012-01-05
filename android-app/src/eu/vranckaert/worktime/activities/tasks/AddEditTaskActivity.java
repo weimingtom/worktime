@@ -148,7 +148,9 @@ public class AddEditTaskActivity extends GuiceActivity {
             Log.d(LOG_TAG, "Task with id " + task.getId() + " and name " + task.getName() + " is updated");
             Log.d(LOG_TAG, "About to update the wiget and notifications");
             TimeRegistration tr = timeRegistrationService.getLatestTimeRegistration();
-            if (tr.getTask().getId().equals(task.getId())) {
+            // Issue 89 - If we do not check for null on the latest time registration the application crashes when no
+            // time registration are available and you try to edit a task!
+            if (tr != null && tr.getTask().getId().equals(task.getId())) {
                 widgetService.updateWidget(getApplicationContext());
             }
         }

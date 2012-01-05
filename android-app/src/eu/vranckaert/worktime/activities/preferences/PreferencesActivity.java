@@ -101,10 +101,14 @@ public class PreferencesActivity extends GuicePreferenceActivity {
         createStatBarNotifsCategoryPreferences(ctx, statBarNotifsCategory);
 
         //Category BACKUP
+        // Issue 90 - Temporarily disable backup/restore
+        // TODO fix the backup/restore (issues 82 and 84)
+        /*
         PreferenceCategory backupCategory = new PreferenceCategory(ctx);
         backupCategory.setTitle(R.string.pref_backup_category_title);
         preferences.addPreference(backupCategory);
         createBackupCategory(ctx, backupCategory);
+        */
     }
 
     private void createTimeRegistrationsCategoryPreferences(GuicePreferenceActivity ctx, PreferenceCategory timeRegistrationsCategory) {
