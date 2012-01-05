@@ -3,6 +3,12 @@
 
 =Release Notes=
 ===Milestone-Release1.1.2 (Time Registrations)===
+ * 1.1.2.f
+  * Bugs:
+   * Crash when updating a task and no time registrations registered yet (issue 89)
+   * Disable backup/restore (issue 90)
+  * Enhancements:
+   * Multi-line input for time registration comments (issue 49)
  * 1.1.2.e
   * Bugs:
    * Crash when deleting a task when no time registration yet (issue 87)
