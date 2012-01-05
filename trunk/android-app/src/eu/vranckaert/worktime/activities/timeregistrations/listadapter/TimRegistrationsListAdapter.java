@@ -28,7 +28,7 @@ public class TimRegistrationsListAdapter extends ArrayAdapter<TimeRegistration> 
      */
     public TimRegistrationsListAdapter(TimeRegistrationsActivity ctx, List<TimeRegistration> timeRegistrations) {
         super(ctx, R.layout.list_item_time_registrations, timeRegistrations);
-        Log.d(LOG_TAG, "Creating the time registrations list adapater");
+        Log.d(LOG_TAG, "Creating the time registrations list adapter");
 
         this.ctx = ctx;
         this.timeRegistrations = timeRegistrations;

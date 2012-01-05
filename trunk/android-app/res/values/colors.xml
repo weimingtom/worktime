@@ -32,5 +32,7 @@
     <color name="table_record_lvl_n_2">#ff7494f4</color>
     <color name="table_record_lvl_n_3">#ffffffff</color>
 
+    <color name="grey">#ff878787</color>
+
     <drawable name="transparent_background">#00000000</drawable>
 </resources>
