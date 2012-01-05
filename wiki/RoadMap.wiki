@@ -13,6 +13,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
  * 1.1.2.f
   * Bugs:
    * Crash when updating a task and no time registrations registered yet (issue 89)
+   * Disable backup/restore (issue 90)
   * Enhancements:
    * Multi-line input for time registration comments (issue 49)
 ===Milestone-Release1.1.3 (Projects, Tasks and Time Registrations)===
