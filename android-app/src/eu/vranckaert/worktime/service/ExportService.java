@@ -1,5 +1,6 @@
 package eu.vranckaert.worktime.service;
 
+import android.content.Context;
 import eu.vranckaert.worktime.enums.export.CsvSeparator;
 
 import java.io.File;
@@ -17,8 +18,8 @@ public interface ExportService {
     public final String CSV_EXTENSTION = "csv";
 
     /**
-     * Export some data to a CSV file. The exported data will be stored locally. The exact path where it's stored
-     * can be retrieved using the method {@link eu.vranckaert.worktime.service.ExportService#getDocumentDirectoryPath()}.
+     * Disk some data to a CSV file. The exported data will be stored locally.
+     * @param ctx The context.
      * @param filename The name of the file <b>WITHOUT</b> the extension. Depending on the implementation the extension
      * will be automatically set. If you however specify an extension it will not be overridden but the correct
      * extension will just be added to the filename.
@@ -28,18 +29,6 @@ public interface ExportService {
      * @param separator The {@link CsvSeparator} to be used in the file.
      * @return
      */
-    File exportCsvFile(String filename, List<String> headers, List<String[]> values, CsvSeparator separator);
+    File exportCsvFile(Context ctx, String filename, List<String> headers, List<String[]> values, CsvSeparator separator);
 
-    /**
-     * Get the full path where documents will be saved.
-     * @return The full path where documents are stored.
-     */
-    String getDocumentDirectoryPath();
-
-    /**
-     * Get the file representation where documents will be saved. Also check if the directory exists. If not it will be
-     * created.
-     * @return The {@link File} instance pointing to the directory where documents are saved.
-     */
-    File getDocumentDirectory();
 }

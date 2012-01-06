@@ -16,7 +16,6 @@
 package eu.vranckaert.worktime.service.impl;
 
 import android.content.Context;
-import android.os.Environment;
 import android.util.Log;
 import eu.vranckaert.worktime.dao.utils.DaoConstants;
 import eu.vranckaert.worktime.exceptions.SDCardUnavailableException;
@@ -40,15 +39,15 @@ import java.util.List;
  */
 public class DatabaseFileBackupServiceImpl implements BackupService {
     private static final String LOG_TAG = DatabaseFileBackupServiceImpl.class.getSimpleName();
-
+    
     public String backup(Context ctx) throws SDCardUnavailableException, BackupFileCouldNotBeCreated, BackupFileCouldNotBeWritten {
+        String fileName = BASE_FILE_NAME + DateUtils.DateTimeConverter.getUniqueTimestampString() + FILE_EXTENSION;
+
         if (!ContextUtils.isSdCardAvailable() || !ContextUtils.isSdCardWritable()) {
             throw new SDCardUnavailableException("Make sure the SD-card is in the device and the SD-card is mounted.");
         }
 
-        String fileName = BASE_FILE_NAME + DateUtils.DateTimeConverter.getUniqueTimestampString() + FILE_EXTENSION;
-
-        File folder = new File(BACKUP_PATH);
+        File folder = FileUtil.getBackupDir(ctx);
         if (folder.isFile()) {
             Log.d(LOG_TAG, "Directory seems to be a file... Deleting it now...");
             folder.delete();
@@ -64,13 +63,14 @@ public class DatabaseFileBackupServiceImpl implements BackupService {
             }
         }
 
-        File backupFile = new File(BACKUP_PATH + fileName);
+        File backupFile = new File(FileUtil.getBackupDir(ctx).getAbsolutePath() + File.separator + fileName);
+        FileUtil.applyPermissions(backupFile, true, true, false);
         try {
             backupFile.createNewFile();
         } catch (IOException e) {
             throw new BackupFileCouldNotBeCreated(e);
         }
-        File dbFile = new File(Environment.getDataDirectory() + "/data/" + APP_PACKAGE + "/databases/" + DaoConstants.DATABASE);
+        File dbFile = new File(FileUtil.getDatabaseDirectory(ctx) + File.separator + DaoConstants.DATABASE);
 
         try {
             FileUtil.copyFile(dbFile, backupFile);
@@ -86,7 +86,7 @@ public class DatabaseFileBackupServiceImpl implements BackupService {
             throw new SDCardUnavailableException("Make sure the SD-card is in the device and the SD-card is mounted.");
         }
 
-        File dbFile = new File(Environment.getDataDirectory() + "/data/" + APP_PACKAGE + "/databases/" + DaoConstants.DATABASE);
+        File dbFile = new File(FileUtil.getDatabaseDirectory(ctx) + DaoConstants.DATABASE);
         if (!dbFile.exists()) {
             try {
                 dbFile.createNewFile();
@@ -108,7 +108,7 @@ public class DatabaseFileBackupServiceImpl implements BackupService {
             throw new SDCardUnavailableException("Make sure the SD-card is in the device and the SD-card is mounted.");
         }
 
-        File backupDirectory = new File(BACKUP_PATH);
+        File backupDirectory = FileUtil.getBackupDir(ctx);
 
         if (!backupDirectory.exists()) {
             return null;

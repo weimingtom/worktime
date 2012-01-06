@@ -1,11 +1,11 @@
 package eu.vranckaert.worktime.service.impl;
 
-import android.os.Environment;
+import android.content.Context;
 import android.util.Log;
-import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.constants.TextConstants;
 import eu.vranckaert.worktime.enums.export.CsvSeparator;
 import eu.vranckaert.worktime.service.ExportService;
+import eu.vranckaert.worktime.utils.file.FileUtil;
 import eu.vranckaert.worktime.utils.string.StringUtils;
 
 import java.io.BufferedWriter;
@@ -23,8 +23,8 @@ public class ExportServiceImpl implements ExportService {
     private static final String LOG_TAG = ExportServiceImpl.class.getSimpleName();
 
     @Override
-    public File exportCsvFile(String filename, List<String> headers, List<String[]> values, CsvSeparator separator) {
-        Character seperator = separator.getSeperator();
+    public File exportCsvFile(Context ctx, String filename, List<String> headers, List<String[]> values, CsvSeparator separator) {
+        Character separatorChar = separator.getSeperator();
         String emptyValue = "\"\"";
 
         StringBuilder result = new StringBuilder();
@@ -36,7 +36,7 @@ public class ExportServiceImpl implements ExportService {
                 } else {
                     result.append(emptyValue);
                 }
-                result.append(seperator);
+                result.append(separatorChar);
             }
             result.append(TextConstants.NEW_LINE);
         }
@@ -49,21 +49,20 @@ public class ExportServiceImpl implements ExportService {
                 } else {
                     result.append(emptyValue);
                 }
-                result.append(seperator);
+                result.append(separatorChar);
             }
 
             result.append(TextConstants.NEW_LINE);
         }
 
-        File defaultStorageDirectory = Environment.getExternalStorageDirectory();
-
-        File folder = getDocumentDirectory();
-
-        File file = new File(getDocumentDirectoryPath() +
+        File file = new File(
+                FileUtil.getExportDir(ctx) +
+                File.separator +
                 filename +
                 "." +
                 CSV_EXTENSTION
         );
+        FileUtil.applyPermissions(file, true, true, false);
 
         try {
             boolean fileAlreadyExists = file.createNewFile();
@@ -80,29 +79,6 @@ public class ExportServiceImpl implements ExportService {
             Log.e(LOG_TAG, "Exception occurred during export...", e);
         }
 
-        return file;
-    }
-
-    @Override
-    public String getDocumentDirectoryPath() {
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath() +
-            File.separator +
-            Constants.Export.EXPORT_DIRECTORY +
-            File.separator;
-        return path;
-    }
-
-    @Override
-    public File getDocumentDirectory() {
-        File file = new File(getDocumentDirectoryPath());
-        if (file.exists() && file.isFile()) {
-            Log.d(LOG_TAG, "Directory seems to be a file... Deleting it now...");
-            file.delete();
-        }
-        if (!file.exists()) {
-            Log.d(LOG_TAG, "Directory does not exist yet! Creating it now!");
-            file.mkdir();
-        }
         return file;
     }
 }

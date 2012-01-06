@@ -26,11 +26,15 @@ import eu.vranckaert.worktime.activities.projects.ManageProjectsActivity;
 import eu.vranckaert.worktime.activities.reporting.ReportingCriteriaActivity;
 import eu.vranckaert.worktime.activities.timeregistrations.TimeRegistrationsActivity;
 import eu.vranckaert.worktime.constants.TrackerConstants;
+import eu.vranckaert.worktime.service.CommentHistoryService;
 import eu.vranckaert.worktime.utils.tracker.AnalyticsTracker;
 import roboguice.activity.GuiceActivity;
 
 public class HomeActivity extends GuiceActivity {
     private static final String LOG_TAG = HomeActivity.class.getSimpleName();
+
+    @Inject
+    private CommentHistoryService commentHistoryService;
 
     private AnalyticsTracker tracker;
 
@@ -41,6 +45,14 @@ public class HomeActivity extends GuiceActivity {
         setContentView(R.layout.activity_home);
         tracker = AnalyticsTracker.getInstance(getApplicationContext());
         tracker.trackPageView(TrackerConstants.PageView.HOME_ACTIVITY);
+
+        initiateDatabase();
+    }
+
+    private void initiateDatabase() {
+        // By default the database is only initiated upon first call (so when tyring to load tasks/projects or time
+        // registrations. We force the creation of the database by loading the last comment.
+        commentHistoryService.findLastComment();
     }
 
     private void launchActivity(Class activity) {

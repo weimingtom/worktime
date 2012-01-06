@@ -227,7 +227,7 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
     }
 
     /**
-     * Export the time registrations.
+     * Disk the time registrations.
      * @param view The view.
      */
     public void onExportClick(View view) {

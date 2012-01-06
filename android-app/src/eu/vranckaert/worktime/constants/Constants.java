@@ -108,7 +108,7 @@ public class Constants {
             public static final String TIME_PRECISION = "timePrecision";
         }
     }
-    public class Export {
+    public class Disk {
         public static final String EXPORT_DIRECTORY = "worktime";
         public static final String BACKUP_DIRECTORY = "worktime-backup";
     }
