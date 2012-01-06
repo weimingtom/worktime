@@ -21,6 +21,7 @@ import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.exceptions.SDCardUnavailableException;
 import eu.vranckaert.worktime.exceptions.backup.BackupFileCouldNotBeCreated;
 import eu.vranckaert.worktime.exceptions.backup.BackupFileCouldNotBeWritten;
+import eu.vranckaert.worktime.utils.context.ContextUtils;
 
 import java.io.File;
 import java.util.List;
@@ -33,11 +34,7 @@ import java.util.List;
 public interface BackupService {
     static final String BASE_FILE_NAME = "worktimedb-";
     static final String FILE_EXTENSION = ".bak";
-    static final String APP_PACKAGE = "eu.vranckaert.worktime";
-    static final String BACKUP_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() +
-                File.separator +
-                Constants.Export.BACKUP_DIRECTORY +
-                File.separator;
+
     /**
      * Backup the entire database.
      * @param ctx The context.

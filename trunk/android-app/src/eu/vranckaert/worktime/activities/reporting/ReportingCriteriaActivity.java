@@ -45,6 +45,7 @@ import eu.vranckaert.worktime.utils.date.DateConstants;
 import eu.vranckaert.worktime.utils.date.DateFormat;
 import eu.vranckaert.worktime.utils.date.DateUtils;
 import eu.vranckaert.worktime.utils.file.CsvFilenameFilter;
+import eu.vranckaert.worktime.utils.file.FileUtil;
 import eu.vranckaert.worktime.utils.string.StringUtils;
 import eu.vranckaert.worktime.utils.tracker.AnalyticsTracker;
 import roboguice.activity.GuiceActivity;
@@ -136,7 +137,7 @@ public class ReportingCriteriaActivity extends GuiceActivity {
     }
 
     private void initializeView() {
-        //Export button
+        //Disk button
         checkForEnablingBatchSharing();
 
         //Date Range spinner
@@ -286,7 +287,7 @@ public class ReportingCriteriaActivity extends GuiceActivity {
     }
 
     private void checkForEnablingBatchSharing() {
-        File documentDirectory = exportService.getDocumentDirectory();
+        File documentDirectory = FileUtil.getExportDir(ReportingCriteriaActivity.this);
         File[] documents = documentDirectory.listFiles(new CsvFilenameFilter());
 
         if (documents != null && documents.length > 0) {
@@ -568,7 +569,7 @@ public class ReportingCriteriaActivity extends GuiceActivity {
             }
             case Constants.Dialog.REPORTING_BATCH_SHARE: {
                 final List<File> selectedDocuments = new ArrayList<File>();
-                final File[] documents = exportService.getDocumentDirectory().listFiles(new CsvFilenameFilter());
+                final File[] documents = FileUtil.getExportDir(ReportingCriteriaActivity.this).listFiles(new CsvFilenameFilter());
 
                 String[] documentNames = new String[documents.length];
                 boolean[] checkedNames = new boolean[documents.length];

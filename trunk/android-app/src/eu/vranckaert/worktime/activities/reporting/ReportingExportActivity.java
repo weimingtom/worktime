@@ -221,11 +221,11 @@ public class ReportingExportActivity extends GuiceActivity {
 
     /**
      * Save the file name to the preferences in case it has changed.
-     * Afterwards Export the time registrations.
+     * Afterwards Disk the time registrations.
      * @param view The view.
      */
     public void onExportClick(View view) {
-        Log.d(LOG_TAG, "Export button clicked!");
+        Log.d(LOG_TAG, "Disk button clicked!");
         Log.d(LOG_TAG, "Validate input...");
         if(fileNameInput.getText().toString().length() < 3) {
             Log.d(LOG_TAG, "Validation failed! Showing applicable error messages...");
@@ -261,8 +261,8 @@ public class ReportingExportActivity extends GuiceActivity {
                 Log.d(LOG_TAG, "Starting export background process...");
                 String filename = fileNameInput.getText().toString();
                 CsvSeparator separator = Preferences.getReportingExportCsvSeparator(ReportingExportActivity.this);
-                File file = exportService.exportCsvFile(filename, exportHeaders, exportValues, separator);
-                Log.d(LOG_TAG, "Export in background process finished!");
+                File file = exportService.exportCsvFile(ReportingExportActivity.this, filename, exportHeaders, exportValues, separator);
+                Log.d(LOG_TAG, "Disk in background process finished!");
                 return file;
             }
 
