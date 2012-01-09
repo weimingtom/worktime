@@ -109,12 +109,12 @@ public class FileUtil {
 
     /**
      * Get the directory to be used to save/read backup-files.
-     * @param ctx The context.
      * @return a {@link File} representing the backup directory.
      */
-    public static File getBackupDir(Context ctx) {
+    public static File getBackupDir() {
+        File dir = Environment.getExternalStorageDirectory();
         File file = new File(
-                getExternalFilesDir(ctx) +
+                dir.getAbsolutePath() +
                 File.separator +
                 Constants.Disk.BACKUP_DIRECTORY +
                 File.separator
@@ -149,7 +149,7 @@ public class FileUtil {
 
     /**
      * Checks if a certain {@link File} is a directory (if not it will delete the file and create the directory) and if
-     * the directory exists (if not it will create the directory). 
+     * the directory exists (if not it will create the directory).
      * @param file The {@link File} to check.
      */
     private static void checkIfDirectoryExists(File file) {

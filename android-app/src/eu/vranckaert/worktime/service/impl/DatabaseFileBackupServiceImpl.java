@@ -47,7 +47,7 @@ public class DatabaseFileBackupServiceImpl implements BackupService {
             throw new SDCardUnavailableException("Make sure the SD-card is in the device and the SD-card is mounted.");
         }
 
-        File folder = FileUtil.getBackupDir(ctx);
+        File folder = FileUtil.getBackupDir();
         if (folder.isFile()) {
             Log.d(LOG_TAG, "Directory seems to be a file... Deleting it now...");
             folder.delete();
@@ -63,7 +63,7 @@ public class DatabaseFileBackupServiceImpl implements BackupService {
             }
         }
 
-        File backupFile = new File(FileUtil.getBackupDir(ctx).getAbsolutePath() + File.separator + fileName);
+        File backupFile = new File(FileUtil.getBackupDir().getAbsolutePath() + File.separator + fileName);
         FileUtil.applyPermissions(backupFile, true, true, false);
         try {
             backupFile.createNewFile();
@@ -108,7 +108,7 @@ public class DatabaseFileBackupServiceImpl implements BackupService {
             throw new SDCardUnavailableException("Make sure the SD-card is in the device and the SD-card is mounted.");
         }
 
-        File backupDirectory = FileUtil.getBackupDir(ctx);
+        File backupDirectory = FileUtil.getBackupDir();
 
         if (!backupDirectory.exists()) {
             return null;
