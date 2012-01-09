@@ -14,6 +14,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
   * Bugs:
    * Cannot access the backup files from my computer (issue 84)
    * Backup/Restore bug (issue 82)
+   * Crash when running report for "last week" (issue 91)
  * 1.1.3.b
   * Enhancements:
    * Show/Hide switch for "finished tasks" in the project details (issue 66)
