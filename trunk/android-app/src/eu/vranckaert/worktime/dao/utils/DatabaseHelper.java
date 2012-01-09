@@ -84,6 +84,7 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         try {
             Log.d(LOG_TAG, "Creating the database");
+            Log.d(LOG_TAG, "Database path: " + database.getPath());
             for(Tables table : Tables.values()) {
                 TableUtils.createTable(connectionSource, table.getTableClass());
             }
@@ -118,10 +119,12 @@ public class DatabaseHelper<T, ID> extends OrmLiteSqliteOpenHelper {
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         if (newVersion < oldVersion) {
             Log.w(LOG_TAG, "Trying to install an older database over a more recent one. Not executing update...");
+            Log.d(LOG_TAG, "Database path: " + database.getPath());
             return;
         }
 
         Log.d(LOG_TAG, "Updating the database from version " + oldVersion + " to " + newVersion);
+        Log.d(LOG_TAG, "Database path: " + database.getPath());
 
         DatabaseUpgrade[] databaseUpgrades = DatabaseUpgrade.values();
         int upgradeSqlCount = 0;
