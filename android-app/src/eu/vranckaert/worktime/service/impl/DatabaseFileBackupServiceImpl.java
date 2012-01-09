@@ -86,7 +86,9 @@ public class DatabaseFileBackupServiceImpl implements BackupService {
             throw new SDCardUnavailableException("Make sure the SD-card is in the device and the SD-card is mounted.");
         }
 
-        File dbFile = new File(FileUtil.getDatabaseDirectory(ctx) + DaoConstants.DATABASE);
+        File dbFile = new File(FileUtil.getDatabaseDirectory(ctx) + File.separator + DaoConstants.DATABASE);
+        FileUtil.applyPermissions(dbFile, true, true, false, true);
+        Log.d(LOG_TAG, "Restoring backup to database file " + dbFile.getAbsolutePath());
         if (!dbFile.exists()) {
             try {
                 dbFile.createNewFile();
