@@ -43,6 +43,17 @@ public class Preferences {
     }
 
     /**
+     * Remove a certain preference from the system.
+     * @param ctx The context.
+     * @param key The key of the preference to remove.
+     */
+    public static final void removePreference(Context ctx, String key) {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.remove(key);
+        editor.commit();
+    }
+
+    /**
      * Get the preference for key {@link Constants.Preferences.Keys#SELECTED_PROJECT_ID}. If no selected project id is
      * found the default value will be {@link Constants.Preferences#SELECTED_PROJECT_ID_DEFAULT_VALUE}.
      * @param ctx The context when getting the selected project id.

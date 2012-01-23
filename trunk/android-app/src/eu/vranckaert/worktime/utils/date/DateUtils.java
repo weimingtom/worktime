@@ -432,69 +432,85 @@ public class DateUtils {
                     break;
                 }
             }
+
+            periodString = periodString.trim();
+
             return periodString;
         }
 
-        public static Map<Integer, Date> calculateWeekBoundaries(int weekDiff, Context ctx) {
+        /**
+         * Calculates the boundaries of a week (the date the week is starting and ending on), based on the week
+         * difference that is provided. If zero it will be the current week boundaries. The week difference can be zero,
+         * negative or positive. A week difference of -1 for example will calculate the week boundaries for last week.
+         * The method will take into account the preference for what day the week should start on.
+         * @param weekDiff The week difference to calculate the boundaries from.
+         * @param ctx The context.
+         * @return A map containing two keys: {@link DateConstants#FIRST_DAY_OF_WEEK) and
+         * {@link DateConstants#LAST_DAY_OF_WEEK).
+         */
+        public static Map<Integer, Date> calculateWeekBoundaries(final int weekDiff, final Context ctx) {
+            return calculateWeekBoundaries(weekDiff, new Date(), ctx);
+        }
+
+        /**
+         * Calculates the boundaries of a week (the date the week is starting and ending on), based on the week
+         * difference that is provided. If zero it will be the week boundaries of the specified date. The week
+         * difference can be zero, negative or positive. A week difference of -1 for example will calculate the week
+         * boundaries for the week before the specified date. The method will take into account the preference for what
+         * day the week should start on.
+         * @param weekDiff The week difference to calculate the boundaries from.
+         * @param date The date to start calculating from.
+         * @param ctx The context.
+         * @return A map containing two keys: {@link DateConstants#FIRST_DAY_OF_WEEK) and
+         * {@link DateConstants#LAST_DAY_OF_WEEK).
+         */
+        public static Map<Integer, Date> calculateWeekBoundaries(final int weekDiff, final Date date, final Context ctx) {
             int weekStartsOn = Preferences.getWeekStartsOn(ctx);
 
-            LocalDate now = new LocalDate();
-            LocalDate firstDayOfWeek = new LocalDate();
-            LocalDate lastDayOfWeek = new LocalDate();
-
-            now = addWeeksToDate(now, weekDiff);
-            firstDayOfWeek = addWeeksToDate(firstDayOfWeek, weekDiff);
-            lastDayOfWeek = addWeeksToDate(lastDayOfWeek, weekDiff);
+            Date dateWithWeeks = addWeeksToDate(date, weekDiff);
+            
+            LocalDate startDate = new LocalDate(dateWithWeeks);
+            LocalDate firstDayOfWeek = new LocalDate(dateWithWeeks);
 
             firstDayOfWeek = firstDayOfWeek.withDayOfWeek(weekStartsOn);
-            if (firstDayOfWeek.isAfter(now)) {
+            if (firstDayOfWeek.isAfter(startDate)) {
                 DateTimeFieldType weekOfWeekyear = DateTimeFieldType.weekOfWeekyear();
                 int weekOfYear = firstDayOfWeek.get(weekOfWeekyear);
-                firstDayOfWeek = firstDayOfWeek.withWeekOfWeekyear(weekOfYear - 1);
+                int newWeekOfYear = weekOfYear - 1;
+                if (newWeekOfYear <= 0) {
+                    newWeekOfYear = 52 - newWeekOfYear;
+                    firstDayOfWeek = firstDayOfWeek.withYear(firstDayOfWeek.getYear()-1);
+                }
+                firstDayOfWeek = firstDayOfWeek.withWeekOfWeekyear(newWeekOfYear);
+                firstDayOfWeek = firstDayOfWeek.withDayOfWeek(weekStartsOn);
             }
 
-            switch (weekStartsOn) {
-                case DateTimeConstants.MONDAY:
-                    lastDayOfWeek = lastDayOfWeek.withDayOfWeek(DateTimeConstants.SUNDAY);
-                    break;
-                case DateTimeConstants.TUESDAY:
-                    lastDayOfWeek = lastDayOfWeek.withDayOfWeek(DateTimeConstants.MONDAY);
-                    break;
-                case DateTimeConstants.WEDNESDAY:
-                    lastDayOfWeek = lastDayOfWeek.withDayOfWeek(DateTimeConstants.TUESDAY);
-                    break;
-                case DateTimeConstants.THURSDAY:
-                    lastDayOfWeek = lastDayOfWeek.withDayOfWeek(DateTimeConstants.WEDNESDAY);
-                    break;
-                case DateTimeConstants.FRIDAY:
-                    lastDayOfWeek = lastDayOfWeek.withDayOfWeek(DateTimeConstants.THURSDAY);
-                    break;
-                case DateTimeConstants.SATURDAY:
-                    lastDayOfWeek = lastDayOfWeek.withDayOfWeek(DateTimeConstants.FRIDAY);
-                    break;
-                case DateTimeConstants.SUNDAY:
-                    lastDayOfWeek = lastDayOfWeek.withDayOfWeek(DateTimeConstants.SATURDAY);
-                    break;
-            }
+            Calendar lastDayOfWeek = Calendar.getInstance();
+            lastDayOfWeek.setTime(addWeeksToDate(firstDayOfWeek.toDate(), 1));
+            lastDayOfWeek.add(Calendar.DAY_OF_YEAR, -1);
 
             Map<Integer, Date> result = new HashMap<Integer, Date>();
             result.put(DateConstants.FIRST_DAY_OF_WEEK, firstDayOfWeek.toDate());
-            result.put(DateConstants.LAST_DAY_OF_WEEK, lastDayOfWeek.toDate());
+            result.put(DateConstants.LAST_DAY_OF_WEEK, lastDayOfWeek.getTime());
 
             return result;
         }
 
         /**
          * Add an amount of weeks to a certain date. If amount of weeks to add is negative it will be subtracted.
-         * @param date The {@link org.joda.time.LocalDate} instance to calculate on.
+         * @param date The {@link Date} instance to calculate on.
          * @param weekDiff The number of weeks to add to the provided date.
-         * @return The {@link org.joda.time.LocalDate} with the weeks added or subtracted.
+         * @return The {@link Date} with the weeks added or subtracted.
          */
-        private static LocalDate addWeeksToDate(LocalDate date, int weekDiff) {
-            int weekOfYear = date.get(DateTimeFieldType.weekOfWeekyear());
-            date = date.withWeekOfWeekyear(weekOfYear + weekDiff);
+        private static Date addWeeksToDate(Date date, int weekDiff) {
+            int daysInOneWeek = Calendar.getInstance().getMaximum(Calendar.DAY_OF_WEEK);
+            int daysDiff = weekDiff * daysInOneWeek;
+            
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            cal.add(Calendar.DAY_OF_YEAR, daysDiff);
 
-            return date;
+            return cal.getTime();
         }
     }
 

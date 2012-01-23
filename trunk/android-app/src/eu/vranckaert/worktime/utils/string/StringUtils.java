@@ -76,19 +76,19 @@ public class StringUtils {
      * leftPad("test", "abc", 4) <i> returns </i> <b>test</b>
      * @param text The to add the padding text to.
      * @param padText The padding text.
-     * @param textLenght The maximum length of the text.
+     * @param textLength The maximum length of the text.
      * @return The padded text.
      */
-    public static String leftPad(String text, String padText, int textLenght) {
-        if (textLenght < 0) {
+    public static String leftPad(String text, String padText, int textLength) {
+        if (textLength < 0) {
             return text;
         }
 
-        if (text.length() == textLenght) {
+        if (text.length() == textLength) {
             return text;
         }
 
-        while (text.length() < textLenght) {
+        while (text.length() < textLength) {
             text = padText + text;
         }
         return text;
