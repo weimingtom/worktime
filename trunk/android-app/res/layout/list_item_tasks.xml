@@ -18,12 +18,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:padding="12dp">
-    <ImageView android:id="@id/btn_delete"
-               android:layout_height="wrap_content"
-               android:layout_width="wrap_content"
-               android:src="@drawable/ic_delete"
-               android:layout_alignParentRight="true"
-               android:layout_centerVertical="true"/>
     <LinearLayout android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:orientation="horizontal">
@@ -39,7 +33,6 @@
                   android:layout_height="wrap_content"
                   android:textSize="@dimen/text_size_large_list"
                   android:singleLine="false"
-                  android:ellipsize="none"
-                  android:layout_toLeftOf="@id/btn_delete"/>
+                  android:ellipsize="none"/>
     </LinearLayout>
 </RelativeLayout>

@@ -73,6 +73,12 @@ public class ProjectDetailsActivity extends GuiceListActivity {
 
     @InjectView(R.id.title_refresh_progress)
     private ProgressBar progressBar;
+    
+    @InjectView(R.id.showHideFinishedTasksButtonGroup)
+    private View showHideFinishedTasksButtonGroup;
+    
+    @InjectView(R.id.showHideFinishedTasksButton)
+    private ImageButton showHideFinishedTasksButton;
 
     @InjectView(R.id.addTaskButton)
     private ImageButton addTaskButton;
@@ -120,6 +126,7 @@ public class ProjectDetailsActivity extends GuiceListActivity {
         if (StringUtils.isNotBlank(project.getComment())) {
             projectComment.setText(project.getComment());
         }
+
         loadProjectTasks(project);
 
         registerForContextMenu(getListView());
@@ -131,6 +138,7 @@ public class ProjectDetailsActivity extends GuiceListActivity {
             protected void onPreExecute() {
                 progressBar.setVisibility(View.VISIBLE);
                 addTaskButton.setVisibility(View.GONE);
+                showHideFinishedTasksButtonGroup.setVisibility(View.GONE);
             }
 
             @Override
@@ -152,13 +160,26 @@ public class ProjectDetailsActivity extends GuiceListActivity {
                 adapter.notifyDataSetChanged();
                 setListAdapter(adapter);
 
+                setShowHideFinishedTasksButton();
+
                 progressBar.setVisibility(View.GONE);
                 addTaskButton.setVisibility(View.VISIBLE);
+                showHideFinishedTasksButtonGroup.setVisibility(View.VISIBLE);
 
                 loadProjectDetails(project);
             }
         };
         asyncTask.execute(project);
+    }
+
+    private void setShowHideFinishedTasksButton() {
+        boolean hide = Preferences.getDisplayTasksHideFinished(ProjectDetailsActivity.this);
+
+        if (hide) {
+            showHideFinishedTasksButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_title_locked));
+        } else {
+            showHideFinishedTasksButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_title_unlocked));
+        }
     }
 
     private void loadProjectDetails(final Project project) {
@@ -221,13 +242,14 @@ public class ProjectDetailsActivity extends GuiceListActivity {
         TextView taskName = (TextView) row.findViewById(R.id.task_name_listitem);
         taskName.setText(taskToBeRendered.getName());
 
-        Log.d(LOG_TAG, "Ready to bind the deleteButton to the deleteTask method...");
-        ImageView deleteButton = (ImageView) row.findViewById(R.id.btn_delete);
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                deleteTask(taskToBeRendered, true, false);
-            }
-        });
+//        TODO remove this block of code after testing
+//        Log.d(LOG_TAG, "Ready to bind the deleteButton to the deleteTask method...");
+//        ImageView deleteButton = (ImageView) row.findViewById(R.id.btn_delete);
+//        deleteButton.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View view) {
+//                deleteTask(taskToBeRendered, true, false);
+//            }
+//        });
 
         Log.d(LOG_TAG, "Ready to set the finished flag (" + taskToBeRendered.isFinished() + ") ...");
         View view = row.findViewById(R.id.img_finished);
@@ -568,6 +590,18 @@ public class ProjectDetailsActivity extends GuiceListActivity {
 
     public void onHomeClick(View view) {
         IntentUtil.goHome(this);
+    }
+    
+    public void showHideFinishedTasks(View view) {
+        boolean hide = Preferences.getDisplayTasksHideFinished(ProjectDetailsActivity.this);
+        Preferences.setDisplayTasksHideFinished(ProjectDetailsActivity.this, !hide);
+
+        tasksForProject.clear();
+        ManageTasksListAdapter adapter = new ManageTasksListAdapter(tasksForProject);
+        adapter.notifyDataSetChanged();
+        setListAdapter(adapter);
+
+        loadProjectTasks(project);
     }
 
     public void onAddTaskClick(View view) {

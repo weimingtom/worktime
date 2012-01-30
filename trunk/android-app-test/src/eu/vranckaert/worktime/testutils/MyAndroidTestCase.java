@@ -31,6 +31,9 @@ import java.util.Map;
  * Time: 14:27
  */
 public abstract class MyAndroidTestCase extends AndroidTestCase {
+    /**
+     * The context that is used to execute the test.
+     */
     public Context ctx;
 
     @Override
@@ -47,6 +50,10 @@ public abstract class MyAndroidTestCase extends AndroidTestCase {
     }
 
     private void removePreferences(List<String> preferenceKeys) {
+        if (preferenceKeys == null || preferenceKeys.size() == 0) {
+            return;
+        }
+
         for (String key : preferenceKeys) {
             Preferences.removePreference(ctx, key);
         }

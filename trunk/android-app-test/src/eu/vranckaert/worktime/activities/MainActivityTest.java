@@ -15,25 +15,31 @@
  */
 package eu.vranckaert.worktime.activities;
 
-import android.test.ActivityInstrumentationTestCase2;
+import eu.vranckaert.worktime.testutils.MyAndroidActivityTestCase;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * User: DIRK VRANCKAERT
  * Date: 20/01/12
  * Time: 9:54
  */
-public class MainActivityTest extends ActivityInstrumentationTestCase2<HomeActivity> {
-    private HomeActivity activity;
-
+public class MainActivityTest extends MyAndroidActivityTestCase<HomeActivity> {
     public MainActivityTest() {
-        super("eu.vranckaert.worktime", HomeActivity.class);
+        super(HomeActivity.class);
     }
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        activity = this.getActivity();
     }
+
+    @Override
+    public List<String> getPreferenceKeysForRemoval() {return null;}
+
+    @Override
+    public Map<String, Object> getPreferenceKeyValuePairs() {return null;}
 
     public void testPreconditions() {
         assertNotNull(activity);
