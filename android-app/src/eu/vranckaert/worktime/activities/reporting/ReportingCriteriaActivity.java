@@ -127,6 +127,8 @@ public class ReportingCriteriaActivity extends GuiceActivity {
 
     private AnalyticsTracker tracker;
 
+    private final DateFormat dateFormat = DateFormat.LONG;
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reporting_criteria);
@@ -288,6 +290,11 @@ public class ReportingCriteriaActivity extends GuiceActivity {
 
     private void checkForEnablingBatchSharing() {
         File documentDirectory = FileUtil.getExportDir(ReportingCriteriaActivity.this);
+        if (documentDirectory == null) {
+            actionExportButton.setVisibility(View.INVISIBLE);
+            return;
+        }
+        
         File[] documents = documentDirectory.listFiles(new CsvFilenameFilter());
 
         if (documents != null && documents.length > 0) {
@@ -304,7 +311,7 @@ public class ReportingCriteriaActivity extends GuiceActivity {
             Date today  = new Date();
             startDate = today;
             endDate = today;
-            String todayAsText = DateUtils.DateTimeConverter.convertDateToString(startDate, DateFormat.LONG, this);
+            String todayAsText = DateUtils.DateTimeConverter.convertDateToString(startDate, dateFormat, this);
 
             dateRangeStartButton.setText(todayAsText);
             dateRangeEndButton.setText(todayAsText);
@@ -319,8 +326,8 @@ public class ReportingCriteriaActivity extends GuiceActivity {
             startDate = firstDay;
             endDate = lastDay;
 
-            String strFirstDay = DateUtils.DateTimeConverter.convertDateToString(firstDay, DateFormat.LONG, this);
-            String strLastDay = DateUtils.DateTimeConverter.convertDateToString(lastDay, DateFormat.LONG, this);
+            String strFirstDay = DateUtils.DateTimeConverter.convertDateToString(firstDay, dateFormat, this);
+            String strLastDay = DateUtils.DateTimeConverter.convertDateToString(lastDay, dateFormat, this);
 
             dateRangeStartButton.setText(strFirstDay);
             dateRangeEndButton.setText(strLastDay);
@@ -335,8 +342,8 @@ public class ReportingCriteriaActivity extends GuiceActivity {
             startDate = firstDay;
             endDate = lastDay;
 
-            String strFirstDay = DateUtils.DateTimeConverter.convertDateToString(firstDay, DateFormat.LONG, this);
-            String strLastDay = DateUtils.DateTimeConverter.convertDateToString(lastDay, DateFormat.LONG, this);
+            String strFirstDay = DateUtils.DateTimeConverter.convertDateToString(firstDay, dateFormat, this);
+            String strLastDay = DateUtils.DateTimeConverter.convertDateToString(lastDay, dateFormat, this);
 
             dateRangeStartButton.setText(strFirstDay);
             dateRangeEndButton.setText(strLastDay);
@@ -354,8 +361,8 @@ public class ReportingCriteriaActivity extends GuiceActivity {
             startDate = firstDay;
             endDate = lastDay;
 
-            String strFirstDay = DateUtils.DateTimeConverter.convertDateToString(firstDay, DateFormat.LONG, this);
-            String strLastDay = DateUtils.DateTimeConverter.convertDateToString(lastDay, DateFormat.LONG, this);
+            String strFirstDay = DateUtils.DateTimeConverter.convertDateToString(firstDay, dateFormat, this);
+            String strLastDay = DateUtils.DateTimeConverter.convertDateToString(lastDay, dateFormat, this);
 
             dateRangeStartButton.setText(strFirstDay);
             dateRangeEndButton.setText(strLastDay);
@@ -363,8 +370,8 @@ public class ReportingCriteriaActivity extends GuiceActivity {
             dateRangeStartButton.setEnabled(false);
             dateRangeEndButton.setEnabled(false);
         } else if (ReportingDateRange.CUSTOM.getOrder() == index) {
-            String strStartDate = DateUtils.DateTimeConverter.convertDateToString(startDate, DateFormat.LONG, this);
-            String strEndDate = DateUtils.DateTimeConverter.convertDateToString(endDate, DateFormat.LONG, this);
+            String strStartDate = DateUtils.DateTimeConverter.convertDateToString(startDate, dateFormat, this);
+            String strEndDate = DateUtils.DateTimeConverter.convertDateToString(endDate, dateFormat, this);
 
             dateRangeStartButton.setText(strStartDate);
             dateRangeEndButton.setText(strEndDate);
@@ -549,7 +556,7 @@ public class ReportingCriteriaActivity extends GuiceActivity {
                 break;
             }
             case Constants.Dialog.REPORTING_CRITERIA_SELECT_END_DATE_ERROR_BEFORE_START_DATE: {
-                String startDateString = DateUtils.DateTimeConverter.convertDateToString(startDate, DateFormat.LONG, this);
+                String startDateString = DateUtils.DateTimeConverter.convertDateToString(startDate, dateFormat, this);
                 AlertDialog.Builder alertValidationError = new AlertDialog.Builder(this);
 				alertValidationError
                            .setTitle(R.string.lbl_reporting_criteria_date_till_picker_validation_error_title)

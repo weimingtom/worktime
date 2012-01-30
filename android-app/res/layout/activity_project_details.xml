@@ -87,6 +87,16 @@
                       android:layout_height="10dp"/>
         <LinearLayout style="@style/SubTitleBar">
             <TextView style="@style/SubTitleBarText" android:text="@string/lbl_project_details_tasks"/>
+            <LinearLayout android:layout_width="wrap_content"
+                          android:layout_height="fill_parent"
+                          android:orientation="horizontal"
+                          android:id="@+id/showHideFinishedTasksButtonGroup">
+                <ImageView style="@style/TitleBarSeparator" />
+                <ImageButton style="@style/TitleBarAction"
+                             android:src="@drawable/ic_title_unlocked"
+                             android:onClick="showHideFinishedTasks"
+                             android:id="@+id/showHideFinishedTasksButton"/>
+            </LinearLayout>
             <ImageView style="@style/TitleBarSeparator" />
             <ImageButton style="@style/TitleBarAction"
                          android:src="@drawable/ic_title_add"

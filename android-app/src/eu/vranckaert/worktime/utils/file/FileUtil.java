@@ -102,7 +102,10 @@ public class FileUtil {
             }
         }
 
-        Log.d(LOG_TAG, "External files directory: " + externalDirFile.getAbsolutePath());
+        if (externalDirFile != null)
+            Log.d(LOG_TAG, "External files directory: " + externalDirFile.getAbsolutePath());
+        else
+            Log.d(LOG_TAG, "No external files directory found!");
 
         return externalDirFile;
     }
@@ -130,11 +133,16 @@ public class FileUtil {
     /**
      * Get the directory to be used to save/read export-files.
      * @param ctx The context.
-     * @return a {@link File} representing the export directory.
+     * @return a {@link File} representing the export directory. Null if the export directory is not available.
      */
     public static File getExportDir(Context ctx) {
+        File externalFilesDir = getExternalFilesDir(ctx);
+        if (externalFilesDir == null) {
+            return null;
+        }
+
         File file = new File(
-                getExternalFilesDir(ctx) +
+                externalFilesDir +
                 File.separator +
                 Constants.Disk.EXPORT_DIRECTORY +
                 File.separator

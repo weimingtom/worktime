@@ -152,14 +152,14 @@ public class WidgetServiceImpl implements WidgetService {
      * @param extraFlags Extra flags for the activities.
      */
     private void startBackgroundWorkActivity(Context ctx, int resId, Class<? extends Activity> activity, int... extraFlags) {
-        int defaultFlag = Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS;
+        int defaultFlags = Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS|Intent.FLAG_ACTIVITY_NO_HISTORY;
 
         Intent intent = new Intent(ctx, activity);
-        intent.setFlags(defaultFlag);
+        intent.setFlags(defaultFlags);
 
         if(extraFlags != null) {
             for (int flag : extraFlags) {
-                if (flag != defaultFlag) {
+                if (flag != defaultFlags) {
                     intent.setFlags(flag);
                 }
             }
