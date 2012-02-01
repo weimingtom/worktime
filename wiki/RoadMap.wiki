@@ -10,7 +10,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 
 ==Releases==
 ===Milestone-Release1.1.3 (Projects, Tasks and Time Registrations)===
- * 1.1.3.a
+ * 1.1.3
   * Bugs:
    * Cannot access the backup files from my computer (issue 84)
    * Backup/Restore bug (issue 82)
@@ -19,11 +19,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
    * Show/Hide switch for "finished tasks" in the project details (issue 66)
    * Change preferences for tasks (issue 80)
    * Review preferences system (issue 83)
- * 1.1.3.b
-  * Enhancements:
    * Punch in/out from app instead of widget-only (issue 59)
- * 1.1.3.c
-  * Enhancements:
    * Mark projects finished (issue 81)
 ===Milestone-Release1.1.4 (Backup and Restore)===
  * Backup scheduling (issue 55)
