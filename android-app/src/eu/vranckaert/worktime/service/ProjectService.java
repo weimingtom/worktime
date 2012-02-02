@@ -79,6 +79,14 @@ public interface ProjectService {
     Project getSelectedProject();
 
     /**
+     * Change the selected project to be displayed in the widget and to which new
+     * {@link eu.vranckaert.worktime.model.TimeRegistration} instances will be linked. CAUTION: changing the selected
+     * project for the widget does no automatically updates the widget!
+     * @param project The project to be set as selected project.
+     */
+    void setSelectedProject(Project project);
+
+    /**
      * Updates an existing project.
      * @param project The project to update.
      * @return The updated project.
@@ -91,4 +99,17 @@ public interface ProjectService {
      * @param project The project to refresh.
      */
     void refresh(Project project);
+
+    /**
+     * Retrieve all projects that have the flag {@link Project#finished} set to {@link Boolean#FALSE}.
+     * @return A list of projects filtered on the finished-flag.
+     */
+    List<Project> findUnfinishedProjects();
+
+    /**
+     * Change the default project upon marking a project as finished which is set to be the default project.
+     * @param projectMarkedFinished The default project which is to be marked as finished.
+     * @return The project that is now marked as default project.
+     */
+    Project changeDefaultProjectUponProjectMarkedFinished(Project projectMarkedFinished);
 }

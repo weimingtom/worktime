@@ -87,6 +87,28 @@
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">end</item>
     </style>
+    <!-- Footer Bar -->
+    <style name="FooterBar">
+        <item name="android:id">@id/footer_container</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">@dimen/footer_height</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">@color/footer_background</item>
+    </style>
+    <style name="FooterBarText">
+        <item name="android:id">@id/footer_text</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:paddingLeft">12dip</item>
+        <item name="android:paddingRight">12dip</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/footer_text</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+    </style>
 
     <!-- Dashboard -->
     <style name="HomeButton">

@@ -22,11 +22,14 @@ import com.google.inject.Inject;
 import eu.vranckaert.worktime.R;
 import eu.vranckaert.worktime.activities.about.AboutActivity;
 import eu.vranckaert.worktime.activities.preferences.PreferencesActivity;
+import eu.vranckaert.worktime.activities.preferences.PreferencesICSActivity;
 import eu.vranckaert.worktime.activities.projects.ManageProjectsActivity;
 import eu.vranckaert.worktime.activities.reporting.ReportingCriteriaActivity;
 import eu.vranckaert.worktime.activities.timeregistrations.TimeRegistrationsActivity;
+import eu.vranckaert.worktime.constants.OSContants;
 import eu.vranckaert.worktime.constants.TrackerConstants;
 import eu.vranckaert.worktime.service.CommentHistoryService;
+import eu.vranckaert.worktime.utils.context.ContextUtils;
 import eu.vranckaert.worktime.utils.tracker.AnalyticsTracker;
 import roboguice.activity.GuiceActivity;
 
@@ -69,7 +72,11 @@ public class HomeActivity extends GuiceActivity {
     }
 
     public void onPreferencesClick(View view) {
-        launchActivity(PreferencesActivity.class);
+        if (ContextUtils.getAndroidApiVersion() < OSContants.API.HONEYCOMB_3_0) {
+            launchActivity(PreferencesActivity.class);
+        } else {
+            launchActivity(PreferencesICSActivity.class);
+        }
     }
 
     public void onReportingClick(View view) {

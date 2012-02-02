@@ -31,12 +31,19 @@ import eu.vranckaert.worktime.constants.TrackerConstants;
 import eu.vranckaert.worktime.exceptions.AtLeastOneProjectRequiredException;
 import eu.vranckaert.worktime.exceptions.ProjectStillInUseException;
 import eu.vranckaert.worktime.model.Project;
+import eu.vranckaert.worktime.model.Task;
+import eu.vranckaert.worktime.model.TimeRegistration;
 import eu.vranckaert.worktime.service.ProjectService;
+import eu.vranckaert.worktime.service.TaskService;
+import eu.vranckaert.worktime.service.TimeRegistrationService;
 import eu.vranckaert.worktime.service.WidgetService;
 import eu.vranckaert.worktime.utils.context.IntentUtil;
+import eu.vranckaert.worktime.utils.preferences.Preferences;
 import eu.vranckaert.worktime.utils.tracker.AnalyticsTracker;
 import roboguice.activity.GuiceListActivity;
+import roboguice.inject.InjectView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -49,14 +56,25 @@ public class ManageProjectsActivity extends GuiceListActivity {
     private static final String LOG_TAG = ManageProjectsActivity.class.getSimpleName();
 
     private List<Project> projects;
+    private List<Project> unfinishedProjects;
 
     private Project projectToRemove = null;
+    private Project projectToUpdate = null;
 
     @Inject
     private ProjectService projectService;
 
     @Inject
     private WidgetService widgetService;
+    
+    @Inject
+    private TaskService taskService;
+
+    @Inject
+    private TimeRegistrationService timeRegistrationService;
+
+    @InjectView(R.id.showHideFinishedProjectButton)
+    private ImageButton showHideFinishedProjectButton;
 
     private AnalyticsTracker tracker;
 
@@ -84,12 +102,46 @@ public class ManageProjectsActivity extends GuiceListActivity {
      * Load the all the projects to display and attach the listAdapater.
      */
     private void loadProjects() {
-        this.projects = projectService.findAll();
+        clearProjects();
+
+        setShowHideFinishedTasksButton();
+
+        boolean hide = Preferences.getDisplayProjectsHideFinished(getApplicationContext());
+        if (hide) {
+            this.projects = projectService.findUnfinishedProjects();
+            this.unfinishedProjects = projects;
+        } else {
+            this.projects = projectService.findAll();
+            this.unfinishedProjects = projectService.findUnfinishedProjects();
+        }
         Collections.sort(this.projects, new ProjectByNameComparator());
         Log.d(LOG_TAG, projects.size() + " projects loaded!");
         ManageProjectsListAdapter adapter = new ManageProjectsListAdapter(projects);
         adapter.notifyDataSetChanged();
         setListAdapter(adapter);
+    }
+
+    /**
+     * Clear the list of projects.
+     */
+    private void clearProjects() {
+        if (this.projects == null) {
+            this.projects = new ArrayList<Project>();
+        }
+        this.projects.clear();
+        ManageProjectsListAdapter adapter = new ManageProjectsListAdapter(projects);
+        adapter.notifyDataSetChanged();
+        setListAdapter(adapter);
+    }
+
+    private void setShowHideFinishedTasksButton() {
+        boolean hide = Preferences.getDisplayProjectsHideFinished(ManageProjectsActivity.this);
+
+        if (hide) {
+            showHideFinishedProjectButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_title_locked));
+        } else {
+            showHideFinishedProjectButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_title_unlocked));
+        }
     }
 
     /**
@@ -119,6 +171,52 @@ public class ManageProjectsActivity extends GuiceListActivity {
             } catch (ProjectStillInUseException e) {
                 showDialog(Constants.Dialog.WARN_PROJECT_DELETE_PROJECT_STILL_IN_USE);
             }
+        }
+    }
+
+    /**
+     * Method to switch the finished-flag of a {@link Project}.
+     * @param project The project to switch on.
+     * @param askConfirmationWhenRemainingUnfinishedTasks If set to {@link Boolean#TRUE} this flag will cause to ask 
+     * for confirmation only if the project is not yet finished and it has tasks that are not yet finished!
+     */
+    private void switchProjectFinished(Project project, boolean askConfirmationWhenRemainingUnfinishedTasks) {
+        List<Task> unfinishedTasks = new ArrayList<Task>();
+        if (askConfirmationWhenRemainingUnfinishedTasks) {
+            unfinishedTasks = taskService.findNotFinishedTasksForProject(project);
+        }
+        
+        if (!project.isFinished() && unfinishedTasks.size() > 0) {
+            Log.d(LOG_TAG, "Asking confirmation to finish a project");
+            projectToUpdate = project;
+            showDialog(Constants.Dialog.ASK_FINISH_PROJECT_WITH_REMAINING_UNFINISHED_TASKS);
+        } else {
+            if (!project.isFinished()) { //Project will be marked as finished
+                TimeRegistration ongoingTR = timeRegistrationService.getLatestTimeRegistration();
+                boolean isOngoingProject = false;
+                if (ongoingTR.isOngoingTimeRegistration()) {
+                    taskService.refresh(ongoingTR.getTask());
+                    if (ongoingTR.getTask().getProject().getId().equals(project.getId())) {
+                        showDialog(Constants.Dialog.WARN_PROJECT_NOT_FINISHED_ONGOING_TR);
+                        return;
+                    }
+                }
+            }
+            
+            project.setFinished(!project.isFinished());
+            projectService.update(project);
+            projectToUpdate = null;
+
+            if (project.isFinished()) { // Project is marked as finished
+                Project defaultProject = projectService.changeDefaultProjectUponProjectMarkedFinished(project);
+                Project selectedWidgetProject = projectService.getSelectedProject();
+                if (selectedWidgetProject.getId().equals(project.getId())) {
+                    projectService.setSelectedProject(defaultProject);
+                    widgetService.updateWidget(ManageProjectsActivity.this);
+                }
+            }
+            
+            loadProjects();
         }
     }
 
@@ -158,6 +256,39 @@ public class ManageProjectsActivity extends GuiceListActivity {
                                }
                            });
 				dialog = alertRemoveProjectNotPossible.create();
+                break;
+            }
+            case Constants.Dialog.ASK_FINISH_PROJECT_WITH_REMAINING_UNFINISHED_TASKS: {
+                AlertDialog.Builder alertFinishProject = new AlertDialog.Builder(this);
+                alertFinishProject.setTitle(projectToUpdate.getName())
+                        .setMessage(R.string.msg_mark_project_finished_with_unfinished_tasks_confirmation)
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                switchProjectFinished(projectToUpdate, false);
+                                removeDialog(Constants.Dialog.ASK_FINISH_PROJECT_WITH_REMAINING_UNFINISHED_TASKS);
+                            }
+                        })
+                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                projectToUpdate = null;
+                                removeDialog(Constants.Dialog.ASK_FINISH_PROJECT_WITH_REMAINING_UNFINISHED_TASKS);
+                            }
+                        });
+                dialog = alertFinishProject.create();
+                break;
+            }
+            case Constants.Dialog.WARN_PROJECT_NOT_FINISHED_ONGOING_TR: {
+                AlertDialog.Builder warnProjectNotFinishedOngoingTr = new AlertDialog.Builder(this);
+                warnProjectNotFinishedOngoingTr
+                        .setMessage(R.string.msg_mark_project_finished_not_possible_ongoing_tr)
+                        .setCancelable(true)
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                removeDialog(Constants.Dialog.WARN_PROJECT_NOT_FINISHED_ONGOING_TR);
+                            }
+                        });
+                dialog = warnProjectNotFinishedOngoingTr.create();
                 break;
             }
         };
@@ -211,18 +342,12 @@ public class ManageProjectsActivity extends GuiceListActivity {
             TextView projectname = (TextView) row.findViewById(R.id.projectname_listitem);
             projectname.setText(project.getName());
 
-            Log.d(LOG_TAG, "Ready to update the default value of the project of the listitem...");
-
-            Log.d(LOG_TAG, "Ready to bind the deleteButton to the deleteProject method...");
-            ImageView deleteButton = (ImageView) row.findViewById(R.id.btn_delete);
-            if (projects.size() > 1) {
-                deleteButton.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View view) {
-                        deleteProject(project, true);
-                    }
-                });
+            Log.d(LOG_TAG, "Render the finished image if the project is finished");
+            View finishedImg = row.findViewById(R.id.img_finished);
+            if (project.isFinished()) {
+                finishedImg.setVisibility(View.VISIBLE);
             } else {
-                deleteButton.setVisibility(View.GONE);
+                finishedImg.setVisibility(View.GONE);
             }
 
             Log.d(LOG_TAG, "Done rendering row " + position);
@@ -259,6 +384,23 @@ public class ManageProjectsActivity extends GuiceListActivity {
                         R.string.lbl_projects_menu_delete
                 );
             }
+
+            if (!projectForContext.isFinished()) {
+                if (unfinishedProjects.size() > 1) {
+                    menu.add(Menu.NONE,
+                            Constants.ContentMenuItemIds.PROJECT_MARK_FINISHED,
+                            Menu.NONE,
+                            R.string.lbl_projects_menu_mark_finished
+                    );
+                }
+            } else {
+                menu.add(Menu.NONE,
+                        Constants.ContentMenuItemIds.PROJECT_MARK_UNFINISHED,
+                        Menu.NONE,
+                        R.string.lbl_projects_menu_mark_unfinished
+                );
+            }
+
             menu.add(Menu.NONE,
                     Constants.ContentMenuItemIds.PROJECT_ADD,
                     Menu.NONE,
@@ -280,6 +422,14 @@ public class ManageProjectsActivity extends GuiceListActivity {
             }
             case Constants.ContentMenuItemIds.PROJECT_DELETE: {
                 deleteProject(projectForContext, true);
+                break;
+            }
+            case Constants.ContentMenuItemIds.PROJECT_MARK_FINISHED: {
+                switchProjectFinished(projectForContext, true);
+                break;
+            }
+            case Constants.ContentMenuItemIds.PROJECT_MARK_UNFINISHED: {
+                switchProjectFinished(projectForContext, false);
                 break;
             }
             case Constants.ContentMenuItemIds.PROJECT_ADD: {
@@ -333,6 +483,13 @@ public class ManageProjectsActivity extends GuiceListActivity {
      */
     public void onHomeClick(View view) {
         IntentUtil.goHome(this);
+    }
+
+    public void showHideFinishedProjects(View view) {
+        boolean hide = Preferences.getDisplayProjectsHideFinished(ManageProjectsActivity.this);
+        Preferences.setDisplayProjectsHideFinished(ManageProjectsActivity.this, !hide);
+
+        loadProjects();
     }
 
     /**

@@ -61,6 +61,8 @@ public class Constants {
         public static final int REPORTING_EXPORT_LOADING = 43;
         public static final int REPORTING_EXPORT_UNAVAILABLE = 44;
         public static final int REPORTING_BATCH_SHARE = 45;
+        public static final int ASK_FINISH_PROJECT_WITH_REMAINING_UNFINISHED_TASKS = 46;
+        public static final int WARN_PROJECT_NOT_FINISHED_ONGOING_TR = 47;
     }
     public class IntentRequestCodes {
         public static final int ADD_PROJECT = 0;
@@ -86,6 +88,7 @@ public class Constants {
         public static final boolean WIDGET_ENDING_TIME_REGISTRATION_FINISH_TASK_PREFERENCE_DEFAULT_VALUE = false;
         public static final boolean SHOW_STATUS_BAR_NOTIFICATIONS_PREFERENCE_DEFAULT_VALUE = true;
         public static final String DISPLAY_HOUR_12_24_FORMAT_DEFAULT_VALUE = "system-default";
+        public static final boolean DISPLAY_PROJECTS_HIDE_FINISHED_DEFAULT_VALUE = true;
         public static final boolean SELECT_TASK_HIDE_FINISHED_DEFAULT_VALUE = true;
         public static final boolean DISPLAY_TASKS_HIDE_FINISHED_DEFAULT_VALUE = false;
         public static final String WEEK_STARTS_ON_DEFAULT_VALUE = "7";
@@ -99,6 +102,7 @@ public class Constants {
             public static final String WIDGET_ENDING_TIME_REGISTRATION_FINISH_TASK_PREFERENCE = "widgetEndingTimeRegistrationFinishTaskPreference";
             public static final String SHOW_STATUS_BAR_NOTIFICATIONS_PREFERENCE = "showStatusBarNotificationsPreference";
             public static final String DISPLAY_HOUR_12_24_FORMAT = "displayHour1224Format";
+            public static final String DISPLAY_PROJECTS_HIDE_FINISHED = "displayProjectsHideFinished";
             public static final String DISPLAY_TASKS_HIDE_FINISHED = "displayTasksHideFinished";
             public static final String SELECT_TASK_HIDE_FINISHED = "selectTaskHideFinished";
             public static final String WEEK_STARTS_ON = "weekStartsOn";
@@ -146,5 +150,7 @@ public class Constants {
         public static final int TIME_REGISTRATION_ADD_COMMENT = 17;
         public static final int TIME_REGISTRATION_SPLIT = 18;
         public static final int TASK_MOVE = 19;
+        public static final int PROJECT_MARK_FINISHED = 20;
+        public static final int PROJECT_MARK_UNFINISHED = 21;
     }
 }

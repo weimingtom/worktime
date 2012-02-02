@@ -107,10 +107,10 @@ public class ProjectServiceImpl implements ProjectService {
      * @param projectForRemoval The default project to be removed.
      */
     private void changeDefaultProjectUponProjectRemoval(Project projectForRemoval) {
-        Log.d(LOG_TAG, "Trying to remove project " + projectForRemoval.getName() + " while it's a default project");
         if (!projectForRemoval.isDefaultValue()) {
             return;
         }
+        Log.d(LOG_TAG, "Trying to remove project " + projectForRemoval.getName() + " while it's a default project");
 
         List<Project> availableProjects = dao.findAll();
         availableProjects.remove(projectForRemoval);
@@ -132,7 +132,7 @@ public class ProjectServiceImpl implements ProjectService {
     private void checkSelectedProjectUponProjectRemoval(Project project) {
         int projectId = Preferences.getSelectedProjectId(ctx);
         if (project.getId() == projectId) {
-            Preferences.setSelectedProjectId(ctx, dao.findDefaultProject().getId());
+            setSelectedProject(dao.findDefaultProject());
         }
     }
 
@@ -186,6 +186,13 @@ public class ProjectServiceImpl implements ProjectService {
     /**
      * {@inheritDoc}
      */
+    public void setSelectedProject(Project project) {
+        Preferences.setSelectedProjectId(ctx, project.getId());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public Project update(Project project) {
         return dao.update(project);
     }
@@ -195,5 +202,38 @@ public class ProjectServiceImpl implements ProjectService {
      */
     public void refresh(Project project) {
         dao.refresh(project);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<Project> findUnfinishedProjects() {
+        return dao.findProjectsOnFinishedFlag(false);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Project changeDefaultProjectUponProjectMarkedFinished(Project projectMarkedFinished) {
+        if (!projectMarkedFinished.isDefaultValue()) {
+            return dao.findDefaultProject();
+        }
+        Log.d(LOG_TAG, "Trying to mark project " + projectMarkedFinished.getName() + " finished while it's a default project");
+
+        List<Project> availableProjects = findUnfinishedProjects();
+        availableProjects.remove(projectMarkedFinished);
+
+        projectMarkedFinished.setDefaultValue(false);
+        dao.update(projectMarkedFinished);
+
+        if (availableProjects.size() > 0) {
+            Log.d(LOG_TAG, availableProjects.size() + " projects found to be the new default project");
+            Project newDefaultProject = availableProjects.get(0);
+            Log.d(LOG_TAG, "New default project is " + newDefaultProject.getName());
+            newDefaultProject.setDefaultValue(true);
+            dao.update(newDefaultProject);
+            return newDefaultProject;
+        }
+        return dao.findDefaultProject();
     }
 }

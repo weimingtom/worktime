@@ -16,8 +16,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="eu.vranckaert.worktime"
-      android:versionCode="110"
-      android:versionName="1.1.3.a - UNSTABLE">
+      android:versionCode="115"
+      android:versionName="1.1.3 - UNSTABLE">
     <application android:label="WorkTime" android:icon="@drawable/logo" android:name=".guice.Application" android:debuggable="false">
         <!-- Widget configuration -->
         <receiver android:name=".providers.WorkTimeWidgetProvider" android:process=":otherPrivateProcess">
@@ -79,10 +79,6 @@
         <activity android:name=".activities.about.AboutActivity"
                   android:theme="@style/Theme.Light.NoTitleBar"
                   android:configChanges="orientation|keyboardHidden"/>
-        <!-- Preferences specific activities -->
-        <activity android:name=".activities.preferences.PreferencesActivity"
-                  android:theme="@style/Theme.Light.NoTitleBar"
-                  android:configChanges="orientation|keyboardHidden"/>
 
         <!-- Widget activities -->
         <!-- Start -->
@@ -106,10 +102,28 @@
         <!-- Backup and Restore activities -->
         <activity android:name=".activities.backup.BackupActivity"
                   android:theme="@style/Theme.Translucent"
-                  android:configChanges="orientation|keyboardHidden"/>
+                  android:configChanges="orientation|keyboardHidden">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="eu.vranckaert.worktime.BACKUP_DATA"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".activities.backup.RestoreActivity"
                   android:theme="@style/Theme.Translucent"
-                  android:configChanges="orientation|keyboardHidden"/>
+                  android:configChanges="orientation|keyboardHidden">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="eu.vranckaert.worktime.RESTORE_DATA"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.backup.BackupRestoreInfoActivity"
+                  android:theme="@style/Theme.Translucent"
+                  android:configChanges="orientation|keyboardHidden">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="eu.vranckaert.worktime.BACKUP_RESTORE_DATA_INFO"/>
+            </intent-filter>
+        </activity>
 
         <!-- Reporting -->
         <activity android:name=".activities.reporting.ReportingCriteriaActivity"
@@ -120,6 +134,32 @@
                   android:configChanges="orientation|keyboardHidden"
                   android:screenOrientation="landscape"/>
         <activity android:name=".activities.reporting.ReportingExportActivity"
+                  android:theme="@style/Theme.Light.NoTitleBar"
+                  android:configChanges="orientation|keyboardHidden"/>
+
+        <!-- Preferences specific activities -->
+        <activity android:name=".activities.preferences.PreferencesActivity"
+                  android:theme="@style/Theme.Light.NoTitleBar"
+                  android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".activities.preferences.PreferencesICSActivity"
+                  android:theme="@android:style/Theme.Holo.Light"
+                  android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".activities.preferences.BackupPreferencesActivity"
+                  android:theme="@style/Theme.Light.NoTitleBar"
+                  android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".activities.preferences.DateTimePreferencesActivity"
+                  android:theme="@style/Theme.Light.NoTitleBar"
+                  android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".activities.preferences.NotificationsPreferencesActivity"
+                  android:theme="@style/Theme.Light.NoTitleBar"
+                  android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".activities.preferences.TasksPreferencesActivity"
+                  android:theme="@style/Theme.Light.NoTitleBar"
+                  android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".activities.preferences.TimeRegistrationsPreferencesActivity"
+                  android:theme="@style/Theme.Light.NoTitleBar"
+                  android:configChanges="orientation|keyboardHidden"/>
+        <activity android:name=".activities.preferences.WidgetPreferencesActivity"
                   android:theme="@style/Theme.Light.NoTitleBar"
                   android:configChanges="orientation|keyboardHidden"/>
 

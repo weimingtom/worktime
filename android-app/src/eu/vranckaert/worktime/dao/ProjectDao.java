@@ -18,6 +18,8 @@ package eu.vranckaert.worktime.dao;
 import eu.vranckaert.worktime.dao.generic.GenericDao;
 import eu.vranckaert.worktime.model.Project;
 
+import java.util.List;
+
 /**
  * User: DIRK VRANCKAERT
  * Date: 05/02/11
@@ -43,4 +45,11 @@ public interface ProjectDao extends GenericDao<Project, Integer> {
      * @return The default {@link Project}.
      */
     Project findDefaultProject();
+
+    /**
+     * Retrieve all projects that have the flag {@link Project#finished} set to specified parameter.
+     * @param finished The project-flag to filter on.
+     * @return A list of projects filtered on the finished-flag.
+     */
+    List<Project> findProjectsOnFinishedFlag(boolean finished);
 }

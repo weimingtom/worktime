@@ -208,20 +208,17 @@ public class EditTimeRegistrationProjectAndTask extends GuiceActivity {
     }
 
     /**
-     * Updates the time regisration. If it concerns an ongoing registration the preferences (for the selected project)
+     * Updates the time registration. If it concerns an ongoing registration, the preferences (for the selected project)
      * and the widget (displaying the selected and ongoing project) will be update.
      */
     private void updateTimeRegistration() {
         timeRegistration.setTask(newSelectedTask);
         timeRegistrationService.update(timeRegistration);
 
-        //If the time registration is currently ongoing we have to update:
-        // * The selected project
+        // If the time registration is currently ongoing we have to update:
+        // The selected project
         if (timeRegistration.isOngoingTimeRegistration()) {
-            Preferences.setSelectedProjectId(
-                    getApplicationContext(),
-                    newSelectedProject.getId()
-            );
+            projectService.setSelectedProject(newSelectedProject);
             widgetService.updateWidget(getApplicationContext());
         }
 
