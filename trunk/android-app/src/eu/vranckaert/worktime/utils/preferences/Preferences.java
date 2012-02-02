@@ -408,4 +408,29 @@ public class Preferences {
         editor.putString(Constants.Preferences.Keys.TIME_PRECISION, preference.getValue());
         editor.commit();
     }
+
+    /**
+     * Get the preference for key {@link Constants.Preferences.Keys#DISPLAY_PROJECTS_HIDE_FINISHED}. If no
+     * value is found for the preference the default value will be
+     * {@link Constants.Preferences#DISPLAY_PROJECTS_HIDE_FINISHED_DEFAULT_VALUE}.
+     * @param ctx The context when getting the preference for hiding or showing finished projects.
+     * @return The {@link boolean} which represents the users' choice to show or hide finished projects.
+     */
+    public static boolean getDisplayProjectsHideFinished(Context ctx) {
+        return getSharedPreferences(ctx).getBoolean(
+                Constants.Preferences.Keys.DISPLAY_PROJECTS_HIDE_FINISHED,
+                Constants.Preferences.DISPLAY_PROJECTS_HIDE_FINISHED_DEFAULT_VALUE
+        );
+    }
+
+    /**
+     * Updates the preference {@link Constants.Preferences.Keys#DISPLAY_PROJECTS_HIDE_FINISHED}.
+     * @param ctx The context when updating the preference.
+     * @param hideFinished The {@link boolean} which represents the users' choice to show or hide finished projects.
+     */
+    public static void setDisplayProjectsHideFinished(Context ctx, boolean hideFinished) {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putBoolean(Constants.Preferences.Keys.DISPLAY_PROJECTS_HIDE_FINISHED, hideFinished);
+        editor.commit();
+    }
 }

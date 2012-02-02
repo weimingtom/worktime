@@ -30,6 +30,11 @@
 
         <ImageView style="@style/TitleBarSeparator" />
         <ImageButton style="@style/TitleBarAction"
+                     android:src="@drawable/ic_title_unlocked"
+                     android:onClick="showHideFinishedProjects"
+                     android:id="@+id/showHideFinishedProjectButton"/>
+        <ImageView style="@style/TitleBarSeparator" />
+        <ImageButton style="@style/TitleBarAction"
             android:src="@drawable/ic_title_add"
             android:onClick="onAddClick" />
     </LinearLayout>

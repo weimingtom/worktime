@@ -24,6 +24,9 @@
     <item type="id" name="img_finished" />
     <item type="id" name="title_refresh_progress" />
 
+    <item type="id" name="footer_text" />
+    <item type="id" name="footer_container" />
+
     <item type="id" name="sub_title_container" />
     <item type="id" name="sub_title_text" />
 

@@ -78,4 +78,6 @@
                 android:drawableTop="@drawable/home_btn_default"/>
         </LinearLayout>
     </LinearLayout>
+
+    <include layout="@layout/comp_start_stop_time_registration"/>
 </LinearLayout>

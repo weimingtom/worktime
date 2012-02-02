@@ -242,15 +242,6 @@ public class ProjectDetailsActivity extends GuiceListActivity {
         TextView taskName = (TextView) row.findViewById(R.id.task_name_listitem);
         taskName.setText(taskToBeRendered.getName());
 
-//        TODO remove this block of code after testing
-//        Log.d(LOG_TAG, "Ready to bind the deleteButton to the deleteTask method...");
-//        ImageView deleteButton = (ImageView) row.findViewById(R.id.btn_delete);
-//        deleteButton.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View view) {
-//                deleteTask(taskToBeRendered, true, false);
-//            }
-//        });
-
         Log.d(LOG_TAG, "Ready to set the finished flag (" + taskToBeRendered.isFinished() + ") ...");
         View view = row.findViewById(R.id.img_finished);
         if (taskToBeRendered.isFinished()) {

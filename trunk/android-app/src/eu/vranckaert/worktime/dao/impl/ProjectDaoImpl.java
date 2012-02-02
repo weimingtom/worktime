@@ -84,11 +84,6 @@ public class ProjectDaoImpl extends GenericDaoImpl<Project, Integer> implements 
     public Project findDefaultProject() {
         List<Project> projects = null;
 
-        projects = findAll();
-        Log.d(LOG_TAG, "Before getting default project, number of projects in DB is: " + projects.size());
-
-        projects = null;
-
         QueryBuilder<Project, Integer> qb = dao.queryBuilder();
         try {
             qb.where().eq("defaultValue", true);
@@ -110,6 +105,19 @@ public class ProjectDaoImpl extends GenericDaoImpl<Project, Integer> implements 
             throw new CorruptProjectDataException(message);
         } else {
             return projects.get(0);
+        }
+    }
+
+    @Override
+    public List<Project> findProjectsOnFinishedFlag(boolean finished) {
+        QueryBuilder<Project, Integer> qb = dao.queryBuilder();
+        try {
+            qb.where().eq("finished", finished);
+            PreparedQuery<Project> pq = qb.prepare();
+            return dao.query(pq);
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, "Could not execute the query... Returning null.", e);
+            return null;
         }
     }
 }

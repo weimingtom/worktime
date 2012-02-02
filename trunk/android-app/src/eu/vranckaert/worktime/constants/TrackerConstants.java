@@ -33,6 +33,15 @@ public class TrackerConstants {
         public static final String ADD_EDIT_TASK_ACTIVITY = "addEditTaskActivity";
         public static final String REPORTING_CRITERIA_ACTIVITY = "reportingCriteriaActivity";
         public static final String REPORTING_RESULT_ACTIVITY = "reportingResultActivity";
+
+        public class Preferences {
+            public static final String BACKUP_PREFERENCES = "backupPreferences";
+            public static final String DATE_TIME_PREFERENCES = "dateTimePreferences";
+            public static final String TIME_REGISTRATIONS_PREFERENCES = "timeRegistrationsPreferences";
+            public static final String TASK_PREFERENCES = "taskPreferences";
+            public static final String WIDGET_PREFERENCES = "widgetPreferences";
+            public static final String NOTIFICATIONS_PREFERENCES = "notificationsPreferences";
+        }
     }
 
     public class EventSources {

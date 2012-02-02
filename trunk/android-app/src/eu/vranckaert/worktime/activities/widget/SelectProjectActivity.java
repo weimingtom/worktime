@@ -26,7 +26,6 @@ import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.model.Project;
 import eu.vranckaert.worktime.service.ProjectService;
 import eu.vranckaert.worktime.service.WidgetService;
-import eu.vranckaert.worktime.utils.preferences.Preferences;
 import eu.vranckaert.worktime.utils.string.StringUtils;
 import roboguice.activity.GuiceActivity;
 
@@ -60,7 +59,7 @@ public class SelectProjectActivity extends GuiceActivity {
         switch (id) {
             case Constants.Dialog.CHOOSE_SELECTED_PROJECT: {
                 //Find all projects and sort by name
-                final List<Project> availableProjects = projectService.findAll();
+                final List<Project> availableProjects = projectService.findUnfinishedProjects();
                 Collections.sort(availableProjects, new ProjectByNameComparator());
 
                 Project selectedProject = projectService.getSelectedProject();
@@ -85,10 +84,7 @@ public class SelectProjectActivity extends GuiceActivity {
                                new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialogInterface, int index) {
                                         Project newSelectedProject = availableProjects.get(index);
-                                        Preferences.setSelectedProjectId(
-                                                SelectProjectActivity.this,
-                                                newSelectedProject.getId()
-                                        );
+                                        projectService.setSelectedProject(newSelectedProject);
                                         widgetService.updateWidget(SelectProjectActivity.this);
                                         SelectProjectActivity.this.finish();
                                     }

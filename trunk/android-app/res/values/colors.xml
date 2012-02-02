@@ -20,6 +20,10 @@
     <color name="foreground1">#ffcc3300</color>
     <color name="title_text">#ffffffff</color>
 
+    <!--<color name="footer_background">#ffcc0000</color>-->
+    <color name="footer_background">#ffbdbdbd</color>
+    <color name="footer_text">#ffffffff</color>
+
     <color name="sub_title_background">#ffff4f4f</color>
 
     <color name="validation_error">#ffff0000</color>
