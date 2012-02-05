@@ -193,8 +193,7 @@ public class ManageProjectsActivity extends GuiceListActivity {
         } else {
             if (!project.isFinished()) { //Project will be marked as finished
                 TimeRegistration ongoingTR = timeRegistrationService.getLatestTimeRegistration();
-                boolean isOngoingProject = false;
-                if (ongoingTR.isOngoingTimeRegistration()) {
+                if (ongoingTR != null && ongoingTR.isOngoingTimeRegistration()) {
                     taskService.refresh(ongoingTR.getTask());
                     if (ongoingTR.getTask().getProject().getId().equals(project.getId())) {
                         showDialog(Constants.Dialog.WARN_PROJECT_NOT_FINISHED_ONGOING_TR);
