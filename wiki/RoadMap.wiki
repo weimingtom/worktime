@@ -15,6 +15,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
    * Cannot access the backup files from my computer (issue 84)
    * Backup/Restore bug (issue 82)
    * Crash when running report for "last week" (issue 91)
+   * List of time registration (or detail for ongoing TR) is not updated on punch in/out (issue 93)
   * Enhancements:
    * Show/Hide switch for "finished tasks" in the project details (issue 66)
    * Change preferences for tasks (issue 80)
