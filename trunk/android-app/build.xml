@@ -20,7 +20,7 @@
     </target>
     <target name="set-name-apk-final">
         <if>
-            <endswith string="${mymanifest.manifest.android:versionName}" with="UNSTABLE"/>
+            <contains string="${mymanifest.manifest.android:versionName}" substring="UNSTABLE" casesensitive="false"/>
             <then>
                 <fail message="This is an unstable commit!"/>
             </then>
