@@ -349,15 +349,20 @@
     <string name="lbl_backup_restore_documentation_title">Backup/Restore Documentation</string>
     <string name="msg_backup_restore_documentation_content">Backup:\n
     * An SD-card is required to make a backup\n
-    * All the data is included in the backup, not the preferences\n
+    * All the data is included in the backup, except for the preferences\n
     * The backups are placed in the SD-card directory \'worktime-backup\'\n
     * A backup file always starts with \'worktimedb-\' and ends with \'.bak\'\n
     * The combination in between is the date and time of the backup ending with 0 for an AM-time and 1 for PM\n
-    * Example file-name: \'worktimedb-20111003090431-1\'
+    * Example file-name: \'worktimedb-20110231090431-1\'
      \nRestore:\n
     * Only files in the backup directory \'worktime-backup\' on the SD-card are shown as possible restore points\n
-    * If a backup is renamed and doest not start with \'worktimedb-\' AND does not end on \'.bak\' it will be ignored and not shown as possible restore point\n
-    * All listed restore points are sorted by their last modified date</string>
+    * If a backup is renamed and does not start with \'worktimedb-\' AND does not end on \'.bak\' it will be ignored and not shown as possible restore point\n
+    * All listed restore points are displayed as their creation time (based on the filename) and sorted by this creation time\n
+    \nSend Backup:\n
+    * It\'s possible to send backup files one by one using your mail application (standard GMail is supported)\n
+    * Only files in the backup directory \'worktime-backup\' on the SD-card are shown\n
+    * If a backup is renamed and does not start with \'worktimedb-\' AND does not end on \'.bak\' it will be ignored\n
+    * All listed files are displayed as their creation time (based on the filename) and sorted by this creation time\n</string>
     <!-- ABOUT -->
     <string name="lbl_about_title">About</string>
     <string name="lbl_about_project">Project</string>
