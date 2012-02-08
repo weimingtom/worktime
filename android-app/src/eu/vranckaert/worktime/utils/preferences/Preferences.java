@@ -248,6 +248,31 @@ public class Preferences {
     }
 
     /**
+     * Get the preference for key {@link Constants.Preferences.Keys#SELECT_PROJECT_HIDE_FINISHED}. If no
+     * value is found for the preference the default value will be
+     * {@link Constants.Preferences#SELECT_PROJECT_HIDE_FINISHED_DEFAULT_VALUE}.
+     * @param ctx The context when getting the preference for hiding or showing finished tasks.
+     * @return The {@link boolean} which represents the users' choice to show or hide finished projects.
+     */
+    public static boolean getSelectProjectHideFinished(Context ctx) {
+        return getSharedPreferences(ctx).getBoolean(
+                Constants.Preferences.Keys.SELECT_PROJECT_HIDE_FINISHED,
+                Constants.Preferences.SELECT_PROJECT_HIDE_FINISHED_DEFAULT_VALUE
+        );
+    }
+
+    /**
+     * Updates the preference {@link Constants.Preferences.Keys#SELECT_PROJECT_HIDE_FINISHED}.
+     * @param ctx The context when updating the preference.
+     * @param hideFinished The {@link boolean} which represents the users' choice to show or hide finished projects.
+     */
+    public static void setSelectProjectHideFinished(Context ctx, boolean hideFinished) {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putBoolean(Constants.Preferences.Keys.SELECT_PROJECT_HIDE_FINISHED, hideFinished);
+        editor.commit();
+    }
+
+    /**
      * Get the preference for key {@link Constants.Preferences.Keys#DISPLAY_TASKS_HIDE_FINISHED}. If no
      * value is found for the preference the default value will be
      * {@link Constants.Preferences#DISPLAY_TASKS_HIDE_FINISHED_DEFAULT_VALUE}.
@@ -431,6 +456,58 @@ public class Preferences {
     public static void setDisplayProjectsHideFinished(Context ctx, boolean hideFinished) {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putBoolean(Constants.Preferences.Keys.DISPLAY_PROJECTS_HIDE_FINISHED, hideFinished);
+        editor.commit();
+    }
+
+    /**
+     * Get the preference for key {@link Constants.Preferences.Keys#TIME_REGISTRATION_PUNCH_BAR_ENABLED_FROM_HOME_SCREEN}.
+     * If no value is found for the preference the default value will be
+     * {@link Constants.Preferences#TIME_REGISTRATION_PUNCH_BAR_ENABLED_FROM_HOME_SCREEN_DEFAULT_VALUE}.
+     * @param ctx The context when getting the preference for hiding or showing finished projects.
+     * @return The {@link boolean} which represents the users' choice to show or hide the in app punch-bar on the home
+     * screen.
+     */
+    public static boolean getTimeRegistrationPunchBarEnabledFromHomeScreen(Context ctx) {
+        return getSharedPreferences(ctx).getBoolean(
+                Constants.Preferences.Keys.TIME_REGISTRATION_PUNCH_BAR_ENABLED_FROM_HOME_SCREEN,
+                Constants.Preferences.TIME_REGISTRATION_PUNCH_BAR_ENABLED_FROM_HOME_SCREEN_DEFAULT_VALUE
+        );
+    }
+
+    /**
+     * Updates the preference {@link Constants.Preferences.Keys#TIME_REGISTRATION_PUNCH_BAR_ENABLED_FROM_HOME_SCREEN}.
+     * @param ctx The context when updating the preference.
+     * @param hideFinished The {@link boolean} which represents the users' choice to show or hide the in app punch-bar
+     * on the home screen.
+     */
+    public static void setTimeRegistrationPunchBarEnabledFromHomeScreen(Context ctx, boolean hideFinished) {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putBoolean(Constants.Preferences.Keys.TIME_REGISTRATION_PUNCH_BAR_ENABLED_FROM_HOME_SCREEN, hideFinished);
+        editor.commit();
+    }
+
+    /**
+     * Get the preference for key {@link Constants.Preferences.Keys#TIME_REGISTRATION_PUNCH_BAR_ENABLED_ON_ALL_SCREENS}.
+     * If no value is found for the preference the default value will be
+     * {@link Constants.Preferences#TIME_REGISTRATION_PUNCH_BAR_ENABLED_ON_ALL_SCREENS_DEFAULT_VALUE}.
+     * @param ctx The context when getting the preference for hiding or showing finished projects.
+     * @return The {@link boolean} which represents the users' choice to show or hide the in app punch-bar.
+     */
+    public static boolean getTimeRegistrationPunchBarEnabledOnAllScreens(Context ctx) {
+        return getSharedPreferences(ctx).getBoolean(
+                Constants.Preferences.Keys.TIME_REGISTRATION_PUNCH_BAR_ENABLED_ON_ALL_SCREENS,
+                Constants.Preferences.TIME_REGISTRATION_PUNCH_BAR_ENABLED_ON_ALL_SCREENS_DEFAULT_VALUE
+        );
+    }
+
+    /**
+     * Updates the preference {@link Constants.Preferences.Keys#TIME_REGISTRATION_PUNCH_BAR_ENABLED_ON_ALL_SCREENS}.
+     * @param ctx The context when updating the preference.
+     * @param hideFinished The {@link boolean} which represents the users' choice to show or hide the in app punch-bar.
+     */
+    public static void setTimeRegistrationPunchBarEnabledOnAllScreens(Context ctx, boolean hideFinished) {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putBoolean(Constants.Preferences.Keys.TIME_REGISTRATION_PUNCH_BAR_ENABLED_ON_ALL_SCREENS, hideFinished);
         editor.commit();
     }
 }

@@ -41,13 +41,20 @@
             android:onClick="onExportClick" />
     </LinearLayout>
 
-    <ListView android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:id="@android:id/list"/>
-    <TextView android:id="@id/android:empty"
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
-	    android:text="@string/lbl_empty_registration_list"
-        android:padding="10dip"/>
+    <RelativeLayout android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+        <ListView android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+                  android:id="@android:id/list"
+                  android:layout_above="@id/punch_bar_container"
+                  android:layout_alignParentTop="true"/>
+        <TextView android:id="@id/android:empty"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="@string/lbl_empty_registration_list"
+            android:padding="10dip"/>
+
+        <include layout="@layout/comp_start_stop_time_registration"/>
+    </RelativeLayout>
 
 </LinearLayout>

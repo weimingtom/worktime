@@ -28,6 +28,7 @@ import eu.vranckaert.worktime.activities.HomeActivity;
 import eu.vranckaert.worktime.activities.widget.SelectProjectActivity;
 import eu.vranckaert.worktime.activities.widget.StartTimeRegistrationActivity;
 import eu.vranckaert.worktime.activities.widget.StopTimeRegistrationActivity;
+import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.dao.TimeRegistrationDao;
 import eu.vranckaert.worktime.dao.impl.TimeRegistrationDaoImpl;
 import eu.vranckaert.worktime.model.Project;

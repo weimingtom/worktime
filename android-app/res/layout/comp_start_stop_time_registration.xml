@@ -15,11 +15,11 @@
     limitations under the License.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              style="@style/FooterBar">
-    <TextView style="@style/FooterBarText" android:text="No ongoing time regstration!" android:visibility="gone"/>
-    <TextView style="@style/FooterBarText" android:text="Default project - Default task"/>
-    <ImageView style="@style/TitleBarSeparator" />
-    <ImageButton style="@style/TitleBarAction"
-                 android:src="@drawable/ic_title_save"
-                 android:onClick="onTimeRegistrationsClick" />
+              style="@style/PunchBar">
+    <TextView style="@style/PunchBarText" android:text="@string/home_comp_start_stop_time_registration_no_ongoing"/>
+    <ImageView style="@style/PunchBarSeparator" />
+    <ImageButton style="@style/PunchBarAction"
+                 android:id="@+id/punchBarActionId"
+                 android:src="@drawable/ic_stop"
+                 android:onClick="onPunchButtonClick" />
 </LinearLayout>

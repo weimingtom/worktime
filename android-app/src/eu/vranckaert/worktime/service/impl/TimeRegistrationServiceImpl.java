@@ -138,4 +138,9 @@ public class TimeRegistrationServiceImpl implements TimeRegistrationService {
     public TimeRegistration getPreviousTimeRegistration(TimeRegistration timeRegistration) {
         return dao.getPreviousTimeRegistration(timeRegistration);
     }
+
+    @Override
+    public TimeRegistration getNextTimeRegistration(TimeRegistration timeRegistration) {
+        return dao.getNextTimeRegistration(timeRegistration);
+    }
 }

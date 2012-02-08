@@ -133,7 +133,7 @@ public class RestoreActivity extends GuiceActivity {
                        )
                        .setOnCancelListener(new DialogInterface.OnCancelListener() {
                            public void onCancel(DialogInterface dialogInterface) {
-                               Log.d(LOG_TAG, "No task choosen, close the activity");
+                               Log.d(LOG_TAG, "No backup file chosen, close the activity");
                                RestoreActivity.this.finish();
                            }
                        });

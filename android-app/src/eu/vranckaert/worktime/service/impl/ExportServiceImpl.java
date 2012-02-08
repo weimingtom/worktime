@@ -56,11 +56,8 @@ public class ExportServiceImpl implements ExportService {
         }
 
         File file = new File(
-                FileUtil.getExportDir(ctx) +
-                File.separator +
-                filename +
-                "." +
-                CSV_EXTENSTION
+                FileUtil.getExportDir(ctx),
+                filename + "." + CSV_EXTENSTION
         );
         FileUtil.applyPermissions(file, true, true, false);
 

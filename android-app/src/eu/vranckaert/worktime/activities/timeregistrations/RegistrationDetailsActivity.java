@@ -42,6 +42,7 @@ import eu.vranckaert.worktime.utils.date.DateFormat;
 import eu.vranckaert.worktime.utils.date.DateUtils;
 import eu.vranckaert.worktime.utils.date.TimeFormat;
 import eu.vranckaert.worktime.utils.notifications.NotificationBarManager;
+import eu.vranckaert.worktime.utils.punchbar.PunchBarUtil;
 import eu.vranckaert.worktime.utils.string.StringUtils;
 import eu.vranckaert.worktime.utils.tracker.AnalyticsTracker;
 import roboguice.activity.GuiceActivity;
@@ -96,6 +97,7 @@ public class RegistrationDetailsActivity extends GuiceActivity {
 
     private boolean isUpdated = false;
     private boolean isSplit = false;
+    private boolean initialLoad = true;
 
     private AnalyticsTracker tracker;
 
@@ -179,6 +181,10 @@ public class RegistrationDetailsActivity extends GuiceActivity {
      */
     public void onDeleteClick(View view) {
         deleteTimeRegistration(registration, true);
+    }
+
+    public void onPunchButtonClick(View view) {
+        PunchBarUtil.onPunchButtonClick(RegistrationDetailsActivity.this, timeRegistrationService);
     }
 
     /**
@@ -290,7 +296,36 @@ public class RegistrationDetailsActivity extends GuiceActivity {
                 }
                 break;
             }
+            case Constants.IntentRequestCodes.PUNCH_BAR_START_TIME_REGISTRATION: {
+                PunchBarUtil.configurePunchBar(RegistrationDetailsActivity.this, timeRegistrationService, taskService, projectService);
+                break;
+            }
+            case Constants.IntentRequestCodes.PUNCH_BAR_END_TIME_REGISTRATION: {
+                PunchBarUtil.configurePunchBar(RegistrationDetailsActivity.this, timeRegistrationService, taskService, projectService);
+                break;
+            }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        PunchBarUtil.configurePunchBar(RegistrationDetailsActivity.this, timeRegistrationService, taskService, projectService);
+
+        if (initialLoad) {
+            initialLoad = false;
+            return;
+        }
+
+        registration = timeRegistrationService.get(registration.getId());
+        taskService.refresh(registration.getTask());
+        projectService.refresh(registration.getTask().getProject());
+        if (!registration.isOngoingTimeRegistration()) {
+            nextRegistration = timeRegistrationService.getNextTimeRegistration(registration);
+        }
+
+        updateView();
     }
 
     @Override

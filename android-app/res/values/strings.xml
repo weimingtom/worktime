@@ -54,6 +54,7 @@
     <string name="home_btn_preferences">Preferences</string>
     <string name="home_btn_reporting">Reporting</string>
     <string name="home_btn_about">About</string>
+    <string name="home_comp_start_stop_time_registration_no_ongoing">No ongoing time regstration!</string>
 
     <!-- MANAGE PROJECTS -->
     <string name="btn_manage_projects_title">Manage Projects</string>
@@ -307,10 +308,13 @@
     <string name="pref_stat_bar_notifs_ask_for_comment_title">Show status bar notifications?</string>
     <string name="pref_stat_bar_notifs_ask_for_comment_summary_on">Notifications will be shown in the status bar.</string>
     <string name="pref_stat_bar_notifs_ask_for_comment_summary_off">No notifications will be shown in the status bar.</string>
-    <string name="pref_tasks_category_title">Tasks</string>
-    <string name="pref_tasks_select_task_hide_finished_title">Hide finished tasks in widget</string>
-    <string name="pref_tasks_select_task_hide_finished_summary_on">Finished tasks are hidden in widget task selection</string>
-    <string name="pref_tasks_select_task_hide_finished_summary_off">Finished tasks are shown in widget task selection</string>
+    <string name="pref_projects_tasks_category_title">Projects and Tasks</string>
+    <string name="pref_projects_tasks_select_task_hide_finished_title">Hide finished tasks in selection</string>
+    <string name="pref_projects_tasks_select_task_hide_finished_summary_on">Finished tasks are hidden when selecting tasks from a list</string>
+    <string name="pref_projects_tasks_select_task_hide_finished_summary_off">Finished tasks are shown when selecting tasks from a list</string>
+    <string name="pref_projects_tasks_select_project_hide_finished_title">Hide finished projects in selection</string>
+    <string name="pref_projects_tasks_select_project_hide_finished_summary_on">Finished projects are hidden when selecting projects from a list</string>
+    <string name="pref_projects_tasks_select_project_hide_finished_summary_off">Finished projects are shown when selecting projects from a list</string>
     <string name="pref_backup_category_title">Backup and Restore</string>
     <string name="pref_backup_title">Backup</string>
     <string name="pref_backup_summary">Backup all WorkTime data on this device</string>
@@ -318,11 +322,19 @@
     <string name="pref_restore_summary">Restore the WorkTime data on this device from a previous backup from this or another device</string>
     <string name="pref_backup_restore_doc_title">Backup/Restore documentation</string>
     <string name="pref_backup_restore_doc_summary">Read the backup/restore functionality documentation.</string>
+    <string name="pref_backup_send_title">Send backup...</string>
+    <string name="pref_backup_send_summary">Send backup-file to your computer through email</string>
+    <string name="lbl_pref_backup_send_app_chooser_title">Choose application to send backup with</string>
     <string name="pref_time_registrations_category_title">Time Registrations</string>
     <string name="pref_time_registrations_auto_close_60s_gap_title">Auto close 60s gap</string>
     <string name="pref_time_registrations_auto_close_60s_gap_summary_on">The start time of the a newly started time registration will be modified to close maximum a 60s gap with the previous time registration</string>
     <string name="pref_time_registrations_auto_close_60s_gap_summary_off">The start time of the a newly started time registration will not be modified.</string>
-
+    <string name="pref_time_registrations_punch_bar_enabled_from_home_screen_title">Punch-bar on main screen</string>
+    <string name="pref_time_registrations_punch_bar_enabled_from_home_summary_on">The punch-bar is visible at the bottom of the main screen</string>
+    <string name="pref_time_registrations_punch_bar_enabled_from_home_summary_off">The punch-bar is not visible</string>
+    <string name="pref_time_registrations_punch_bar_enabled_on_all_screens_title">Punch-bar on all screens</string>
+    <string name="pref_time_registrations_punch_bar_enabled_on_all_screens_summary_on">The punch-bar will be shown on all screens</string>
+    <string name="pref_time_registrations_punch_bar_enabled_on_all_screens_summary_off">The punch-bar will only be shown on the main screen</string>
     <!-- BACKUP -->
     <string name="lbl_backup_restore_writing_backup_sd">Writing backup to SD-card</string>
     <string name="msg_backup_restore_writing_backup_sd_success">The backup is written to your SD-card: %1$s</string>

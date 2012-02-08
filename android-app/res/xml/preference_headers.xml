@@ -20,8 +20,8 @@
     <header android:fragment="eu.vranckaert.worktime.activities.preferences.fragments.TimeRegistrationsPreferencesFragment"
             android:title="@string/pref_time_registrations_category_title"/>
 
-    <header android:fragment="eu.vranckaert.worktime.activities.preferences.fragments.TasksPreferencesFragment"
-            android:title="@string/pref_tasks_category_title"/>
+    <header android:fragment="eu.vranckaert.worktime.activities.preferences.fragments.ProjectsAndTasksPreferencesFragment"
+            android:title="@string/pref_projects_tasks_category_title"/>
 
     <header android:fragment="eu.vranckaert.worktime.activities.preferences.fragments.DateTimePreferencesFragment"
             android:title="@string/pref_date_and_time_category_title"/>

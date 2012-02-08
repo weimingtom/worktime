@@ -63,6 +63,9 @@ public class Constants {
         public static final int REPORTING_BATCH_SHARE = 45;
         public static final int ASK_FINISH_PROJECT_WITH_REMAINING_UNFINISHED_TASKS = 46;
         public static final int WARN_PROJECT_NOT_FINISHED_ONGOING_TR = 47;
+        public static final int BACKUP_SEND_FILE_SEARCH_SHOW_LIST = 48;
+        public static final int BACKUP_SEND_FILE_SEARCH_NOTHING_FOUND = 49;
+        public static final int BACKUP_SEND_FILE_SEARCH_NO_SD = 50;
     }
     public class IntentRequestCodes {
         public static final int ADD_PROJECT = 0;
@@ -74,7 +77,9 @@ public class Constants {
         public static final int STOP_TIME_REGISTRATION = 6;
         public static final int REGISTRATION_EDIT_DIALOG = 7;
         public static final int REGISTRATION_SPLIT_DIALOG = 8;
-        public static final int MOVE_TASK = 4;
+        public static final int PUNCH_BAR_START_TIME_REGISTRATION = 9;
+        public static final int PUNCH_BAR_END_TIME_REGISTRATION = 10;
+        public static final int SELECT_PROJECT = 11;
     }
     public class IntentResultCodes {
         public static final int RESULT_OK_SPLIT = 100;
@@ -90,10 +95,13 @@ public class Constants {
         public static final String DISPLAY_HOUR_12_24_FORMAT_DEFAULT_VALUE = "system-default";
         public static final boolean DISPLAY_PROJECTS_HIDE_FINISHED_DEFAULT_VALUE = true;
         public static final boolean SELECT_TASK_HIDE_FINISHED_DEFAULT_VALUE = true;
+        public static final boolean SELECT_PROJECT_HIDE_FINISHED_DEFAULT_VALUE = true;
         public static final boolean DISPLAY_TASKS_HIDE_FINISHED_DEFAULT_VALUE = false;
         public static final String WEEK_STARTS_ON_DEFAULT_VALUE = "7";
         public static final String REPORTING_EXPORT_FILE_NAME_DEFAULT_VALUE = "export";
         public static final boolean TIME_REGISTRATION_AUTO_CLOSE_60S_GAP_DEFAULT_VALUE = true;
+        public static final boolean TIME_REGISTRATION_PUNCH_BAR_ENABLED_FROM_HOME_SCREEN_DEFAULT_VALUE = true;
+        public static final boolean TIME_REGISTRATION_PUNCH_BAR_ENABLED_ON_ALL_SCREENS_DEFAULT_VALUE = false;
 
         public class Keys {
             public static final String SELECTED_PROJECT_ID = "selectedProjectId";
@@ -105,11 +113,14 @@ public class Constants {
             public static final String DISPLAY_PROJECTS_HIDE_FINISHED = "displayProjectsHideFinished";
             public static final String DISPLAY_TASKS_HIDE_FINISHED = "displayTasksHideFinished";
             public static final String SELECT_TASK_HIDE_FINISHED = "selectTaskHideFinished";
+            public static final String SELECT_PROJECT_HIDE_FINISHED = "selectProjectHideFinished";
             public static final String WEEK_STARTS_ON = "weekStartsOn";
             public static final String REPORTING_EXPORT_FILE_NAME = "reportingExportFileName";
             public static final String REPORTING_EXPORT_CSV_SEPARATOR = "reportingExportCsvSeparator";
             public static final String TIME_REGISTRATION_AUTO_CLOSE_60S_GAP = "timeRegistrationAutoClose60sGap";
             public static final String TIME_PRECISION = "timePrecision";
+            public static final String TIME_REGISTRATION_PUNCH_BAR_ENABLED_FROM_HOME_SCREEN = "timeRegistrationPunchBarEnabledFromHomeScreen";
+            public static final String TIME_REGISTRATION_PUNCH_BAR_ENABLED_ON_ALL_SCREENS = "timeRegistrationPunchBarEnabledOnAllScreens";
         }
     }
     public class Disk {
@@ -124,6 +135,7 @@ public class Constants {
         public static final String TIME_REGISTRATION_PREVIOUS = "timeRegistrationPrevious";
         public static final String TIME_REGISTRATION_START_DATE = "timeRegistrationStartDate";
         public static final String TIME_REGISTRATION_END_DATE = "timeRegistrationEndDate";
+        public static final String TIME_REGISTRATION_START_ASK_FOR_PROJECT = "timeRegistrationStartAskForProject";
         public static final String EXPORT_HEADERS = "exportHeaders";
         public static final String EXPORT_VALUES = "exportValues";
         public static final String DATA_GROUPING = "dataGrouping";

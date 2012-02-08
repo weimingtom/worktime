@@ -47,6 +47,7 @@ import eu.vranckaert.worktime.service.WidgetService;
 import eu.vranckaert.worktime.utils.context.IntentUtil;
 import eu.vranckaert.worktime.utils.date.DateUtils;
 import eu.vranckaert.worktime.utils.preferences.Preferences;
+import eu.vranckaert.worktime.utils.punchbar.PunchBarUtil;
 import eu.vranckaert.worktime.utils.string.StringUtils;
 import eu.vranckaert.worktime.utils.tracker.AnalyticsTracker;
 import roboguice.activity.GuiceListActivity;
@@ -109,6 +110,7 @@ public class ProjectDetailsActivity extends GuiceListActivity {
     private Task taskToRemove;
     private boolean projectUpdated = false;
     private Project projectToRemove = null;
+    private boolean initialLoad = true;
 
     private AnalyticsTracker tracker;
 
@@ -451,6 +453,12 @@ public class ProjectDetailsActivity extends GuiceListActivity {
                     projectUpdated = true;
                 }
                 break;
+            case Constants.IntentRequestCodes.PUNCH_BAR_START_TIME_REGISTRATION:
+                PunchBarUtil.configurePunchBar(ProjectDetailsActivity.this, timeRegistrationService, taskService, projectService);
+                break;
+            case Constants.IntentRequestCodes.PUNCH_BAR_END_TIME_REGISTRATION:
+                PunchBarUtil.configurePunchBar(ProjectDetailsActivity.this, timeRegistrationService, taskService, projectService);
+                break;
         }
     }
 
@@ -611,6 +619,10 @@ public class ProjectDetailsActivity extends GuiceListActivity {
         openReportingCriteriaActivity(project);
     }
 
+    public void onPunchButtonClick(View view) {
+        PunchBarUtil.onPunchButtonClick(ProjectDetailsActivity.this, timeRegistrationService);
+    }
+
     /**
      * Delete a project.
      * @param project The project to delete.
@@ -704,6 +716,19 @@ public class ProjectDetailsActivity extends GuiceListActivity {
         );
         Log.d(LOG_TAG, "Task has been moved!");
         loadProjectTasks(project);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        PunchBarUtil.configurePunchBar(ProjectDetailsActivity.this, timeRegistrationService, taskService, projectService);
+
+        if (initialLoad) {
+            initialLoad = false;
+            return;
+        }
+
+        loadProjectDetails(project);
     }
 
     @Override
