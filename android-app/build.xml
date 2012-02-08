@@ -19,12 +19,7 @@
         <copyfile src="./bin/WorkTime for Android-release.apk" dest="./bin/release/WorkTime-${mymanifest.manifest.android:versionName} - Build${mymanifest.manifest.android:versionCode}.apk"/>
     </target>
     <target name="set-name-apk-final">
-        <if>
-            <contains string="${mymanifest.manifest.android:versionName}" substring="UNSTABLE" casesensitive="false"/>
-            <then>
-                <fail message="This is an unstable commit!"/>
-            </then>
-        </if>
+        <fail message="This is an unstable AndroidManifest!"/>
         <mkdir dir="./bin/release"/>
         <copyfile src="./bin/WorkTime for Android-release.apk" dest="./bin/release/WorkTime-${mymanifest.manifest.android:versionName}.apk"/>
     </target>
