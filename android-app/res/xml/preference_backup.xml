@@ -25,13 +25,13 @@
         <intent android:action="eu.vranckaert.worktime.RESTORE_DATA"/>
     </PreferenceScreen>
 
-    <PreferenceScreen android:title="@string/pref_backup_restore_doc_title"
-                      android:summary="@string/pref_backup_restore_doc_summary">
-        <intent android:action="eu.vranckaert.worktime.BACKUP_RESTORE_DATA_INFO"/>
-    </PreferenceScreen>
-
     <PreferenceScreen android:title="@string/pref_backup_send_title"
                       android:summary="@string/pref_backup_send_summary">
         <intent android:action="eu.vranckaert.worktime.BACKUP_SEND"/>
+    </PreferenceScreen>
+
+    <PreferenceScreen android:title="@string/pref_backup_restore_doc_title"
+                      android:summary="@string/pref_backup_restore_doc_summary">
+        <intent android:action="eu.vranckaert.worktime.BACKUP_RESTORE_DATA_INFO"/>
     </PreferenceScreen>
 </PreferenceScreen>
