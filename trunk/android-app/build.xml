@@ -29,14 +29,15 @@
         </svn>
     </target>
 
-    <!--
-        TODO Change the name of the release APK!
-    -->
     <target name="set-name-apk-nightly">
         <xmlproperty file="AndroidManifest.xml" prefix="mymanifest" collapseAttributes="true"/>
-        <mkdir dir="./release"/>
-        <delete file="./release/*.apk"/>
-        <copyfile src="./bin/WorkTime for Android-release.apk" dest="./release/${mymanifest.manifest.android:label}-${mymanifest.manifest.android:versionName} - ${mymanifest.manifest.android:versionCode}"/>
+        <mkdir dir="./bin/release"/>
+        <copyfile src="./bin/WorkTime for Android-release.apk" dest="./bin/release/WorkTime-${mymanifest.manifest.android:versionName} - Build${mymanifest.manifest.android:versionCode}.apk"/>
+    </target>
+    <target name="set-name-apk-final">
+        <xmlproperty file="AndroidManifest.xml" prefix="mymanifest" collapseAttributes="true"/>
+        <mkdir dir="./bin/release"/>
+        <copyfile src="./bin/WorkTime for Android-release.apk" dest="./bin/release/WorkTime-${mymanifest.manifest.android:versionName}.apk"/>
     </target>
 
     <!-- The local.properties file is created and updated by the 'android' tool.
