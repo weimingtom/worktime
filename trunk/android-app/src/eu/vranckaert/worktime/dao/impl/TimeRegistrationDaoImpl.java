@@ -187,4 +187,25 @@ public class TimeRegistrationDaoImpl extends GenericDaoImpl<TimeRegistration, In
         }
         return null;
     }
+
+    @Override
+    public TimeRegistration getNextTimeRegistration(TimeRegistration timeRegistration) {
+        QueryBuilder<TimeRegistration,Integer> qb = dao.queryBuilder();
+        try {
+            qb.limit(1L);
+            qb.orderBy("startTime", true);
+
+            Where where = qb.where();
+            where.gt("startTime", timeRegistration.getEndTime());
+            qb.setWhere(where);
+
+            PreparedQuery<TimeRegistration> pq = qb.prepare();
+            Log.d(LOG_TAG, pq.toString());
+            return dao.queryForFirst(pq);
+        } catch (SQLException e) {
+            Log.e(LOG_TAG, "Could not execute the query...");
+            throwFatalException(e);
+        }
+        return null;
+    }
 }

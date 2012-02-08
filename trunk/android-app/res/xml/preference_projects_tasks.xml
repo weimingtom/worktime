@@ -18,7 +18,13 @@
     <CheckBoxPreference
             android:key="selectTaskHideFinished"
             android:defaultValue="true"
-            android:title="@string/pref_tasks_select_task_hide_finished_title"
-            android:summaryOn="@string/pref_tasks_select_task_hide_finished_summary_on"
-            android:summaryOff="@string/pref_tasks_select_task_hide_finished_summary_off" />
+            android:title="@string/pref_projects_tasks_select_task_hide_finished_title"
+            android:summaryOn="@string/pref_projects_tasks_select_task_hide_finished_summary_on"
+            android:summaryOff="@string/pref_projects_tasks_select_task_hide_finished_summary_off" />
+    <CheckBoxPreference
+            android:key="selectProjectHideFinished"
+            android:defaultValue="true"
+            android:title="@string/pref_projects_tasks_select_project_hide_finished_title"
+            android:summaryOn="@string/pref_projects_tasks_select_project_hide_finished_summary_on"
+            android:summaryOff="@string/pref_projects_tasks_select_project_hide_finished_summary_off" />
 </PreferenceScreen>

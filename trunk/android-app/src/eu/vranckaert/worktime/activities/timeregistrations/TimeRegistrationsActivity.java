@@ -34,11 +34,14 @@ import eu.vranckaert.worktime.activities.timeregistrations.listadapter.TimRegist
 import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.constants.TrackerConstants;
 import eu.vranckaert.worktime.model.TimeRegistration;
+import eu.vranckaert.worktime.service.ProjectService;
+import eu.vranckaert.worktime.service.TaskService;
 import eu.vranckaert.worktime.service.TimeRegistrationService;
 import eu.vranckaert.worktime.service.WidgetService;
 import eu.vranckaert.worktime.utils.context.ContextMenuUtils;
 import eu.vranckaert.worktime.utils.context.IntentUtil;
 import eu.vranckaert.worktime.utils.notifications.NotificationBarManager;
+import eu.vranckaert.worktime.utils.punchbar.PunchBarUtil;
 import eu.vranckaert.worktime.utils.tracker.AnalyticsTracker;
 import roboguice.activity.GuiceListActivity;
 
@@ -56,6 +59,10 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
     @Inject
     private TimeRegistrationService timeRegistrationService;
     @Inject
+    private TaskService taskService;
+    @Inject
+    private ProjectService projectService;
+    @Inject
     private WidgetService widgetService;
 
     List<TimeRegistration> timeRegistrations;
@@ -68,6 +75,7 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
     private int currentLowerLimit = 0;
     private final int maxRecordsToLoad = 10;
     public TimeRegistration loadExtraTimeRegistration = null;
+    private boolean initialLoad = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -235,6 +243,10 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
         startActivity(intent);
     }
 
+    public void onPunchButtonClick(View view) {
+        PunchBarUtil.onPunchButtonClick(TimeRegistrationsActivity.this, timeRegistrationService);
+    }
+
     public int getTimeRegistrationsSize() {
         int size = timeRegistrations.size();
 
@@ -332,6 +344,14 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
                 }
                 break;
             }
+            case Constants.IntentRequestCodes.PUNCH_BAR_START_TIME_REGISTRATION: {
+                PunchBarUtil.configurePunchBar(TimeRegistrationsActivity.this, timeRegistrationService, taskService, projectService);
+                break;
+            }
+            case Constants.IntentRequestCodes.PUNCH_BAR_END_TIME_REGISTRATION: {
+                PunchBarUtil.configurePunchBar(TimeRegistrationsActivity.this, timeRegistrationService, taskService, projectService);
+                break;
+            }
         }
     }
 
@@ -387,6 +407,29 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
                 nextTimeRegistration,
                 tracker
         );
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        PunchBarUtil.configurePunchBar(TimeRegistrationsActivity.this, timeRegistrationService, taskService, projectService);
+        
+        if (initialLoad) {
+            initialLoad = false;
+            return;
+        }
+        
+        Long recordCount = timeRegistrationService.count();
+        int recordCountDiff = recordCount.intValue() - initialRecordCount.intValue();
+        
+        if (recordCountDiff > 0) {
+            for (int i=0; i<recordCountDiff; i++) {
+                timeRegistrations.add(0, new TimeRegistration());
+            }
+        }
+
+        loadTimeRegistrations(true, false);
     }
 
     @Override

@@ -13,33 +13,27 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package eu.vranckaert.worktime.activities.preferences;
+package eu.vranckaert.worktime.activities.preferences.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
-import android.preference.PreferenceScreen;
 import eu.vranckaert.worktime.R;
-import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.constants.TrackerConstants;
-import eu.vranckaert.worktime.utils.activity.MyPreferencesActivity;
+import eu.vranckaert.worktime.utils.fragment.MyPreferencesFragment;
 
 /**
  * User: DIRK VRANCKAERT
- * Date: 31/01/12
- * Time: 9:19
+ * Date: 1/02/12
+ * Time: 7:48
  */
-public class TasksPreferencesActivity extends MyPreferencesActivity {
+public class ProjectsAndTasksPreferencesFragment extends MyPreferencesFragment {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setTitle(R.string.pref_tasks_category_title);
     }
 
     @Override
     public int getPreferenceResourceId() {
-        return R.xml.preference_tasks;
+        return R.xml.preference_projects_tasks;
     }
 
     @Override

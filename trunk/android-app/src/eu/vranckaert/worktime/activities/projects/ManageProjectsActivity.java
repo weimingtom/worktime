@@ -39,6 +39,7 @@ import eu.vranckaert.worktime.service.TimeRegistrationService;
 import eu.vranckaert.worktime.service.WidgetService;
 import eu.vranckaert.worktime.utils.context.IntentUtil;
 import eu.vranckaert.worktime.utils.preferences.Preferences;
+import eu.vranckaert.worktime.utils.punchbar.PunchBarUtil;
 import eu.vranckaert.worktime.utils.tracker.AnalyticsTracker;
 import roboguice.activity.GuiceListActivity;
 import roboguice.inject.InjectView;
@@ -306,6 +307,10 @@ public class ManageProjectsActivity extends GuiceListActivity {
             Log.d(LOG_TAG, "A project has been updated on the project details view, it's necessary to reload the list of project upon return!");
             loadProjects();
         }
+        if (requestCode == Constants.IntentRequestCodes.PUNCH_BAR_START_TIME_REGISTRATION
+                || requestCode == Constants.IntentRequestCodes.PUNCH_BAR_END_TIME_REGISTRATION) {
+            PunchBarUtil.configurePunchBar(ManageProjectsActivity.this, timeRegistrationService, taskService, projectService);
+        }
     }
 
     /**
@@ -497,6 +502,16 @@ public class ManageProjectsActivity extends GuiceListActivity {
      */
     public void onAddClick(View view) {
         openAddProjectActivity();
+    }
+
+    public void onPunchButtonClick(View view) {
+        PunchBarUtil.onPunchButtonClick(ManageProjectsActivity.this, timeRegistrationService);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        PunchBarUtil.configurePunchBar(ManageProjectsActivity.this, timeRegistrationService, taskService, projectService);
     }
 
     @Override

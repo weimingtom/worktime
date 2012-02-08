@@ -21,4 +21,17 @@
             android:title="@string/pref_time_registrations_auto_close_60s_gap_title"
             android:summaryOn="@string/pref_time_registrations_auto_close_60s_gap_summary_on"
             android:summaryOff="@string/pref_time_registrations_auto_close_60s_gap_summary_off" />
+    <CheckBoxPreference
+            android:key="timeRegistrationPunchBarEnabledFromHomeScreen"
+            android:defaultValue="true"
+            android:title="@string/pref_time_registrations_punch_bar_enabled_from_home_screen_title"
+            android:summaryOn="@string/pref_time_registrations_punch_bar_enabled_from_home_summary_on"
+            android:summaryOff="@string/pref_time_registrations_punch_bar_enabled_from_home_summary_off" />
+    <CheckBoxPreference
+            android:key="timeRegistrationPunchBarEnabledOnAllScreens"
+            android:dependency="timeRegistrationPunchBarEnabledFromHomeScreen"
+            android:defaultValue="false"
+            android:title="@string/pref_time_registrations_punch_bar_enabled_on_all_screens_title"
+            android:summaryOn="@string/pref_time_registrations_punch_bar_enabled_on_all_screens_summary_on"
+            android:summaryOff="@string/pref_time_registrations_punch_bar_enabled_on_all_screens_summary_off" />
 </PreferenceScreen>

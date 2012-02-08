@@ -59,10 +59,8 @@ public class PreferencesActivity extends GuicePreferenceActivity {
         //Category TIME REGISTRATIONS
         createCategoryButton(ctx, preferences, R.string.pref_time_registrations_category_title, TimeRegistrationsPreferencesActivity.class);
 
-        //Category PROJECTS
-
-        //Category TASKS
-        createCategoryButton(ctx, preferences, R.string.pref_tasks_category_title, TasksPreferencesActivity.class);
+        //Category PROJECTS AND TASKS
+        createCategoryButton(ctx, preferences, R.string.pref_projects_tasks_category_title, ProjectsAndTasksPreferencesActivity.class);
 
         //Category DATE AND TIME
         createCategoryButton(ctx, preferences, R.string.pref_date_and_time_category_title, DateTimePreferencesActivity.class);

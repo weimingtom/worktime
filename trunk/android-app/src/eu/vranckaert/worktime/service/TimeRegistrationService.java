@@ -110,7 +110,15 @@ public interface TimeRegistrationService {
      * Find the time registration which comes just before the time registration provided. Comparison is done on start
      * and ending time.
      * @param timeRegistration The {@link TimeRegistration} to search the previous instance of.
-     * @return The previous time registration if any. Otherwise null;
+     * @return The previous time registration if any. Otherwise null!
      */
     TimeRegistration getPreviousTimeRegistration(TimeRegistration timeRegistration);
+
+    /**
+     * Find the time registration which fomes just after the time registration provided. Comparison is done on start
+     * and ending time.
+     * @param timeRegistration The {@link TimeRegistration} to search the next instance of.
+     * @return The next time registration if any. Otherwise null!
+     */
+    TimeRegistration getNextTimeRegistration(TimeRegistration timeRegistration);
 }

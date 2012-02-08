@@ -21,8 +21,8 @@
     <color name="title_text">#ffffffff</color>
 
     <!--<color name="footer_background">#ffcc0000</color>-->
-    <color name="footer_background">#ffbdbdbd</color>
-    <color name="footer_text">#ffffffff</color>
+    <color name="punch_bar_background">#ffbdbdbd</color>
+    <color name="punch_bar_text">#ffffffff</color>
 
     <color name="sub_title_background">#ffff4f4f</color>
 

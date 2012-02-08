@@ -17,6 +17,7 @@ package eu.vranckaert.worktime.activities.widget;
 
 import android.app.*;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Looper;
@@ -34,6 +35,7 @@ import eu.vranckaert.worktime.service.ProjectService;
 import eu.vranckaert.worktime.service.TaskService;
 import eu.vranckaert.worktime.service.TimeRegistrationService;
 import eu.vranckaert.worktime.service.WidgetService;
+import eu.vranckaert.worktime.utils.context.IntentUtil;
 import eu.vranckaert.worktime.utils.date.DateUtils;
 import eu.vranckaert.worktime.utils.notifications.NotificationBarManager;
 import eu.vranckaert.worktime.utils.preferences.Preferences;
@@ -41,6 +43,7 @@ import eu.vranckaert.worktime.utils.string.StringUtils;
 import eu.vranckaert.worktime.utils.tracker.AnalyticsTracker;
 import org.joda.time.Duration;
 import roboguice.activity.GuiceActivity;
+import roboguice.inject.InjectExtra;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -66,6 +69,8 @@ public class StartTimeRegistrationActivity extends GuiceActivity {
 
     @Inject
     private TaskService taskService;
+    
+    private boolean selectProject;
 
     private List<Task> availableTasks;
 
@@ -77,6 +82,26 @@ public class StartTimeRegistrationActivity extends GuiceActivity {
         tracker = AnalyticsTracker.getInstance(getApplicationContext());
         Log.d(LOG_TAG, "Started the START TimeRegistration acitivity");
 
+        Object extra = IntentUtil.getExtra(StartTimeRegistrationActivity.this, Constants.Extras.TIME_REGISTRATION_START_ASK_FOR_PROJECT);
+        if (extra != null) {
+            selectProject = (Boolean) extra;
+        } else {
+            selectProject = false;
+        }
+        
+        if (selectProject) {
+            showProjectChooser();
+        } else {
+            showTaskChooser();
+        }
+    }
+    
+    private void showProjectChooser() {
+        Intent intent = new Intent(StartTimeRegistrationActivity.this, SelectProjectActivity.class);
+        startActivityForResult(intent, Constants.IntentRequestCodes.SELECT_PROJECT);
+    }
+    
+    private void showTaskChooser() {
         Project selectedProject = projectService.getSelectedProject();
         if (Preferences.getSelectTaskHideFinished(getApplicationContext())) {
             availableTasks = taskService.findNotFinishedTasksForProject(selectedProject);
@@ -235,6 +260,15 @@ public class StartTimeRegistrationActivity extends GuiceActivity {
             }
         };
         return dialog;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Constants.IntentRequestCodes.SELECT_PROJECT && resultCode == RESULT_OK) {
+            showTaskChooser();
+        } else if (requestCode == Constants.IntentRequestCodes.SELECT_PROJECT && resultCode == RESULT_CANCELED) {
+            finish();
+        }
     }
 
     @Override

@@ -24,6 +24,7 @@ import eu.vranckaert.worktime.activities.HomeActivity;
 import eu.vranckaert.worktime.activities.timeregistrations.RegistrationDetailsActivity;
 import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.model.TimeRegistration;
+import eu.vranckaert.worktime.utils.string.StringUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -80,18 +81,33 @@ public class IntentUtil {
      * Send something with a single file attached. Using this method you can specify the subject, body and application
      * chooser title using the string resource id's.
      * @param activity The activity starting the action from.
-     * @param subjectId The subject string resource id.
-     * @param bodyId The body string resource id.
+     * @param subjectId The subject string resource id. Value lower than or equals to 0 will be ignored!
+     * @param bodyId The body string resource id. Value lower than or equals to 0 will be ignored!
      * @param file The file attach.
-     * @param chooserTitleId The application chooser's title string resource id.
+     * @param chooserTitleId The application chooser's title string resource id. Value lower than or equals to 0 will be
+     * ignored!
      */
     public static void sendSomething(Activity activity, int subjectId, int bodyId, File file, int chooserTitleId) {
+        String subject = "";
+        String body = "";
+        String chooserTitle = "";
+        
+        if (subjectId > 0) {
+            subject = activity.getString(subjectId);
+        }
+        if (bodyId > 0) {
+            body = activity.getString(bodyId);
+        }
+        if (chooserTitleId > 0) {
+            chooserTitle = activity.getString(chooserTitleId);
+        }
+        
         sendSomething(
                 activity,
-                activity.getString(subjectId),
-                activity.getString(bodyId),
+                subject,
+                body,
                 file,
-                activity.getString(chooserTitleId)
+                chooserTitle
         );
     }
 
@@ -113,18 +129,33 @@ public class IntentUtil {
      * Send something with a bunch of files attached. Using this method you can specify the subject, body and application
      * chooser title using the string resource id's.
      * @param activity The activity starting the action from.
-     * @param subjectId The subject string resource id.
-     * @param bodyId The body string resource id.
+     * @param subjectId The subject string resource id. Value lower than or equals to 0 will be ignored!
+     * @param bodyId The body string resource id. Value lower than or equals to 0 will be ignored!
      * @param files The files to attach.
-     * @param chooserTitleId The application chooser's title string resource id.
+     * @param chooserTitleId The application chooser's title string resource id. Value lower than or equals to 0 will be
+     * ignored!
      */
     public static void sendSomething(Activity activity, int subjectId, int bodyId, List<File> files, int chooserTitleId) {
+        String subject = "";
+        String body = "";
+        String chooserTitle = "";
+
+        if (subjectId > 0) {
+            subject = activity.getString(subjectId);
+        }
+        if (bodyId > 0) {
+            body = activity.getString(bodyId);
+        }
+        if (chooserTitleId > 0) {
+            chooserTitle = activity.getString(chooserTitleId);
+        }
+
         sendSomething(
                 activity,
-                activity.getString(subjectId),
-                activity.getString(bodyId),
+                subject,
+                body,
                 files,
-                activity.getString(chooserTitleId)
+                chooserTitle
         );
     }
 
@@ -149,8 +180,12 @@ public class IntentUtil {
 
         Intent emailIntent = new Intent(action);
         emailIntent.setType("text/plain");
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-        emailIntent.putExtra(Intent.EXTRA_TEXT, body);
+        if (StringUtils.isNotBlank(subject)) {
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        }
+        if (StringUtils.isNotBlank(body)) {
+            emailIntent.putExtra(Intent.EXTRA_TEXT, body);
+        }
 
         if (files != null && files.size() == 1) {
             Log.d(LOG_TAG, "Adding one file...");
@@ -168,5 +203,21 @@ public class IntentUtil {
 
         Log.d(LOG_TAG, "Launching share, application chooser if needed!");
         activity.startActivity(Intent.createChooser(emailIntent, chooserTitle));
+    }
+
+    /**
+     * Get an extra-parameter from an activity-intent.
+     * @param activity The activity.
+     * @param key The key for the extra-parameter to look for.
+     * @return The object found as extra-parameter. If not found this will return null.
+     */
+    public static Object getExtra(Activity activity, String key) {
+        Object extra = null;
+
+        if (activity != null && activity.getIntent() != null && activity.getIntent().getExtras() != null) {
+            extra = activity.getIntent().getExtras().get(key);
+        }
+
+        return extra;
     }
 }

@@ -26,6 +26,7 @@ import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.model.Project;
 import eu.vranckaert.worktime.service.ProjectService;
 import eu.vranckaert.worktime.service.WidgetService;
+import eu.vranckaert.worktime.utils.preferences.Preferences;
 import eu.vranckaert.worktime.utils.string.StringUtils;
 import roboguice.activity.GuiceActivity;
 
@@ -59,8 +60,14 @@ public class SelectProjectActivity extends GuiceActivity {
         switch (id) {
             case Constants.Dialog.CHOOSE_SELECTED_PROJECT: {
                 //Find all projects and sort by name
-                final List<Project> availableProjects = projectService.findUnfinishedProjects();
-                Collections.sort(availableProjects, new ProjectByNameComparator());
+                List<Project> selectableProjects;
+                if (Preferences.getSelectProjectHideFinished(SelectProjectActivity.this)) {
+                    selectableProjects = projectService.findUnfinishedProjects();
+                } else {
+                    selectableProjects = projectService.findAll();
+                }
+                Collections.sort(selectableProjects, new ProjectByNameComparator());
+                final List<Project> availableProjects = selectableProjects;
 
                 Project selectedProject = projectService.getSelectedProject();
                 int selectedProjectIndex = -1;
@@ -86,6 +93,7 @@ public class SelectProjectActivity extends GuiceActivity {
                                         Project newSelectedProject = availableProjects.get(index);
                                         projectService.setSelectedProject(newSelectedProject);
                                         widgetService.updateWidget(SelectProjectActivity.this);
+                                        setResult(RESULT_OK);
                                         SelectProjectActivity.this.finish();
                                     }
                                }
@@ -93,6 +101,7 @@ public class SelectProjectActivity extends GuiceActivity {
                        .setOnCancelListener(new DialogInterface.OnCancelListener() {
                            public void onCancel(DialogInterface dialogInterface) {
                                widgetService.updateWidget(SelectProjectActivity.this);
+                               setResult(RESULT_CANCELED);
                                SelectProjectActivity.this.finish();
                            }
                        });
