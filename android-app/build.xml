@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="WorkTime for Android" default="help" xmlns:zaa="antlib:com.zutubi.android.ant">
 
+    <!-- -->
+    <xmlproperty file="AndroidManifest.xml" prefix="mymanifest" collapseAttributes="true"/>
+
+    <!-- -->
     <taskdef uri="antlib:com.zutubi.android.ant"
              resource="com/zutubi/android/ant/antlib.xml"
              classpath="ant-libs/zutubi-android-ant-0.1.2.jar"/>
@@ -9,6 +13,23 @@
         <zaa:bumpversion bumpname="false"/>
     </target>
 
+    <!-- -->
+    <target name="set-name-apk-nightly">
+        <mkdir dir="./bin/release"/>
+        <copyfile src="./bin/WorkTime for Android-release.apk" dest="./bin/release/WorkTime-${mymanifest.manifest.android:versionName} - Build${mymanifest.manifest.android:versionCode}.apk"/>
+    </target>
+    <target name="set-name-apk-final">
+        <if>
+            <endsWith string="${mymanifest.manifest.android:versionName}" with="UNSTABLE"/>
+            <then>
+                <fail message="This is an unstable commit!"/>
+            </then>
+        </if>
+        <mkdir dir="./bin/release"/>
+        <copyfile src="./bin/WorkTime for Android-release.apk" dest="./bin/release/WorkTime-${mymanifest.manifest.android:versionName}.apk"/>
+    </target>
+
+    <!-- -->
     <path id="svnant.classpath">
         <fileset dir="ant-libs/svn/">
             <include name="**/*.jar"/>
@@ -27,17 +48,6 @@
         <svn javahl="false" svnkit="true" username="${svn.repository.username}" password="${svn.repository.password}">
             <commit file="AndroidManifest.xml" message="Auto commit from Ant script for release"/>
         </svn>
-    </target>
-
-    <target name="set-name-apk-nightly">
-        <xmlproperty file="AndroidManifest.xml" prefix="mymanifest" collapseAttributes="true"/>
-        <mkdir dir="./bin/release"/>
-        <copyfile src="./bin/WorkTime for Android-release.apk" dest="./bin/release/WorkTime-${mymanifest.manifest.android:versionName} - Build${mymanifest.manifest.android:versionCode}.apk"/>
-    </target>
-    <target name="set-name-apk-final">
-        <xmlproperty file="AndroidManifest.xml" prefix="mymanifest" collapseAttributes="true"/>
-        <mkdir dir="./bin/release"/>
-        <copyfile src="./bin/WorkTime for Android-release.apk" dest="./bin/release/WorkTime-${mymanifest.manifest.android:versionName}.apk"/>
     </target>
 
     <!-- The local.properties file is created and updated by the 'android' tool.
