@@ -1,4 +1,4 @@
-#summary A walkthrough to setup the project and explain the basics of the project
+#summary A walkthrough to setup the Android project and explains the basics
 =Project Setup=
 ==Table Of Contents==
 <wiki:toc max_depth="10" />
