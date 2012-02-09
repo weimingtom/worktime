@@ -1,0 +1,73 @@
+#summary The release notes for all previous released versions and features
+
+=Release Notes Android Application=
+===Milestone-Release1.1.2 (Time Registrations)===
+ * 1.1.2.f
+  * Bugs:
+   * Crash when updating a task and no time registrations registered yet (issue 89)
+   * Disable backup/restore (issue 90)
+  * Enhancements:
+   * Multi-line input for time registration comments (issue 49)
+ * 1.1.2.e
+  * Bugs:
+   * Crash when deleting a task when no time registration yet (issue 87)
+  * Enhancements:
+   * Date precision preference for time registrations (seconds or minutes) (issue 62)
+ * 1.1.2.d
+  * Enhancements:
+   * Move task to other project (issue 69)
+ * 1.1.2.c
+  * Enhancements:
+   * Splitting time registrations (issue 23)
+   * Add comment to unfinished time registration (issue 72)
+   * Honeycomb and Ice Cream Sandwich support (no tablet!) (issue 86)
+ * 1.1.2.b
+  * Bugs:
+   * Time Registration startDate >= previous endDate (issue 61)
+   * ArrayIndexOutOfBoundsException (issue 79)
+  * Enhancements:
+   * Error messages when editing time registration start/end times should be simplified (issue 33)
+ * 1.1.2.a
+  * Enhancements:
+   * Remove 'delete' button in list of time registrations (issue 73)
+   * Dynamically load time registration to make it more light weight (issue 77)
+===Milestone-Release1.1.1 (Reporting and widgets-usability)===
+ * Enhancements:
+  * Reporting: 
+   * Default reporting to generate reports and export to a CSV file (issue 25)
+   * Project details: total work time (issue 4)
+   * Send report file by e-mail (issue 57)
+   * Share multiple generated WorkTime reports (issue 76)
+  * Don't ask for the task (if only one task) at check-in from the widget (issue 58)
+  * Deprecate export in time registrations module (replace by reporting module link) (issue 65)
+ * Tasks:
+  * Release the sources... (issue 64)
+  * Apply the Apache License 2.0 (issue 63)
+==Milestone-Release1.1.0 (Backup and Restore)==
+ * Enhancements:
+  * Backup and Restore feature (issue 53)
+==Milestone-Release1.0.1==
+ * Bugfixes for Milestone-Release1.0.0:
+  * Project/Task-name not updated in widget and notification (issue 24)
+  * Disable notifications through the preferences (issue 27)
+  * 12-24h preference(issue 3)
+  * Inconsistent usage of time picker (12-24h mode) (issue 29)
+  * 'View details' for time registration available from time registration detail view (issue 32)
+  * Export not comma separated (issue 52)
+  * Using export separator in comment gives bad display in spreadsheet app (issue 52)
+ * Enhancements:
+  * Marking tasks as finished (issue 28)
+  * Launch app from notification (issue 30)
+  * Change start/stop on widget to 'punch in'/'punch out' (issue 36)
+  * Google Analytics tracking (issue 34)
+  * Delete time registration from registration overview context menu (issue 37)
+  * Restart a time registration when accidentally closed (issue 45)
+  * Keyboard in uppercase state by default (issue 43)
+==Milestone-Release1.0.0==
+Initial release of the application including the basic features:
+ * Manage Projects
+ * Manage Tasks
+ * Manage Time Registrations
+ * Widget
+ * Add Time Registrations through the widget
+ * Basic export functionality to CSV
