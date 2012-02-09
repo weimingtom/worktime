@@ -67,6 +67,7 @@ public class DatabaseFileBackupServiceImpl implements BackupService {
                 Log.d(LOG_TAG, "The directory still does not exist!");
             }
         }
+        FileUtil.enableForMTP(ctx, folder);
 
         File backupFile = new File(FileUtil.getBackupDir().getAbsolutePath(), fileName);
         FileUtil.applyPermissions(backupFile, true, true, false);

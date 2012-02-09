@@ -55,8 +55,11 @@ public class ExportServiceImpl implements ExportService {
             result.append(TextConstants.NEW_LINE);
         }
 
+        File exportDir = FileUtil.getExportDir(ctx);
+        FileUtil.enableForMTP(ctx, exportDir);
+
         File file = new File(
-                FileUtil.getExportDir(ctx),
+                exportDir,
                 filename + "." + CSV_EXTENSTION
         );
         FileUtil.applyPermissions(file, true, true, false);
