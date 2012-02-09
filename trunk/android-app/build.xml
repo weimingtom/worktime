@@ -36,7 +36,7 @@
     <!-- Change the name of the generated release APK-file to a name keeping in mind nightly and final release naming conventions-->
     <target name="set-name-apk-nightly">
         <mkdir dir="./bin/release"/>
-        <copy file="./bin/${ant.project.name}-release.apk" tofile="./bin/release/${app.name}-${manifestFile.manifest.android:versionName} - Build${mymanifest.manifest.android:versionCode}.apk"/>
+        <copy file="./bin/${ant.project.name}-release.apk" tofile="./bin/release/${app.name}-${manifestFile.manifest.android:versionName} - Build${manifestFile.manifest.android:versionCode}.apk"/>
     </target>
     <target name="set-name-apk-final">
         <fail message="This is an unstable AndroidManifest!"/>
