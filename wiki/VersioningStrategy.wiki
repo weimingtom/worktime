@@ -18,30 +18,36 @@ In the [http://code.google.com/p/worktime/source/browse/#svn%2Fbranches Branches
 Example file structure:
  * svn
   * trunk
-   * src
-   * AndroidManifest.xml
-   * ...
+   * android-app
+    * src
+    * AndroidManifest.xml
+    * ...
   * branches
    * 1.1.1
-    * src
-    * AndroidManifest.xml
-    * ...
+    * android-app
+     * src
+     * AndroidManifest.xml
+     * ...
    * 1.1.2.a
-    * src
-    * AndroidManifest.xml
-    * ...
+    * android-app
+     * src
+     * AndroidManifest.xml
+     * ...
    * 1.1.2.b
-    * src
-    * AndroidManifest.xml
-    * ...
+    * android-app
+     * src
+     * AndroidManifest.xml
+     * ...
    * 1.1.2
-    * src
-    * AndroidManifest.xml
-    * ...
+    * android-app
+     * src
+     * AndroidManifest.xml
+     * ...
    * 1.1.3
-    * src
-    * AndroidManifest.xml
-    * ...
+    * android-app
+     * src
+     * AndroidManifest.xml
+     * ...
 ==Contribute==
 As mentioned before you can check out the source code but by default you cannot contribute and commit any code. However there are two ways you can contribute:
  # *Create patches*
