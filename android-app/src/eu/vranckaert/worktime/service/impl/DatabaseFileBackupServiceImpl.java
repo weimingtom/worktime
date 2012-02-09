@@ -83,6 +83,8 @@ public class DatabaseFileBackupServiceImpl implements BackupService {
             throw new BackupFileCouldNotBeWritten(e);
         }
 
+        FileUtil.enableForMTP(ctx, backupFile);
+
         return backupFile.getAbsolutePath();
     }
 
