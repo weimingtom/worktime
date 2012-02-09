@@ -76,6 +76,8 @@ public class ExportServiceImpl implements ExportService {
             Log.e(LOG_TAG, "Exception occurred during export...", e);
         }
 
+        FileUtil.enableForMTP(ctx, file);
+
         return file;
     }
 }

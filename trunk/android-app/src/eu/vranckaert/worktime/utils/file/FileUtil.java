@@ -16,6 +16,8 @@
 package eu.vranckaert.worktime.utils.file;
 
 import android.content.Context;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 import eu.vranckaert.worktime.constants.Constants;
@@ -221,7 +223,7 @@ public class FileUtil {
     public static void applyPermissions(File file, boolean readable, boolean writable, boolean executable,
                                         boolean readableOwnerOnly, boolean writableOwnerOnly, boolean executableOwnerOnly) {
         if (ContextUtils.getAndroidApiVersion() < OSContants.API.HONEYCOMB_3_0) {
-            Log.d(LOG_TAG, "File right modifications are not permitted on Android systems running an OS version pre 3.0!");
+            Log.i(LOG_TAG, "File right modifications are not permitted on Android systems running an OS version pre 3.0!");
             return;
         }
         
@@ -249,5 +251,23 @@ public class FileUtil {
         } else {
             Log.d(LOG_TAG, "The file permission for 'executable' could not be changed!");
         }
+    }
+
+    public static void enableForMTP(Context ctx, File file) {
+        if (ContextUtils.getAndroidApiVersion() < OSContants.API.HONEYCOMB_3_0) {
+            Log.i(LOG_TAG, "Android only supports MTP since android 3.0!");
+            return;
+        }
+
+        MediaScannerConnection.scanFile(
+                ctx, new String[] { file.toString() }, null,
+                new MediaScannerConnection.OnScanCompletedListener() {
+                    @Override
+                    public void onScanCompleted(String path, Uri uri) {
+                        Log.i(LOG_TAG, "Scanned " + path);
+                        Log.i(LOG_TAG, "-> uri=" + uri);
+                    }
+                }
+        );
     }
 }
