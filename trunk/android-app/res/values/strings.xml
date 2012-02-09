@@ -353,7 +353,7 @@
     * The backups are placed in the SD-card directory \'worktime-backup\'\n
     * A backup file always starts with \'worktimedb-\' and ends with \'.bak\'\n
     * The combination in between is the date and time of the backup ending with 0 for an AM-time and 1 for PM\n
-    * Example file-name: \'worktimedb-20110231090431-1\'
+    * Example file-name: \'worktimedb-20110231090431-1\'\n
      \nRestore:\n
     * Only files in the backup directory \'worktime-backup\' on the SD-card are shown as possible restore points\n
     * If a backup is renamed and does not start with \'worktimedb-\' AND does not end on \'.bak\' it will be ignored and not shown as possible restore point\n

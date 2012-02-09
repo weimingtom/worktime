@@ -102,7 +102,7 @@ public class BackupSendActivity extends GuiceActivity {
                 List<String> fileNames = new ArrayList<String>();
                 for (File file : databaseBackupFiles) {
                     Log.d(LOG_TAG, "Filename found: " + file.getName());
-                    fileNames.add(file.getName().replace(BackupService.FILE_EXTENSION, "").replace(BackupService.BASE_FILE_NAME, ""));
+                    fileNames.add(backupService.toString(BackupSendActivity.this, file));
                 }
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.lbl_backup_restore_restore_backup_list_title)
