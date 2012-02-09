@@ -15,6 +15,6 @@
     * [ReleaseNotes Release Notes]
     * [VersioningStrategy Versioning Strategy]
     * [ProjectSetup Project Setup]
-      * [ProjectSetupIPhone Project Setup Android]
+      * [ProjectSetupAndroid Project Setup Android]
       * [ProjectSetupIPhone Project Setup IPhone]
     * [Issues Bug Tracking]
