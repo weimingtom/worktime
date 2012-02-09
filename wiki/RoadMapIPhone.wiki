@@ -1,3 +1,4 @@
+#labels Featured,Phase-Roadmap
 =Road Map for the IPhone application=
 This road map is a schedule for what's coming up in the next few versions. The content for all next versions defined in here is fixed and will not change any more (or at least not much).
 
@@ -8,4 +9,8 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 
 ==Releases==
 ===Milestone-Release-IPhone1.0.0 (Main features)===
- * Create main application screen as in the Android application
+ * Dashboard
+ * Module Projects & Tasks
+ * Module Time Registrations
+ * Preferences
+ * About screen
