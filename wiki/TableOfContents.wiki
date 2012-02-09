@@ -1,13 +1,14 @@
   * User Manual
-    * [ManualWidget Widget]
-    * [ManualApplication Application]
-      * [ManualApplicationDashboard Application Dasboard]
-      * [ManualApplicationTimeRegistrations Time Registrations]
-      * [ManualApplicationProjects Project]
-      * [ManualApplicationTasks Tasks]
-      * [ManualApplicationReporting Reporting]
-      * [ManualApplicationPreferences Preferences]
-      * [ManualApplicationAbout About]
+    * Android
+      * [ManualWidget Widget]
+      * [ManualApplication Application]
+        * [ManualApplicationDashboard Application Dasboard]
+        * [ManualApplicationTimeRegistrations Time Registrations]
+        * [ManualApplicationProjects Project]
+        * [ManualApplicationTasks Tasks]
+        * [ManualApplicationReporting Reporting]
+        * [ManualApplicationPreferences Preferences]
+        * [ManualApplicationAbout About]
   * [License Licensing]
   * Project Development Info
     * [RoadMap Road Map]
