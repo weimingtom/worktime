@@ -29,7 +29,7 @@ For the other steps it's quite strateforward. However what you have to keep in m
  * Call a DAO from an acitivty! An activity will call a service which can call a DAO.
  * Call a service from another service! If a service needs data, it will always need to call a DAO. If that means that you will duplicate logic (performed on the result of the DAO) you will need to create some kind of utility and place the logic in there.
  * Call a dao from another dao! A DAO (Data Access Object) should only query data for exact only one entity! DAO's should not rely on eachother!
-===Dependency Injection - RoboGuice===
+===Dependency Injection (RoboGuice)===
 [http://code.google.com/p/google-guice/ Google Guice] is a dependency framework to wire/inject all your services/dao's/...
 [http://code.google.com/p/roboguice Robo Guice] is build on top of that and takes the dependency injection to the Android platform. So with Robo Guice you can easily inject a dao in a service and a service in an activity. But that's not it. Robo Guice takes it just a level further. You can now also inject Android resources, views and extras in your activities. For more info on how to start an Android project with Robo Guice you will have to read their wiki. In this wiki document I will just explain some stuff that is needed to get going with this project.
 ====DAO's====
@@ -73,5 +73,5 @@ In the second activity (activity B) you want to access and use that 'someData', 
 @InjectExtra(value= "someDate")
 private Object someDataFromExtras;
 }}}
-===Database Connectivity - OrmLite ===
+===Database Connectivity (OrmLite) ===
 ==Testing==
