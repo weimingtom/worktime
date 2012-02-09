@@ -68,6 +68,7 @@
 
         <svn javahl="false" svnkit="true" username="${svn.repository.username}" password="${svn.repository.password}">
             <commit file="AndroidManifest.xml" message="Auto commit from Ant script for release"/>
+            <update dir="."/>
         </svn>
     </target>
 
