@@ -109,8 +109,6 @@ public class FileUtil {
         else
             Log.d(LOG_TAG, "No external files directory found!");
 
-        enableForMTP(ctx, externalDirFile);
-
         return externalDirFile;
     }
 
@@ -256,6 +254,10 @@ public class FileUtil {
     }
 
     public static void enableForMTP(Context ctx, File file) {
+        if (file == null) {
+            return;
+        }
+
         if (ContextUtils.getAndroidApiVersion() < OSContants.API.HONEYCOMB_3_0) {
             Log.i(LOG_TAG, "Android only supports MTP since android 3.0!");
             return;
