@@ -16,9 +16,6 @@
         * svn.repository.password => Your password on the SVN repository where the changes should be committed (only required for release)
     -->
 
-    <!-- Get a reference to the AndroidManifest file to use some of it's parameters -->
-    <xmlproperty file="AndroidManifest.xml" prefix="manifestFile" collapseAttributes="true"/>
-
     <!-- Zutubi Android Ant library for automated versioning -->
     <taskdef uri="antlib:com.zutubi.android.ant"
              resource="com/zutubi/android/ant/antlib.xml"
@@ -35,10 +32,16 @@
 
     <!-- Change the name of the generated release APK-file to a name keeping in mind nightly and final release naming conventions-->
     <target name="set-name-apk-nightly">
+        <!-- Get a reference to the AndroidManifest file to use some of it's parameters -->
+        <xmlproperty file="AndroidManifest.xml" prefix="manifestFile" collapseAttributes="true"/>
+
         <mkdir dir="./bin/release"/>
         <copy file="./bin/${ant.project.name}-release.apk" tofile="./bin/release/${app.name}-${manifestFile.manifest.android:versionName} - Build${manifestFile.manifest.android:versionCode}.apk"/>
     </target>
     <target name="set-name-apk-final">
+        <!-- Get a reference to the AndroidManifest file to use some of it's parameters -->
+        <xmlproperty file="AndroidManifest.xml" prefix="manifestFile" collapseAttributes="true"/>
+
         <fail message="This is an unstable AndroidManifest!"/>
         <mkdir dir="./bin/release"/>
         <copy file="./bin/${ant.project.name}-release.apk" tofile="./bin/release/${app.name}-${manifestFile.manifest.android:versionName}.apk"/>
