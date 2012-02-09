@@ -109,6 +109,8 @@ public class FileUtil {
         else
             Log.d(LOG_TAG, "No external files directory found!");
 
+        enableForMTP(ctx, externalDirFile);
+
         return externalDirFile;
     }
 
