@@ -22,31 +22,43 @@ Example file structure:
     * src
     * AndroidManifest.xml
     * ...
+   * iphone-app
+    * ...
   * branches
    * 1.1.1
     * android-app
      * src
      * AndroidManifest.xml
      * ...
+    * iphone-app
+     * ...
    * 1.1.2.a
     * android-app
      * src
      * AndroidManifest.xml
+     * ...
+    * iphone-app
      * ...
    * 1.1.2.b
     * android-app
      * src
      * AndroidManifest.xml
      * ...
+    * iphone-app
+     * ...
    * 1.1.2
     * android-app
      * src
      * AndroidManifest.xml
      * ...
+    * iphone-app
+     * ...
    * 1.1.3
     * android-app
      * src
      * AndroidManifest.xml
+     * ...
+    * iphone-app
      * ...
 ==Contribute==
 As mentioned before you can check out the source code but by default you cannot contribute and commit any code. However there are two ways you can contribute:
