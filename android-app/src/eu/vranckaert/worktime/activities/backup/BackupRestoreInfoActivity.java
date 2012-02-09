@@ -51,6 +51,7 @@ public class BackupRestoreInfoActivity extends GuiceActivity {
                         .setPositiveButton(R.string.close, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
+                                finish();
                             }
                         });
                 dialog = alertBackupSuccess.create();

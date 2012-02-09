@@ -24,12 +24,17 @@ import eu.vranckaert.worktime.exceptions.backup.BackupFileCouldNotBeWritten;
 import eu.vranckaert.worktime.service.BackupService;
 import eu.vranckaert.worktime.utils.context.ContextUtils;
 import eu.vranckaert.worktime.utils.date.DateUtils;
+import eu.vranckaert.worktime.utils.date.TimeFormat;
 import eu.vranckaert.worktime.utils.file.FileUtil;
 
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -63,7 +68,7 @@ public class DatabaseFileBackupServiceImpl implements BackupService {
             }
         }
 
-        File backupFile = new File(FileUtil.getBackupDir().getAbsolutePath() + File.separator + fileName);
+        File backupFile = new File(FileUtil.getBackupDir().getAbsolutePath(), fileName);
         FileUtil.applyPermissions(backupFile, true, true, false);
         try {
             backupFile.createNewFile();
@@ -127,5 +132,33 @@ public class DatabaseFileBackupServiceImpl implements BackupService {
         File[] databaseBackupFiles = backupDirectory.listFiles(databaseBackupFilenameFilter);
 
         return Arrays.asList(databaseBackupFiles);
+    }
+
+    public String toString(Context ctx, File backupFile) {
+        String fileName = backupFile.getName()
+                .replace(BackupService.FILE_EXTENSION, "")
+                .replace(BackupService.BASE_FILE_NAME, "");
+
+        //Remove the "-0" or "-1" part
+        fileName = fileName.substring(0, fileName.length()-2);
+
+        DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+        Date parsedDate = null;
+        try {
+            parsedDate = df.parse(fileName);
+        } catch (ParseException e) {
+            String msg = "Failed to parse the backup file-name " + fileName + " to a date!";
+            Log.e(LOG_TAG, msg, e);
+            throw new RuntimeException(msg, e);
+        }
+        
+        String result = DateUtils.DateTimeConverter.convertDateTimeToString(
+                parsedDate,
+                eu.vranckaert.worktime.utils.date.DateFormat.MEDIUM,
+                TimeFormat.MEDIUM,
+                ctx
+        );
+
+        return result;
     }
 }

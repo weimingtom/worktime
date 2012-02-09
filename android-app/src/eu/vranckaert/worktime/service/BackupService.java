@@ -61,4 +61,12 @@ public interface BackupService {
      * @throws SDCardUnavailableException When the SD-card is not available or not writable.
      */
     List<File> getPossibleRestoreFiles(Context ctx) throws SDCardUnavailableException;
+
+    /**
+     * Convert a backup file to a representable format.
+     * @param ctx The context.
+     * @param backupFile The backup file.
+     * @return The presentation of a backup file in a readable format.
+     */
+    String toString(Context ctx, File backupFile);
 }
