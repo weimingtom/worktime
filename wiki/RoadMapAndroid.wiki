@@ -11,6 +11,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 ===Milestone-Release1.1.3 (Projects, Tasks and Time Registrations)===
  * 1.1.3
   * Bugs:
+   * 	"Restart time registration" available on TR details for ongoing time registration (issue 95)
    * Backup/Restore bug (issue 82)
    * Backup files and exports are not accessible from my computer (ICS) (issue 84)
    * Crash when running report for "last week" (issue 91)
