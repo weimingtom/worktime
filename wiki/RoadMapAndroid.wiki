@@ -24,6 +24,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
    * Review preferences system (issue 83)
    * Send backup files through mail (issue 94)
    * ICS (Android 4.x) Optimization for menu-button and widget (issue 96)
+   * Add widget preview (issue 97)
 ===Milestone-Release1.1.4 (Backup and Restore)===
  * Backup scheduling (issue 55)
  * Backup preferences (issue 75)
