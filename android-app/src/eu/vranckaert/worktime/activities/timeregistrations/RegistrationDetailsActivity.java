@@ -249,10 +249,11 @@ public class RegistrationDetailsActivity extends GuiceActivity {
                 true
         );
         TimeRegistration latestRegistration = timeRegistrationService.getLatestTimeRegistration();
-        if (latestRegistration == null) {
+        if (latestRegistration != null) {
             Log.d(LOG_TAG, "Latest time registration id: " + latestRegistration.getId());
             Log.d(LOG_TAG, "Current viewing time registration id: " + registration.getId());
             if (registration.isOngoingTimeRegistration() || !registration.getId().equals(latestRegistration.getId())) {
+                // Only remove this menu-option if the viewing registration is not the last one!
                 menu.removeItem(Constants.ContentMenuItemIds.TIME_REGISTRATION_RESTART);
             }
         }

@@ -247,7 +247,7 @@ public class StartTimeRegistrationActivity extends GuiceActivity {
             }
             case Constants.Dialog.NO_TASKS_AVAILABLE: {
                 AlertDialog.Builder alertNoTaskAvailable = new AlertDialog.Builder(this);
-				alertNoTaskAvailable.setMessage(R.string.msg_no_tasks_available)
+				alertNoTaskAvailable.setMessage(R.string.msg_no_tasks_available_choose_other_project)
 						   .setCancelable(false)
 						   .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                                public void onClick(DialogInterface dialog, int which) {

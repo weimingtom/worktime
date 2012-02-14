@@ -92,11 +92,12 @@ public class HomeActivity extends GuiceActivity {
     }
 
     public void onPreferencesClick(View view) {
-        if (ContextUtils.getAndroidApiVersion() < OSContants.API.HONEYCOMB_3_0) {
-            launchActivity(PreferencesActivity.class);
-        } else {
-            launchActivity(PreferencesICSActivity.class);
-        }
+        launchActivity(PreferencesActivity.class);
+//        if (ContextUtils.getAndroidApiVersion() < OSContants.API.HONEYCOMB_3_0) {
+//            launchActivity(PreferencesActivity.class);
+//        } else {
+//            launchActivity(PreferencesICSActivity.class);
+//        }
     }
 
     public void onReportingClick(View view) {
