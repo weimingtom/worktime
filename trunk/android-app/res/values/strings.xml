@@ -384,7 +384,6 @@
     <string name="msg_widget_create_project_before_time_reg">At least one project is required to create a time registration. You can add a project by launching the application.</string>
     <string name="msg_widget_ask_finish_task_title">Finish task?</string>
     <string name="msg_widget_ask_finish_task_message">Do you want to mark the task \'%1$s\' finished? This can be undone in the project details!</string>
-    <string name="msg_no_tasks_available">No unfinished tasks are available for the selected project. Please create one first or select a different project.</string>
     <string name="msg_no_tasks_available_choose_other_project">No tasks are available for the selected project. Select another project or go back and create a task for the project first.</string>
     <string name="err_widget_corrupt_data">Corrupt data! Clear the application data!</string>
     <string name="lbl_widget_instructions">Click the widget to open the app.</string>

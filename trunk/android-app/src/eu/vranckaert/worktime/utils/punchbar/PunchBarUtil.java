@@ -56,12 +56,14 @@ public class PunchBarUtil {
         }
 
         TimeRegistration lastTimeRegistration = timeRegistrationService.getLatestTimeRegistration();
-        taskService.refresh(lastTimeRegistration.getTask());
-        projectService.refresh(lastTimeRegistration.getTask().getProject());
-        TextView footerText = (TextView) ctx.findViewById(R.id.punch_bar_text);
+
         ImageButton actionButton = (ImageButton) ctx.findViewById(R.id.punchBarActionId);
+        TextView footerText = (TextView) ctx.findViewById(R.id.punch_bar_text);
 
         if (lastTimeRegistration != null && lastTimeRegistration.isOngoingTimeRegistration()) {
+            taskService.refresh(lastTimeRegistration.getTask());
+            projectService.refresh(lastTimeRegistration.getTask().getProject());
+
             footerText.setText(
                     lastTimeRegistration.getTask().getProject().getName() +
                             " " + ctx.getString(R.string.dash) + " " +
