@@ -23,12 +23,13 @@ For more information on our release strategy you can read the [ReleaseStrategy R
    * Mark projects finished (issue 81)
    * Review preferences system (issue 83)
    * Send backup files through mail (issue 94)
+   * ICS (Android 4.x) Optimization for menu-button and widget (issue 96)
 ===Milestone-Release1.1.4 (Backup and Restore)===
  * Backup scheduling (issue 55)
  * Backup preferences (issue 75)
  * Add option "Remove all backups" in preferences (issue 85)
 ===Milestone-Release1.1.5 (Tablet Support)===
- * Tablet Support (issue 68)
+ * Honeycomb (3.x) and ICS (4.x) support (issue 68)
 ===Milestone-Release1.1.6 (Widgets)===
  * Enhancements:
   * Widgets:
