@@ -37,6 +37,7 @@
     <color name="table_record_lvl_n_3">#ffffffff</color>
 
     <color name="grey">#ff878787</color>
+    <color name="black">#00000000</color>
 
     <drawable name="transparent_background">#00000000</drawable>
 </resources>

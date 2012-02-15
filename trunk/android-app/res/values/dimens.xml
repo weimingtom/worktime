@@ -27,6 +27,7 @@
     <dimen name="text_size_about_title">18sp</dimen>
     <dimen name="text_size_about_summary">14sp</dimen>
 
-    <dimen name="widget_title">17sp</dimen>
     <dimen name="widget_margin">8dp</dimen>
+    <dimen name="widget_title">17sp</dimen>
+    <dimen name="widget_btn_text">14dp</dimen>
 </resources>
