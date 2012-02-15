@@ -15,4 +15,5 @@
 -->
 <resources>
     <dimen name="widget_margin">0dp</dimen>
+    <dimen name="widget_btn_text">14dp</dimen>
 </resources>

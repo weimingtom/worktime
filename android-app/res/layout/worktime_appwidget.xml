@@ -41,7 +41,8 @@
                           android:layout_below="@id/widget_bgtop">
                 <Button android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:id="@id/widget_actionbtn"/>
+                        android:id="@id/widget_actionbtn"
+                        android:textSize="@dimen/widget_btn_text"/>
                 <TextView android:layout_width="fill_parent"
                           android:layout_height="fill_parent"
                           android:ellipsize="end"
