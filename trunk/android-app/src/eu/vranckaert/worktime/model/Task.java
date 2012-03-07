@@ -28,7 +28,7 @@ import java.io.Serializable;
  * Time: 16:13
  */
 @DatabaseTable
-public class Task implements Serializable {
+public class Task implements Serializable, Cloneable {
     @DatabaseField(generatedId = true)
     private Integer id;
     @DatabaseField
@@ -118,5 +118,16 @@ public class Task implements Serializable {
 
     public void setFinished(boolean finished) {
         this.finished = finished;
+    }
+
+    @Override
+    public Object clone() {
+        Task clone = new Task();
+        clone.setName(this.name);
+        clone.setComment(this.comment);
+        clone.setFinished(this.finished);
+        clone.setFlags(this.flags);
+        clone.setOrder(this.order);
+        return clone;
     }
 }
