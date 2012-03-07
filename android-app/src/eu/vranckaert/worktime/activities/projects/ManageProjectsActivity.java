@@ -298,7 +298,8 @@ public class ManageProjectsActivity extends GuiceListActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if( (requestCode == Constants.IntentRequestCodes.ADD_PROJECT
-                || requestCode == Constants.IntentRequestCodes.EDIT_PROJECT)
+                || requestCode == Constants.IntentRequestCodes.EDIT_PROJECT
+                || requestCode == Constants.IntentRequestCodes.COPY_PROJECT)
                 && resultCode == RESULT_OK) {
             Log.d(LOG_TAG, "A new project is added or an existing one is edited which requires a reload of the project list!");
             loadProjects();
@@ -381,6 +382,11 @@ public class ManageProjectsActivity extends GuiceListActivity {
                     Menu.NONE,
                     R.string.lbl_projects_menu_edit
             );
+            menu.add(Menu.NONE,
+                    Constants.ContentMenuItemIds.PROJECT_COPY,
+                    Menu.NONE,
+                    R.string.lbl_projects_menu_copy
+            );
             if (projects.size() > 1) {
                 menu.add(Menu.NONE,
                         Constants.ContentMenuItemIds.PROJECT_DELETE,
@@ -444,6 +450,10 @@ public class ManageProjectsActivity extends GuiceListActivity {
                 openEditProjectActivity(projectForContext);
                 break;
             }
+            case Constants.ContentMenuItemIds.PROJECT_COPY: {
+                openCopyProjectActivity(projectForContext);
+                break;
+            }
             default: {
                 return false;
             }
@@ -460,6 +470,16 @@ public class ManageProjectsActivity extends GuiceListActivity {
         Intent intent = new Intent(getApplicationContext(), AddEditProjectActivity.class);
         intent.putExtra(Constants.Extras.PROJECT, project);
         startActivityForResult(intent, Constants.IntentRequestCodes.EDIT_PROJECT);
+    }
+
+    /**
+     * Opens the copy project activity. The activity is started for result!
+     * @param project The project to copy.
+     */
+    private void openCopyProjectActivity(Project project) {
+        Intent intent = new Intent(getApplicationContext(), CopyProjectActivity.class);
+        intent.putExtra(Constants.Extras.PROJECT, project);
+        startActivityForResult(intent, Constants.IntentRequestCodes.COPY_PROJECT);
     }
 
     /**

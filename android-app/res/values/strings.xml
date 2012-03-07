@@ -29,6 +29,7 @@
     <string name="next">Next</string>
     <string name="loading">Loading...</string>
     <string name="save">Save</string>
+    <string name="add">Add</string>
     <!-- GENERAL TIME -->
     <string name="days">days</string>
     <string name="hours">hours</string>
@@ -69,6 +70,7 @@
     <string name="msg_mark_project_finished_not_possible_ongoing_tr">The project cannot be marked as finished as it\'s used in an ongoing time registration...</string>
     <string name="lbl_projects_menu_add">Add new project</string>
     <string name="lbl_projects_menu_edit">Edit project</string>
+    <string name="lbl_projects_menu_copy">Copy project and tasks</string>
     <!-- ADD/EDIT PROJECT -->
     <string name="lbl_add_project_title">Add Project</string>
     <string name="lbl_edit_project_title">Edit Project</string>
@@ -92,6 +94,18 @@
     <string name="lbl_tasks_menu_mark_finished">Mark finished</string>
     <string name="lbl_tasks_menu_delete">Delete task</string>
     <string name="lbl_tasks_menu_add">Add new task</string>
+    <!-- COPY WIZARD -->
+    <string name="lbl_copy_project_title">Copy Project</string>
+    <string name="lbl_copy_project_part_one_content">In order to copy a project you will have to provide a new, unique, name on the next screen. Pay attention because the project will be copied (with the new name) and together all of it\'s tasks. But time registrations for the project and tasks will not be copied!\n\nPress \'Next\' to continue with the copy.</string>
+    <string name="lbl_copy_project_part_two_title">Set a project name</string>
+    <string name="lbl_copy_project_part_three_title">Summary</string>
+    <string name="lbl_copy_project_part_three_summary_project_name">Name:</string>
+    <string name="lbl_copy_project_part_three_summary_project_comment">Comment:</string>
+    <string name="lbl_copy_project_part_three_summary_old_project">Old Project</string>
+    <string name="lbl_copy_project_part_three_summary_new_project">New Project</string>
+    <string name="lbl_copy_project_part_three_summary_number_of_tasks">%1$s task(s) will be copied</string>
+    <string name="lbl_copy_project_cancel_dialog">Do you want to cancel?</string>
+    <string name="msg_copy_project_cancel_dialog">Are you sure you want to cancel?</string>
 
     <!-- TASKS -->
     <!-- ADD/EDIT TASK -->

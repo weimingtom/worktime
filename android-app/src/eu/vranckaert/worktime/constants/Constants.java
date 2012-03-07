@@ -80,6 +80,7 @@ public class Constants {
         public static final int PUNCH_BAR_START_TIME_REGISTRATION = 9;
         public static final int PUNCH_BAR_END_TIME_REGISTRATION = 10;
         public static final int SELECT_PROJECT = 11;
+        public static final int COPY_PROJECT = 12;
     }
     public class IntentResultCodes {
         public static final int RESULT_OK_SPLIT = 100;
@@ -164,5 +165,6 @@ public class Constants {
         public static final int TASK_MOVE = 19;
         public static final int PROJECT_MARK_FINISHED = 20;
         public static final int PROJECT_MARK_UNFINISHED = 21;
+        public static final int PROJECT_COPY = 22;
     }
 }
