@@ -54,7 +54,6 @@
               android:id="@+id/projectname"
               android:maxLength="30"
               android:inputType="text|textCapSentences"/>
-
     <TextView android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               android:text="@string/lbl_add_project_comment"/>
@@ -62,4 +61,8 @@
               android:layout_height="wrap_content"
               android:id="@+id/projectcomment"
               android:inputType="text|textCapSentences"/>
+    <CheckBox android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/copy_project_all_tasks"
+              android:checked="true"/>
 </LinearLayout>

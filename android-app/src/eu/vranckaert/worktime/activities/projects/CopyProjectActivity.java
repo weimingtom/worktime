@@ -18,6 +18,8 @@ package eu.vranckaert.worktime.activities.projects;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import eu.vranckaert.worktime.R;
@@ -30,6 +32,7 @@ import eu.vranckaert.worktime.service.impl.ProjectServiceImpl;
 import eu.vranckaert.worktime.service.impl.TaskServiceImpl;
 import eu.vranckaert.worktime.utils.wizard.WizardActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,7 +48,12 @@ public class CopyProjectActivity extends WizardActivity {
 
     private Project originalProject;
     private Project newProject;
+    private List<Task> tasksForOriginalProject;
     private List<Task> tasksForNewProject;
+    private boolean copyProjectAllTasks = true;
+
+    private static final int PROJECT_INPUT_PAGE = 1;
+    private static final int SUMMARY_PAGE = 2;
     
     private int[] layouts = {
             R.layout.activity_copy_project_wizard_1,
@@ -73,7 +81,7 @@ public class CopyProjectActivity extends WizardActivity {
     private void loadExtras() {
         originalProject = (Project) getIntent().getExtras().get(Constants.Extras.PROJECT);
         newProject = (Project) originalProject.clone();
-        tasksForNewProject = taskService.findTasksForProject(originalProject);
+        tasksForOriginalProject = taskService.findTasksForProject(originalProject);
     }
 
     @Override
@@ -82,7 +90,7 @@ public class CopyProjectActivity extends WizardActivity {
     @Override
     public boolean beforePageChange(int currentViewIndex, int nextViewIndex, View view) {
         switch (currentViewIndex) {
-            case 1: {
+            case PROJECT_INPUT_PAGE: {
                 TextView projectnameRequired = (TextView) findViewById(R.id.projectname_required);
                 TextView projectnameUnique = (TextView) findViewById(R.id.projectname_unique);
                 hideValidationErrors(projectnameRequired, projectnameUnique);
@@ -105,6 +113,19 @@ public class CopyProjectActivity extends WizardActivity {
 
                 newProject.setName(name);
                 newProject.setComment(comment);
+
+                if (!copyProjectAllTasks) {
+                    // Remove tasks that are already finished
+                    tasksForNewProject = new ArrayList<Task>();
+                    for (Task task : tasksForOriginalProject) {
+                        if (!task.isFinished()) {
+                            tasksForNewProject.add(task);
+                        }
+                    }
+                } else {
+                    // Copy all tasks
+                    tasksForNewProject = tasksForOriginalProject;
+                }
                 
                 break;
             }
@@ -143,16 +164,35 @@ public class CopyProjectActivity extends WizardActivity {
     @Override
     protected void afterPageChange(int currentViewIndex, int previousViewIndex, View view) {
         switch (currentViewIndex) {
-            case 1: {
+            case PROJECT_INPUT_PAGE: {
                 EditText projectNameInput = (EditText) view.findViewById(R.id.projectname);
                 EditText projectCommentInput = (EditText) view.findViewById(R.id.projectcomment);
 
                 projectNameInput.setText(newProject.getName());
                 projectCommentInput.setText(newProject.getComment());
-                
+
+                final CheckBox copyProjectAllTasksCheckBox = (CheckBox) findViewById(R.id.copy_project_all_tasks);
+                copyProjectAllTasksCheckBox.setChecked(copyProjectAllTasks);
+                if (copyProjectAllTasks) {
+                    copyProjectAllTasksCheckBox.setText(R.string.lbl_copy_project_part_two_copy_all_tasks_chekced);
+                } else {
+                    copyProjectAllTasksCheckBox.setText(R.string.lbl_copy_project_part_two_copy_all_tasks_unchekced);
+                }
+                copyProjectAllTasksCheckBox.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+                        copyProjectAllTasks = checked;
+                        if (copyProjectAllTasks) {
+                            copyProjectAllTasksCheckBox.setText(R.string.lbl_copy_project_part_two_copy_all_tasks_chekced);
+                        } else {
+                            copyProjectAllTasksCheckBox.setText(R.string.lbl_copy_project_part_two_copy_all_tasks_unchekced);
+                        }
+                    }
+                });
+
                 break;
             }
-            case 2: {
+            case SUMMARY_PAGE: {
                 TextView oldProjectName = (TextView) findViewById(R.id.copy_project_old_project_name);
                 TextView oldProjectComment = (TextView) findViewById(R.id.copy_project_old_project_comment);
                 TextView newProjectName = (TextView) findViewById(R.id.copy_project_new_project_name);

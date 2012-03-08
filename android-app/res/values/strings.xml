@@ -98,6 +98,8 @@
     <string name="lbl_copy_project_title">Copy Project</string>
     <string name="lbl_copy_project_part_one_content">In order to copy a project you will have to provide a new, unique, name on the next screen. Pay attention because the project will be copied (with the new name) and together all of it\'s tasks. But time registrations for the project and tasks will not be copied!\n\nPress \'Next\' to continue with the copy.</string>
     <string name="lbl_copy_project_part_two_title">Set a project name</string>
+    <string name="lbl_copy_project_part_two_copy_all_tasks_chekced">Copy all tasks</string>
+    <string name="lbl_copy_project_part_two_copy_all_tasks_unchekced">Only copy unfinished tasks</string>
     <string name="lbl_copy_project_part_three_title">Summary</string>
     <string name="lbl_copy_project_part_three_summary_project_name">Name:</string>
     <string name="lbl_copy_project_part_three_summary_project_comment">Comment:</string>
