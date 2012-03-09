@@ -82,13 +82,10 @@
     <!-- version-tag: 1 -->
     <import file="${sdk.dir}/tools/ant/build.xml" />
 
-    <!-- Override the target "test" -->
-    <target name="test" depends="-test-project-check"
+    <target name="run-tests" depends="all, clean, emma, debug, install, -test-project-check"
             description="Runs tests from the package defined in test.package property">
-
         <property name="tested.project.absolute.dir" location="${tested.project.dir}" />
-
-        <property name="test.runner" value="android.test.InstrumentationTestRunner" />
+        <property name="test.runner" value="com.zutubi.android.junitreport.JUnitReportTestRunner" />
 
         <!-- Application package of the tested project extracted from its manifest file -->
         <xpath input="${tested.project.absolute.dir}/AndroidManifest.xml"
@@ -99,6 +96,25 @@
         <property name="emma.dump.file"
                   value="/data/data/${tested.manifest.package}/coverage.ec" />
 
+        <property name="reports.dir" value="./junit-reports"/>
+        <property name="report.files.dir" value="/data/data/${manifest.package}/files"/>
+        <property name="report.files.backup.dir" value="/data/data/${tested.manifest.package}/files"/>
+
+        <echo>Cleaning up previous test reports...</echo>
+        <delete dir="${reports.dir}"/>
+        <exec executable="${adb}" failonerror="true">
+            <arg line="${adb.device.arg}" />
+            <arg value="shell" />
+            <arg value="rm" />
+            <arg value="${report.files.dir}/*" />
+        </exec>
+        <exec executable="${adb}" failonerror="true">
+            <arg line="${adb.device.arg}" />
+            <arg value="shell" />
+            <arg value="rm" />
+            <arg value="${report.files.backup.dir}/*" />
+        </exec>
+
         <if condition="${emma.enabled}">
             <then>
                 <echo>WARNING: Code Coverage is currently only supported on the emulator and rooted devices.</echo>
@@ -107,8 +123,44 @@
                         <arg value="-e" />
                         <arg value="coverageFile" />
                         <arg value="${emma.dump.file}" />
+                        <arg value="-e" />
+                        <arg value="multiFile" />
+                        <arg value="true" />
+                        <arg value="${manifest.package}/${test.runner}" />
                     </extra-instrument-args>
                 </run-tests-helper>
+            </then>
+            <else>
+                <run-tests-helper>
+                    <extra-instrument-args>
+                        <arg value="-e" />
+                        <arg value="multiFile" />
+                        <arg value="true" />
+                        <arg value="${manifest.package}/${test.runner}" />
+                    </extra-instrument-args>
+                </run-tests-helper>
+            </else>
+        </if>
+
+        <echo>Downloading XML test reports...</echo>
+        <mkdir dir="${reports.dir}"/>
+        <echo>Trying to download from test package...</echo>
+        <exec executable="${adb}" failonerror="false">
+            <arg line="${adb.device.arg}"/>
+            <arg value="pull" />
+            <arg value="${report.files.dir}" />
+            <arg value="${reports.dir}" />
+        </exec>
+        <echo>Trying to download from application package...</echo>
+        <exec executable="${adb}" failonerror="false">
+            <arg line="${adb.device.arg}"/>
+            <arg value="pull" />
+            <arg value="${report.files.backup.dir}" />
+            <arg value="${reports.dir}" />
+        </exec>
+
+        <if condition="${emma.enabled}">
+            <then>
                 <echo>Downloading coverage file into project directory...</echo>
                 <exec executable="${adb}" failonerror="true">
                     <arg line="${adb.device.arg}" />
@@ -120,12 +172,10 @@
                 <emma>
                     <report sourcepath="${tested.project.absolute.dir}/${source.dir}"
                             verbosity="${verbosity}">
-                        <!-- TODO: report.dir or something like should be introduced if necessary -->
                         <infileset dir=".">
                             <include name="coverage.ec" />
                             <include name="coverage.em" />
                         </infileset>
-                        <!-- TODO: reports in other, indicated by user formats -->
                         <html outfile="coverage.html" />
                         <xml outfile="coverage/coverage.xml" />
                     </report>
@@ -135,9 +185,6 @@
                 <delete file="coverage.em" />
                 <echo>Saving the report file in ${basedir}/coverage/coverage.xml</echo>
             </then>
-            <else>
-                <run-tests-helper />
-            </else>
         </if>
     </target>
 
