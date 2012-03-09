@@ -15,7 +15,7 @@
     the package of eu.vranckaert.worktime.  To run the tests use the command:
     "adb shell am instrument -w eu.vranckaert.worktime.tests/android.test.InstrumentationTestRunner"
     -->
-    <instrumentation android:name="pl.polidea.instrumentation.PolideaInstrumentationTestRunner"
+    <instrumentation android:name="com.zutubi.android.junitreport.JUnitReportTestRunner"
                      android:targetPackage="eu.vranckaert.worktime"
                      android:label="Tests for the WorkTime Android app"/>
 </manifest>

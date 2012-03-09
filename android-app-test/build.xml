@@ -85,6 +85,7 @@ in between standard targets -->
     <target name="run-tests" depends="all, clean, emma, debug, install, -test-project-check"
             description="Runs tests from the package defined in test.package property">
         <property name="tested.project.absolute.dir" location="${tested.project.dir}" />
+        <property name="test.runner" value="com.zutubi.android.junitreport.JUnitReportTestRunner" />
 
         <!-- Application package of the tested project extracted from its manifest file -->
         <xpath input="${tested.project.absolute.dir}/AndroidManifest.xml"
@@ -137,8 +138,8 @@ in between standard targets -->
             <arg value="coverageFile"/>
             <arg value="${emma.dump.file}" />
             <arg value="-e" />
-            <arg value="junitSplitLevel" />
-            <arg value="class" />
+            <arg value="multiFile" />
+            <arg value="true" />
             <arg value="${manifest.package}/${test.runner}" />
         </exec>
 
