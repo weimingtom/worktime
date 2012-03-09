@@ -17,7 +17,7 @@
              The name of the output directory. Default is 'bin'.
 
          For other overridable properties, look at the beginning of the rules
-         files in the SDK, at tools/ant/build.xml
+         files in the SDK, at utils/ant/build.xml
 
          Properties related to the SDK location or the project target should
          be updated using the 'android' tool with the 'update' action.
@@ -43,23 +43,23 @@
     <fail
             message="sdk.dir is missing. Make sure to generate local.properties using 'android update project' or to inject it through an env var"
             unless="sdk.dir"
-    />
+            />
 
 
-<!-- extension targets. Uncomment the ones where you want to do custom work
-     in between standard targets -->
-<!--
-    <target name="-pre-build">
-    </target>
-    <target name="-pre-compile">
-    </target>
+    <!-- extension targets. Uncomment the ones where you want to do custom work
+in between standard targets -->
+    <!--
+        <target name="-pre-build">
+        </target>
+        <target name="-pre-compile">
+        </target>
 
-    /* This is typically used for code obfuscation.
-       Compiled code location: ${out.classes.absolute.dir}
-       If this is not done in place, override ${out.dex.input.absolute.dir} */
-    <target name="-post-compile">
-    </target>
--->
+        /* This is typically used for code obfuscation.
+           Compiled code location: ${out.classes.absolute.dir}
+           If this is not done in place, override ${out.dex.input.absolute.dir} */
+        <target name="-post-compile">
+        </target>
+    -->
 
     <!-- Import the actual build file.
 
@@ -77,7 +77,7 @@
          ****** IMPORTANT ******
          ***********************
          In all cases you must update the value of version-tag below to read 'custom' instead of an integer,
-         in order to avoid having your file be overridden by tools such as "android update project"
+         in order to avoid having your file be overridden by utils such as "android update project"
     -->
     <!-- version-tag: 1 -->
     <import file="${sdk.dir}/tools/ant/build.xml" />
@@ -102,45 +102,46 @@
 
         <echo>Cleaning up previous test reports...</echo>
         <delete dir="${reports.dir}"/>
-        <exec executable="${adb}" failonerror="true">
+        <exec executable="${adb}" failonerror="false">
             <arg line="${adb.device.arg}" />
             <arg value="shell" />
             <arg value="rm" />
             <arg value="${report.files.dir}/*" />
         </exec>
-        <exec executable="${adb}" failonerror="true">
+        <exec executable="${adb}" failonerror="false">
             <arg line="${adb.device.arg}" />
             <arg value="shell" />
             <arg value="rm" />
             <arg value="${report.files.backup.dir}/*" />
         </exec>
+        <echo>Cleaning up previous coverage files...</echo>
+        <exec executable="${adb}" failonerror="false">
+            <arg line="${adb.device.arg}" />
+            <arg value="shell" />
+            <arg value="rm" />
+            <arg value="${emma.dump.file}" />
+        </exec>
 
-        <if condition="${emma.enabled}">
-            <then>
-                <echo>WARNING: Code Coverage is currently only supported on the emulator and rooted devices.</echo>
-                <run-tests-helper emma.enabled="true">
-                    <extra-instrument-args>
-                        <arg value="-e" />
-                        <arg value="coverageFile" />
-                        <arg value="${emma.dump.file}" />
-                        <arg value="-e" />
-                        <arg value="multiFile" />
-                        <arg value="true" />
-                        <arg value="${manifest.package}/${test.runner}" />
-                    </extra-instrument-args>
-                </run-tests-helper>
-            </then>
-            <else>
-                <run-tests-helper>
-                    <extra-instrument-args>
-                        <arg value="-e" />
-                        <arg value="multiFile" />
-                        <arg value="true" />
-                        <arg value="${manifest.package}/${test.runner}" />
-                    </extra-instrument-args>
-                </run-tests-helper>
-            </else>
-        </if>
+        <echo>Running tests...</echo>
+        <exec executable="${adb}" failonerror="true">
+            <arg line="${adb.device.arg}"/>
+            <!-- Only enable logcat output in console if something goes really wrong! -->
+            <!--<arg value="logcat" />-->
+            <arg value="shell" />
+            <arg value="am" />
+            <arg value="instrument" />
+            <arg value="-w" />
+            <arg value="-e" />
+            <arg value="coverage" />
+            <arg value="${emma.enabled}" />
+            <arg value="-e" />
+            <arg value="coverageFile"/>
+            <arg value="${emma.dump.file}" />
+            <arg value="-e" />
+            <arg value="multiFile" />
+            <arg value="true" />
+            <arg value="${manifest.package}/${test.runner}" />
+        </exec>
 
         <echo>Downloading XML test reports...</echo>
         <mkdir dir="${reports.dir}"/>
@@ -161,6 +162,7 @@
 
         <if condition="${emma.enabled}">
             <then>
+                <echo>WARNING: Code Coverage is currently only supported on the emulator and rooted devices.</echo>
                 <echo>Downloading coverage file into project directory...</echo>
                 <exec executable="${adb}" failonerror="true">
                     <arg line="${adb.device.arg}" />
@@ -185,6 +187,9 @@
                 <delete file="coverage.em" />
                 <echo>Saving the report file in ${basedir}/coverage/coverage.xml</echo>
             </then>
+            <else>
+                <run-tests-helper />
+            </else>
         </if>
     </target>
 
