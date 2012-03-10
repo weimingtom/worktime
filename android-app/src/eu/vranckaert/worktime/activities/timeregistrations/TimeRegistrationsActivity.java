@@ -251,7 +251,8 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
         int size = timeRegistrations.size();
 
         //Check if latest time registration is a dummy time registration, if so the size of loaded registrations is size - 1
-        if (timeRegistrations.size() > 0 && timeRegistrations.get(timeRegistrations.size()-1).getId().equals(loadExtraTimeRegistration.getId())) {
+        if (timeRegistrations.size() > 0 && timeRegistrations.get(timeRegistrations.size()-1).getId() != null
+                && timeRegistrations.get(timeRegistrations.size()-1).getId().equals(loadExtraTimeRegistration.getId())) {
             size--;
         }
 
@@ -285,6 +286,8 @@ public class TimeRegistrationsActivity extends GuiceListActivity {
                     NotificationBarManager.NotificationIds.ONGOING_TIME_REGISTRATION_MESSAGE
             );
         }
+
+        PunchBarUtil.configurePunchBar(TimeRegistrationsActivity.this, timeRegistrationService, taskService, projectService);
     }
 
     @Override
