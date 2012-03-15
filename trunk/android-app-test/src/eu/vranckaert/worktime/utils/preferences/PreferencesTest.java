@@ -15,7 +15,9 @@
  */
 package eu.vranckaert.worktime.utils.preferences;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.test.AndroidTestCase;
 import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.enums.export.CsvSeparator;
@@ -33,6 +35,11 @@ public class PreferencesTest extends AndroidTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         ctx = getContext();
+    }
+
+    public void testClass() {
+        Preferences preferences = new Preferences();
+        assertNotNull(preferences);
     }
     
     public void testSelectedProjectId() {
@@ -163,6 +170,10 @@ public class PreferencesTest extends AndroidTestCase {
         assertEquals("No preference should be found!", Constants.Preferences.DISPLAY_TASKS_HIDE_FINISHED_DEFAULT_VALUE, preferenceDeleted);
     }
 
+    private static final SharedPreferences getSharedPreferences(Context ctx) {
+        return ctx.getSharedPreferences(Constants.Preferences.PREFERENCES_NAME, Activity.MODE_PRIVATE);
+    }
+
     public void testWeekStartsOn() {
         Preferences.removePreference(ctx, Constants.Preferences.Keys.WEEK_STARTS_ON);
 
@@ -173,6 +184,13 @@ public class PreferencesTest extends AndroidTestCase {
         Preferences.setWeekStartsOn(ctx, preference);
         int preferenceFound = Preferences.getWeekStartsOn(ctx);
         assertEquals("A preference should be found (" + preference + ")", preference, preferenceFound);
+        
+        String invalidPreference = "azerty";
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putString(Constants.Preferences.Keys.WEEK_STARTS_ON, invalidPreference);
+        editor.commit();
+        Integer result = Preferences.getWeekStartsOn(ctx);
+        assertEquals("No preference should be found (" + invalidPreference + ")", null, result);
 
         Preferences.removePreference(ctx, Constants.Preferences.Keys.WEEK_STARTS_ON);
         int preferenceDeleted = Preferences.getWeekStartsOn(ctx);
@@ -189,6 +207,11 @@ public class PreferencesTest extends AndroidTestCase {
         Preferences.setReportingExportFileName(ctx, preference);
         String preferenceFound = Preferences.getReportingExportFileName(ctx);
         assertEquals("A preference should be found (" + preference + ")", preference, preferenceFound);
+        
+        preference = null;
+        Preferences.setReportingExportFileName(ctx, preference);
+        preferenceFound = Preferences.getReportingExportFileName(ctx);
+        assertEquals("A preference should be found", Constants.Preferences.REPORTING_EXPORT_FILE_NAME_DEFAULT_VALUE, preferenceFound);
 
         Preferences.removePreference(ctx, Constants.Preferences.Keys.REPORTING_EXPORT_FILE_NAME);
         String preferenceDeleted = Preferences.getReportingExportFileName(ctx);
@@ -204,6 +227,10 @@ public class PreferencesTest extends AndroidTestCase {
         CsvSeparator preference = CsvSeparator.COMMA;
         Preferences.setReportingExportCsvSeparator(ctx, preference);
         CsvSeparator preferenceFound = Preferences.getReportingExportCsvSeparator(ctx);
+        assertEquals("A preference should be found (" + preference + ")", preference, preferenceFound);
+
+        Preferences.setReportingExportCsvSeparator(ctx, null);
+        preferenceFound = Preferences.getReportingExportCsvSeparator(ctx);
         assertEquals("A preference should be found (" + preference + ")", preference, preferenceFound);
 
         Preferences.removePreference(ctx, Constants.Preferences.Keys.REPORTING_EXPORT_CSV_SEPARATOR);
@@ -241,5 +268,69 @@ public class PreferencesTest extends AndroidTestCase {
         Preferences.removePreference(ctx, Constants.Preferences.Keys.TIME_PRECISION);
         TimePrecisionPreference preferenceDeleted = Preferences.getTimePrecision(ctx);
         assertEquals("No preference should be found!", TimePrecisionPreference.getPreferenceForValue(TimePrecisionPreference.getDefaultValue()), preferenceDeleted);
+    }
+
+    public void testSelectProjectHideFinished() {
+        Preferences.removePreference(ctx, Constants.Preferences.Keys.SELECT_PROJECT_HIDE_FINISHED);
+
+        boolean preferenceNotFound = Preferences.getSelectProjectHideFinished(ctx);
+        assertEquals("No preference should be found!", Constants.Preferences.SELECT_PROJECT_HIDE_FINISHED_DEFAULT_VALUE, preferenceNotFound);
+
+        boolean preference = !Constants.Preferences.SELECT_PROJECT_HIDE_FINISHED_DEFAULT_VALUE;
+        Preferences.setSelectProjectHideFinished(ctx, preference);
+        boolean preferenceFound = Preferences.getSelectProjectHideFinished(ctx);
+        assertEquals("A preference should be found (" + preference + ")", preference, preferenceFound);
+
+        Preferences.removePreference(ctx, Constants.Preferences.Keys.SELECT_PROJECT_HIDE_FINISHED);
+        boolean preferenceDeleted = Preferences.getSelectProjectHideFinished(ctx);
+        assertEquals("No preference should be found!", Constants.Preferences.SELECT_TASK_HIDE_FINISHED_DEFAULT_VALUE, preferenceDeleted);
+    }
+
+    public void testDisplayProjectsHideFinished() {
+        Preferences.removePreference(ctx, Constants.Preferences.Keys.DISPLAY_PROJECTS_HIDE_FINISHED);
+
+        boolean preferenceNotFound = Preferences.getDisplayProjectsHideFinished(ctx);
+        assertEquals("No preference should be found!", Constants.Preferences.DISPLAY_PROJECTS_HIDE_FINISHED_DEFAULT_VALUE, preferenceNotFound);
+
+        boolean preference = !Constants.Preferences.DISPLAY_PROJECTS_HIDE_FINISHED_DEFAULT_VALUE;
+        Preferences.setDisplayProjectsHideFinished(ctx, preference);
+        boolean preferenceFound = Preferences.getDisplayProjectsHideFinished(ctx);
+        assertEquals("A preference should be found (" + preference + ")", preference, preferenceFound);
+
+        Preferences.removePreference(ctx, Constants.Preferences.Keys.DISPLAY_PROJECTS_HIDE_FINISHED);
+        boolean preferenceDeleted = Preferences.getDisplayProjectsHideFinished(ctx);
+        assertEquals("No preference should be found!", Constants.Preferences.DISPLAY_PROJECTS_HIDE_FINISHED_DEFAULT_VALUE, preferenceDeleted);
+    }
+
+    public void testTimeRegistrationPunchBarEnabledFromHomeScreen() {
+        Preferences.removePreference(ctx, Constants.Preferences.Keys.TIME_REGISTRATION_PUNCH_BAR_ENABLED_FROM_HOME_SCREEN);
+
+        boolean preferenceNotFound = Preferences.getTimeRegistrationPunchBarEnabledFromHomeScreen(ctx);
+        assertEquals("No preference should be found!", Constants.Preferences.TIME_REGISTRATION_PUNCH_BAR_ENABLED_FROM_HOME_SCREEN_DEFAULT_VALUE, preferenceNotFound);
+
+        boolean preference = !Constants.Preferences.TIME_REGISTRATION_PUNCH_BAR_ENABLED_FROM_HOME_SCREEN_DEFAULT_VALUE;
+        Preferences.setTimeRegistrationPunchBarEnabledFromHomeScreen(ctx, preference);
+        boolean preferenceFound = Preferences.getTimeRegistrationPunchBarEnabledFromHomeScreen(ctx);
+        assertEquals("A preference should be found (" + preference + ")", preference, preferenceFound);
+
+        Preferences.removePreference(ctx, Constants.Preferences.Keys.TIME_REGISTRATION_PUNCH_BAR_ENABLED_FROM_HOME_SCREEN);
+        boolean preferenceDeleted = Preferences.getTimeRegistrationPunchBarEnabledFromHomeScreen(ctx);
+        assertEquals("No preference should be found!", Constants.Preferences.TIME_REGISTRATION_PUNCH_BAR_ENABLED_FROM_HOME_SCREEN_DEFAULT_VALUE, preferenceDeleted);
+    }
+
+    public void testTimeRegistrationPunchBarEnabledOnAllScreens() {
+        Preferences.removePreference(ctx, Constants.Preferences.Keys.TIME_REGISTRATION_PUNCH_BAR_ENABLED_ON_ALL_SCREENS);
+
+        boolean preferenceNotFound = Preferences.getTimeRegistrationPunchBarEnabledOnAllScreens(ctx);
+        assertEquals("No preference should be found!", Constants.Preferences.TIME_REGISTRATION_PUNCH_BAR_ENABLED_ON_ALL_SCREENS_DEFAULT_VALUE, preferenceNotFound);
+
+        boolean preference = !Constants.Preferences.TIME_REGISTRATION_PUNCH_BAR_ENABLED_ON_ALL_SCREENS_DEFAULT_VALUE;
+        Preferences.setTimeRegistrationPunchBarEnabledOnAllScreens(ctx, preference);
+        boolean preferenceFound = Preferences.getTimeRegistrationPunchBarEnabledOnAllScreens(ctx);
+        assertEquals("A preference should be found (" + preference + ")", preference, preferenceFound);
+
+        Preferences.removePreference(ctx, Constants.Preferences.Keys.TIME_REGISTRATION_PUNCH_BAR_ENABLED_ON_ALL_SCREENS);
+        boolean preferenceDeleted = Preferences.getTimeRegistrationPunchBarEnabledOnAllScreens(ctx);
+        assertEquals("No preference should be found!", Constants.Preferences.TIME_REGISTRATION_PUNCH_BAR_ENABLED_ON_ALL_SCREENS_DEFAULT_VALUE, preferenceDeleted);
     }
 }
