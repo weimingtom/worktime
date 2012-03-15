@@ -80,7 +80,7 @@ public class WalkThroughAppTest extends MyActivityTestCase<HomeActivity> {
         solo.clickOnText(getActivity().getString(R.string.default_task_name), 0, true);
 
         solo.waitForDialogToClose(TestConstants.Time.TWENTY_SECONDS);
-
+        solo.waitForActivity(TimeRegistrationsActivity.class.getSimpleName());
         trCount = ((ListActivity)solo.getCurrentActivity()).getListView().getAdapter().getCount();
         assertEquals("Expected just one time registration to be available!", 1, trCount);
 
