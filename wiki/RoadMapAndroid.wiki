@@ -15,7 +15,8 @@ For more information on our release strategy you can read the [ReleaseStrategy R
    * Backup files and exports are not accessible from my computer (ICS) (issue 84)
    * Crash when running report for "last week" (issue 91)
    * List of time registration (or detail for ongoing TR) is not updated on punch in/out (issue 93)
-   * 	"Restart time registration" available on TR details for ongoing time registration (issue 95)
+   * "Restart time registration" available on TR details for ongoing time registration (issue 95)
+   * Export file with hebrew writings end up as gibrish (issue 100)
   * Enhancements:
    * Punch in/out from app instead of widget-only (issue 59)
    * Show/Hide switch for "finished tasks" in the project details (issue 66)
