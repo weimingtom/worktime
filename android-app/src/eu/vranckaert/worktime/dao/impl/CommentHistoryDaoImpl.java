@@ -49,7 +49,6 @@ public class CommentHistoryDaoImpl extends GenericDaoImpl<CommentHistory, Intege
         String optimizedComment = StringUtils.optimizeString(comment);
 
         this.save(new CommentHistory(comment));
-        Log.d(LOG_TAG, "Executing check after save...");
     }
 
     /**

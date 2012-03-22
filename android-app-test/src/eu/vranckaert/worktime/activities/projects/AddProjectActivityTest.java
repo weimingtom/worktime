@@ -19,7 +19,7 @@ import android.view.View;
 import android.widget.EditText;
 import eu.vranckaert.worktime.R;
 import eu.vranckaert.worktime.activities.test.MyActivityTestCase;
-import eu.vranckaert.worktime.testutils.TestConstants;
+import eu.vranckaert.worktime.testutils.TestUtil;
 
 /**
  * User: DIRK VRANCKAERT
@@ -79,7 +79,7 @@ public class AddProjectActivityTest extends MyActivityTestCase<AddEditProjectAct
         EditText addProjectName = (EditText) solo.getView(R.id.projectname);
         solo.enterText(addProjectName, "A custom project name");
         solo.clickOnImageButton(1);
-        solo.waitForDialogToClose(TestConstants.Time.FIVE_SECONDS);
+        solo.waitForDialogToClose(TestUtil.Time.FIVE_SECONDS);
         assertEquals("As the activity should be ended no views are expected to be found!", 0, solo.getCurrentViews().size());
     }
 }
