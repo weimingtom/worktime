@@ -18,10 +18,10 @@ package eu.vranckaert.worktime.activities.timeregistrations;
 import android.app.ListActivity;
 import eu.vranckaert.worktime.R;
 import eu.vranckaert.worktime.activities.HomeActivity;
-import eu.vranckaert.worktime.testutils.ActivityTestCase;
+import eu.vranckaert.worktime.testutils.cases.ActivityTestCase;
 import eu.vranckaert.worktime.activities.widget.StopTimeRegistrationActivity;
 import eu.vranckaert.worktime.constants.Constants;
-import eu.vranckaert.worktime.testutils.TestUtil;
+import eu.vranckaert.worktime.testutils.utils.TestUtil;
 
 /**
  * User: DIRK VRANCKAERT

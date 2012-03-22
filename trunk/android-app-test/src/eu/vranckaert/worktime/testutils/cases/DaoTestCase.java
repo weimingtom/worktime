@@ -13,36 +13,45 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package eu.vranckaert.worktime.testutils;
+package eu.vranckaert.worktime.testutils.cases;
 
 import android.content.Context;
 import android.test.AndroidTestCase;
+import eu.vranckaert.worktime.dao.generic.GenericDaoImpl;
+import eu.vranckaert.worktime.testutils.utils.TestUtil;
+
+import java.lang.reflect.Constructor;
 
 /**
  * User: DIRK VRANCKAERT
- * Date: 20/01/12
- * Time: 14:27
+ * Date: 22/03/12
+ * Time: 14:58
  */
-public abstract class TestCase extends AndroidTestCase {
+public class DaoTestCase<T extends GenericDaoImpl> extends AndroidTestCase {
     /**
      * The context that is used to execute the test.
      */
     public Context ctx;
+    
+    private T dao;
+    private Class daoClass;
+    
+    public DaoTestCase(Class<T> daoClass) {
+        this.daoClass = daoClass;
+    }
 
     @Override
     public void setUp() throws Exception {
         super.setUp();
         ctx = getContext();
-
-        TestUtil.removeAllPreferences(getContext());
+        
+        Constructor<T> constructor = daoClass.getConstructor(Context.class);
+        dao = constructor.newInstance(ctx);
+        
+        TestUtil.cleanUpDatabase(getContext());
     }
-
-    /**
-     * Set a preference, defined by the key parameter, to a certain value.
-     * @param key The key referring to the preference.
-     * @param value The value of the preference to set.
-     */
-    public void setPreference(String key, Object value) {
-        TestUtil.setPreference(getContext(), key , value);
+    
+    public T getDao() {
+        return dao;
     }
 }
