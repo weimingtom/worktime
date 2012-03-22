@@ -22,7 +22,10 @@ package eu.vranckaert.worktime.testutils;
  */
 public class TestConstants {
     public static class Time {
-        public static final Long TWENTY_SECONDS = 20000L;
         public static final Long FIVE_SECONDS = 5000L;
+        public static final Long TEN_SECONDS = 10000L;
+        public static final Long TWENTY_SECONDS = 20000L;
+        public static final Long THIRTY_SECONDS = 30000L;
+        public static final Long SIXTY_SECONDS = 60000L;
     }
 }
