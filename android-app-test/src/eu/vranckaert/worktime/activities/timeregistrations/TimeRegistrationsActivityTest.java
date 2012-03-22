@@ -18,7 +18,7 @@ package eu.vranckaert.worktime.activities.timeregistrations;
 import android.app.ListActivity;
 import eu.vranckaert.worktime.R;
 import eu.vranckaert.worktime.activities.HomeActivity;
-import eu.vranckaert.worktime.activities.test.MyActivityTestCase;
+import eu.vranckaert.worktime.activities.test.ActivityTestCase;
 import eu.vranckaert.worktime.activities.widget.StopTimeRegistrationActivity;
 import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.testutils.TestUtil;
@@ -28,7 +28,7 @@ import eu.vranckaert.worktime.testutils.TestUtil;
  * Date: 20/03/12
  * Time: 9:41
  */
-public class TimeRegistrationsActivityTest extends MyActivityTestCase<TimeRegistrationsActivity> {
+public class TimeRegistrationsActivityTest extends ActivityTestCase<TimeRegistrationsActivity> {
     public TimeRegistrationsActivityTest() {
         super(TimeRegistrationsActivity.class);
     }

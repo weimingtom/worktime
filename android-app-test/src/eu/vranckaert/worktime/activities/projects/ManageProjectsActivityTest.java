@@ -18,7 +18,7 @@ package eu.vranckaert.worktime.activities.projects;
 import android.app.ListActivity;
 import android.widget.EditText;
 import eu.vranckaert.worktime.R;
-import eu.vranckaert.worktime.activities.test.MyActivityTestCase;
+import eu.vranckaert.worktime.activities.test.ActivityTestCase;
 import eu.vranckaert.worktime.testutils.TestUtil;
 
 /**
@@ -26,7 +26,7 @@ import eu.vranckaert.worktime.testutils.TestUtil;
  * Date: 20/01/12
  * Time: 9:54
  */
-public class ManageProjectsActivityTest extends MyActivityTestCase<ManageProjectsActivity> {
+public class ManageProjectsActivityTest extends ActivityTestCase<ManageProjectsActivity> {
     private String newProjectName = "WorkTime for Android";
     private String editedProjectName = "EDIT_PROJECT_!";
     

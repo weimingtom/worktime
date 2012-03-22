@@ -19,7 +19,7 @@ import eu.vranckaert.worktime.R;
 import eu.vranckaert.worktime.constants.Constants;
 import eu.vranckaert.worktime.enums.reporting.ReportingDisplayDuration;
 import eu.vranckaert.worktime.model.TimeRegistration;
-import eu.vranckaert.worktime.testutils.SimpleAndroidTestCase;
+import eu.vranckaert.worktime.testutils.TestCase;
 import eu.vranckaert.worktime.utils.preferences.Preferences;
 import eu.vranckaert.worktime.utils.preferences.TimePrecisionPreference;
 import org.joda.time.Period;
@@ -32,7 +32,7 @@ import java.util.*;
  * Date: 20/01/12
  * Time: 10:09
  */
-public class DateUtilsTimeCalculatorTest extends SimpleAndroidTestCase {
+public class DateUtilsTimeCalculatorTest extends TestCase {
     public void testCalculateWeekBoundariesMiddleOfYearStartingSunday() {
         Preferences.setWeekStartsOn(ctx, 7);
 

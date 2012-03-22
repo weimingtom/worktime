@@ -16,18 +16,16 @@
 package eu.vranckaert.worktime.utils.context;
 
 import eu.vranckaert.worktime.constants.OSContants;
-import eu.vranckaert.worktime.testutils.SimpleAndroidTestCase;
+import eu.vranckaert.worktime.testutils.TestCase;
 
-import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 /**
  * User: DIRK VRANCKAERT
  * Date: 24/01/12
  * Time: 15:17
  */
-public class ContextUtilsTest extends SimpleAndroidTestCase {
+public class ContextUtilsTest extends TestCase {
     public void testGetCurrentLocale() {
         Locale locale = ContextUtils.getCurrentLocale(ctx);
         assertNotNull(locale);

@@ -28,7 +28,7 @@ import java.lang.reflect.Constructor;
  * Date: 22/03/12
  * Time: 14:58
  */
-public class DBAndroidTestCase<T extends GenericDaoImpl> extends AndroidTestCase {
+public class DaoTestCase<T extends GenericDaoImpl> extends AndroidTestCase {
     /**
      * The context that is used to execute the test.
      */
@@ -37,7 +37,7 @@ public class DBAndroidTestCase<T extends GenericDaoImpl> extends AndroidTestCase
     private T dao;
     private Class daoClass;
     
-    public DBAndroidTestCase(Class<T> daoClass) {
+    public DaoTestCase(Class<T> daoClass) {
         this.daoClass = daoClass;
     }
 

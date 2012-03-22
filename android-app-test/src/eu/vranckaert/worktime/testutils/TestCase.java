@@ -23,7 +23,7 @@ import android.test.AndroidTestCase;
  * Date: 20/01/12
  * Time: 14:27
  */
-public abstract class SimpleAndroidTestCase extends AndroidTestCase {
+public abstract class TestCase extends AndroidTestCase {
     /**
      * The context that is used to execute the test.
      */
