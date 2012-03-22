@@ -19,7 +19,7 @@ import eu.vranckaert.worktime.activities.about.AboutActivity;
 import eu.vranckaert.worktime.activities.preferences.PreferencesActivity;
 import eu.vranckaert.worktime.activities.projects.ManageProjectsActivity;
 import eu.vranckaert.worktime.activities.reporting.ReportingCriteriaActivity;
-import eu.vranckaert.worktime.testutils.ActivityTestCase;
+import eu.vranckaert.worktime.testutils.cases.ActivityTestCase;
 import eu.vranckaert.worktime.activities.timeregistrations.TimeRegistrationsActivity;
 
 /**
