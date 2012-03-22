@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package eu.vranckaert.worktime.testutils.utils;
+package eu.vranckaert.worktime.test.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;

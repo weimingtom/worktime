@@ -16,7 +16,7 @@
 package eu.vranckaert.worktime.utils.context;
 
 import eu.vranckaert.worktime.constants.OSContants;
-import eu.vranckaert.worktime.testutils.cases.TestCase;
+import eu.vranckaert.worktime.test.cases.TestCase;
 
 import java.util.Locale;
 

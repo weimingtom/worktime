@@ -13,11 +13,11 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package eu.vranckaert.worktime.testutils.cases;
+package eu.vranckaert.worktime.test.cases;
 
 import android.content.Context;
 import android.test.AndroidTestCase;
-import eu.vranckaert.worktime.testutils.utils.TestUtil;
+import eu.vranckaert.worktime.test.utils.TestUtil;
 
 /**
  * User: DIRK VRANCKAERT

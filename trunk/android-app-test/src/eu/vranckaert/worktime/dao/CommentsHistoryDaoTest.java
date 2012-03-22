@@ -17,7 +17,7 @@ package eu.vranckaert.worktime.dao;
 
 import eu.vranckaert.worktime.dao.impl.CommentHistoryDaoImpl;
 import eu.vranckaert.worktime.model.CommentHistory;
-import eu.vranckaert.worktime.testutils.cases.DaoTestCase;
+import eu.vranckaert.worktime.test.cases.DaoTestCase;
 
 import java.util.List;
 
