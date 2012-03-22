@@ -86,8 +86,14 @@ public class EditTimeRegistrationProjectAndTask extends GuiceActivity {
      * Find all projects and sort by name.
      */
     private List<Project> loadAllProjects() {
-        Log.d(LOG_TAG, "About to load all projects...");
-        final List<Project> availableProjects = projectService.findAll();
+        List<Project> availableProjects = new ArrayList<Project>();
+        if (Preferences.getSelectProjectHideFinished(EditTimeRegistrationProjectAndTask.this)) {
+            Log.d(LOG_TAG, "About to load unfinished projects...");
+            availableProjects = projectService.findUnfinishedProjects();
+        } else {
+            Log.d(LOG_TAG, "About to load all projects...");
+            availableProjects = projectService.findAll();
+        }
         Log.d(LOG_TAG, availableProjects.size() + " projects found!");
         Collections.sort(availableProjects, new ProjectByNameComparator());
         Log.d(LOG_TAG, "All projects have been sorted, " + availableProjects.size() + " will be returned");
