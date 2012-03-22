@@ -54,7 +54,7 @@ public class TimeRegistrationsActivityTest extends ActivityTestCase<TimeRegistra
 
         // Start a new time registration
         solo.clickOnView(getActivity().findViewById(R.id.punchBarActionId));
-        solo.waitForDialogToClose(TestUtil.Time.THIRTY_SECONDS);
+        solo.waitForDialogToClose(TestUtil.Time.SIXTY_SECONDS);
         solo.clickOnText(getActivity().getString(R.string.default_project_name), 0, true);
         solo.clickOnText(getActivity().getString(R.string.default_task_name), 0, true);
 
