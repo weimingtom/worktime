@@ -18,8 +18,8 @@ package eu.vranckaert.worktime.activities.projects;
 import android.app.ListActivity;
 import android.widget.EditText;
 import eu.vranckaert.worktime.R;
-import eu.vranckaert.worktime.testutils.cases.ActivityTestCase;
-import eu.vranckaert.worktime.testutils.utils.TestUtil;
+import eu.vranckaert.worktime.test.cases.ActivityTestCase;
+import eu.vranckaert.worktime.test.utils.TestUtil;
 
 /**
  * User: DIRK VRANCKAERT
