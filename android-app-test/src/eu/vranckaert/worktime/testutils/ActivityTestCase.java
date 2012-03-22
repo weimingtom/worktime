@@ -13,15 +13,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package eu.vranckaert.worktime.activities.test;
+package eu.vranckaert.worktime.testutils;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 import com.jayway.android.robotium.solo.Solo;
-import eu.vranckaert.worktime.testutils.ScreenshotUtil;
-import eu.vranckaert.worktime.testutils.TestUtil;
 
 /**
  * User: DIRK VRANCKAERT

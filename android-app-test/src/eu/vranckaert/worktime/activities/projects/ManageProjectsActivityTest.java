@@ -18,7 +18,7 @@ package eu.vranckaert.worktime.activities.projects;
 import android.app.ListActivity;
 import android.widget.EditText;
 import eu.vranckaert.worktime.R;
-import eu.vranckaert.worktime.activities.test.ActivityTestCase;
+import eu.vranckaert.worktime.testutils.ActivityTestCase;
 import eu.vranckaert.worktime.testutils.TestUtil;
 
 /**
