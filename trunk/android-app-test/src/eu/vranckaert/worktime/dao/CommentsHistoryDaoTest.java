@@ -17,7 +17,7 @@ package eu.vranckaert.worktime.dao;
 
 import eu.vranckaert.worktime.dao.impl.CommentHistoryDaoImpl;
 import eu.vranckaert.worktime.model.CommentHistory;
-import eu.vranckaert.worktime.testutils.DBAndroidTestCase;
+import eu.vranckaert.worktime.testutils.DaoTestCase;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ import java.util.List;
  * Date: 22/03/12
  * Time: 15:23
  */
-public class CommentsHistoryDaoTest extends DBAndroidTestCase<CommentHistoryDaoImpl> {
+public class CommentsHistoryDaoTest extends DaoTestCase<CommentHistoryDaoImpl> {
     public CommentsHistoryDaoTest() {
         super(CommentHistoryDaoImpl.class);
     }

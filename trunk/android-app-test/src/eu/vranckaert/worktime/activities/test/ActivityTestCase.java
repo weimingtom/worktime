@@ -28,8 +28,8 @@ import eu.vranckaert.worktime.testutils.TestUtil;
  * Date: 24/02/12
  * Time: 9:31
  */
-public class MyActivityTestCase<V extends Activity> extends ActivityInstrumentationTestCase2<V> {
-    private final String LOG_TAG = MyActivityTestCase.class.getSimpleName();
+public class ActivityTestCase<V extends Activity> extends ActivityInstrumentationTestCase2<V> {
+    private final String LOG_TAG = ActivityTestCase.class.getSimpleName();
     private Class testClass;
     private int screenshotCountNumber;
     
@@ -37,7 +37,7 @@ public class MyActivityTestCase<V extends Activity> extends ActivityInstrumentat
 
     protected Solo solo;
 
-    protected MyActivityTestCase(Class clazz) {
+    protected ActivityTestCase(Class clazz) {
         super("eu.vranckaert.worktime", clazz);
         this.testClass = clazz;
     }
@@ -81,7 +81,7 @@ public class MyActivityTestCase<V extends Activity> extends ActivityInstrumentat
     }
 
     /**
-     * Launches the activity. If the {@link MyActivityTestCase#customIntent} is empty it will just start the activity.
+     * Launches the activity. If the {@link ActivityTestCase#customIntent} is empty it will just start the activity.
      * If the intent is available it will use start the activity with the provided intent!
      */
     private void launchActivity() {

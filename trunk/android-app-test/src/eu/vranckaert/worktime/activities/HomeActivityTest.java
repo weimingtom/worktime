@@ -19,7 +19,7 @@ import eu.vranckaert.worktime.activities.about.AboutActivity;
 import eu.vranckaert.worktime.activities.preferences.PreferencesActivity;
 import eu.vranckaert.worktime.activities.projects.ManageProjectsActivity;
 import eu.vranckaert.worktime.activities.reporting.ReportingCriteriaActivity;
-import eu.vranckaert.worktime.activities.test.MyActivityTestCase;
+import eu.vranckaert.worktime.activities.test.ActivityTestCase;
 import eu.vranckaert.worktime.activities.timeregistrations.TimeRegistrationsActivity;
 
 /**
@@ -27,7 +27,7 @@ import eu.vranckaert.worktime.activities.timeregistrations.TimeRegistrationsActi
  * Date: 20/01/12
  * Time: 9:54
  */
-public class HomeActivityTest extends MyActivityTestCase<HomeActivity> {
+public class HomeActivityTest extends ActivityTestCase<HomeActivity> {
     public HomeActivityTest() {
         super(HomeActivity.class);
     }

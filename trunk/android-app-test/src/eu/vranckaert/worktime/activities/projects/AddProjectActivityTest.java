@@ -18,7 +18,7 @@ package eu.vranckaert.worktime.activities.projects;
 import android.view.View;
 import android.widget.EditText;
 import eu.vranckaert.worktime.R;
-import eu.vranckaert.worktime.activities.test.MyActivityTestCase;
+import eu.vranckaert.worktime.activities.test.ActivityTestCase;
 import eu.vranckaert.worktime.testutils.TestUtil;
 
 /**
@@ -26,7 +26,7 @@ import eu.vranckaert.worktime.testutils.TestUtil;
  * Date: 20/03/12
  * Time: 11:22
  */
-public class AddProjectActivityTest extends MyActivityTestCase<AddEditProjectActivity> {
+public class AddProjectActivityTest extends ActivityTestCase<AddEditProjectActivity> {
     public AddProjectActivityTest() {
         super(AddEditProjectActivity.class);
     }
