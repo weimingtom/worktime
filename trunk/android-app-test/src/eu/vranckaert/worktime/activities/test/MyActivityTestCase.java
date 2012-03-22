@@ -16,26 +16,12 @@
 package eu.vranckaert.worktime.activities.test;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
-import com.j256.ormlite.support.ConnectionSource;
 import com.jayway.android.robotium.solo.Solo;
-import eu.vranckaert.worktime.constants.Constants;
-import eu.vranckaert.worktime.dao.utils.DaoConstants;
-import eu.vranckaert.worktime.dao.utils.DatabaseHelper;
 import eu.vranckaert.worktime.testutils.ScreenshotUtil;
-import eu.vranckaert.worktime.utils.preferences.Preferences;
-
-import java.io.File;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import eu.vranckaert.worktime.testutils.TestUtil;
 
 /**
  * User: DIRK VRANCKAERT
@@ -69,7 +55,7 @@ public class MyActivityTestCase<V extends Activity> extends ActivityInstrumentat
         beforeTestBeforeActivityLaunch();
         super.setUp();
         launchActivity();
-        removeAllPreferences();
+        TestUtil.removeAllPreferences(getActivity());
         solo = new Solo(getInstrumentation(), getActivity());
         beforeTestAfterActivityLaunch();
     }
@@ -91,8 +77,7 @@ public class MyActivityTestCase<V extends Activity> extends ActivityInstrumentat
      * to the {@link android.test.ActivityInstrumentationTestCase2#getActivity()} method. 
      */
     private void beforeTestBeforeActivityLaunch() {
-        String[] tables = {"commentHistory", "project", "task", "timeregistration"};
-        cleanUpDatabase(Arrays.asList(tables));
+        TestUtil.cleanUpDatabase(getInstrumentation().getTargetContext());
     }
 
     /**
@@ -164,66 +149,14 @@ public class MyActivityTestCase<V extends Activity> extends ActivityInstrumentat
     private String getLastScreenshotCountNumber() {
         return "9999";
     }
-
-    /**
-     * Removes all the preferences
-     */
-    protected void removeAllPreferences() {
-        List<String> preferenceKeys = new ArrayList<String>();
-
-        Class prefKeysClass = Constants.Preferences.Keys.class;
-        Field[] keyFields = prefKeysClass.getFields();
-        for(Field field : keyFields) {
-            try {
-                preferenceKeys.add((String)field.get(null));
-            } catch (IllegalAccessException e) {}
-        }
-        
-        for (String key : preferenceKeys) {
-            Preferences.removePreference(getActivity(), key);
-        }
-    }
-
-    /**
-     * Removes the database
-     */
-    private void cleanUpDatabase(List<String> dbTables) {
-        Log.i(LOG_TAG, "Preparing to clean up database...");
-        DatabaseHelper dbHelper = new DatabaseHelper(getInstrumentation().getTargetContext());
-        ConnectionSource cs = dbHelper.getConnectionSource();
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        
-        Log.i(LOG_TAG, "Dropping all tables");
-        for (String table : dbTables) {
-            db.execSQL("DROP TABLE IF EXISTS " + table);
-        }
-
-        Log.i(LOG_TAG, "Executing the onCreate(..)");
-        dbHelper.onCreate(db, cs);
-        
-        Log.i(LOG_TAG, "Verifying the data...");
-        for (String table : dbTables) {
-            Cursor c = db.query(table, new String[]{"id"}, null, null, null, null, null);
-            int count = c.getCount();
-            if (count != 1 && (table.equals("project") || table.equals("task"))) {
-                dbHelper.close();
-                Log.e(LOG_TAG, "We should have 1 record for table " + table + " after cleanup but we found " + count + " record(s)");
-                throw new RuntimeException("Error during cleanup of DB, exactly one record should be present for table " + table + " but we found " + count + " record(s)");
-            } else if (count != 0 && !(table.equals("project") || table.equals("task"))) {
-                dbHelper.close();
-                Log.e(LOG_TAG, "We should have 0 records for table " + table + " after cleanup but we found " + count + " record(s)");
-                throw new RuntimeException("Error during cleanup of DB, no records should be present for table " + table + " but we found " + count + " record(s)");
-            }
-        }
-
-        Log.i(LOG_TAG, "The database has been cleaned!");
-        dbHelper.close();
-    }
     
     /*
      * PROTECTED METHODS
      */
 
+    /**
+     * Takes a screenshot of the active screen/dialog/...
+     */
     protected void takeScreenshot() {
         if (solo.getViews().size() > 0) {
             try {
@@ -241,30 +174,21 @@ public class MyActivityTestCase<V extends Activity> extends ActivityInstrumentat
             Log.w(LOG_TAG, "Solo does not contain any views, not creating a screenshot!");
         }
     }
-    
-    protected void setPreference(String key, Object value) {
-        SharedPreferences sp = getActivity().getSharedPreferences(Constants.Preferences.PREFERENCES_NAME, Activity.MODE_PRIVATE);
 
-        if (value == null) {
-            return;
-        }
-        
-        SharedPreferences.Editor editor = sp.edit();
-        if (value instanceof Boolean) {
-            editor.putBoolean(key, (Boolean) value);
-        } else if (value instanceof Float) {
-            editor.putFloat(key, (Float) value);
-        } else if (value instanceof Integer) {
-            editor.putInt(key, (Integer) value);
-        } else if (value instanceof Long) {
-            editor.putLong(key, (Long) value);
-        } else {
-            editor.putString(key, value.toString());
-        }
-        editor.commit();
+    /**
+     * Set a preference, defined by the key parameter, to a certain value.
+     * @param key The key referring to the preference.
+     * @param value The value of the preference to set.
+     */
+    protected void setPreference(String key, Object value) {
+        TestUtil.setPreference(getActivity(), key, value);
     }
 
+    /**
+     * Set a custom intent to be launched.
+     * @param customIntent The custom {@link Intent} that will be launched for the test-suite.
+     */
     protected void setCustomIntent(Intent customIntent) {
-        customIntent = customIntent;
+        this.customIntent = customIntent;
     }
 }

@@ -16,7 +16,7 @@
 package eu.vranckaert.worktime.utils.context;
 
 import eu.vranckaert.worktime.constants.OSContants;
-import eu.vranckaert.worktime.testutils.MyAndroidTestCase;
+import eu.vranckaert.worktime.testutils.SimpleAndroidTestCase;
 
 import java.util.List;
 import java.util.Locale;
@@ -27,13 +27,7 @@ import java.util.Map;
  * Date: 24/01/12
  * Time: 15:17
  */
-public class ContextUtilsTest extends MyAndroidTestCase {
-    @Override
-    public List<String> getPreferenceKeysForRemoval() {return null;}
-
-    @Override
-    public Map<String, Object> getPreferenceKeyValuePairs() {return null;}
-    
+public class ContextUtilsTest extends SimpleAndroidTestCase {
     public void testGetCurrentLocale() {
         Locale locale = ContextUtils.getCurrentLocale(ctx);
         assertNotNull(locale);

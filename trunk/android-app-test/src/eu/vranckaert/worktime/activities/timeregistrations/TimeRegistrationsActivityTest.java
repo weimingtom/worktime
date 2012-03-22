@@ -19,10 +19,9 @@ import android.app.ListActivity;
 import eu.vranckaert.worktime.R;
 import eu.vranckaert.worktime.activities.HomeActivity;
 import eu.vranckaert.worktime.activities.test.MyActivityTestCase;
-import eu.vranckaert.worktime.activities.timeregistrations.TimeRegistrationsActivity;
 import eu.vranckaert.worktime.activities.widget.StopTimeRegistrationActivity;
 import eu.vranckaert.worktime.constants.Constants;
-import eu.vranckaert.worktime.testutils.TestConstants;
+import eu.vranckaert.worktime.testutils.TestUtil;
 
 /**
  * User: DIRK VRANCKAERT
@@ -55,11 +54,11 @@ public class TimeRegistrationsActivityTest extends MyActivityTestCase<TimeRegist
 
         // Start a new time registration
         solo.clickOnView(getActivity().findViewById(R.id.punchBarActionId));
-        solo.waitForDialogToClose(TestConstants.Time.THIRTY_SECONDS);
+        solo.waitForDialogToClose(TestUtil.Time.THIRTY_SECONDS);
         solo.clickOnText(getActivity().getString(R.string.default_project_name), 0, true);
         solo.clickOnText(getActivity().getString(R.string.default_task_name), 0, true);
 
-        solo.waitForDialogToClose(TestConstants.Time.THIRTY_SECONDS);
+        solo.waitForDialogToClose(TestUtil.Time.THIRTY_SECONDS);
         solo.waitForActivity(TimeRegistrationsActivity.class.getSimpleName());
         trCount = ((ListActivity)solo.getCurrentActivity()).getListView().getAdapter().getCount();
         assertEquals("Expected just one time registration to be available!", 1, trCount);
@@ -67,7 +66,7 @@ public class TimeRegistrationsActivityTest extends MyActivityTestCase<TimeRegist
         takeScreenshot();
 
         solo.clickLongInList(0);
-        solo.waitForDialogToClose(TestConstants.Time.SIXTY_SECONDS);
+        solo.waitForDialogToClose(TestUtil.Time.SIXTY_SECONDS);
         assertTrue(solo.searchText(getActivity().getString(R.string.lbl_registrations_menu_details), 1, true));
         assertTrue(solo.searchText(getActivity().getString(R.string.lbl_registrations_menu_edit_start), 1, true));
         assertTrue(solo.searchText(getActivity().getString(R.string.lbl_registrations_menu_split), 1, true));
@@ -82,7 +81,7 @@ public class TimeRegistrationsActivityTest extends MyActivityTestCase<TimeRegist
         solo.waitForActivity(StopTimeRegistrationActivity.class.getSimpleName());
         solo.clickOnButton(getActivity().getString(R.string.btn_widget_stop));
         solo.waitForActivity(TimeRegistrationsActivity.class.getSimpleName());
-        solo.waitForDialogToClose(TestConstants.Time.THIRTY_SECONDS);
+        solo.waitForDialogToClose(TestUtil.Time.THIRTY_SECONDS);
         trCount = ((ListActivity)solo.getCurrentActivity()).getListView().getAdapter().getCount();
         assertEquals("Expected just one time registration to be available!", 1, trCount);
         assertTrue(solo.searchText(getActivity().getString(R.string.home_comp_start_stop_time_registration_no_ongoing), 0, true));
@@ -90,7 +89,7 @@ public class TimeRegistrationsActivityTest extends MyActivityTestCase<TimeRegist
         takeScreenshot();
 
         solo.clickLongInList(0);
-        solo.waitForDialogToClose(TestConstants.Time.THIRTY_SECONDS);
+        solo.waitForDialogToClose(TestUtil.Time.THIRTY_SECONDS);
         assertTrue(solo.searchText(getActivity().getString(R.string.lbl_registrations_menu_details), 1, true));
         assertTrue(solo.searchText(getActivity().getString(R.string.lbl_registrations_menu_edit_start), 1, true));
         assertTrue(solo.searchText(getActivity().getString(R.string.lbl_registrations_menu_edit_end), 1, true));

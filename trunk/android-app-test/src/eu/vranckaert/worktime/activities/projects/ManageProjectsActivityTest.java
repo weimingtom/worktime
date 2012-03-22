@@ -19,7 +19,7 @@ import android.app.ListActivity;
 import android.widget.EditText;
 import eu.vranckaert.worktime.R;
 import eu.vranckaert.worktime.activities.test.MyActivityTestCase;
-import eu.vranckaert.worktime.testutils.TestConstants;
+import eu.vranckaert.worktime.testutils.TestUtil;
 
 /**
  * User: DIRK VRANCKAERT
@@ -39,7 +39,7 @@ public class ManageProjectsActivityTest extends MyActivityTestCase<ManageProject
         assertEquals("Initially we expect exactly one project to be available", 1, projectCount);
 
         solo.clickLongInList(0);
-        solo.waitForDialogToClose(TestConstants.Time.SIXTY_SECONDS);
+        solo.waitForDialogToClose(TestUtil.Time.SIXTY_SECONDS);
         assertTrue(solo.searchText(getActivity().getString(R.string.lbl_projects_menu_details), 1, true));
         assertTrue(solo.searchText(getActivity().getString(R.string.lbl_projects_menu_edit), 1, true));
         assertTrue(solo.searchText(getActivity().getString(R.string.lbl_projects_menu_copy), 1, true));
@@ -50,7 +50,7 @@ public class ManageProjectsActivityTest extends MyActivityTestCase<ManageProject
         // Click the add button
         solo.clickOnImageButton(2);
         solo.waitForActivity(AddEditProjectActivity.class.getSimpleName());
-        solo.waitForDialogToClose(TestConstants.Time.TWENTY_SECONDS);
+        solo.waitForDialogToClose(TestUtil.Time.TWENTY_SECONDS);
         solo.assertCurrentActivity("The add/edit project activity is expected", AddEditProjectActivity.class);
 
         takeScreenshot();
@@ -64,7 +64,7 @@ public class ManageProjectsActivityTest extends MyActivityTestCase<ManageProject
         // Save the new project
         solo.clickOnImageButton(1);
         solo.waitForActivity(ManageProjectsActivity.class.getSimpleName());
-        solo.waitForDialogToClose(TestConstants.Time.TWENTY_SECONDS);
+        solo.waitForDialogToClose(TestUtil.Time.TWENTY_SECONDS);
         solo.assertCurrentActivity("The projects activity is expected", ManageProjectsActivity.class);
     }
 
@@ -99,10 +99,10 @@ public class ManageProjectsActivityTest extends MyActivityTestCase<ManageProject
         
         // Edit the project
         solo.clickLongOnText(newProjectName);
-        solo.waitForDialogToClose(TestConstants.Time.THIRTY_SECONDS);
+        solo.waitForDialogToClose(TestUtil.Time.THIRTY_SECONDS);
         solo.clickOnText(getActivity().getString(R.string.lbl_projects_menu_edit));
         solo.waitForActivity(AddEditProjectActivity.class.getSimpleName());
-        solo.waitForDialogToClose(TestConstants.Time.TWENTY_SECONDS);
+        solo.waitForDialogToClose(TestUtil.Time.TWENTY_SECONDS);
         solo.assertCurrentActivity("The add/edit project activity is expected", AddEditProjectActivity.class);
 
         takeScreenshot();
@@ -120,7 +120,7 @@ public class ManageProjectsActivityTest extends MyActivityTestCase<ManageProject
         // Update the project
         solo.clickOnImageButton(1);
         solo.waitForActivity(ManageProjectsActivity.class.getSimpleName());
-        solo.waitForDialogToClose(TestConstants.Time.TWENTY_SECONDS);
+        solo.waitForDialogToClose(TestUtil.Time.TWENTY_SECONDS);
         solo.assertCurrentActivity("The projects activity is expected", ManageProjectsActivity.class);
 
         // Search for the project name on the list activity
