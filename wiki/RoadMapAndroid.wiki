@@ -27,6 +27,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
    * ICS (Android 4.x) Optimization for menu-button and widget (issue 96)
    * Add widget preview (issue 97)
    * Copy a project and all of it's tasks (issue 99)
+   * Display the split-gap when splitting time registrations (issue 101)
 ===Milestone-Release1.1.4 (Backup and Restore)===
  * Backup scheduling (issue 55)
  * Backup preferences (issue 75)
