@@ -17,6 +17,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
    * List of time registration (or detail for ongoing TR) is not updated on punch in/out (issue 93)
    * "Restart time registration" available on TR details for ongoing time registration (issue 95)
    * Export file with hebrew writings end up as gibrish (issue 100)
+   * Timeregistration comment gone when ending TR with setting "Ask for comment?" disabled (issue 102)
   * Enhancements:
    * Punch in/out from app instead of widget-only (issue 59)
    * Show/Hide switch for "finished tasks" in the project details (issue 66)
