@@ -16,7 +16,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
    * Crash when running report for "last week" (issue 91)
    * List of time registration (or detail for ongoing TR) is not updated on punch in/out (issue 93)
    * "Restart time registration" available on TR details for ongoing time registration (issue 95)
-   * Export file with hebrew writings end up as gibrish (issue 100)
+   * Export file is not UTF-8 and misses BOM (screws up Russian and Hebrew export files) (issue 100)
    * Timeregistration comment gone when ending TR with setting "Ask for comment?" disabled (issue 102)
   * Enhancements:
    * Punch in/out from app instead of widget-only (issue 59)
