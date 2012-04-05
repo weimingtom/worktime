@@ -29,7 +29,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
    * Add widget preview (issue 97)
    * Copy a project and all of it's tasks (issue 99)
    * Display the split-gap when splitting time registrations (issue 101)
-===Milestone-Release1.1.4 (Backup and Restore)===
+===[http://code.google.com/p/worktime/issues/list?q=label:Milestone-Release1.1.4 Milestone-Release1.1.4] (Backup and Restore)===
  * 1.1.4
   * Bugs:
    * "Auto close 60s gap" is not working correctly (issue 104)
