@@ -2,7 +2,7 @@
 #labels Featured,Phase-ReleaseNotes
 
 =Release Notes Android Application=
-===[http://code.google.com/p/worktime/issues/list?q=label:Milestone-Release1.1.2 Milestone-Release1.1.2] (Time Registrations)===
+===[http://code.google.com/p/worktime/issues/list?q=label:Milestone-Release1.1.2&can=1 Milestone-Release1.1.2] (Time Registrations)===
  * 1.1.2.f
   * Bugs:
    * Crash when updating a task and no time registrations registered yet (issue 89)
@@ -32,7 +32,7 @@
   * Enhancements:
    * Remove 'delete' button in list of time registrations (issue 73)
    * Dynamically load time registration to make it more light weight (issue 77)
-===[http://code.google.com/p/worktime/issues/list?q=label:Milestone-Release1.1.1 Milestone-Release1.1.1] (Reporting and widgets-usability)===
+===[http://code.google.com/p/worktime/issues/list?q=label:Milestone-Release1.1.1&can=1 Milestone-Release1.1.1] (Reporting and widgets-usability)===
  * Enhancements:
   * Reporting: 
    * Default reporting to generate reports and export to a CSV file (issue 25)
@@ -44,10 +44,10 @@
  * Tasks:
   * Release the sources... (issue 64)
   * Apply the Apache License 2.0 (issue 63)
-==[http://code.google.com/p/worktime/issues/list?q=label:Milestone-Release1.1.0 Milestone-Release1.1.0] (Backup and Restore)==
+==[http://code.google.com/p/worktime/issues/list?q=label:Milestone-Release1.1.0&can=1 Milestone-Release1.1.0] (Backup and Restore)==
  * Enhancements:
   * Backup and Restore feature (issue 53)
-==[http://code.google.com/p/worktime/issues/list?q=label:Milestone-Release1.0.1 Milestone-Release1.0.1]==
+==[http://code.google.com/p/worktime/issues/list?q=label:Milestone-Release1.0.1&can=1 Milestone-Release1.0.1]==
  * Bugfixes for Milestone-Release1.0.0:
   * Project/Task-name not updated in widget and notification (issue 24)
   * Disable notifications through the preferences (issue 27)
@@ -64,7 +64,7 @@
   * Delete time registration from registration overview context menu (issue 37)
   * Restart a time registration when accidentally closed (issue 45)
   * Keyboard in uppercase state by default (issue 43)
-==[http://code.google.com/p/worktime/issues/list?q=label:Milestone-Release1.0.0 Milestone-Release1.0.0]==
+==[http://code.google.com/p/worktime/issues/list?q=label:Milestone-Release1.0.0&can=1 Milestone-Release1.0.0]==
 Initial release of the application including the basic features:
  * Manage Projects
  * Manage Tasks
