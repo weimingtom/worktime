@@ -4,9 +4,6 @@ This road map is a schedule for what's coming up in the next few versions. The c
 
 For more information on our release strategy you can read the [ReleaseStrategy Release Strategy] document on the wiki.
 
-==Table Of Contents==
-<wiki:toc max_depth="10" />
-
 ==Releases==
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.3 Milestone-Release1.1.3] (Projects, Tasks and Time Registrations)===
  * 1.1.3
