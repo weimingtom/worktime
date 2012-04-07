@@ -26,7 +26,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
    * Add widget preview (issue 97)
    * Copy a project and all of it's tasks (issue 99)
    * Display the split-gap when splitting time registrations (issue 101)
-===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.4 Milestone-Release1.1.4] (Backup and Restore)===
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.4 Milestone-Release1.1.4]===
  * 1.1.4
   * Bugs:
    * "Auto close 60s gap" is not working correctly (issue 104)
@@ -37,6 +37,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
    * Add option "Remove all backups" in preferences (issue 85)
    * Add extra predefined date ranges in reporting module (issue 103)
    * Split Time Registration default value for start of second TR can be better (issue 106)
+   * Add export to Excel for reports (issue 107)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.5 Milestone-Release1.1.5] (Tablet Support)===
  * Honeycomb (3.x) and ICS (4.x) support (issue 68)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.6 Milestone-Release1.1.6] (Widgets)===
