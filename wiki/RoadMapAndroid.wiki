@@ -22,8 +22,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
    * Split Time Registration default value for start of second TR can be better (issue 106)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.5 Milestone-Release1.1.5]===
  * Honeycomb (3.x) and ICS (4.x) support (issue 68)
-  * ActionBar support (http://developer.android.com/resources/samples/ActionBarCompat/index.html)
-  * Fragments support
+  * Actionbar (http://developer.android.com/resources/samples/ActionBarCompat/index.html)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.6 Milestone-Release1.1.6]===
  * Enhancements:
   * Widgets:
