@@ -17,8 +17,8 @@ For more information on our release strategy you can read the [ReleaseStrategy R
    * Add option "Remove all backups" in preferences (issue 85)
    * Add extra predefined date ranges in reporting module (issue 103)
    * Split Time Registration default value for start of second TR can be better (issue 106)
-   * Add export to Excel for reports (issue 107)
   * New Features
+   * Add export to Excel for reports (issue 107)
    * Make punch-bar clickable for ongoing time registrations (issue 109)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.5 Milestone-Release1.1.5]===
  * Honeycomb (3.x) and ICS (4.x) support (issue 68)
