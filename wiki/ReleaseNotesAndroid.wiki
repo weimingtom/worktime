@@ -3,26 +3,25 @@
 
 =Release Notes Android Application=
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.3 Milestone-Release1.1.3] (Projects, Tasks and Time Registrations)===
- * 1.1.3
-  * Bugs:
-   * Backup/Restore bug (issue 82)
-   * Backup files and exports are not accessible from my computer (ICS) (issue 84)
-   * Crash when running report for "last week" (issue 91)
-   * List of time registration (or detail for ongoing TR) is not updated on punch in/out (issue 93)
-   * "Restart time registration" available on TR details for ongoing time registration (issue 95)
-   * Export file is not UTF-8 and misses BOM (screws up Russian and Hebrew export files) (issue 100)
-   * Timeregistration comment gone when ending TR with setting "Ask for comment?" disabled (issue 102)
-  * Enhancements:
-   * Punch in/out from app instead of widget-only (issue 59)
-   * Show/Hide switch for "finished tasks" in the project details (issue 66)
-   * Change preferences for tasks (issue 80)
-   * Mark projects finished (issue 81)
-   * Review preferences system (issue 83)
-   * Send backup files through mail (issue 94)
-   * ICS (Android 4.x) Optimization for menu-button and widget (issue 96)
-   * Add widget preview (issue 97)
-   * Copy a project and all of it's tasks (issue 99)
-   * Display the split-gap when splitting time registrations (issue 101)
+ * Bugs:
+  * Backup/Restore bug (issue 82)
+  * Backup files and exports are not accessible from my computer (ICS) (issue 84)
+  * Crash when running report for "last week" (issue 91)
+  * List of time registration (or detail for ongoing TR) is not updated on punch in/out (issue 93)
+  * "Restart time registration" available on TR details for ongoing time registration (issue 95)
+  * Export file is not UTF-8 and misses BOM (screws up Russian and Hebrew export files) (issue 100)
+  * Timeregistration comment gone when ending TR with setting "Ask for comment?" disabled (issue 102)
+ * Enhancements:
+  * Punch in/out from app instead of widget-only (issue 59)
+  * Show/Hide switch for "finished tasks" in the project details (issue 66)
+  * Change preferences for tasks (issue 80)
+  * Mark projects finished (issue 81)
+  * Review preferences system (issue 83)
+  * Send backup files through mail (issue 94)
+  * ICS (Android 4.x) Optimization for menu-button and widget (issue 96)
+  * Add widget preview (issue 97)
+  * Copy a project and all of it's tasks (issue 99)
+  * Display the split-gap when splitting time registrations (issue 101)
 ===[http://code.google.com/p/worktime/issues/list?q=label:Milestone-Release1.1.2&can=1 Milestone-Release1.1.2] (Time Registrations)===
  * 1.1.2.f
   * Bugs:
