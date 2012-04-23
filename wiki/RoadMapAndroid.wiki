@@ -11,6 +11,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
   * Starting a time registration wants to set the notification (in the status bar) multiple times (issue 105)
   * Dashboard does not display punch-bar although the preference is enabled (issue 108)
   * Cannot export reports on 2.1 devices (issue 110)
+  * Export removes all previous exports on SD on a 2.2 device (issue 122)
  * New Features:
   * Backup scheduling (issue 55)
   * Backup preferences (issue 75)
