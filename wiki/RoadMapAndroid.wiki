@@ -25,6 +25,8 @@ For more information on our release strategy you can read the [ReleaseStrategy R
  * Bugs:
  * New Features:
   * From widget/notification-bar allow doing more than just punch out (issue 115)
+  * Reset application (time registrations, projects and tasks) (issue 115)
+  * Remove time registrations in a certain range (issue 116)
  * Enhancements:
   * Honeycomb (3.x) and ICS (4.x) support (issue 68)
    * Actionbar (http://developer.android.com/resources/samples/ActionBarCompat/index.html)
