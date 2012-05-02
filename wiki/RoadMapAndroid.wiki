@@ -14,7 +14,6 @@ For more information on our release strategy you can read the [ReleaseStrategy R
  * New Features:
   * Backup scheduling (issue 55)
   * Backup preferences (issue 75)
-  * Add option "Remove all backups" in preferences (issue 85)
   * Add export to Excel for reports (issue 107)
   * Make punch-bar clickable for ongoing time registrations (issue 109)
  * Enhancements:
