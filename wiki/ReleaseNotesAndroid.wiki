@@ -1,6 +1,21 @@
 #summary The release notes for all previous released versions and features
 #labels Featured,Phase-ReleaseNotes
 
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.4 Milestone-Release1.1.4]===
+ * Bugs:
+  * "Auto close 60s gap" is not working correctly (issue 104)
+  * Starting a time registration wants to set the notification (in the status bar) multiple times (issue 105)
+  * Dashboard does not display punch-bar although the preference is enabled (issue 108)
+  * Cannot export reports on 2.1 devices (issue 110)
+ * New Features:
+  * Backup scheduling (issue 55)
+  * Backup preferences (issue 75)
+  * Add export to Excel for reports (issue 107)
+  * Make punch-bar clickable for ongoing time registrations (issue 109)
+ * Enhancements:
+  * Add extra predefined date ranges in reporting module (issue 103)
+  * Split Time Registration default value for start of second TR can be better (issue 106)
+  * Reset preferences to defaults (issue 114)
 =Release Notes Android Application=
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.3 Milestone-Release1.1.3] (Projects, Tasks and Time Registrations)===
  * Bugs:
