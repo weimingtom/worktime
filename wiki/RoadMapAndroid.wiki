@@ -21,7 +21,6 @@ For more information on our release strategy you can read the [ReleaseStrategy R
    * Mini widgets per project and task (issue 60)
    * Mini widget with same behavior as large default widget (issue 56)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.7 Milestone-Release1.1.7]===
- * Enhancements:
-  * Auto show keyboard for input fields (issue 46)
+To be scheduled...
 ===Milestone-Releasex.x.x===
 To be scheduled...
