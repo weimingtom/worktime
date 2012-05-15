@@ -7,7 +7,6 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 ==Releases==
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.5 Milestone-Release1.1.5]===
  * Bugs:
-  * Setting comment for TR through actions dialog restarts previous TR (issue 117)
  * New Features:
   * New punch-out dialog (also for edit time registration) (issue 111)
   * Reset application (time registrations, projects and tasks) (issue 115)
