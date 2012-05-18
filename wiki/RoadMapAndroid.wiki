@@ -15,6 +15,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
   * Honeycomb (3.x) and ICS (4.x) support (issue 68)
    * Actionbar (http://developer.android.com/resources/samples/ActionBarCompat/index.html)
   * Auto size columns in Excel export (issue 113)
+  * Add option to go to reporting from task (with criteria filled in) (issue 120)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.6 Milestone-Release1.1.6]===
  * Enhancements:
   * Widgets:
