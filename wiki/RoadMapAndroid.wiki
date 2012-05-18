@@ -7,6 +7,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 ==Releases==
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.5 Milestone-Release1.1.5]===
  * Bugs:
+  * Cannot delete project without tasks and time registrations (issue 119)
  * New Features:
   * New punch-out dialog (also for edit time registration) (issue 111)
   * Reset application (time registrations, projects and tasks) (issue 115)
