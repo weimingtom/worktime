@@ -2,6 +2,17 @@
 #labels Featured,Phase-ReleaseNotes
 
 =Release Notes Android Application=
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.5 Milestone-Release1.1.5]===
+ * Bugs
+ * New Features:
+  * New punch-out dialog (also for edit time registration) (issue 111)
+  * Reset application (time registrations, projects and tasks) (issue 115)
+  * Remove time registrations in a certain range (issue 116)
+ * Enhancements:
+  * Honeycomb (3.x) and ICS (4.x) support (issue 68)
+   * Actionbar (http://developer.android.com/resources/samples/ActionBarCompat/index.html)
+  * Auto size columns in Excel export (issue 113)
+  * Add option to go to reporting from task (with criteria filled in) (issue 120)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.4 Milestone-Release1.1.4]===
  * Bugs:
   * "Auto close 60s gap" is not working correctly (issue 104)
