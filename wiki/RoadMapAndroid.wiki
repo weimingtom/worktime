@@ -8,6 +8,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.6 Milestone-Release1.1.6]===
  * Bugs:
   * User cannot open the time registration action screen (issue 126)
+  * Disable auto-database backup (issue 127)
  * Enhancements:
   * Disable non critical logging in market releases (issue 125)
   * Enhance the notifications for Android Jelly Bean (issue 124)
