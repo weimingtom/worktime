@@ -14,6 +14,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
   * Enhance the notifications for Android Jelly Bean (issue 124)
   * Mini widgets per project and task (issue 60)
   * Add notification for successful/failed backup and restore (issue 128)
+  * Customizable back/restore location (issue 129)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.2.0 Milestone-Release1.2.0]===
  * Enhancements:
   * Chaining time registrations (issue 20)
