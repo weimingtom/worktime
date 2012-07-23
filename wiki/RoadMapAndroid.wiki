@@ -17,6 +17,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
   * Customizable back/restore location (issue 129)
  * New features:
   * Chaining time registrations (issue 20)
+  * Add preference option for default TR-actions (issue 130)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.2.0 Milestone-Release1.2.0]===
  * Enhancements:
   * Customers module (issue 38)
