@@ -2,6 +2,20 @@
 #labels Featured,Phase-ReleaseNotes
 
 =Release Notes Android Application=
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.6 Milestone-Release1.1.6]===
+ * Bugs:
+  * User cannot open the time registration action screen (issue 126)
+  * Disable auto-database backup (issue 127)
+  * Application crash on Honeycomb (issue 131)
+ * Enhancements:
+  * Disable non critical logging in market releases (issue 125)
+  * Enhance the notifications for Android Jelly Bean (issue 124)
+  * Mini widgets per project and task (issue 60)
+  * Add notification for successful/failed backup and restore (issue 128)
+  * Customizable back/restore location (issue 129)
+ * New features:
+  * Chaining time registrations (issue 20)
+  * Add preference option for default TR-actions (issue 130)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.5 Milestone-Release1.1.5]===
  * Bugs
  * New Features:
