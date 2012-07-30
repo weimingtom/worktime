@@ -9,6 +9,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
  * Enhancements
   * Move all widget-preferences to category time-registrations (issue 134)
   * Add option for immediate punch-out (no action dialog) (issue 133)
+  * Cleanup the 'choose action' code (issue 135)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.2.0 Milestone-Release1.2.0]===
  * Enhancements:
   * Customers module (issue 38)
