@@ -6,6 +6,8 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 
 ==Releases==
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.7 Milestone-Release1.1.7]===
+ * Bugs
+  * Jelly Bean notification does not get updated (issue 136)
  * Enhancements
   * Move all widget-preferences to category time-registrations (issue 134)
   * Add option for immediate punch-out (no action dialog) (issue 133)
