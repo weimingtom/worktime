@@ -6,11 +6,11 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 
 ==Releases==
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.8 Milestone-Release1.1.8]===
- * Bug
+ * Bugs:
   * Data in Excel (report and data) differs with 2 hours (issue 132)
   * Sending files (backup and export) with gmail does not attach any file (issue 137)
   * Delete TR (single and in range) is no longer working (issue 138)
- * 
+ * Enhancements:
   * Add Jelly Bean notification actions (issue 139)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.2.0 Milestone-Release1.2.0]===
  * Enhancements:
