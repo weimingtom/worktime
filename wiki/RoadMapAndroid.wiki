@@ -12,7 +12,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
   * Delete TR (single and in range) is no longer working (issue 138)
  * Enhancements:
   * Add Jelly Bean notification actions (issue 139)
-  * Backup/Restore - Choose in list of predefined locations (issue 140)
+  * Backup/Restore - Choose location in file browser (issue 140)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.2.0 Milestone-Release1.2.0]===
  * Enhancements:
   * Customers module (issue 38)
