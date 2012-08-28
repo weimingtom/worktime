@@ -7,7 +7,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 ==Releases==
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.8 Milestone-Release1.1.8]===
  * Bugs:
-  * Data in Excel (report and data) differs with 2 hours (issue 132)
+  * Data in Excel differs 2 hours with app (issue 132)
   * Sending files (backup and export) with gmail does not attach any file (issue 137)
   * Delete TR (single and in range) is no longer working (issue 138)
  * Enhancements:
