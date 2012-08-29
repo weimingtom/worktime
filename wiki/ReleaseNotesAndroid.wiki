@@ -2,6 +2,14 @@
 #labels Featured,Phase-ReleaseNotes
 
 =Release Notes Android Application=
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.8 Milestone-Release1.1.8]===
+ * Bugs:
+  * Data in Excel differs 2 hours with app (issue 132)
+  * Sending files (backup and export) with gmail does not attach any file (issue 137)
+  * Delete TR (single and in range) is no longer working (issue 138)
+ * Enhancements:
+  * Add Jelly Bean notification actions (issue 139)
+  * Backup/Restore - Choose location in file browser (issue 140)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.7 Milestone-Release1.1.7]===
  * Bugs
   * Jelly Bean notification does not get updated (issue 136)
