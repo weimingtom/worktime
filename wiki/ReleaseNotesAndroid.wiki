@@ -2,6 +2,10 @@
 #labels Featured,Phase-ReleaseNotes
 
 =Release Notes Android Application=
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.9 Milestone-Release1.1.9]===
+ * Bugs:
+  * Market issue when punching out (issue 144)
+  * Export no longer working for ongoing time registrations (issue 145)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.8 Milestone-Release1.1.8]===
  * Bugs:
   * Data in Excel differs 2 hours with app (issue 132)
