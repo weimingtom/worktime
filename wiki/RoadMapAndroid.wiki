@@ -5,10 +5,6 @@ This road map is a schedule for what's coming up in the next few versions. The c
 For more information on our release strategy you can read the [ReleaseStrategy Release Strategy] document on the wiki.
 
 ==Releases==
-===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.9 Milestone-Release1.1.9]===
- * Bugs:
-  * Market issue when punching out (issue 144)
-  * Export no longer working for ongoing time registrations (issue 145)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.10 Milestone-Release1.1.10]===
  * New features:
   * Atlassian Jira integration (issue 141)
