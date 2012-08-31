@@ -8,6 +8,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.9 Milestone-Release1.1.9]===
  * Bugs:
   * Market issue when punching out (issue 144)
+  * Export no longer working for ongoing time registrations (issue 145)
  * New features:
   * Atlassian Jira integration (issue 141)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.2.0 Milestone-Release1.2.0]===
