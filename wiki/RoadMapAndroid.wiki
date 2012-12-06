@@ -7,12 +7,16 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 ==Releases==
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.10 Milestone-Release1.1.10]===
  * Bugs:
-  * Project comment missing in CSV export (issue 146)
   * Crash when updating widget (due to logging) (issue 147)
   * ACRA Support for bugcrashes (issue 148)
   * Deleting time registration from detail crashes (issue 150)
  * New Feature:
   * Manually add Time Registration (issue 149)
+
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.11 Milestone-Release1.1.11]===
+ * Bugs:
+  * Remove ACRA Support (issue xxx)
+
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.2.0 Milestone-Release1.2.0]===
  * Enhancements:
   * Customers module (issue 38)
