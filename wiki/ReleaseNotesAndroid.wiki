@@ -2,6 +2,13 @@
 #labels Featured,Phase-ReleaseNotes
 
 =Release Notes Android Application=
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.10 Milestone-Release1.1.10]===
+ * Bugs:
+  * Crash when updating widget (due to logging) (issue 147)
+  * ACRA Support for bugcrashes (issue 148)
+  * Deleting time registration from detail crashes (issue 150)
+ * New Feature:
+  * Manually add Time Registration (issue 149)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.9 Milestone-Release1.1.9]===
  * Bugs:
   * Market issue when punching out (issue 144)
