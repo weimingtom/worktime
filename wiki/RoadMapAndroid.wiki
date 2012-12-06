@@ -7,7 +7,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 ==Releases==
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.11 Milestone-Release1.1.11]===
  * Bugs:
-  * Remove ACRA Support (issue xxx)
+  * Remove ACRA Support (issue 151)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.2.0 Milestone-Release1.2.0]===
  * Enhancements:
   * Customers module (issue 38)
