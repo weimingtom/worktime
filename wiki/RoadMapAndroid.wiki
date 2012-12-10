@@ -8,6 +8,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.12 Milestone-Release1.1.12]===
  * Enhancements:
   * Migrating from RoboGuice 1.0 to RoboGuice 2.0 (issue 153)
+ * Bugs:
   * Comments for Time Registrations broken (issue 154)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.13 Milestone-Release1.1.13]===
  * Bugs:
