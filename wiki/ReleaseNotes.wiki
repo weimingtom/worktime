@@ -4,3 +4,4 @@
 The project is created for the two mainstream mobile operating systems:
  * [ReleaseNotesAndroid Android]
  * [ReleaseNotesIPhone IPhone]
+ * [ReleaseNotesWeb Web]
