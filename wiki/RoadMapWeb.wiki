@@ -6,9 +6,9 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 ==Releases==
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb3 Milestone-ReleaseWeb3]===
  * New Feature
-  * AppEngine setup (issue xxx)
-  * Setup Restful JSON Webservices (issue xxx)
-  * User Registration System (issue xxx)
+  * AppEngine Setup (issue 160)
+  * Setup Restful JSON Webservices (issue 161)
+  * User Registration System (issue 162)
   * User Authentication System (issue xxx)
   * User Profile Retrieval (issue xxx)
   * Password Forgotten Feature (issue xxx)
