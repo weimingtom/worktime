@@ -1,4 +1,0 @@
-#summary The release notes for all previous released versions and features
-#labels Featured,Phase-ReleaseNotes
-
-=Release Notes Web Application=
