@@ -1,0 +1,14 @@
+=Road Map for the Web application=
+This road map is a schedule for what's coming up in the next few versions. The content for all next versions defined in here is fixed and will not change any more (or at least not much).
+
+For more information on our release strategy you can read the [ReleaseStrategy Release Strategy] document on the wiki.
+
+==Releases==
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb3 Milestone-ReleaseWeb3]===
+ * New Feature
+  * AppEngine setup (issue xxx)
+  * Setup Restful JSON Webservices (issue xxx)
+  * User Registration System (issue xxx)
+  * User Authentication System (issue xxx)
+  * User Profile Retrieval (issue xxx)
+  * Password Forgotten Feature (issue xxx)
