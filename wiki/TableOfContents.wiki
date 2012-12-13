@@ -20,7 +20,7 @@
     * [ReleaseNotes Release Notes]
       * [ReleaseNotesAndroid Release Notes Android]
       * [ReleaseNotesIPhone Release Notes IPhone]
-      * [ReleaseNotesIWeb Release Notes Web]
+      * [ReleaseNotesWeb Release Notes Web]
     * [VersioningStrategy Versioning Strategy]
     * [ProjectSetup Project Setup]
       * [ProjectSetupAndroid Project Setup Android]
