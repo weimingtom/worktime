@@ -5,13 +5,6 @@ This road map is a schedule for what's coming up in the next few versions. The c
 For more information on our release strategy you can read the [ReleaseStrategy Release Strategy] document on the wiki.
 
 ==Releases==
-===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb3 Milestone-ReleaseWeb3]===
- * New Feature
-  * Define architecture (issue 118)
-  * AppEngine Setup (issue 160)
-  * Setup Restful JSON Webservices (issue 161)
-  * User Registration System (issue 162)
-  * User Authentication System (issue 163)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb4 Milestone-ReleaseWeb4]===
   * User Profile Retrieval (issue 164)
   * Password Forgotten Feature (issue 165)
