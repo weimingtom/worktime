@@ -7,4 +7,4 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 ==Releases==
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb4 Milestone-ReleaseWeb4]===
   * User Profile Retrieval (issue 164)
-  * Password Forgotten Feature (issue 165)
+  * Request Password Reset (issue 165)
