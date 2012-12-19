@@ -9,4 +9,5 @@ For more information on our release strategy you can read the [ReleaseStrategy R
   * User Profile Retrieval (issue 164)
   * Request Password Reset (issue 165)
   * Logout (issue 167)
+  * Add "favicon" (issue 168)
   * Reset Password from 'Reset Mail' (issue 166)
