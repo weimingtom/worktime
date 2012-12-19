@@ -8,4 +8,5 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb4 Milestone-ReleaseWeb4]===
   * User Profile Retrieval (issue 164)
   * Request Password Reset (issue 165)
+  * Logout (issue 167)
   * Reset Password from 'Reset Mail' (issue 166)
