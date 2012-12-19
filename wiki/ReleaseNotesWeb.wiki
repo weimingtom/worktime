@@ -2,6 +2,11 @@
 #labels Featured,Phase-ReleaseNotes
 
 =Release Notes Web Application=
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb4 Milestone-ReleaseWeb4]===
+  * User Profile Retrieval (issue 164)
+  * Request Password Reset (issue 165)
+  * Logout (issue 167)
+  * Add "favicon" (issue 168)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb3 Milestone-ReleaseWeb3]===
  * New Feature
   * Define architecture (issue 118)
