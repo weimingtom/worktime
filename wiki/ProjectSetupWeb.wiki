@@ -1,0 +1,47 @@
+#summary A walkthrough to setup the Web project and explains the basics
+=Project Setup Web=
+==Table Of Contents==
+<wiki:toc max_depth="10" />
+==Introduction==
+The WorkTime web project is a Java project hosted on Google AppEngine. The aim of this project is to bring a rich web application to our users and the possibility to sync the data on the web with the data on their devices (Android, iOS, ...) using RESTFUL webservices.
+==Getting Started==
+===AppEngine SDK===
+For this project we use the 1.7 release of the AppEngine SDK. Specifically version 1.7.3.
+This version can be downloaded over here: http://googleappengine.googlecode.com/files/appengine-java-sdk-1.7.3.zip
+===IDE===
+The only IDE we reccomend you to use until now is Eclipse together with the Google plugins installed. More on how to install Eclipse and the correct plugins can be found on the Google AppEngine getting started page: https://developers.google.com/appengine/docs/java/gettingstarted/installing
+===Source Code===
+===Local Development Server===
+When running the project from Eclipse a local development server will be launched for you with your application deployed. Most of the features that are available on the real AppEngine servers is available also on the development server.
+But here are some things you have to be careful with because they are not supported:
+ * HTTPS: HTTPS is not supported. All pages that are configured to use HTTPS on AppEngine will locally be accessible over plain HTTP.
+ * JavaMail: This will not work at all locally, although it will not throw an exception either. It just doesn't work offline!
+As you do not have an admin console as for the real AppEngine servers you can still access some features locally (for example to browse through your datastore). This is all available at the local URL: http://localhost:8888/_ah/admin/
+==Architecture==
+The application is created on top of the Android SDK version 7. On top of that we used two extra libraries to ease the development.
+ * RoboGuice which is a dependency framework, build on top of Goolge Guice.
+ * OrmLite which is an ORM (Object Relational Mapping) package to make it easier to query the SQLite database on your Android device.
+TODO IMAGE
+===Database Connectivity (twig-persist)===
+For storing data on Google AppEngine we use the default datastore. We use this because it's lightweight, default supported and very fast. In order to easily access the database we use DAO's (explained later). But those DAO's use the twig-persist framework (version 1.0.4).
+We create a StaticDataStore class from which a DataStore object can be retrieved from within all layers. This is important to be able to use transactions.
+This small piece of code allows you to use transactions in any layer:
+{{{
+Transaction tx = StaticDataStore.getTransaction();
+try {
+    // Do some datastore calls (direct or using DAO's...)
+} finally {
+    if (tx.isActive()) {
+        tx.rollback();
+    }
+}
+}}}
+===Layers===
+====Dependency Injection (Robo Guice)====
+====DAO's====
+====Services====
+====JSON EndPoints====
+===JSON EndPoints===
+====Users====
+====Application Services====
+==Testing==
