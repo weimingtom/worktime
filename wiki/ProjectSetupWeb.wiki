@@ -18,10 +18,31 @@ But here are some things you have to be careful with because they are not suppor
  * JavaMail: This will not work at all locally, although it will not throw an exception either. It just doesn't work offline!
 As you do not have an admin console as for the real AppEngine servers you can still access some features locally (for example to browse through your datastore). This is all available at the local URL: http://localhost:8888/_ah/admin/
 ==Architecture==
-The application is created on top of the Android SDK version 7. On top of that we used two extra libraries to ease the development.
- * RoboGuice which is a dependency framework, build on top of Goolge Guice.
- * OrmLite which is an ORM (Object Relational Mapping) package to make it easier to query the SQLite database on your Android device.
-TODO IMAGE
+The application is created on top of the Google AppEngine SDK version 1.7.3. On top of that we used some extra libraries to ease the development:
+ * Jersey Webservices (JSON or XML)
+  * jackson-core-asl-1.9.2.jar
+  * jackson-jaxrs-1.9.2.jar
+  * jackson-mapper-asl-1.9.2.jar
+  * jackson-xc-1.9.2.jar
+  * jersey-client-1.16.jar
+  * jersey-core-1.16.jar
+  * jersey-json-1.16.jar
+  * jersey-server-1.16.jar
+  * jersey-servlet-1.16.jar
+  * jettison-1.1.jar
+  * jsr311-api-1.1.1.jar
+  * commons-codec-1.7.jar
+  * asm-3.1.jar
+ * JDO datastore access
+  * twig-persist-1.0.4.jar
+  * google-collections-1.0.jar
+ * Others
+  * commons-lang3-3.1.jar (for support for methods like StringUtils.isBlank(..))
+  * commons-validator-1.4.0.jar (for all sorts of validation like email etc)
+===Classpath===
+Because of the usage of extra libraries you need to customize the classpath to be used in Eclipse.
+One important thing that you can see in the list above is that we depend on asm version 3.1, and that is a problem. Because Google AppEngine depends on asm version 4 we need to remove that one from the lib-directory and place asm 3.1 in there. Also from the classpath make sure that asm 4 is removed and that you have added asm 3.1 yourself.
+Also make sure that all other libraries listed above are available on the classpath or the project will not compile.
 ===Database Connectivity (twig-persist)===
 For storing data on Google AppEngine we use the default datastore. We use this because it's lightweight, default supported and very fast. In order to easily access the database we use DAO's (explained later). But those DAO's use the twig-persist framework (version 1.0.4).
 We create a StaticDataStore class from which a DataStore object can be retrieved from within all layers. This is important to be able to use transactions.
@@ -37,10 +58,22 @@ try {
 }
 }}}
 ===Layers===
-====Dependency Injection (Robo Guice)====
+The entire application is split in different layers so that every layer has it's own responsibilities. This is what is called separation of concerns.
+====Dependency Injection (Google Guice)====
+In order to wire all those layers together we could use some frameworks such as Spring or Google Guice. But so fare we do net yet do that. Currently in each layer we instantiate the required layer-items ourself. The aim is to start using Google Guice in the near future to do all of this for us.
 ====DAO's====
+The Data Access Object layer is being used for access to the database (or in this case the datastore). That is it's soul responsibility. Each DAO will be responsible for the database interactions of exactly one model-object. If, for example, we have a model object User that has multiple Roles, then the UserDAO can be responsible for creating a new user and retrieving a user with all of it's roles. But the UserDAO cannot be responsible for creating (adding) a new role in the datastore. That would be the responsibility of the RoleDAO.
+Every DAO that is added to the application should have an interface in which all the methods are declared, and implementation that can execute the methods. But there are three more rules:
+ # The interface needs to extend the BaseDao interface that you have to type to the model-object for which this DAO is intended.
+ # The implementation does not only implement the interface but also extends the BaseDaoImpl class that contains (and exposes) some of the basic methods for your DAO like persist(..), remove(..), findAll(),...
+ # The implementation also needs a default (read: no-arg) constructor that does a super-call with a Class parameter being the class of the model-object for which this DAO is intended.
 ====Services====
+The service layer is responsible for executing code that represents a business case. For example to login a user, to register a user, to create a new time registration, to delete one,....
+Every service needs to be mapped on a group of business cases. That can be the same as the model but doesn't necessarily needs to. For example we have model class User an a UserService that will be able to login, register, logout,... a user. But it's perfectly possible to have service class like LiveOrDieService and model objects like Person, Clouset, House,... The service can then specify cross-model methods like openClouse(), goToBed(), enterHouse(), leaveHouse(),...
+Each service-method can have zero or more DAO-calls to zero or more DAO's. That's very important because we are not tied to strictly work on one model object in a service. We can do all kinds of stuf on different objects.
+Each service needs a default (no-arg) constructor. Services that do not use dependency injection need to create all DAO's to be used in the service (and other stuff that otherwise would be injected automatically) in this constructor.
 ====JSON EndPoints====
+The JSON endpoint classes are classes that will be used by other applications in order to interact with the WorkTime Web application. Which services that are available exactly, and what each of them consumes or produces is explained in the next chapter that is also called (surprise!) 'JSON EndPoints'. Important to mention here is that whenever a JSON Endpoint is reached, it will do some security checks (if you are logged in, if the service that is calling this endpoint is allowed, if you have the correct rights,...), then it will (if needed) transform the incoming data (can be simple String but can JSON as well) to something that the service-layer can work with. Then the service layer is called and the result of the service layer will again be transformed to something that can be sent back (can be again be simple string or JSON or an HTML response).
 ===JSON EndPoints===
 ====Users====
 ====Application Services====
