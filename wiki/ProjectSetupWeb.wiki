@@ -74,6 +74,7 @@ Each service-method can have zero or more DAO-calls to zero or more DAO's. That'
 Each service needs a default (no-arg) constructor. Services that do not use dependency injection need to create all DAO's to be used in the service (and other stuff that otherwise would be injected automatically) in this constructor.
 ====JSON EndPoints====
 The JSON endpoint classes are classes that will be used by other applications in order to interact with the WorkTime Web application. Which services that are available exactly, and what each of them consumes or produces is explained in the next chapter that is also called (surprise!) 'JSON EndPoints'. Important to mention here is that whenever a JSON Endpoint is reached, it will do some security checks (if you are logged in, if the service that is calling this endpoint is allowed, if you have the correct rights,...), then it will (if needed) transform the incoming data (can be simple String but can JSON as well) to something that the service-layer can work with. Then the service layer is called and the result of the service layer will again be transformed to something that can be sent back (can be again be simple string or JSON or an HTML response).
+All JSON endpoints are configured to be accessible over HTTPS and in the rest-directory: https://worktime-web.appspot.com/rest/. What the exact path after the rest-part is can be configured per endpoint using the @Path annotation.
 ===JSON EndPoints===
 ====Users====
 ====Application Services====
