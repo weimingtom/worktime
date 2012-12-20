@@ -2,3 +2,4 @@
 The project is created for the two mainstream mobile operating systems:
  * [ProjectSetupAndroid Android]
  * [ProjectSetupIPhone IPhone]
+ * [ProjectSetupWeb Web]
