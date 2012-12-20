@@ -24,7 +24,7 @@ The application is created on top of the Google AppEngine SDK version 1.7.3. On 
   * jackson-jaxrs-1.9.2.jar
   * jackson-mapper-asl-1.9.2.jar
   * jackson-xc-1.9.2.jar
-  * jersey-client-1.16.jar
+  * jersey-bundle-1.16.jar
   * jersey-core-1.16.jar
   * jersey-json-1.16.jar
   * jersey-server-1.16.jar
@@ -36,6 +36,11 @@ The application is created on top of the Google AppEngine SDK version 1.7.3. On 
  * JDO datastore access
   * twig-persist-1.0.4.jar
   * google-collections-1.0.jar
+ * Dependency Injection
+  * jersey-guice-1.16.jar
+  * aopalliance.jar
+  * guice-3.0.jar
+  * guice-serlvet-3.0.jar
  * Others
   * commons-lang3-3.1.jar (for support for methods like StringUtils.isBlank(..))
   * commons-validator-1.4.0.jar (for all sorts of validation like email etc)
@@ -60,7 +65,14 @@ try {
 ===Layers===
 The entire application is split in different layers so that every layer has it's own responsibilities. This is what is called separation of concerns.
 ====Dependency Injection (Google Guice)====
-In order to wire all those layers together we could use some frameworks such as Spring or Google Guice. But so fare we do net yet do that. Currently in each layer we instantiate the required layer-items ourself. The aim is to start using Google Guice in the near future to do all of this for us.
+In order to wire all those layers together we are using Google Guice.
+In the class GuiceModule all the interfaces and implementations are mapped. The GuiceConfig instantiates the GuiceModule and creates a new ServletModule for the urlPattern "/rest/`*`".
+This enables you inject any service or DAO in any class.
+You can simply inject the UserService for example:
+{{{
+@Inject
+private UserService userService;
+}}}
 ====DAO's====
 The Data Access Object layer is being used for access to the database (or in this case the datastore). That is it's soul responsibility. Each DAO will be responsible for the database interactions of exactly one model-object. If, for example, we have a model object User that has multiple Roles, then the UserDAO can be responsible for creating a new user and retrieving a user with all of it's roles. But the UserDAO cannot be responsible for creating (adding) a new role in the datastore. That would be the responsibility of the RoleDAO.
 Every DAO that is added to the application should have an interface in which all the methods are declared, and implementation that can execute the methods. But there are three more rules:
@@ -71,7 +83,7 @@ Every DAO that is added to the application should have an interface in which all
 The service layer is responsible for executing code that represents a business case. For example to login a user, to register a user, to create a new time registration, to delete one,....
 Every service needs to be mapped on a group of business cases. That can be the same as the model but doesn't necessarily needs to. For example we have model class User an a UserService that will be able to login, register, logout,... a user. But it's perfectly possible to have service class like LiveOrDieService and model objects like Person, Clouset, House,... The service can then specify cross-model methods like openClouse(), goToBed(), enterHouse(), leaveHouse(),...
 Each service-method can have zero or more DAO-calls to zero or more DAO's. That's very important because we are not tied to strictly work on one model object in a service. We can do all kinds of stuf on different objects.
-Each service needs a default (no-arg) constructor. Services that do not use dependency injection need to create all DAO's to be used in the service (and other stuff that otherwise would be injected automatically) in this constructor.
+Each service needs a default (no-arg) constructor. Services that do not use dependency injection need to create all DAO's to be used in the service (and other stuff that otherwise would be injected automatically) in this constructor. But it's recommended to use dependency injection as described above!
 ====JSON EndPoints====
 The JSON endpoint classes are classes that will be used by other applications in order to interact with the WorkTime Web application. Which services that are available exactly, and what each of them consumes or produces is explained in the next chapter that is also called (surprise!) 'JSON EndPoints'. Important to mention here is that whenever a JSON Endpoint is reached, it will do some security checks (if you are logged in, if the service that is calling this endpoint is allowed, if you have the correct rights,...), then it will (if needed) transform the incoming data (can be simple String but can JSON as well) to something that the service-layer can work with. Then the service layer is called and the result of the service layer will again be transformed to something that can be sent back (can be again be simple string or JSON or an HTML response).
 All JSON endpoints are configured to be accessible over HTTPS and in the rest-directory: https://worktime-web.appspot.com/rest/. What the exact path after the rest-part is can be configured per endpoint using the @Path annotation.
