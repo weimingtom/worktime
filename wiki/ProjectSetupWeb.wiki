@@ -76,9 +76,109 @@ Each service needs a default (no-arg) constructor. Services that do not use depe
 The JSON endpoint classes are classes that will be used by other applications in order to interact with the WorkTime Web application. Which services that are available exactly, and what each of them consumes or produces is explained in the next chapter that is also called (surprise!) 'JSON EndPoints'. Important to mention here is that whenever a JSON Endpoint is reached, it will do some security checks (if you are logged in, if the service that is calling this endpoint is allowed, if you have the correct rights,...), then it will (if needed) transform the incoming data (can be simple String but can JSON as well) to something that the service-layer can work with. Then the service layer is called and the result of the service layer will again be transformed to something that can be sent back (can be again be simple string or JSON or an HTML response).
 All JSON endpoints are configured to be accessible over HTTPS and in the rest-directory: https://worktime-web.appspot.com/rest/. What the exact path after the rest-part is can be configured per endpoint using the @Path annotation.
 Each webservice-method (method in an endpoint) needs to be annoted with the @POST or @GET annotation and also requires a @Path annotation. The @Consumes should also be specified everytime (except off course if there is no input) and the @Produces is set to specify the return type of the webservice.
+All webservices are secured with a service-id. If you want to access one of our webservices you need to request such a service-id first. If you receive a service-id you will be able execute requests. There's not a single webservice that doesn't check for a valid service-id.
 ===JSON EndPoints===
 As explained before the endpoints will only be accessible over HTTP.
 Each endpoint also needs to specify it's specific path using the @Path annotation which needs te be on class level. Below is a list of all webservice-methods that are available with their URL, the required input and the output.
 ====Users====
+=====Register======
+ * HTTP-Method: POST
+ * URL: https://worktime-web.appspot.com/rest/user/register
+ * Input-type: JSON
+ * Input parameters:
+  * serviceKey : String
+  * email : String
+  * password : String
+  * lastName : String
+  * firstName : String
+ * Response-type: JSON
+ * Response parameters:
+  * serviceNotAllowedException : Object
+  * userNotLoggedInException : Object
+  * userIncorrectRoleException : Object
+  * resultOk : Boolean
+  * fieldRequiredJSONException : Object
+  * registerEmailAlreadyInUseJSONException : Object
+  * passwordLengthInvalidJSONException : Object
+  * invalidEmailJSONException : Object
+  * sessionKey : String
+=====Login======
+ * HTTP-Method: POST
+ * URL: https://worktime-web.appspot.com/rest/user/login
+ * Input-type: JSON
+ * Input parameters:
+  * serviceKey : String
+  * email : String
+  * password : String
+ * Response-type: JSON
+ * Response parameters:
+  * serviceNotAllowedException : Object
+  * userNotLoggedInException : Object
+  * userIncorrectRoleException : Object
+  * resultOk : Boolean
+  * emailOrPasswordIncorrectJSONException : Object
+  * sessionKey : String
+=====Logout======
+ * HTTP-Method: GET
+ * URL: https://worktime-web.appspot.com/rest/user/logout
+ * Input-type: URL Query Parameters
+  * serviceKey : String
+  * email : String
+  * sessionKey : String
+ * Response-type: HTTP Response
+ * Response status codes:
+  * 405 : provided services-id has no access
+  * 400 : email or sessionKey not provided
+  * 200 : logout ok (also if the provided email and sessionKey are not found or do not match)
+=====Profile======
+ * HTTP-Method: GET
+ * URL: https://worktime-web.appspot.com/rest/user/profile
+ * Input-type: URL Query Parameters
+  * serviceKey : String
+  * email : String
+  * sessionKey : String
+ * Response-type: JSON
+ * Response parameters:
+  * serviceNotAllowedException : Object
+  * userNotLoggedInException : Object
+  * userIncorrectRoleException : Object
+  * resultOk : Boolean
+  * firstName : String
+  * lastName : String
+  * email : String
+  * registeredSince : Date
+  * loggedInSince : Date
+  * role : Enum (USER, ADMIN)
+=====Change Password======
+ * HTTP-Method: POST
+ * URL: https://worktime-web.appspot.com/rest/user/changePassword
+ * Input-type: JSON
+ * Input parameters:
+  * serviceKey : String
+  * email : String
+  * sessionKey : String
+  * oldPassword : String
+  * newPassword : String
+ * Response-type: JSON
+ * Response parameters:
+  * serviceNotAllowedException : Object
+  * userNotLoggedInException : Object
+  * userIncorrectRoleException : Object
+  * resultOk : Boolean
+  * emailOrPasswordIncorrectJSONException : Object
+  * sessionKey : String
+=====Reset Password======
+ * HTTP-Method: GET
+ * URL: https://worktime-web.appspot.com/rest/user/resetPassword
+ * Input-type: URL Query Parameters
+  * serviceKey : String
+  * email : String
+ * Response-type: HTTP Response
+ * Response status codes:
+  * 405 : provided services-id has no access
+  * 200 : all other cases, also if something is wrong because email is not found or so...
+=====Change Permissions======
 ====Application Services====
+=====Create Service=====
+=====Remove Service=====
 ==Testing==
