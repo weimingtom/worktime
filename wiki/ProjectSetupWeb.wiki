@@ -75,7 +75,10 @@ Each service needs a default (no-arg) constructor. Services that do not use depe
 ====JSON EndPoints====
 The JSON endpoint classes are classes that will be used by other applications in order to interact with the WorkTime Web application. Which services that are available exactly, and what each of them consumes or produces is explained in the next chapter that is also called (surprise!) 'JSON EndPoints'. Important to mention here is that whenever a JSON Endpoint is reached, it will do some security checks (if you are logged in, if the service that is calling this endpoint is allowed, if you have the correct rights,...), then it will (if needed) transform the incoming data (can be simple String but can JSON as well) to something that the service-layer can work with. Then the service layer is called and the result of the service layer will again be transformed to something that can be sent back (can be again be simple string or JSON or an HTML response).
 All JSON endpoints are configured to be accessible over HTTPS and in the rest-directory: https://worktime-web.appspot.com/rest/. What the exact path after the rest-part is can be configured per endpoint using the @Path annotation.
+Each webservice-method (method in an endpoint) needs to be annoted with the @POST or @GET annotation and also requires a @Path annotation. The @Consumes should also be specified everytime (except off course if there is no input) and the @Produces is set to specify the return type of the webservice.
 ===JSON EndPoints===
+As explained before the endpoints will only be accessible over HTTP.
+Each endpoint also needs to specify it's specific path using the @Path annotation which needs te be on class level. Below is a list of all webservice-methods that are available with their URL, the required input and the output.
 ====Users====
 ====Application Services====
 ==Testing==
