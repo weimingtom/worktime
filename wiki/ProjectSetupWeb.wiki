@@ -80,6 +80,7 @@ All webservices are secured with a service-id. If you want to access one of our 
 ===JSON EndPoints===
 As explained before the endpoints will only be accessible over HTTP.
 Each endpoint also needs to specify it's specific path using the @Path annotation which needs te be on class level. Below is a list of all webservice-methods that are available with their URL, the required input and the output.
+Whenever consuming a webservice that returns JSON it will contain 'exception' fields a boolean resultOk. You should first check the resultOk boolean. If the boolean is false there is something wrong and you should check each exception-object to be null or not. If something is wrong only one of the exception objects will always be set. If the boolean resultOk is true then you can continue with the result or if there are no extra result-parameters you can simply inform the user the action succeeded.
 ====Users====
 =====Register======
  * HTTP-Method: POST
@@ -178,7 +179,54 @@ Each endpoint also needs to specify it's specific path using the @Path annotatio
   * 405 : provided services-id has no access
   * 200 : all other cases, also if something is wrong because email is not found or so...
 =====Change Permissions======
+ * *ADMIN ROLE ONLY*
+ * HTTP-Method: POST
+ * URL: https://worktime-web.appspot.com/rest/user/changePermissions
+ * Input-type: JSON
+ * Input parameters:
+  * serviceKey : String
+  * email : String
+  * sessionKey : String
+  * userToChange : String
+  * newRole : Enum (USER, ADMIN)
+ * Response-type: JSON
+ * Response parameters:
+  * serviceNotAllowedException : Object
+  * userNotLoggedInException : Object
+  * userIncorrectRoleException : Object
+  * resultOk : Boolean
+  * userNotFoundJSONException : Object
 ====Application Services====
 =====Create Service=====
+ * *ADMIN ROLE ONLY*
+ * HTTP-Method: POST
+ * URL: https://worktime-web.appspot.com/rest/user/createService
+ * Input-type: JSON
+ * Input parameters:
+  * serviceKey : String
+  * appName : String
+  * platform : Enum (ANDROID, IOS, WEB)
+  * contact : String
+ * Response-type: JSON
+ * Response parameters:
+  * serviceNotAllowedException : Object
+  * userNotLoggedInException : Object
+  * userIncorrectRoleException : Object
+  * resultOk : Boolean
+  * serviceKey : String
 =====Remove Service=====
+ * *ADMIN ROLE ONLY*
+ * HTTP-Method: POST
+ * URL: https://worktime-web.appspot.com/rest/user/removeService
+ * Input-type: JSON
+ * Input parameters:
+  * serviceKey : String
+  * serviceKeyForRemoval : String
+ * Response-type: JSON
+ * Response parameters:
+  * serviceNotAllowedException : Object
+  * userNotLoggedInException : Object
+  * userIncorrectRoleException : Object
+  * resultOk : Boolean
+  * serviceRemovesItselfJSONException : Object (a service cannot be removed if it's used in the request as serviceKey)
 ==Testing==
