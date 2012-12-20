@@ -26,4 +26,5 @@
     * [ProjectSetup Project Setup]
       * [ProjectSetupAndroid Project Setup Android]
       * [ProjectSetupIPhone Project Setup IPhone]
+      * [ProjectSetupWeb Project Setup Web]
     * [Issues Bug Tracking]
