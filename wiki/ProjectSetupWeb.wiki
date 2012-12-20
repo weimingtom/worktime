@@ -230,3 +230,4 @@ Whenever consuming a webservice that returns JSON it will contain 'exception' fi
   * resultOk : Boolean
   * serviceRemovesItselfJSONException : Object (a service cannot be removed if it's used in the request as serviceKey)
 ==Testing==
+*TBD*
