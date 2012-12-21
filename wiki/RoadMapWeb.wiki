@@ -8,5 +8,6 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb5 Milestone-ReleaseWeb5]===
  * New Features:
   * Reset Password from 'Reset Mail' (issue 166)
+  * Setup Ant for building and release the application (issue 170)
  * Enhancements:
   * Add Google Guice support (issue 169)
