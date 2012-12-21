@@ -25,10 +25,6 @@ The application is created on top of the Google AppEngine SDK version 1.7.3. On 
   * jackson-mapper-asl-1.9.2.jar
   * jackson-xc-1.9.2.jar
   * jersey-bundle-1.16.jar
-  * jersey-core-1.16.jar
-  * jersey-json-1.16.jar
-  * jersey-server-1.16.jar
-  * jersey-servlet-1.16.jar
   * jettison-1.1.jar
   * jsr311-api-1.1.1.jar
   * commons-codec-1.7.jar
