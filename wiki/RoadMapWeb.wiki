@@ -9,5 +9,6 @@ For more information on our release strategy you can read the [ReleaseStrategy R
  * New Features:
   * Reset Password from 'Reset Mail' (issue 166)
   * Setup Ant for building and release the application (issue 170)
+  * Import code into subversion (issue 171)
  * Enhancements:
   * Add Google Guice support (issue 169)
