@@ -5,10 +5,6 @@ This road map is a schedule for what's coming up in the next few versions. The c
 For more information on our release strategy you can read the [ReleaseStrategy Release Strategy] document on the wiki.
 
 ==Releases==
-===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb5 Milestone-ReleaseWeb5]===
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb8 Milestone-ReleaseWeb8]===
  * New Features:
   * Reset Password from 'Reset Mail' (issue 166)
-  * Setup Ant for building and release the application (issue 170)
-  * Import code into subversion (issue 171)
- * Enhancements:
-  * Add Google Guice support (issue 169)
