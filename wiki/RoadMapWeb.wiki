@@ -7,4 +7,6 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 ==Releases==
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb9 Milestone-ReleaseWeb9]===
  * New Features:
+  * Implement the WorkTime datamodel (issue 174)
+  * Setup a synchronisation service (issue 175)
   * Reset Password from 'Reset Mail' (issue 166)
