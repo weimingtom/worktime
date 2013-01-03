@@ -2,6 +2,10 @@
 #labels Featured,Phase-ReleaseNotes
 
 =Release Notes Web Application=
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb8 Milestone-ReleaseWeb8]===
+ * New Features:
+  * Fix removing all user sessions (issue 172)
+  * Fix missing password hash for user account (issue 173)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb5 Milestone-ReleaseWeb5]===
  * New Features:
   * Setup Ant for building and release the application (issue 170)
