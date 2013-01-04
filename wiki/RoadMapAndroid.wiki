@@ -13,6 +13,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
   * WorkTime Login (issue 156)
   * WorkTime Registration (issue 157)
   * WorkTime Profile (issue 158)
+  * Account Sync Options (issue 176)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.2.0 Milestone-Release1.2.0]===
  * Enhancements:
   * Customers module (issue 38)
