@@ -242,5 +242,30 @@ Whenever consuming a webservice that returns JSON it will contain 'exception' fi
   * userIncorrectRoleException : Object
   * resultOk : Boolean
   * serviceRemovesItselfJSONException : Object (a service cannot be removed if it's used in the request as serviceKey)
+====Synchronization====
+=====Sync All Time Registrations=====
+ * HTTP-Method: POST
+ * URL: https://worktime-web.appspot.com/rest/sync/all
+ * Input-type: JSON
+ * Input parameters:
+  * serviceKey : String
+  * email : String
+  * sessionKey : String
+  * lastSuccessfulSyncDate : Date (optional)
+  * conflictConfiguration : Enum (SERVER or CLIENT)
+  * timeRegistrations : List of TimeRegistration objects
+ * Response-type: JSON
+ * Response parameters:
+  * serviceNotAllowedException : Object
+  * userNotLoggedInException : Object
+  * userIncorrectRoleException : Object
+  * resultOk : Boolean
+  * syncronisationFailedJSONException : Object
+  * synchronisationLockedJSONException : Object
+  * corruptDataJSONException : Object
+  * syncResult : Object
+  * projectsSinceLastSync : List of Project objects
+  * tasksSinceLastSync : List of Task objects
+  * timeRegistrationsSinceLastSync : List of TimeRegistration objects
 ==Testing==
 *TBD*
