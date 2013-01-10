@@ -2,6 +2,10 @@
 #labels Featured,Phase-ReleaseNotes
 
 =Release Notes Web Application=
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb9 Milestone-ReleaseWeb9]===
+ * New Features:
+  * Implement the WorkTime datamodel (issue 174)
+  * Setup a synchronisation service (issue 175)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb8 Milestone-ReleaseWeb8]===
  * Bug:
   * Fix removing all user sessions (issue 172)
