@@ -253,6 +253,8 @@ Whenever consuming a webservice that returns JSON it will contain 'exception' fi
   * sessionKey : String
   * lastSuccessfulSyncDate : Date (optional)
   * conflictConfiguration : Enum (SERVER or CLIENT)
+  * projects : List of Project objects (projects that are not linked to any time registration)
+  * tasks : List of Task objects (tasks that are not linked to any time registration)
   * timeRegistrations : List of TimeRegistration objects
  * Response-type: JSON
  * Response parameters:
