@@ -6,10 +6,5 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 
 ==Releases==
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb11 Milestone-ReleaseWeb11]===
- * Bugs:
-  * Optimized the sync process (critical bugfixing) (issue 179)
- * Enhancements:
-  * Add simple project and task sync (issue 177)
-  * Add entity removal on sync (issue 178)
  * New Features:
   * Reset Password from 'Reset Mail' (issue 166)
