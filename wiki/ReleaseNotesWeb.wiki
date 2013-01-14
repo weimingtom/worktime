@@ -2,6 +2,9 @@
 #labels Featured,Phase-ReleaseNotes
 
 =Release Notes Web Application=
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb13 Milestone-ReleaseWeb13]===
+ * Bugs:
+  * Ongoing TR suddenly has endtime (issue 183)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb11 Milestone-ReleaseWeb11]===
  * Bugs:
   * Missing index for fields that are searched on frequently (issue 182)
