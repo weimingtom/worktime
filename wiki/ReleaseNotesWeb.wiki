@@ -2,6 +2,12 @@
 #labels Featured,Phase-ReleaseNotes
 
 =Release Notes Web Application=
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb10 Milestone-ReleaseWeb10]===
+ * Bugs:
+  * Optimized the sync process (critical bugfixing) (issue 179)
+ * Enhancements:
+  * Add simple project and task sync (issue 177)
+  * Add entity removal on sync (issue 178)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb9 Milestone-ReleaseWeb9]===
  * New Features:
   * Implement the WorkTime datamodel (issue 174)
