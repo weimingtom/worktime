@@ -8,6 +8,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.13 Milestone-Release1.1.13]===
  * Bugs
   * Splitting ongoing TR makes two ongoing TR's (Issue 185)
+  * 'Punch out and start next' not working from notification (issue 186)
  * Enhancement:
   * WorkTime 2x2 Widget on LockScreen (issue 159)
  * New Feature:
