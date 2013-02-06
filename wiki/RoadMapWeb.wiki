@@ -8,6 +8,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb15 Milestone-ReleaseWeb15]===
  * Bugs:
   * Wrong synchronization result for ongoing TR's (issue 190)
+  * TR-synchronization conflict not correctly handled (issue 191)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb16 Milestone-ReleaseWeb16]===
  * New Features:
   * Reset Password from 'Reset Mail' (issue 166)
