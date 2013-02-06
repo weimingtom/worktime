@@ -2,6 +2,11 @@
 #labels Featured,Phase-ReleaseNotes
 
 =Release Notes Web Application=
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb15 Milestone-ReleaseWeb15]===
+ * Bugs:
+  * Wrong synchronization result for ongoing TR's (issue 190)
+  * TR-synchronization conflict not correctly handled (issue 191)
+  * Start- and/or endtime for synced TR's cannot be updated (issue 192)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb14 Milestone-ReleaseWeb14]===
  * Bugs:
   * Some defects in the sync cycle (issue 187)
