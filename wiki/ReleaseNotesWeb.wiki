@@ -2,6 +2,9 @@
 #labels Featured,Phase-ReleaseNotes
 
 =Release Notes Web Application=
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb16 Milestone-ReleaseWeb16]===
+ * Bugs:
+  * Sync results contains ghost entities (issue 193)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb15 Milestone-ReleaseWeb15]===
  * Bugs:
   * Wrong synchronization result for ongoing TR's (issue 190)
