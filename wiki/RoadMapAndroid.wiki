@@ -20,6 +20,8 @@ For more information on our release strategy you can read the [ReleaseStrategy R
   * Manual Synchronization (issue 180)
   * Automated Synchronization (issue 181)
   * Block all input during synchronization (issue 184)
+  * View full synchronization history (issue 188)
+  * Keep number of synced projects, tasks,... (issue 189)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.2.0 Milestone-Release1.2.0]===
  * Enhancements:
   * Customers module (issue 38)
