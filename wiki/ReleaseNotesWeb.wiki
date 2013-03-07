@@ -2,6 +2,9 @@
 #labels Featured,Phase-ReleaseNotes
 
 =Release Notes Web Application=
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb17 Milestone-ReleaseWeb17]===
+ * Bugs:
+  * Sync cannot handle two or more tasks with same name for different project (issue 196)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb16 Milestone-ReleaseWeb16]===
  * Bugs:
   * Sync results contains ghost entities (issue 193)
