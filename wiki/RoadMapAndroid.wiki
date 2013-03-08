@@ -11,6 +11,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
   * 'Punch out and start next' not working from notification (issue 186)
  * Enhancement:
   * WorkTime 2x2 Widget on LockScreen (issue 159)
+  * Nice TR list entires (issue 197)
  * New Feature:
   * Add Accounts in Preferences (Issue 155)
   * WorkTime Login (issue 156)
