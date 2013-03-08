@@ -26,7 +26,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
   * Add option to not automatically sync (issue 194)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.2.0 Milestone-Release1.2.0]===
  * Enhancement:
-  * Finalize Account System (issue 198)
+  * Finalize/Enable Account System (issue 198)
  * New Feature:
   * Replace the dashboard with a slide-in menu (issue 199)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.2.1 Milestone-Release1.2.1]===
