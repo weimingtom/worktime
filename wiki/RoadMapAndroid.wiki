@@ -25,13 +25,14 @@ For more information on our release strategy you can read the [ReleaseStrategy R
   * Keep number of synced projects, tasks,... (issue 189)
   * Add option to not automatically sync (issue 194)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.2.0 Milestone-Release1.2.0]===
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.2.1 Milestone-Release1.2.1]===
+===Milestone-Releasex.x.x===
  * Enhancements:
   * Customers module (issue 38)
   * Hourly rates for projects (issue 39)
   * Extra costs/expenses for projects and tasks (issue 41)
-===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.2.1 Milestone-Release1.2.1]===
  * New Feature:
   * Add costs, expenses and rates to the reporting module (issue 121)
   * Add customers to the reporting module (issue 122)
-===Milestone-Releasex.x.x===
-To be scheduled...
+
+More to come...
