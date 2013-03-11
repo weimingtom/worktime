@@ -9,6 +9,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
  * Bugs
   * Splitting ongoing TR from notification makes two ongoing TR's (when gap is 0 minutes) (Issue 185)
   * 'Punch out and start next' not working from notification (issue 186)
+  * Screen rotation will recreate activity (issue 202)
  * Enhancement:
   * WorkTime 2x2 Widget on LockScreen (issue 159)
   * Nice TR list entires (issue 197)
