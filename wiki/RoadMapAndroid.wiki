@@ -25,6 +25,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
   * View full synchronization history (issue 188)
   * Keep number of synced projects, tasks,... (issue 189)
   * Add option to not automatically sync (issue 194)
+  * Add option to retry syncing every 5 minutes if sync failed (issue 203)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.2.0 Milestone-Release1.2.0]===
  * Enhancement:
   * Finalize/Enable Account System (issue 198)
