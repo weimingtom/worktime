@@ -27,6 +27,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
   * Add option to not automatically sync (issue 194)
   * Add option to retry syncing every 5 minutes if sync failed (issue 203)
   * Add preference to choose which account sync error to show (issue 204)
+  * Add showcase when first running the app to explain some features (issue 205)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.2.0 Milestone-Release1.2.0]===
  * Enhancement:
   * Finalize/Enable Account System (issue 198)
