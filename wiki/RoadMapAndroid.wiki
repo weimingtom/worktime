@@ -13,6 +13,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
  * Enhancement:
   * WorkTime 2x2 Widget on LockScreen (issue 159)
   * Nice TR list entires (issue 197)
+  * Enable project and task creation from selection dialogs (issue 206)
  * New Feature:
   * Add Accounts in Preferences (Issue 155)
   * WorkTime Login (issue 156)
