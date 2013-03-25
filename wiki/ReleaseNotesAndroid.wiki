@@ -2,6 +2,32 @@
 #labels Featured,Phase-ReleaseNotes
 
 =Release Notes Android Application=
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.13 Milestone-Release1.1.13]===
+ * Bugs
+  * Splitting ongoing TR from notification makes two ongoing TR's (when gap is 0 minutes) (Issue 185)
+  * 'Punch out and start next' not working from notification (issue 186)
+  * Screen rotation will recreate activity (issue 202)
+  * Notifcation for ongoing time registration is not shown in the ongoing-notifications area (issue 207)
+ * Enhancement:
+  * WorkTime 2x2 Widget on LockScreen (issue 159)
+  * Nice TR list entires (issue 197)
+  * Enable project and task creation from selection dialogs (issue 206)
+ * New Feature:
+  * Add Accounts in Preferences (Issue 155)
+  * WorkTime Login (issue 156)
+  * WorkTime Registration (issue 157)
+  * WorkTime Profile (issue 158)
+  * Account Sync Options (issue 176)
+  * Manual Synchronization (issue 180)
+  * Automated Synchronization (issue 181)
+  * Block all input during synchronization (issue 184)
+  * View full synchronization history (issue 188)
+  * Keep number of synced projects, tasks,... (issue 189)
+  * Add option to not automatically sync (issue 194)
+  * Add option to retry syncing every 5 minutes if sync failed (issue 203)
+  * Add preference to choose which account sync error to show (issue 204)
+  * Add showcase when first running the app to explain some features (issue 205)
+  * Add a donation feature (issue 208)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.12 Milestone-Release1.1.12]===
  * Enhancements:
   * Migrating from RoboGuice 1.0 to RoboGuice 2.0 (issue 153)
