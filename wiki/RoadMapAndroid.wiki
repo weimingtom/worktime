@@ -30,6 +30,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
   * Add option to retry syncing every 5 minutes if sync failed (issue 203)
   * Add preference to choose which account sync error to show (issue 204)
   * Add showcase when first running the app to explain some features (issue 205)
+  * Add a donation feature (issue 208)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.2.0 Milestone-Release1.2.0]===
  * Enhancement:
   * Replace the custom ActionBar with the ActionBarSherlock framework (issue 200)
