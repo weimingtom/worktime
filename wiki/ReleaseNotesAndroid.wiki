@@ -20,7 +20,6 @@
   * Account Sync Options (issue 176)
   * Manual Synchronization (issue 180)
   * Automated Synchronization (issue 181)
-  * Block all input during synchronization (issue 184)
   * View full synchronization history (issue 188)
   * Keep number of synced projects, tasks,... (issue 189)
   * Add option to not automatically sync (issue 194)
