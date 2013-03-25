@@ -5,6 +5,9 @@ This road map is a schedule for what's coming up in the next few versions. The c
 For more information on our release strategy you can read the [ReleaseStrategy Release Strategy] document on the wiki.
 
 ==Releases==
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.1.14 Milestone-Release1.1.14]===
+ * Enhancement:
+  * Block all input during synchronization (issue 184)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.2.0 Milestone-Release1.2.0]===
  * Enhancement:
   * Replace the custom ActionBar with the ActionBarSherlock framework (issue 200)
