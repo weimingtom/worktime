@@ -11,9 +11,6 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.2.0 Milestone-Release1.2.0]===
  * Enhancement:
   * Replace the custom ActionBar with the ActionBarSherlock framework (issue 200)
- * New Feature:
-  * Replace the dashboard with a slide-in menu (issue 199)
-  * Add a calendar day- and week-view for the Time Registration overview (issue 201)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.2.1 Milestone-Release1.2.1]===
 ===Milestone-Releasex.x.x===
  * Enhancement:
