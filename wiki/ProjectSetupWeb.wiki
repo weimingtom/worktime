@@ -201,9 +201,9 @@ Whenever consuming a webservice that returns JSON it will contain 'exception' fi
   * resultOk : Boolean
   * emailOrPasswordIncorrectJSONException : Object
   * sessionKey : String
-=====Reset Password======
+=====Reset Password Request======
  * HTTP-Method: GET
- * URL: https://worktime-web.appspot.com/rest/user/resetPassword
+ * URL: https://worktime-web.appspot.com/rest/user/resetPasswordRequest
  * Input-type: URL Query Parameters
   * serviceKey : String
   * email : String
@@ -211,6 +211,23 @@ Whenever consuming a webservice that returns JSON it will contain 'exception' fi
  * Response status codes:
   * 405 : provided services-id has no access
   * 200 : all other cases, also if something is wrong because email is not found or so...
+=====Reset Password======
+ * HTTP-Method: POST
+ * URL: https://worktime-web.appspot.com/rest/user/resetPassword
+ * Input-type: JSON
+ * Input parameters:
+  * serviceKey : String
+  * passwordResetKey : String
+  * newPassword : String
+ * Response-type: JSON
+ * Response parameters:
+  * serviceNotAllowedException : Object
+  * fieldRequiredJSONException : Object
+  * passwordLengthInvalidJSONException : Object
+  * invalidPasswordResetKeyJSONException : Object
+  * passwordResetKeyAlreadyUsedJSONException : Object
+  * passwordResetKeyExpiredJSONException : Object
+  * resultOk : Boolean
 =====Change Permissions======
  * *ADMIN ROLE ONLY*
  * HTTP-Method: POST
