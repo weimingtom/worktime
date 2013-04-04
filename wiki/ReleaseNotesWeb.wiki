@@ -2,12 +2,13 @@
 #labels Featured,Phase-ReleaseNotes
 
 =Release Notes Web Application=
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb24 Milestone-ReleaseWeb24]===
+ * Enhancements:
+  * Interrupt sync at 50 entities synced (issue 215)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb23 Milestone-ReleaseWeb23]===
  * New Features:
   * Reset Password from 'Reset Mail' (issue 166)
   * Add cron-job for stats mailing (issue 209)
- * Enhancements:
-  * Interrupt sync at 50 entities synced (issue 215)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb17 Milestone-ReleaseWeb17]===
  * Bugs:
   * Sync cannot handle two or more tasks with same name for different project (issue 196)
