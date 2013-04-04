@@ -9,4 +9,5 @@ For more information on our release strategy you can read the [ReleaseStrategy R
  * New Features:
   * Reset Password from 'Reset Mail' (issue 166)
   * Add cron-job for stats mailing (issue 209)
+ * Enhancements:
   * Interrupt sync at 50 entities synced (issue 215)
