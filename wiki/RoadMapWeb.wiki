@@ -17,4 +17,6 @@ For more information on our release strategy you can read the [ReleaseStrategy R
   * Create password reset pages (issue 223)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb26 Milestone-ReleaseWeb26]===
  * New Features:
-  * 
+  * Login (issue 224)
+  * Register (issue 225)
+  * Profile (issue 226)
