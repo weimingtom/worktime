@@ -5,4 +5,4 @@ This road map is a schedule for what's coming up in the next few versions. The c
 For more information on our release strategy you can read the [ReleaseStrategy Release Strategy] document on the wiki.
 
 ==Releases==
-===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb24 Milestone-ReleaseWeb24]===
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb25 Milestone-ReleaseWeb25]===
