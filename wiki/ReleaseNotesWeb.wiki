@@ -2,6 +2,16 @@
 #labels Featured,Phase-ReleaseNotes
 
 =Release Notes Web Application=
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb25 Milestone-ReleaseWeb25]===
+ * Enhancements:
+  * Add more debugging in the sync process (issue 217)
+ * New Features:
+  * Setup Google Guice and Sitebricks (issue 218)
+  * Setup a website template (issue 219)
+  * Setup a temp home page (issue 220)
+  * Create pages for Terms Of Service and Privacy Policy (issue 221)
+  * Create contact form (issue 222)
+  * Create password reset pages (issue 223)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb24 Milestone-ReleaseWeb24]===
  * Enhancements:
   * Interrupt sync at 50 entities synced (issue 215)
