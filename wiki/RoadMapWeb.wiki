@@ -10,3 +10,6 @@ For more information on our release strategy you can read the [ReleaseStrategy R
   * Login (issue 224)
   * Register (issue 225)
   * Profile (issue 226)
+  * Add error pages (issue 228)
+ * Enhancements:
+  * Better sized application icon (issue 227)
