@@ -5,17 +5,7 @@ This road map is a schedule for what's coming up in the next few versions. The c
 For more information on our release strategy you can read the [ReleaseStrategy Release Strategy] document on the wiki.
 
 ==Releases==
-===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb25 Milestone-ReleaseWeb25]===
- * Enhancements:
-  * Add more debugging in the sync process (issue 217)
- * New Features:
-  * Setup Google Guice and Sitebricks (issue 218)
-  * Setup a website template (issue 219)
-  * Setup a temp home page (issue 220)
-  * Create pages for Terms Of Service and Privacy Policy (issue 221)
-  * Create contact form (issue 222)
-  * Create password reset pages (issue 223)
-===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb26 Milestone-ReleaseWeb26]===
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb27 Milestone-ReleaseWeb27]===
  * New Features:
   * Login (issue 224)
   * Register (issue 225)
