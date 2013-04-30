@@ -6,6 +6,8 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 
 ==Releases==
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb27 Milestone-ReleaseWeb27]===
+ * Bugs:
+  * Nullpointer crash on sync of ongoing TR (issue 229)
  * New Features:
   * Login (issue 224)
   * Register (issue 225)
