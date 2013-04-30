@@ -2,6 +2,11 @@
 #labels Featured,Phase-ReleaseNotes
 
 =Release Notes Web Application=
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb27 Milestone-ReleaseWeb27]===
+ * Bugs:
+  * Nullpointer crash on sync of ongoing TR (issue 229)
+ * New Features:
+  * Login (issue 224)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb25 Milestone-ReleaseWeb25]===
  * Enhancements:
   * Add more debugging in the sync process (issue 217)
