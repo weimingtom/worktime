@@ -9,6 +9,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
  * Bugs:
   * Notification for ongoing TR cannot be expanded on S3 (issue 230)
   * Recreate ongoing notification after reboot or upgrade (issue 231)
+  * Adding TR manually always shows all of the projects and tasks (no taking into account the show finished parameter) (issue 232)
  * Enhancement:
   * Add advanced settings (issue 216)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.2.0 Milestone-Release1.2.0]===
