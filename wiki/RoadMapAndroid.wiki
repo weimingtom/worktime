@@ -21,6 +21,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.2.0 Milestone-Release1.2.0]===
  * Enhancement:
   * Block all input during synchronization (issue 184)
+  * Limit number of backup files (issue 237)
  * New Feature:
   * Add a calendar day- and week-view for the Time Registration overview (issue 201)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.2.1 Milestone-Release1.2.1]===
