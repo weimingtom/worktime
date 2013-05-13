@@ -12,3 +12,4 @@ For more information on our release strategy you can read the [ReleaseStrategy R
   * Add error pages (issue 228)
  * Enhancements:
   * Better sized application icon (issue 227)
+  * Add details to nightly reporting (issue 238)
