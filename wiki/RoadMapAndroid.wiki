@@ -11,6 +11,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
   * Recreate ongoing notification after reboot or upgrade (issue 231)
   * Adding TR manually always shows all of the projects and tasks (no taking into account the show finished parameter) (issue 232)
   * Crash when editing project and task of TR (issue 239)
+  * Resetting the application does not remove ongoing TR notification (issue 245)
  * Enhancement:
   * Replace the custom ActionBar with the ActionBarSherlock framework (issue 200)
   * Add advanced settings (issue 216)
