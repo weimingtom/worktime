@@ -15,3 +15,8 @@ For more information on our release strategy you can read the [ReleaseStrategy R
  * Enhancements:
   * Better sized application icon (issue 227)
   * Add details to nightly reporting (issue 238)
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb29 Milestone-ReleaseWeb29]===
+ * Enhancements:
+  * Build-in captcha for register (issue 242)
+  * Captcha for login (issue 243)
+  * Enable user area (issue 241)
