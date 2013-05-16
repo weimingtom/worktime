@@ -5,15 +5,6 @@ This road map is a schedule for what's coming up in the next few versions. The c
 For more information on our release strategy you can read the [ReleaseStrategy Release Strategy] document on the wiki.
 
 ==Releases==
-===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb28 Milestone-ReleaseWeb28]===
- * Bugs:
-  * Synchronisation crashes when syncing an ongoing TR (issue 240)
- * New Features:
-  * Register (issue 225)
-  * Profile (issue 226)
- * Enhancements:
-  * Better sized application icon (issue 227)
-  * Add details to nightly reporting (issue 238)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb29 Milestone-ReleaseWeb29]===
  * Enhancements:
   * Build-in captcha for register (issue 242)
