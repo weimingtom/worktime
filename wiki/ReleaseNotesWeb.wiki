@@ -2,6 +2,15 @@
 #labels Featured,Phase-ReleaseNotes
 
 =Release Notes Web Application=
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb28 Milestone-ReleaseWeb28]===
+ * Bugs:
+  * Synchronisation crashes when syncing an ongoing TR (issue 240)
+ * New Features:
+  * Register (issue 225)
+  * Profile (issue 226)
+ * Enhancements:
+  * Better sized application icon (issue 227)
+  * Add details to nightly reporting (issue 238)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb27 Milestone-ReleaseWeb27]===
  * Bugs:
   * Nullpointer crash on sync of ongoing TR (issue 229)
