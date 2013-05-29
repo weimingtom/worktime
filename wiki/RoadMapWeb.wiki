@@ -6,6 +6,10 @@ For more information on our release strategy you can read the [ReleaseStrategy R
 
 ==Releases==
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb29 Milestone-ReleaseWeb29]===
+ * Bugs:
+  * Reporting cron-job reports as much TR's as projects and tasks (issue 249)
+  * Changing a TR's task or a task's project doesn't work (issue 250)
+===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-ReleaseWeb30 Milestone-ReleaseWeb30]===
  * Enhancements:
   * Build-in captcha for register (issue 242)
   * Captcha for login (issue 243)
