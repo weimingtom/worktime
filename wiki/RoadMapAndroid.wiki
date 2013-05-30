@@ -23,6 +23,7 @@ For more information on our release strategy you can read the [ReleaseStrategy R
   * Replace the dashboard with a slide-in menu (issue 199)
   * Start and end TR with the Geo Fences from the Play Services (issue 246)
   * Start and end TR base on WiFi networks (issue 248)
+  * Start and end TR based on date and times (reocurring) (issue 251)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.2.0 Milestone-Release1.2.0]===
  * Enhancement:
   * Block all input during synchronization (issue 184)
