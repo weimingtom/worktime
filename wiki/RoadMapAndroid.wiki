@@ -20,6 +20,8 @@ For more information on our release strategy you can read the [ReleaseStrategy R
   * Update showcase view for new layout with slide-in menu (issue 234)
   * clear sync history (issue 235)
   * Manual Add TR - Increase end date with an hour (issue 244)
+  * Replace ActionBarSherlock with ActionBarCompat (issue 258)
+  * Replace the slide-in menu with the default Android application drawer (issue 259)
  * New Feature:
   * Replace the dashboard with a slide-in menu (issue 199)
 ===[http://code.google.com/p/worktime/issues/list?can=1&q=label:Milestone-Release1.2.0 Milestone-Release1.2.0]===
